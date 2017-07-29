@@ -34,6 +34,22 @@
     
     //[self initTab];
     
+    
+    
+    // 要使用百度地图，请先启动BaiduMapManager  _mapManager = [[BMKMapManager alloc]init]; // 如果要关注网络及授权验证事件，请设定 generalDelegate参数
+    
+    mapManager = [[BMKMapManager alloc] init];
+    
+    BOOL ret = [mapManager start:@"fZcAFCOF1IqvyANKiiHIec0paItUDAnQ" generalDelegate:nil];
+   
+    if (!ret)
+    {
+        NSLog(@"manager start failed!");
+    }
+    
+    
+    
+    
     [self.window makeKeyAndVisible];
     
     return YES;

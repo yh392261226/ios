@@ -10,7 +10,19 @@
 		9034A1169F3D004D73422530 /* libPods-workerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1F10145795CF94D2603748 /* libPods-workerUITests.a */; };
 		9A4E47774D86A37BFCDC317C /* libPods-workerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47CF5FEACEC1393A60B87D /* libPods-workerTests.a */; };
 		AD02FD82877B50F9BA7F2EE9 /* libPods-worker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7643CA759AC79643AC0EEDC /* libPods-worker.a */; };
-		FB9911301F2974020017A32B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB99112F1F2974020017A32B /* MainViewController.m */; };
+		FB3687721F2B1CBE008E8387 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB36876B1F2B1CBE008E8387 /* MainViewController.m */; };
+		FB3687731F2B1CBE008E8387 /* SelecdCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB36876D1F2B1CBE008E8387 /* SelecdCityViewController.m */; };
+		FB3687741F2B1CBE008E8387 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3687711F2B1CBE008E8387 /* MainTableViewCell.m */; };
+		FB3687811F2B2195008E8387 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687801F2B2195008E8387 /* CoreLocation.framework */; };
+		FB3687831F2B21D7008E8387 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687821F2B21D7008E8387 /* QuartzCore.framework */; };
+		FB3687851F2B21E1008E8387 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687841F2B21E1008E8387 /* OpenGLES.framework */; };
+		FB3687871F2B21ED008E8387 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687861F2B21ED008E8387 /* SystemConfiguration.framework */; };
+		FB3687891F2B21F9008E8387 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687881F2B21F9008E8387 /* CoreGraphics.framework */; };
+		FB36878B1F2B2202008E8387 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB36878A1F2B2202008E8387 /* Security.framework */; };
+		FB36878D1F2B2213008E8387 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB36878C1F2B2213008E8387 /* libsqlite3.0.tbd */; };
+		FB36878F1F2B2236008E8387 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB36878E1F2B2236008E8387 /* CoreTelephony.framework */; };
+		FB3687911F2B226F008E8387 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687901F2B226F008E8387 /* libstdc++.6.0.9.tbd */; };
+		FB3687931F2B22AD008E8387 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB3687921F2B22AD008E8387 /* mapapi.bundle */; };
 		FB9911391F29757F0017A32B /* TabbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9911381F29757F0017A32B /* TabbarView.m */; };
 		FBD796651F286B3700FA50BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796641F286B3700FA50BE /* main.m */; };
 		FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796671F286B3700FA50BE /* AppDelegate.m */; };
@@ -49,8 +61,22 @@
 		D6F71C262734D4AA28314D81 /* Pods-worker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worker.release.xcconfig"; path = "Pods/Target Support Files/Pods-worker/Pods-worker.release.xcconfig"; sourceTree = "<group>"; };
 		D7643CA759AC79643AC0EEDC /* libPods-worker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-worker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E16E4F74CA02791E4BFA0747 /* Pods-worker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worker/Pods-worker.debug.xcconfig"; sourceTree = "<group>"; };
-		FB99112E1F2974020017A32B /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		FB99112F1F2974020017A32B /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		FB36876A1F2B1CBE008E8387 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		FB36876B1F2B1CBE008E8387 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		FB36876C1F2B1CBE008E8387 /* SelecdCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelecdCityViewController.h; sourceTree = "<group>"; };
+		FB36876D1F2B1CBE008E8387 /* SelecdCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelecdCityViewController.m; sourceTree = "<group>"; };
+		FB3687701F2B1CBE008E8387 /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
+		FB3687711F2B1CBE008E8387 /* MainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewCell.m; sourceTree = "<group>"; };
+		FB3687801F2B2195008E8387 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FB3687821F2B21D7008E8387 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FB3687841F2B21E1008E8387 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		FB3687861F2B21ED008E8387 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FB3687881F2B21F9008E8387 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FB36878A1F2B2202008E8387 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		FB36878C1F2B2213008E8387 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		FB36878E1F2B2236008E8387 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		FB3687901F2B226F008E8387 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		FB3687921F2B22AD008E8387 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = Pods/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle; sourceTree = "<group>"; };
 		FB9911371F29757F0017A32B /* TabbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarView.h; sourceTree = "<group>"; };
 		FB9911381F29757F0017A32B /* TabbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarView.m; sourceTree = "<group>"; };
 		FBD796601F286B3700FA50BE /* worker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = worker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +104,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB3687911F2B226F008E8387 /* libstdc++.6.0.9.tbd in Frameworks */,
+				FB36878F1F2B2236008E8387 /* CoreTelephony.framework in Frameworks */,
+				FB36878D1F2B2213008E8387 /* libsqlite3.0.tbd in Frameworks */,
+				FB36878B1F2B2202008E8387 /* Security.framework in Frameworks */,
+				FB3687891F2B21F9008E8387 /* CoreGraphics.framework in Frameworks */,
+				FB3687871F2B21ED008E8387 /* SystemConfiguration.framework in Frameworks */,
+				FB3687851F2B21E1008E8387 /* OpenGLES.framework in Frameworks */,
+				FB3687831F2B21D7008E8387 /* QuartzCore.framework in Frameworks */,
+				FB3687811F2B2195008E8387 /* CoreLocation.framework in Frameworks */,
 				AD02FD82877B50F9BA7F2EE9 /* libPods-worker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +139,15 @@
 		50FDCCD7E1B0C0A8FF2BAAC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB3687901F2B226F008E8387 /* libstdc++.6.0.9.tbd */,
+				FB36878E1F2B2236008E8387 /* CoreTelephony.framework */,
+				FB36878C1F2B2213008E8387 /* libsqlite3.0.tbd */,
+				FB36878A1F2B2202008E8387 /* Security.framework */,
+				FB3687881F2B21F9008E8387 /* CoreGraphics.framework */,
+				FB3687861F2B21ED008E8387 /* SystemConfiguration.framework */,
+				FB3687841F2B21E1008E8387 /* OpenGLES.framework */,
+				FB3687821F2B21D7008E8387 /* QuartzCore.framework */,
+				FB3687801F2B2195008E8387 /* CoreLocation.framework */,
 				D7643CA759AC79643AC0EEDC /* libPods-worker.a */,
 				8D47CF5FEACEC1393A60B87D /* libPods-workerTests.a */,
 				5C1F10145795CF94D2603748 /* libPods-workerUITests.a */,
@@ -124,9 +168,100 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FB3687691F2B1CBE008E8387 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				FB36876A1F2B1CBE008E8387 /* MainViewController.h */,
+				FB36876B1F2B1CBE008E8387 /* MainViewController.m */,
+				FB36876C1F2B1CBE008E8387 /* SelecdCityViewController.h */,
+				FB36876D1F2B1CBE008E8387 /* SelecdCityViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		FB36876E1F2B1CBE008E8387 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		FB36876F1F2B1CBE008E8387 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				FB3687701F2B1CBE008E8387 /* MainTableViewCell.h */,
+				FB3687711F2B1CBE008E8387 /* MainTableViewCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		FB3687751F2B1CC8008E8387 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		FB3687761F2B1CC8008E8387 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		FB3687771F2B1CC8008E8387 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		FB3687781F2B1CCE008E8387 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		FB3687791F2B1CCE008E8387 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		FB36877A1F2B1CCE008E8387 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		FB36877B1F2B1CD5008E8387 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		FB36877C1F2B1CD5008E8387 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		FB36877D1F2B1CD5008E8387 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		FBD796571F286B3700FA50BE = {
 			isa = PBXGroup;
 			children = (
+				FB3687921F2B22AD008E8387 /* mapapi.bundle */,
 				FBD796621F286B3700FA50BE /* worker */,
 				FBD7967F1F286B3700FA50BE /* workerTests */,
 				FBD7968A1F286B3700FA50BE /* workerUITests */,
@@ -199,8 +334,9 @@
 		FBD796A21F288A6700FA50BE /* main */ = {
 			isa = PBXGroup;
 			children = (
-				FB99112E1F2974020017A32B /* MainViewController.h */,
-				FB99112F1F2974020017A32B /* MainViewController.m */,
+				FB3687691F2B1CBE008E8387 /* controller */,
+				FB36876E1F2B1CBE008E8387 /* model */,
+				FB36876F1F2B1CBE008E8387 /* view */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -208,6 +344,9 @@
 		FBD796A61F288C9A00FA50BE /* message */ = {
 			isa = PBXGroup;
 			children = (
+				FB3687781F2B1CCE008E8387 /* controller */,
+				FB3687791F2B1CCE008E8387 /* model */,
+				FB36877A1F2B1CCE008E8387 /* view */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -215,6 +354,9 @@
 		FBD796A71F288C9A00FA50BE /* mine */ = {
 			isa = PBXGroup;
 			children = (
+				FB3687751F2B1CC8008E8387 /* controller */,
+				FB3687761F2B1CC8008E8387 /* model */,
+				FB3687771F2B1CC8008E8387 /* view */,
 			);
 			path = mine;
 			sourceTree = "<group>";
@@ -222,6 +364,9 @@
 		FBD796A81F288CA100FA50BE /* job */ = {
 			isa = PBXGroup;
 			children = (
+				FB36877B1F2B1CD5008E8387 /* controller */,
+				FB36877C1F2B1CD5008E8387 /* model */,
+				FB36877D1F2B1CD5008E8387 /* view */,
 			);
 			path = job;
 			sourceTree = "<group>";
@@ -344,6 +489,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB3687931F2B22AD008E8387 /* mapapi.bundle in Resources */,
 				FBD796761F286B3700FA50BE /* LaunchScreen.storyboard in Resources */,
 				FBD796731F286B3700FA50BE /* Assets.xcassets in Resources */,
 			);
@@ -509,10 +655,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */,
+				FB3687721F2B1CBE008E8387 /* MainViewController.m in Sources */,
+				FB3687731F2B1CBE008E8387 /* SelecdCityViewController.m in Sources */,
 				FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */,
 				FBD796651F286B3700FA50BE /* main.m in Sources */,
 				FB9911391F29757F0017A32B /* TabbarView.m in Sources */,
-				FB9911301F2974020017A32B /* MainViewController.m in Sources */,
+				FB3687741F2B1CBE008E8387 /* MainTableViewCell.m in Sources */,
 				FBD796A11F28899700FA50BE /* myselfway.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
