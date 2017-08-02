@@ -10,20 +10,20 @@
 #import "TabbarView.h"
 #import "MainTableViewCell.h"
 #import "SelecdCityViewController.h"
+#import "ProfessionViewController.h"
 
 
-
-@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKLocationServiceDelegate>
+@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate>
 {
     TabbarView *tabbar;
     
-    NSArray *MainArray;
+    NSMutableArray *dataArray;
     
-    BMKLocationService *location;
+    BMKMapView *mapView;
     
-    NSString *City;    //百度定位来的当前成熟地址
+    BMKLocationService *_locService;
     
-    UILabel *adreeLab;   //首页左上角位置的数据
+    NSMutableArray *imageArr;
 }
 
 
@@ -37,33 +37,26 @@
 {
     [super viewDidLoad];
     
-    MainArray = [NSArray arrayWithObjects:@" ",@" ",@" ", nil];
+    dataArray = [NSMutableArray arrayWithObjects:@" ",@" ",@" ", nil];
+    
+    imageArr = [NSMutableArray arrayWithObjects:@"main_image1",@"main_image2", @"main_image3", nil];
 
     self.navigationController.navigationBarHidden = YES;
     
     [self initHeadView];
     
-    [self initTabbar];
-    
     [self tableview];
     
-    [self startLocation];
+    
     
 }
 
 
 
-#pragma 百度地图
 
-//百度地图开始定位
-- (void)startLocation
-{
-    location = [[BMKLocationService alloc] init];
-    location.delegate = self;
-    [location startUserLocationService];
-}
 
-//百度地图获取经纬度，城市名称的代理
+
+//获取经纬度，城市名称
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
     BMKCoordinateRegion region;
@@ -90,7 +83,7 @@
             {
                 NSString *city = placemark.locality;
                 
-                City = city;
+                NSLog(@"当前城市名称------%@",city);
                 
                 BMKOfflineMap * _offlineMap = [[BMKOfflineMap alloc] init];
                 
@@ -106,7 +99,7 @@
                 
                 //找到了当前位置城市后就关闭服务
                 
-                [location stopUserLocationService];
+                [_locService stopUserLocationService];
                 
             }
             
@@ -114,7 +107,7 @@
         
     }];
     
-    adreeLab.text = City;
+    
     
 }
 
@@ -128,6 +121,8 @@
         
         [_tableview registerClass:[MainTableViewCell class] forCellReuseIdentifier:@"MainCell"];
         
+        _tableview.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
+        
         _tableview.delegate = self;
         _tableview.dataSource = self;
         
@@ -139,7 +134,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return MainArray.count;
+    return dataArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -152,8 +147,9 @@
 {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MainCell"];
     
+    cell.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
     
-    
+    cell.worker.image = [UIImage imageNamed:[imageArr objectAtIndex:indexPath.section]];
     
     return cell;
 }
@@ -187,6 +183,14 @@
     
     if (indexPath.section == 0)
     {
+        self.hidesBottomBarWhenPushed = YES;
+        
+        ProfessionViewController *temp = [[ProfessionViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp
+                                             animated:YES];
+        
+        self.hidesBottomBarWhenPushed = NO;
         
     }
     else if (indexPath.section == 1)
@@ -221,10 +225,13 @@
 //选择城市的按钮
 - (void)selectBtn
 {
+    self.hidesBottomBarWhenPushed = YES;
+    
     SelecdCityViewController *temp = [[SelecdCityViewController alloc] init];
     
     [self.navigationController pushViewController:temp animated:YES];
     
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 
@@ -234,7 +241,7 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     
-    view.backgroundColor = [myselfway stringTOColor:@"0x3E9FEA"];
+    view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:view];
     
@@ -242,11 +249,11 @@
     
     headlabel.text = @"钢建众工";
     
-    [headlabel setTextColor:[UIColor whiteColor]];
+    [headlabel setTextColor:[myselfway stringTOColor:@"0x2E84F8"]];
     
     headlabel.textAlignment = NSTextAlignmentCenter;
     
-    headlabel.font = [UIFont systemFontOfSize:17];
+    headlabel.font = [UIFont boldSystemFontOfSize:17];
     
     [self.view addSubview:headlabel];
     
@@ -258,15 +265,15 @@
          make.width.mas_equalTo(200);
      }];
     
-    adreeLab = [[UILabel alloc] init];
+    UILabel *adreeLab = [[UILabel alloc] init];
     
     adreeLab.text = @"全国";
     
-    [adreeLab setTextColor:[UIColor whiteColor]];
+    [adreeLab setTextColor:[myselfway stringTOColor:@"0x2E84F8"]];
     
-    adreeLab.font = [UIFont systemFontOfSize:16];
+    adreeLab.font = [UIFont boldSystemFontOfSize:17];
     
-    [self.view addSubview:adreeLab];
+    [view addSubview:adreeLab];
     
     [adreeLab mas_makeConstraints:^(MASConstraintMaker *make)
      {
@@ -277,8 +284,9 @@
      }];
     
     UIButton *adree = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     [adree addTarget:self action:@selector(selectBtn) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:adree];
+    [self.view addSubview:adree];
     
     [adree mas_makeConstraints:^(MASConstraintMaker *make)
      {
@@ -295,52 +303,26 @@
     
     [Mess mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.bottom.mas_equalTo(view).offset(-10);
-         make.right.mas_equalTo(view).offset(-13);
+         make.bottom.mas_equalTo(view).offset(-12);
+         make.left.mas_equalTo(view).offset(10);
          make.height.mas_equalTo(20);
-         make.width.mas_equalTo(20);
+         make.width.mas_equalTo(100);
      }];
     
 }
 
 
-
-
-//加载tabbar
-- (void)initTabbar
-{
-    tabbar = [[TabbarView alloc] init];
-    tabbar.frame = CGRectMake(0, SCREEN_HEIGHT - 49, SCREEN_WIDTH, 49);
-    [tabbar.MainIcon addTarget:self action:@selector(MainBtn) forControlEvents:UIControlEventTouchUpInside];
-    [tabbar.JobIcon addTarget:self action:@selector(JobBtn) forControlEvents:UIControlEventTouchUpInside];
-    [tabbar.MessIcon addTarget:self action:@selector(MessBtn) forControlEvents:UIControlEventTouchUpInside];
-    [tabbar.MineIcon addTarget:self action:@selector(MineBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:tabbar];
-}
-
-//tabbar首页点击事件
-- (void)MainBtn
-{
-   
-}
-
-//tabbar工作管理点击事件
-- (void)JobBtn
-{
-    
-}
-
-//tabbar优惠信息点击事件
+//消息的点击事件
 - (void)MessBtn
 {
-    
+
 }
 
-//tabbar我的点击事件
-- (void)MineBtn
-{
-    
-}
+
+
+
+
+
 
 
 

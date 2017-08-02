@@ -10,7 +10,7 @@
 
 @interface MainTableViewCell : UITableViewCell
 
-@property (nonatomic, strong)UIButton *worker;
+@property (nonatomic, strong)UIImageView *worker;
 
 
 @end

@@ -16,7 +16,7 @@
     
     if (self)
     {
-        _worker = [UIButton buttonWithType:UIButtonTypeCustom];
+        _worker = [[UIImageView alloc] init];
         _worker.backgroundColor = [UIColor orangeColor];
         [self.contentView addSubview:_worker];
         
@@ -31,10 +31,10 @@
 {
    [_worker mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.top.mas_equalTo(self.contentView).offset(0);
-        make.left.mas_equalTo(self.contentView).offset(0);
-        make.right.mas_equalTo(self.contentView).offset(0);
-        make.bottom.mas_equalTo(self.contentView).offset(0);
+        make.top.mas_equalTo(self.contentView).offset(5);
+        make.left.mas_equalTo(self.contentView).offset(10);
+        make.right.mas_equalTo(self.contentView).offset(-10);
+        make.bottom.mas_equalTo(self.contentView).offset(-5);
    }];
     
 }
