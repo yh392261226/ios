@@ -52,8 +52,9 @@
         [_backview addSubview:_details];
         
         _state = [[UIImageView alloc] init];
-        _state.layer.cornerRadius = 5;
         _state.image = [UIImage imageNamed:@"main_state1"];
+        _state.clipsToBounds = YES;
+        _state.layer.cornerRadius = 5;
         [_backview addSubview:_state];
         
         

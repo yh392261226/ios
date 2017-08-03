@@ -11,6 +11,7 @@
 #import "MineScrTableViewCell.h"
 #import "MineMoneyTableViewCell.h"
 #import "MineElesTableViewCell.h"
+#import "MineMessViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -262,7 +263,13 @@
     }
     else
     {
-       
+        self.hidesBottomBarWhenPushed = YES;
+        
+        MineMessViewController *temp = [[MineMessViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+        
+        self.hidesBottomBarWhenPushed = NO;
     }
 }
 

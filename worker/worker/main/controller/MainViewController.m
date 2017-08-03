@@ -11,7 +11,8 @@
 #import "MainTableViewCell.h"
 #import "SelecdCityViewController.h"
 #import "ProfessionViewController.h"
-
+#import "SeachJobViewController.h"
+#import "MineMessViewController.h"
 
 @interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate>
 {
@@ -24,6 +25,8 @@
     BMKLocationService *_locService;
     
     NSMutableArray *imageArr;
+    
+    UILabel *num;     //主页右上角消息数量
 }
 
 
@@ -187,15 +190,21 @@
         
         ProfessionViewController *temp = [[ProfessionViewController alloc] init];
         
-        [self.navigationController pushViewController:temp
-                                             animated:YES];
+        [self.navigationController pushViewController:temp animated:YES];
         
         self.hidesBottomBarWhenPushed = NO;
         
     }
     else if (indexPath.section == 1)
     {
-    
+        self.hidesBottomBarWhenPushed = YES;
+        
+        SeachJobViewController *temp = [[SeachJobViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+        
+        self.hidesBottomBarWhenPushed = NO;
+        
     }
     else
     {
@@ -298,16 +307,56 @@
     
     
     UIButton *Mess = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [Mess setBackgroundImage:[UIImage imageNamed:@"main_mess"] forState:UIControlStateNormal];
+    
     [Mess addTarget:self action:@selector(MessBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:Mess];
     
     [Mess mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.bottom.mas_equalTo(view).offset(-12);
-         make.left.mas_equalTo(view).offset(10);
-         make.height.mas_equalTo(20);
-         make.width.mas_equalTo(100);
+         make.right.mas_equalTo(view).offset(-15);
+         make.height.mas_equalTo(22);
+         make.width.mas_equalTo(22);
      }];
+    
+    
+    UIImageView *numback = [[UIImageView alloc] init];
+    
+    numback.layer.cornerRadius = 7.5;
+    
+    numback.backgroundColor = [UIColor redColor];
+    
+    [view addSubview:numback];
+    
+    [numback mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.bottom.mas_equalTo(view).offset(-27);
+         make.right.mas_equalTo(view).offset(-10);
+         make.height.mas_equalTo(15);
+         make.width.mas_equalTo(15);
+     }];
+    
+    
+    
+    
+    
+    num = [[UILabel alloc] init];
+    num.textColor = [UIColor whiteColor];
+    num.font = [UIFont systemFontOfSize:12];
+    num.text = @"5";
+    num.textAlignment = NSTextAlignmentCenter;
+    [numback addSubview:num];
+    
+    [num mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.bottom.mas_equalTo(numback).offset(0);
+         make.right.mas_equalTo(numback).offset(0);
+         make.top.mas_equalTo(numback).offset(0);
+         make.left.mas_equalTo(numback).offset(0);
+     }];
+    
     
 }
 
@@ -315,7 +364,13 @@
 //消息的点击事件
 - (void)MessBtn
 {
-
+    self.hidesBottomBarWhenPushed = YES;
+    
+    MineMessViewController *temp = [[MineMessViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
+    
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 

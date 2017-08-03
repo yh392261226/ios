@@ -1,29 +1,28 @@
 //
-//  WorkerMessViewController.m
+//  SeachJobViewController.m
 //  worker
 //
-//  Created by 郭健 on 2017/8/2.
+//  Created by 郭健 on 2017/8/3.
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
-#import "WorkerMessViewController.h"
+#import "SeachJobViewController.h"
 #import "WorkerMessTableViewCell.h"
 
-@interface WorkerMessViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface SeachJobViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;
 }
-
 
 @property (nonatomic, strong)UITableView *tableview;
 
 @end
 
-@implementation WorkerMessViewController
+@implementation SeachJobViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     dataArray = [NSMutableArray array];
     [dataArray addObject:@"1"];
@@ -32,13 +31,14 @@
     [dataArray addObject:@"1"];
     [dataArray addObject:@"1"];
     
-    [self addhead:@"工人信息"];
+    [self addhead:@"工作信息"];
     
     [self initScreenBtn];
     
     [self slitherBack:self.navigationController];
     
     [self tableview];
+    
 }
 
 
