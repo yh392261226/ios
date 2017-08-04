@@ -27,7 +27,7 @@
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     
-    view.backgroundColor = [myselfway stringTOColor:@"0x3E9FEA"];
+    view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:view];
     
@@ -35,8 +35,7 @@
     
     headlabel.text = title;
     
-    [headlabel setTextColor:[UIColor whiteColor]];
-    
+    [headlabel setTextColor:[myselfway stringTOColor:@"0x2E84F8"]];
     headlabel.textAlignment = NSTextAlignmentCenter;
     
     headlabel.font = [UIFont systemFontOfSize:17];
@@ -53,15 +52,29 @@
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(temp) forControlEvents:UIControlEventTouchUpInside];
-    [button setImage:[UIImage imageNamed:@"gangj_return"] forState:UIControlStateNormal];
+    
     [view addSubview:button];
     [button mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.bottom.mas_equalTo(view).offset(-12);
          make.left.mas_equalTo(view).offset(10);
-         make.height.mas_equalTo(18);
-         make.width.mas_equalTo(20);
+         make.height.mas_equalTo(25);
+         make.width.mas_equalTo(50);
      }];
+    
+    UIImageView *image = [[UIImageView alloc] init];
+    image.image = [UIImage imageNamed:@"return"];
+    
+    [view addSubview:image];
+    
+    [image mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.bottom.mas_equalTo(view).offset(-8);
+         make.left.mas_equalTo(view).offset(15);
+         make.height.mas_equalTo(25);
+         make.width.mas_equalTo(25);
+     }];
+    
 }
 
 
