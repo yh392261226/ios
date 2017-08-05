@@ -9,7 +9,7 @@ target 'worker' do
     pod 'Masonry','~> 1.0.2'
     pod 'SVProgressHUD','~> 2.1.2'
     pod 'BaiduMapKit'
-   
+    pod 'JPush', '3.0.2'
 
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
