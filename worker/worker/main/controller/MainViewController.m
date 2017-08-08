@@ -23,10 +23,13 @@
     BMKMapView *mapView;
     
     BMKLocationService *_locService;
+    BMKGeoCodeSearch *_geocodesearch;
     
     NSMutableArray *imageArr;
     
     UILabel *num;     //主页右上角消息数量
+    
+    UILabel *adreeLab;
 }
 
 
@@ -50,12 +53,19 @@
     
     [self tableview];
     
-    
+    [self initBaiduMap];
     
 }
 
-
-
+//百度地图
+- (void)initBaiduMap
+{
+    _locService = [[BMKLocationService alloc]init];
+    _locService.delegate = self;
+    //启动LocationService
+    [_locService startUserLocationService];
+    
+}
 
 
 
@@ -85,6 +95,8 @@
             if (placemark != nil)
             {
                 NSString *city = placemark.locality;
+                
+                adreeLab.text = city;
                 
                 NSLog(@"当前城市名称------%@",city);
                 
@@ -274,9 +286,9 @@
          make.width.mas_equalTo(200);
      }];
     
-    UILabel *adreeLab = [[UILabel alloc] init];
+    adreeLab = [[UILabel alloc] init];
     
-    adreeLab.text = @"全国";
+    adreeLab.text = @"未定位";
     
     [adreeLab setTextColor:[myselfway stringTOColor:@"0x2E84F8"]];
     
@@ -311,6 +323,7 @@
     [Mess setBackgroundImage:[UIImage imageNamed:@"main_mess"] forState:UIControlStateNormal];
     
     [Mess addTarget:self action:@selector(MessBtn) forControlEvents:UIControlEventTouchUpInside];
+    
     [view addSubview:Mess];
     
     [Mess mas_makeConstraints:^(MASConstraintMaker *make)

@@ -16,4 +16,8 @@
 //设置navi主页的headview
 + (void)initHeadView: (UIView *)backview title:(NSString *)titleText;
 
+
+
+
+
 @end

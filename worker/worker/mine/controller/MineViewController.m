@@ -12,6 +12,8 @@
 #import "MineMoneyTableViewCell.h"
 #import "MineElesTableViewCell.h"
 #import "MineMessViewController.h"
+#import <UShareUI/UShareUI.h>
+#import "LoginViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -88,10 +90,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
     if (indexPath.section == 0)
     {
         MineLoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"logincell"];
         
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.loginBtn addTarget:self action:@selector(loginBtn) forControlEvents:UIControlEventTouchUpInside];
         
         return cell;
     }
@@ -121,7 +127,6 @@
         
         cell.name.text = [titleArr objectAtIndex:indexPath.section - 3];
         
-        
         return cell;
     }
     
@@ -131,7 +136,7 @@
 {
     if (indexPath.section == 0)
     {
-        return 70;
+        return 80;
     }
     else if(indexPath.section == 1)
     {
@@ -172,7 +177,33 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 3)
+    {
+        //显示分享面板
+//        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo)
+//        {
+//            // 根据获取的platformType确定所选平台进行下一步操作
+//        }];
+        
+        //如平台应用未安装，或平台应用不支持等会进行隐藏。 由于以上原因，在模拟器上部分平台会隐藏   ,,,  以下方法可设置平台顺序
+        
+        [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_Sina),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_WechatSession)]];
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            // 根据获取的platformType确定所选平台进行下一步操作
+            
+            NSLog(@"分享");
+        }];
+    }
+    else
+    {
+       
+    }
+    
 }
+
+
+
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -292,7 +323,16 @@
 }
 
 
-
+//登录按钮
+- (void)loginBtn
+{
+    self.hidesBottomBarWhenPushed = YES;
+    
+    LoginViewController *temp = [[LoginViewController alloc] init];
+    
+    [self presentViewController:temp animated:YES completion:nil];
+    
+}
 
 
 

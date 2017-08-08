@@ -9,6 +9,10 @@
 #import "JobViewController.h"
 #import "FirstTableViewCell.h"
 #import "ElseTableViewCell.h"
+#import "RechargeViewController.h"
+#import "WorkerManagementViewController.h"
+#import "EmployerManagementViewController.h"
+#import "PersonageManagementViewController.h"
 
 @interface JobViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -133,18 +137,36 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0)
+    self.hidesBottomBarWhenPushed = YES;
+    
+    if (indexPath.section == 1)
     {
-        //工人工作管理
+        
+        WorkerManagementViewController *temp = [[WorkerManagementViewController alloc] init];
+        [self.navigationController pushViewController:temp animated:YES];
+        
+        
+        
     }
-    else if (indexPath.section == 1)
+    else if (indexPath.section == 2)
     {
-        //雇主发布管理
+        EmployerManagementViewController *temp = [[EmployerManagementViewController alloc] init];
+        [self.navigationController pushViewController:temp animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }
+    else if(indexPath.section == 3)
+    {
+        
+        PersonageManagementViewController *temp = [[PersonageManagementViewController alloc] init];
+        [self.navigationController pushViewController:temp animated:YES];
+        
     }
     else
     {
-        //个人信息管理
+      
     }
+    
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 #pragma 自定义的方法
@@ -186,7 +208,13 @@
 //充值按钮
 - (void)rechargeBtn
 {
-    NSLog(@"充值");
+    self.hidesBottomBarWhenPushed = YES;
+    
+    RechargeViewController *temp = [[RechargeViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
+    
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 //发布工作按钮
