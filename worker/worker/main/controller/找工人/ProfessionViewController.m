@@ -9,6 +9,7 @@
 #import "ProfessionViewController.h"
 #import "ProfessionTableViewCell.h"
 #import "WorkerMessViewController.h"
+#import "workerModel.h"
 
 @interface ProfessionViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -153,10 +154,6 @@
 //    
 //    return view;
 //}
-
-
-
-
 
 
 
