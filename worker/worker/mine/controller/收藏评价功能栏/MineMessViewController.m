@@ -119,7 +119,7 @@
     
     leftlab.tag = 200;
     
-    leftlab.textColor = [myselfway stringTOColor:@"0x2E84F8"];
+    leftlab.textColor = [UIColor redColor];
     
     leftlab.font = [UIFont systemFontOfSize:15];
     

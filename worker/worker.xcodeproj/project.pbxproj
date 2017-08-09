@@ -10,6 +10,11 @@
 		9034A1169F3D004D73422530 /* libPods-workerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1F10145795CF94D2603748 /* libPods-workerUITests.a */; };
 		9A4E47774D86A37BFCDC317C /* libPods-workerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47CF5FEACEC1393A60B87D /* libPods-workerTests.a */; };
 		AD02FD82877B50F9BA7F2EE9 /* libPods-worker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7643CA759AC79643AC0EEDC /* libPods-worker.a */; };
+		FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D11F39590200BE510F /* WorkerManagementViewController.m */; };
+		FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D41F39592400BE510F /* EmployerManagementViewController.m */; };
+		FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D71F39594900BE510F /* PersonageManagementViewController.m */; };
+		FB2581DB1F395BA100BE510F /* TypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581DA1F395BA100BE510F /* TypeView.m */; };
+		FB2581E41F39918200BE510F /* OneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581E31F39918200BE510F /* OneTableViewCell.m */; };
 		FB3687811F2B2195008E8387 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687801F2B2195008E8387 /* CoreLocation.framework */; };
 		FB3687831F2B21D7008E8387 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687821F2B21D7008E8387 /* QuartzCore.framework */; };
 		FB3687851F2B21E1008E8387 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687841F2B21E1008E8387 /* OpenGLES.framework */; };
@@ -33,6 +38,10 @@
 		FB6F86A21F346BF900806108 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A11F346BF900806108 /* AdSupport.framework */; };
 		FB6F86A41F346C0500806108 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A31F346C0500806108 /* UserNotifications.framework */; };
 		FB6F86A61F346C1000806108 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A51F346C1000806108 /* libresolv.tbd */; };
+		FB7F384A1F37FB130082A8FA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F38491F37FB130082A8FA /* LoginViewController.m */; };
+		FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F384C1F384A950082A8FA /* RechargeViewController.m */; };
+		FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F384F1F384B6A0082A8FA /* RechargeTableViewCell.m */; };
+		FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F38521F3857E50082A8FA /* PayTableViewCell.m */; };
 		FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FA5831F32F75F0096F6F2 /* MainViewController.m */; };
 		FB7FA5991F32F75F0096F6F2 /* SelecdCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FA5851F32F75F0096F6F2 /* SelecdCityViewController.m */; };
 		FB7FA59A1F32F75F0096F6F2 /* ProfessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FA5891F32F75F0096F6F2 /* ProfessionViewController.m */; };
@@ -86,6 +95,16 @@
 		D6F71C262734D4AA28314D81 /* Pods-worker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worker.release.xcconfig"; path = "Pods/Target Support Files/Pods-worker/Pods-worker.release.xcconfig"; sourceTree = "<group>"; };
 		D7643CA759AC79643AC0EEDC /* libPods-worker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-worker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E16E4F74CA02791E4BFA0747 /* Pods-worker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worker/Pods-worker.debug.xcconfig"; sourceTree = "<group>"; };
+		FB2581D01F39590200BE510F /* WorkerManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerManagementViewController.h; sourceTree = "<group>"; };
+		FB2581D11F39590200BE510F /* WorkerManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkerManagementViewController.m; sourceTree = "<group>"; };
+		FB2581D31F39592400BE510F /* EmployerManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmployerManagementViewController.h; sourceTree = "<group>"; };
+		FB2581D41F39592400BE510F /* EmployerManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmployerManagementViewController.m; sourceTree = "<group>"; };
+		FB2581D61F39594900BE510F /* PersonageManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonageManagementViewController.h; sourceTree = "<group>"; };
+		FB2581D71F39594900BE510F /* PersonageManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonageManagementViewController.m; sourceTree = "<group>"; };
+		FB2581D91F395BA100BE510F /* TypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeView.h; sourceTree = "<group>"; };
+		FB2581DA1F395BA100BE510F /* TypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeView.m; sourceTree = "<group>"; };
+		FB2581E21F39918200BE510F /* OneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneTableViewCell.h; sourceTree = "<group>"; };
+		FB2581E31F39918200BE510F /* OneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneTableViewCell.m; sourceTree = "<group>"; };
 		FB3687801F2B2195008E8387 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FB3687821F2B21D7008E8387 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FB3687841F2B21E1008E8387 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -115,6 +134,14 @@
 		FB6F86A31F346C0500806108 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		FB6F86A51F346C1000806108 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		FB6F86A71F346CE100806108 /* worker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = worker.entitlements; sourceTree = "<group>"; };
+		FB7F38481F37FB130082A8FA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		FB7F38491F37FB130082A8FA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		FB7F384B1F384A950082A8FA /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
+		FB7F384C1F384A950082A8FA /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
+		FB7F384E1F384B6A0082A8FA /* RechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeTableViewCell.h; sourceTree = "<group>"; };
+		FB7F384F1F384B6A0082A8FA /* RechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeTableViewCell.m; sourceTree = "<group>"; };
+		FB7F38511F3857E50082A8FA /* PayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTableViewCell.h; sourceTree = "<group>"; };
+		FB7F38521F3857E50082A8FA /* PayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTableViewCell.m; sourceTree = "<group>"; };
 		FB7FA5821F32F75F0096F6F2 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		FB7FA5831F32F75F0096F6F2 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		FB7FA5841F32F75F0096F6F2 /* SelecdCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelecdCityViewController.h; sourceTree = "<group>"; };
@@ -252,6 +279,56 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FB2581CD1F3958CA00BE510F /* 个人信息管理 */ = {
+			isa = PBXGroup;
+			children = (
+				FB2581D61F39594900BE510F /* PersonageManagementViewController.h */,
+				FB2581D71F39594900BE510F /* PersonageManagementViewController.m */,
+			);
+			path = "个人信息管理";
+			sourceTree = "<group>";
+		};
+		FB2581CE1F3958CA00BE510F /* 工人工作管理 */ = {
+			isa = PBXGroup;
+			children = (
+				FB2581D01F39590200BE510F /* WorkerManagementViewController.h */,
+				FB2581D11F39590200BE510F /* WorkerManagementViewController.m */,
+			);
+			path = "工人工作管理";
+			sourceTree = "<group>";
+		};
+		FB2581CF1F3958CA00BE510F /* 雇主发布管理 */ = {
+			isa = PBXGroup;
+			children = (
+				FB2581D31F39592400BE510F /* EmployerManagementViewController.h */,
+				FB2581D41F39592400BE510F /* EmployerManagementViewController.m */,
+			);
+			path = "雇主发布管理";
+			sourceTree = "<group>";
+		};
+		FB2581DF1F39913800BE510F /* 个人信息管理 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "个人信息管理";
+			sourceTree = "<group>";
+		};
+		FB2581E01F39913800BE510F /* 工人工作管理 */ = {
+			isa = PBXGroup;
+			children = (
+				FB2581E21F39918200BE510F /* OneTableViewCell.h */,
+				FB2581E31F39918200BE510F /* OneTableViewCell.m */,
+			);
+			path = "工人工作管理";
+			sourceTree = "<group>";
+		};
+		FB2581E11F39913800BE510F /* 雇主发布管理 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "雇主发布管理";
+			sourceTree = "<group>";
+		};
 		FB3687781F2B1CCE008E8387 /* controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +357,13 @@
 			children = (
 				FB5D87EA1F30227100830F89 /* JobViewController.h */,
 				FB5D87EB1F30227100830F89 /* JobViewController.m */,
+				FB7F384B1F384A950082A8FA /* RechargeViewController.h */,
+				FB7F384C1F384A950082A8FA /* RechargeViewController.m */,
+				FB2581D91F395BA100BE510F /* TypeView.h */,
+				FB2581DA1F395BA100BE510F /* TypeView.m */,
+				FB2581CD1F3958CA00BE510F /* 个人信息管理 */,
+				FB2581CE1F3958CA00BE510F /* 工人工作管理 */,
+				FB2581CF1F3958CA00BE510F /* 雇主发布管理 */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -294,10 +378,17 @@
 		FB36877D1F2B1CD5008E8387 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				FB2581DF1F39913800BE510F /* 个人信息管理 */,
+				FB2581E01F39913800BE510F /* 工人工作管理 */,
+				FB2581E11F39913800BE510F /* 雇主发布管理 */,
 				FB5D87F31F3045D900830F89 /* FirstTableViewCell.h */,
 				FB5D87F41F3045D900830F89 /* FirstTableViewCell.m */,
 				FB5D87F61F3045E800830F89 /* ElseTableViewCell.h */,
 				FB5D87F71F3045E800830F89 /* ElseTableViewCell.m */,
+				FB7F384E1F384B6A0082A8FA /* RechargeTableViewCell.h */,
+				FB7F384F1F384B6A0082A8FA /* RechargeTableViewCell.m */,
+				FB7F38511F3857E50082A8FA /* PayTableViewCell.h */,
+				FB7F38521F3857E50082A8FA /* PayTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -394,6 +485,8 @@
 			children = (
 				FB7FA5A01F32F7670096F6F2 /* MineViewController.h */,
 				FB7FA5A11F32F7670096F6F2 /* MineViewController.m */,
+				FB7F38481F37FB130082A8FA /* LoginViewController.h */,
+				FB7F38491F37FB130082A8FA /* LoginViewController.m */,
 				FB7FA5B11F32F80C0096F6F2 /* 收藏评价功能栏 */,
 			);
 			path = controller;
@@ -835,14 +928,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */,
+				FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */,
 				FB5D87EC1F30227100830F89 /* JobViewController.m in Sources */,
+				FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */,
+				FB7F384A1F37FB130082A8FA /* LoginViewController.m in Sources */,
 				FB7FA59C1F32F75F0096F6F2 /* MainTableViewCell.m in Sources */,
 				FB7FA5B41F32F81F0096F6F2 /* MineMessViewController.m in Sources */,
 				FB7FA5991F32F75F0096F6F2 /* SelecdCityViewController.m in Sources */,
 				FB5D87F81F3045E800830F89 /* ElseTableViewCell.m in Sources */,
+				FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */,
 				FB7FA59D1F32F75F0096F6F2 /* ProfessionTableViewCell.m in Sources */,
 				FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */,
+				FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */,
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
+				FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */,
 				FB7FA5BA1F330EB60096F6F2 /* MessTableViewCell.m in Sources */,
 				FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */,
 				FB7FA59E1F32F75F0096F6F2 /* WorkerMessTableViewCell.m in Sources */,
@@ -850,11 +949,14 @@
 				FB7FA5B71F32F83F0096F6F2 /* SeachJobViewController.m in Sources */,
 				FB7FA59A1F32F75F0096F6F2 /* ProfessionViewController.m in Sources */,
 				FB7FA5AE1F32F7670096F6F2 /* MineLoginTableViewCell.m in Sources */,
+				FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */,
 				FB6F86541F3416C800806108 /* workerModel.m in Sources */,
 				FB7FA5AC1F32F7670096F6F2 /* MineViewController.m in Sources */,
 				FB7FA5B01F32F7670096F6F2 /* MineScrTableViewCell.m in Sources */,
+				FB2581E41F39918200BE510F /* OneTableViewCell.m in Sources */,
 				FB7FA5AD1F32F7670096F6F2 /* MineElesTableViewCell.m in Sources */,
 				FB7FA5AF1F32F7670096F6F2 /* MineMoneyTableViewCell.m in Sources */,
+				FB2581DB1F395BA100BE510F /* TypeView.m in Sources */,
 				FB9911391F29757F0017A32B /* TabbarView.m in Sources */,
 				FB5D87F51F3045D900830F89 /* FirstTableViewCell.m in Sources */,
 				FB7FA59B1F32F75F0096F6F2 /* WorkerMessViewController.m in Sources */,
