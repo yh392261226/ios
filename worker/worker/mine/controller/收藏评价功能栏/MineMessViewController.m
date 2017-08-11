@@ -30,6 +30,8 @@
     
     [self addhead:@"我的消息"];
     
+    
+    
     [self tableview];
     
 }
@@ -41,7 +43,7 @@
 {
     if (!_tableview)
     {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 65) style:UITableViewStylePlain];
         
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -74,7 +76,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 62.5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

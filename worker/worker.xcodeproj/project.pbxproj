@@ -10,11 +10,16 @@
 		9034A1169F3D004D73422530 /* libPods-workerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1F10145795CF94D2603748 /* libPods-workerUITests.a */; };
 		9A4E47774D86A37BFCDC317C /* libPods-workerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47CF5FEACEC1393A60B87D /* libPods-workerTests.a */; };
 		AD02FD82877B50F9BA7F2EE9 /* libPods-worker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7643CA759AC79643AC0EEDC /* libPods-worker.a */; };
+		FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */; };
+		FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13901F3AB96900A1C463 /* IssueViewController.m */; };
+		FB0C13941F3B061100A1C463 /* Headview.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13931F3B061100A1C463 /* Headview.m */; };
 		FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D11F39590200BE510F /* WorkerManagementViewController.m */; };
 		FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D41F39592400BE510F /* EmployerManagementViewController.m */; };
 		FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D71F39594900BE510F /* PersonageManagementViewController.m */; };
 		FB2581DB1F395BA100BE510F /* TypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581DA1F395BA100BE510F /* TypeView.m */; };
 		FB2581E41F39918200BE510F /* OneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581E31F39918200BE510F /* OneTableViewCell.m */; };
+		FB339D471F3C3A550086CF2D /* BriefTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB339D461F3C3A550086CF2D /* BriefTableViewCell.m */; };
+		FB339D4A1F3C49E80086CF2D /* CraftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB339D491F3C49E80086CF2D /* CraftTableViewCell.m */; };
 		FB3687811F2B2195008E8387 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687801F2B2195008E8387 /* CoreLocation.framework */; };
 		FB3687831F2B21D7008E8387 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687821F2B21D7008E8387 /* QuartzCore.framework */; };
 		FB3687851F2B21E1008E8387 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687841F2B21E1008E8387 /* OpenGLES.framework */; };
@@ -58,6 +63,7 @@
 		FB7FA5B71F32F83F0096F6F2 /* SeachJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FA5B61F32F83F0096F6F2 /* SeachJobViewController.m */; };
 		FB7FA5BA1F330EB60096F6F2 /* MessTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FA5B91F330EB60096F6F2 /* MessTableViewCell.m */; };
 		FB9911391F29757F0017A32B /* TabbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9911381F29757F0017A32B /* TabbarView.m */; };
+		FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */; };
 		FBD796651F286B3700FA50BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796641F286B3700FA50BE /* main.m */; };
 		FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796671F286B3700FA50BE /* AppDelegate.m */; };
 		FBD796731F286B3700FA50BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBD796721F286B3700FA50BE /* Assets.xcassets */; };
@@ -66,6 +72,10 @@
 		FBD7968C1F286B3700FA50BE /* workerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD7968B1F286B3700FA50BE /* workerUITests.m */; };
 		FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD7969D1F28874C00FA50BE /* BaseViewController.m */; };
 		FBD796A11F28899700FA50BE /* myselfway.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796A01F28899700FA50BE /* myselfway.m */; };
+		FBE4216D1F3D7A9100336990 /* EditTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4216C1F3D7A9100336990 /* EditTextTableViewCell.m */; };
+		FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4216F1F3D7CC300336990 /* EditSetTableViewCell.m */; };
+		FBE421731F3D8B8800336990 /* EditSelecedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE421721F3D8B8800336990 /* EditSelecedTableViewCell.m */; };
+		FBFD602F1F3BFF870061DB20 /* PreviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFD602E1F3BFF870061DB20 /* PreviewTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +105,12 @@
 		D6F71C262734D4AA28314D81 /* Pods-worker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worker.release.xcconfig"; path = "Pods/Target Support Files/Pods-worker/Pods-worker.release.xcconfig"; sourceTree = "<group>"; };
 		D7643CA759AC79643AC0EEDC /* libPods-worker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-worker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E16E4F74CA02791E4BFA0747 /* Pods-worker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worker/Pods-worker.debug.xcconfig"; sourceTree = "<group>"; };
+		FB0C138C1F3AA5E300A1C463 /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
+		FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewCell.m; sourceTree = "<group>"; };
+		FB0C138F1F3AB96900A1C463 /* IssueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueViewController.h; sourceTree = "<group>"; };
+		FB0C13901F3AB96900A1C463 /* IssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueViewController.m; sourceTree = "<group>"; };
+		FB0C13921F3B061100A1C463 /* Headview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Headview.h; sourceTree = "<group>"; };
+		FB0C13931F3B061100A1C463 /* Headview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Headview.m; sourceTree = "<group>"; };
 		FB2581D01F39590200BE510F /* WorkerManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerManagementViewController.h; sourceTree = "<group>"; };
 		FB2581D11F39590200BE510F /* WorkerManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkerManagementViewController.m; sourceTree = "<group>"; };
 		FB2581D31F39592400BE510F /* EmployerManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmployerManagementViewController.h; sourceTree = "<group>"; };
@@ -105,6 +121,10 @@
 		FB2581DA1F395BA100BE510F /* TypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeView.m; sourceTree = "<group>"; };
 		FB2581E21F39918200BE510F /* OneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneTableViewCell.h; sourceTree = "<group>"; };
 		FB2581E31F39918200BE510F /* OneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneTableViewCell.m; sourceTree = "<group>"; };
+		FB339D451F3C3A550086CF2D /* BriefTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefTableViewCell.h; sourceTree = "<group>"; };
+		FB339D461F3C3A550086CF2D /* BriefTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefTableViewCell.m; sourceTree = "<group>"; };
+		FB339D481F3C49E80086CF2D /* CraftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CraftTableViewCell.h; sourceTree = "<group>"; };
+		FB339D491F3C49E80086CF2D /* CraftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CraftTableViewCell.m; sourceTree = "<group>"; };
 		FB3687801F2B2195008E8387 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FB3687821F2B21D7008E8387 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FB3687841F2B21E1008E8387 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -174,6 +194,8 @@
 		FB7FA5B91F330EB60096F6F2 /* MessTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessTableViewCell.m; sourceTree = "<group>"; };
 		FB9911371F29757F0017A32B /* TabbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarView.h; sourceTree = "<group>"; };
 		FB9911381F29757F0017A32B /* TabbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarView.m; sourceTree = "<group>"; };
+		FBAB094C1F3D4BFE004CB16D /* workerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = workerCollectionViewCell.h; sourceTree = "<group>"; };
+		FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = workerCollectionViewCell.m; sourceTree = "<group>"; };
 		FBD796601F286B3700FA50BE /* worker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = worker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBD796641F286B3700FA50BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBD796661F286B3700FA50BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -192,6 +214,14 @@
 		FBD7969D1F28874C00FA50BE /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		FBD7969F1F28899700FA50BE /* myselfway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myselfway.h; sourceTree = "<group>"; };
 		FBD796A01F28899700FA50BE /* myselfway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myselfway.m; sourceTree = "<group>"; };
+		FBE4216B1F3D7A9100336990 /* EditTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTextTableViewCell.h; sourceTree = "<group>"; };
+		FBE4216C1F3D7A9100336990 /* EditTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTextTableViewCell.m; sourceTree = "<group>"; };
+		FBE4216E1F3D7CC300336990 /* EditSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSetTableViewCell.h; sourceTree = "<group>"; };
+		FBE4216F1F3D7CC300336990 /* EditSetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSetTableViewCell.m; sourceTree = "<group>"; };
+		FBE421711F3D8B8800336990 /* EditSelecedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSelecedTableViewCell.h; sourceTree = "<group>"; };
+		FBE421721F3D8B8800336990 /* EditSelecedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSelecedTableViewCell.m; sourceTree = "<group>"; };
+		FBFD602D1F3BFF870061DB20 /* PreviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewTableViewCell.h; sourceTree = "<group>"; };
+		FBFD602E1F3BFF870061DB20 /* PreviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +339,22 @@
 		FB2581DF1F39913800BE510F /* 个人信息管理 */ = {
 			isa = PBXGroup;
 			children = (
+				FB0C13921F3B061100A1C463 /* Headview.h */,
+				FB0C13931F3B061100A1C463 /* Headview.m */,
+				FBFD602D1F3BFF870061DB20 /* PreviewTableViewCell.h */,
+				FBFD602E1F3BFF870061DB20 /* PreviewTableViewCell.m */,
+				FB339D451F3C3A550086CF2D /* BriefTableViewCell.h */,
+				FB339D461F3C3A550086CF2D /* BriefTableViewCell.m */,
+				FB339D481F3C49E80086CF2D /* CraftTableViewCell.h */,
+				FB339D491F3C49E80086CF2D /* CraftTableViewCell.m */,
+				FBAB094C1F3D4BFE004CB16D /* workerCollectionViewCell.h */,
+				FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */,
+				FBE4216B1F3D7A9100336990 /* EditTextTableViewCell.h */,
+				FBE4216C1F3D7A9100336990 /* EditTextTableViewCell.m */,
+				FBE4216E1F3D7CC300336990 /* EditSetTableViewCell.h */,
+				FBE4216F1F3D7CC300336990 /* EditSetTableViewCell.m */,
+				FBE421711F3D8B8800336990 /* EditSelecedTableViewCell.h */,
+				FBE421721F3D8B8800336990 /* EditSelecedTableViewCell.m */,
 			);
 			path = "个人信息管理";
 			sourceTree = "<group>";
@@ -410,6 +456,8 @@
 		FB7FA5861F32F75F0096F6F2 /* 发布工作 */ = {
 			isa = PBXGroup;
 			children = (
+				FB0C138F1F3AB96900A1C463 /* IssueViewController.h */,
+				FB0C13901F3AB96900A1C463 /* IssueViewController.m */,
 			);
 			path = "发布工作";
 			sourceTree = "<group>";
@@ -512,6 +560,8 @@
 				FB7FA5AB1F32F7670096F6F2 /* MineScrTableViewCell.m */,
 				FB7FA5B81F330EB60096F6F2 /* MessTableViewCell.h */,
 				FB7FA5B91F330EB60096F6F2 /* MessTableViewCell.m */,
+				FB0C138C1F3AA5E300A1C463 /* LoginTableViewCell.h */,
+				FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -938,9 +988,12 @@
 				FB5D87F81F3045E800830F89 /* ElseTableViewCell.m in Sources */,
 				FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */,
 				FB7FA59D1F32F75F0096F6F2 /* ProfessionTableViewCell.m in Sources */,
+				FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */,
 				FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */,
 				FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */,
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
+				FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */,
+				FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */,
 				FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */,
 				FB7FA5BA1F330EB60096F6F2 /* MessTableViewCell.m in Sources */,
 				FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */,
@@ -949,15 +1002,22 @@
 				FB7FA5B71F32F83F0096F6F2 /* SeachJobViewController.m in Sources */,
 				FB7FA59A1F32F75F0096F6F2 /* ProfessionViewController.m in Sources */,
 				FB7FA5AE1F32F7670096F6F2 /* MineLoginTableViewCell.m in Sources */,
+				FBE4216D1F3D7A9100336990 /* EditTextTableViewCell.m in Sources */,
 				FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */,
 				FB6F86541F3416C800806108 /* workerModel.m in Sources */,
 				FB7FA5AC1F32F7670096F6F2 /* MineViewController.m in Sources */,
+				FB339D4A1F3C49E80086CF2D /* CraftTableViewCell.m in Sources */,
+				FBFD602F1F3BFF870061DB20 /* PreviewTableViewCell.m in Sources */,
+				FBE421731F3D8B8800336990 /* EditSelecedTableViewCell.m in Sources */,
 				FB7FA5B01F32F7670096F6F2 /* MineScrTableViewCell.m in Sources */,
+				FB0C13941F3B061100A1C463 /* Headview.m in Sources */,
 				FB2581E41F39918200BE510F /* OneTableViewCell.m in Sources */,
 				FB7FA5AD1F32F7670096F6F2 /* MineElesTableViewCell.m in Sources */,
 				FB7FA5AF1F32F7670096F6F2 /* MineMoneyTableViewCell.m in Sources */,
 				FB2581DB1F395BA100BE510F /* TypeView.m in Sources */,
 				FB9911391F29757F0017A32B /* TabbarView.m in Sources */,
+				FB339D471F3C3A550086CF2D /* BriefTableViewCell.m in Sources */,
+				FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */,
 				FB5D87F51F3045D900830F89 /* FirstTableViewCell.m in Sources */,
 				FB7FA59B1F32F75F0096F6F2 /* WorkerMessViewController.m in Sources */,
 				FBD796A11F28899700FA50BE /* myselfway.m in Sources */,
