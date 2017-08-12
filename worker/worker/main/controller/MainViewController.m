@@ -13,6 +13,7 @@
 #import "ProfessionViewController.h"
 #import "SeachJobViewController.h"
 #import "MineMessViewController.h"
+#import "IssueViewController.h"
 
 @interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate>
 {
@@ -196,32 +197,38 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    self.hidesBottomBarWhenPushed = YES;
+    
     if (indexPath.section == 0)
     {
-        self.hidesBottomBarWhenPushed = YES;
+        
         
         ProfessionViewController *temp = [[ProfessionViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
         
-        self.hidesBottomBarWhenPushed = NO;
+        
         
     }
     else if (indexPath.section == 1)
     {
-        self.hidesBottomBarWhenPushed = YES;
+        
         
         SeachJobViewController *temp = [[SeachJobViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
         
-        self.hidesBottomBarWhenPushed = NO;
+        
         
     }
     else
     {
-    
+        IssueViewController *temp = [[IssueViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
     }
+    
+    self.hidesBottomBarWhenPushed = NO;
     
 }
 
