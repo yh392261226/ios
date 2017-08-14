@@ -1,15 +1,15 @@
 //
-//  CraftTableViewCell.m
+//  EditCraftTableViewCell.m
 //  worker
 //
-//  Created by 郭健 on 2017/8/10.
+//  Created by 郭健 on 2017/8/14.
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
-#import "CraftTableViewCell.h"
-#import "workerCollectionViewCell.h"
+#import "EditCraftTableViewCell.h"
+#import "EditworkerCollectionViewCell.h"
 
-@implementation CraftTableViewCell
+@implementation EditCraftTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -42,7 +42,7 @@
         _collection.delegate = self;
         _collection.dataSource = self;
         
-        [_collection registerClass:[workerCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+        [_collection registerClass:[EditworkerCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
         
         
         [self.contentView addSubview:_collection];
@@ -59,13 +59,13 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.dataArray.count;
-   
+    
 }
 
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    workerCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    EditworkerCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
     cell.workerName.text = [self.dataArray objectAtIndex:indexPath.row];
     
@@ -74,7 +74,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    [self.delegate tempValNum:indexPath.item];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -134,7 +134,7 @@
     
     
     [self.collection reloadData];
-
+    
     
 }
 
@@ -144,11 +144,6 @@
 {
     [super layoutSubviews];
 }
-
-
-
-
-
 
 
 @end

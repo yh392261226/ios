@@ -23,8 +23,6 @@
         
         _woman = [[UILabel alloc] init];
         
-        _woman.textColor = [UIColor grayColor];
-        
         _woman.textAlignment = NSTextAlignmentCenter;
         
         _woman.font = [UIFont systemFontOfSize:14];
@@ -34,13 +32,12 @@
         
         _womanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        _womanBtn.layer.cornerRadius = 3.5;
+        _womanBtn.layer.cornerRadius = 5;
         
         [self.contentView addSubview:_womanBtn];
         
         _man = [[UILabel alloc] init];
         
-        _man.textColor = [UIColor redColor];
         
         _man.textAlignment = NSTextAlignmentCenter;
         
@@ -51,7 +48,7 @@
         
         _manBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        _manBtn.layer.cornerRadius = 3.5;
+        _manBtn.layer.cornerRadius = 5;
         
         [self.contentView addSubview:_manBtn];
         
@@ -80,8 +77,8 @@
      {
          make.right.mas_equalTo(_woman).offset(-25);
          make.centerY.mas_equalTo(self.contentView);
-         make.height.mas_equalTo(7);
-         make.width.mas_equalTo(7);
+         make.height.mas_equalTo(10);
+         make.width.mas_equalTo(10);
          
      }];
     
@@ -89,7 +86,7 @@
     
     [_man mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.right.mas_equalTo(_womanBtn).offset(-12);
+         make.right.mas_equalTo(_womanBtn).offset(-15);
          make.centerY.mas_equalTo(self.contentView);
          make.height.mas_equalTo(30);
          make.width.mas_equalTo(20);
@@ -98,10 +95,10 @@
     
     [_manBtn mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.right.mas_equalTo(_womanBtn).offset(-25);
+         make.right.mas_equalTo(_man).offset(-25);
          make.centerY.mas_equalTo(self.contentView);
-         make.height.mas_equalTo(7);
-         make.width.mas_equalTo(7);
+         make.height.mas_equalTo(10);
+         make.width.mas_equalTo(10);
          
      }];
     

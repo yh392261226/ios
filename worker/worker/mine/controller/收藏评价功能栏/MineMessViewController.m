@@ -30,7 +30,7 @@
     
     [self addhead:@"我的消息"];
     
-    
+    self.view.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
     
     [self tableview];
     
@@ -43,7 +43,7 @@
 {
     if (!_tableview)
     {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 65) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, SCREEN_HEIGHT - 74) style:UITableViewStylePlain];
         
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -181,8 +181,8 @@
     UILabel *label = [self.view viewWithTag:200];
     UILabel *label1 = [self.view viewWithTag:300];
     
-    label.textColor = [myselfway stringTOColor:@"0x2E84F8"];
-    label1.textColor = [myselfway stringTOColor:@"0x2E84F8"];
+    label.textColor = [UIColor grayColor];
+    label1.textColor = [UIColor grayColor];
     
     label.textColor = [UIColor redColor];
 }
@@ -193,8 +193,8 @@
     UILabel *label = [self.view viewWithTag:200];
     UILabel *label1 = [self.view viewWithTag:300];
     
-    label.textColor = [myselfway stringTOColor:@"0x2E84F8"];
-    label1.textColor = [myselfway stringTOColor:@"0x2E84F8"];
+    label.textColor = [UIColor grayColor];
+    label1.textColor = [UIColor grayColor];
     
     label1.textColor = [UIColor redColor];
 }

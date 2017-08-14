@@ -26,6 +26,8 @@
         
         _detail = [[UILabel alloc] init];
         
+        _detail.textColor = [UIColor grayColor];
+        
         _detail.font = [UIFont systemFontOfSize:13];
         
         _detail.text = @"我于杀戮之中盛放, 亦如黎明中的花朵";
@@ -41,6 +43,30 @@
         _time.text = @"2017/03/08";
         
         [self.contentView addSubview:_time];
+        
+        
+        
+        _look = [[UILabel alloc] init];
+        
+        _look.layer.borderColor = [[UIColor grayColor] CGColor];
+        
+        _look.text = @"点击查看";
+        
+        _look.textColor = [UIColor grayColor];
+        
+        _look.layer.cornerRadius = 10;
+        
+        _look.layer.borderWidth = 0.5f;
+        
+        _look.layer.masksToBounds = YES;
+        
+        _look.font = [UIFont systemFontOfSize:14];
+        
+        _look.textAlignment = NSTextAlignmentCenter;
+        
+        [self.contentView addSubview:_look];
+        
+        
         
         
     }
@@ -77,7 +103,16 @@
          make.top.mas_equalTo(_title).offset(25);
          make.left.mas_equalTo(self.contentView).offset(15);
          make.height.mas_equalTo(20);
-         make.width.mas_equalTo(SCREEN_WIDTH - 20);
+         make.width.mas_equalTo(SCREEN_WIDTH - 100);
+         
+     }];
+    
+    [_look mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.bottom.mas_equalTo(self.contentView).offset(-5);
+         make.right.mas_equalTo(self.contentView).offset(-15);
+         make.height.mas_equalTo(25);
+         make.width.mas_equalTo(80);
          
      }];
 }

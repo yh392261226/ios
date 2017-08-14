@@ -14,6 +14,8 @@
 #import "MineMessViewController.h"
 #import <UShareUI/UShareUI.h>
 #import "LoginViewController.h"
+#import "MineFavoriteViewController.h"
+#import "SetViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -56,7 +58,7 @@
 {
     if (!_tableview)
     {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 113) style:UITableViewStyleGrouped];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
         
         _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
         _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
@@ -72,9 +74,6 @@
         _tableview.dataSource = self;
         
         [self.view addSubview:_tableview];
-        
-        
-        
         
         
     }
@@ -183,6 +182,8 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    self.hidesBottomBarWhenPushed = YES;
+    
     if (indexPath.section == 3)
     {
         //显示分享面板
@@ -200,10 +201,18 @@
             NSLog(@"分享");
         }];
     }
+    else if(indexPath.section == 5)
+    {
+        SetViewController *temp = [[SetViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
     else
     {
-       
+    
     }
+    
+    self.hidesBottomBarWhenPushed = NO;
     
 }
 
@@ -285,8 +294,14 @@
 //我的页面，收藏，评价那一栏的点击事件
 - (void)tempVal: (NSInteger)val
 {
+    self.hidesBottomBarWhenPushed = YES;
+    
     if (val == 900)
     {
+        
+        MineFavoriteViewController *temp = [[MineFavoriteViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
         
     }
     else if (val == 901)
@@ -299,14 +314,14 @@
     }
     else
     {
-        self.hidesBottomBarWhenPushed = YES;
         
         MineMessViewController *temp = [[MineMessViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
-        
-        self.hidesBottomBarWhenPushed = NO;
+    
     }
+    
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 
