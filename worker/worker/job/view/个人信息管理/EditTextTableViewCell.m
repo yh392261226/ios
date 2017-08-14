@@ -21,7 +21,7 @@
         [self.contentView addSubview:_name];
         
         
-        _field = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 200, 5, 180, 30)];
+        _field = [[UITextField alloc] init];
         _field.font = [UIFont systemFontOfSize:14];
         _field.textAlignment = NSTextAlignmentRight;
         _field.textColor = [UIColor grayColor];
@@ -40,11 +40,13 @@
     
     [_field mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.top.mas_equalTo(_name).offset(30);
-         make.left.mas_equalTo(self.contentView).offset(15);
+         make.top.mas_equalTo(self.contentView).offset(5);
+         make.width.mas_equalTo(200);
          make.right.mas_equalTo(self.contentView).offset(-15);
-         make.height.mas_equalTo(100);
+         make.height.mas_equalTo(30);
      }];
+    
+    
 }
 
 @end

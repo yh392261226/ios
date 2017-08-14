@@ -43,6 +43,12 @@
 		FB6F86A21F346BF900806108 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A11F346BF900806108 /* AdSupport.framework */; };
 		FB6F86A41F346C0500806108 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A31F346C0500806108 /* UserNotifications.framework */; };
 		FB6F86A61F346C1000806108 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A51F346C1000806108 /* libresolv.tbd */; };
+		FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703311F413DF50028EB84 /* EditCraftTableViewCell.m */; };
+		FB7703351F413E430028EB84 /* EditworkerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703341F413E430028EB84 /* EditworkerCollectionViewCell.m */; };
+		FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703371F4148F20028EB84 /* EdirAddTableViewCell.m */; };
+		FB77033B1F416C1B0028EB84 /* MineFavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB77033A1F416C1B0028EB84 /* MineFavoriteViewController.m */; };
+		FB77033E1F4182000028EB84 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB77033D1F4182000028EB84 /* SetViewController.m */; };
+		FB7703411F4182B50028EB84 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703401F4182B50028EB84 /* SetTableViewCell.m */; };
 		FB7F384A1F37FB130082A8FA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F38491F37FB130082A8FA /* LoginViewController.m */; };
 		FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F384C1F384A950082A8FA /* RechargeViewController.m */; };
 		FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F384F1F384B6A0082A8FA /* RechargeTableViewCell.m */; };
@@ -122,7 +128,7 @@
 		FB2581E21F39918200BE510F /* OneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneTableViewCell.h; sourceTree = "<group>"; };
 		FB2581E31F39918200BE510F /* OneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneTableViewCell.m; sourceTree = "<group>"; };
 		FB339D451F3C3A550086CF2D /* BriefTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefTableViewCell.h; sourceTree = "<group>"; };
-		FB339D461F3C3A550086CF2D /* BriefTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefTableViewCell.m; sourceTree = "<group>"; };
+		FB339D461F3C3A550086CF2D /* BriefTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BriefTableViewCell.m; sourceTree = "<group>"; };
 		FB339D481F3C49E80086CF2D /* CraftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CraftTableViewCell.h; sourceTree = "<group>"; };
 		FB339D491F3C49E80086CF2D /* CraftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CraftTableViewCell.m; sourceTree = "<group>"; };
 		FB3687801F2B2195008E8387 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -154,6 +160,18 @@
 		FB6F86A31F346C0500806108 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		FB6F86A51F346C1000806108 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		FB6F86A71F346CE100806108 /* worker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = worker.entitlements; sourceTree = "<group>"; };
+		FB7703301F413DF50028EB84 /* EditCraftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCraftTableViewCell.h; sourceTree = "<group>"; };
+		FB7703311F413DF50028EB84 /* EditCraftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCraftTableViewCell.m; sourceTree = "<group>"; };
+		FB7703331F413E430028EB84 /* EditworkerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditworkerCollectionViewCell.h; sourceTree = "<group>"; };
+		FB7703341F413E430028EB84 /* EditworkerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditworkerCollectionViewCell.m; sourceTree = "<group>"; };
+		FB7703361F4148F20028EB84 /* EdirAddTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EdirAddTableViewCell.h; sourceTree = "<group>"; };
+		FB7703371F4148F20028EB84 /* EdirAddTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EdirAddTableViewCell.m; sourceTree = "<group>"; };
+		FB7703391F416C1B0028EB84 /* MineFavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineFavoriteViewController.h; sourceTree = "<group>"; };
+		FB77033A1F416C1B0028EB84 /* MineFavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineFavoriteViewController.m; sourceTree = "<group>"; };
+		FB77033C1F4182000028EB84 /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetViewController.h; sourceTree = "<group>"; };
+		FB77033D1F4182000028EB84 /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetViewController.m; sourceTree = "<group>"; };
+		FB77033F1F4182B50028EB84 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
+		FB7703401F4182B50028EB84 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		FB7F38481F37FB130082A8FA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		FB7F38491F37FB130082A8FA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		FB7F384B1F384A950082A8FA /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
@@ -355,6 +373,12 @@
 				FBE4216F1F3D7CC300336990 /* EditSetTableViewCell.m */,
 				FBE421711F3D8B8800336990 /* EditSelecedTableViewCell.h */,
 				FBE421721F3D8B8800336990 /* EditSelecedTableViewCell.m */,
+				FB7703301F413DF50028EB84 /* EditCraftTableViewCell.h */,
+				FB7703311F413DF50028EB84 /* EditCraftTableViewCell.m */,
+				FB7703331F413E430028EB84 /* EditworkerCollectionViewCell.h */,
+				FB7703341F413E430028EB84 /* EditworkerCollectionViewCell.m */,
+				FB7703361F4148F20028EB84 /* EdirAddTableViewCell.h */,
+				FB7703371F4148F20028EB84 /* EdirAddTableViewCell.m */,
 			);
 			path = "个人信息管理";
 			sourceTree = "<group>";
@@ -535,6 +559,8 @@
 				FB7FA5A11F32F7670096F6F2 /* MineViewController.m */,
 				FB7F38481F37FB130082A8FA /* LoginViewController.h */,
 				FB7F38491F37FB130082A8FA /* LoginViewController.m */,
+				FB77033C1F4182000028EB84 /* SetViewController.h */,
+				FB77033D1F4182000028EB84 /* SetViewController.m */,
 				FB7FA5B11F32F80C0096F6F2 /* 收藏评价功能栏 */,
 			);
 			path = controller;
@@ -562,6 +588,8 @@
 				FB7FA5B91F330EB60096F6F2 /* MessTableViewCell.m */,
 				FB0C138C1F3AA5E300A1C463 /* LoginTableViewCell.h */,
 				FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */,
+				FB77033F1F4182B50028EB84 /* SetTableViewCell.h */,
+				FB7703401F4182B50028EB84 /* SetTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -571,6 +599,8 @@
 			children = (
 				FB7FA5B21F32F81F0096F6F2 /* MineMessViewController.h */,
 				FB7FA5B31F32F81F0096F6F2 /* MineMessViewController.m */,
+				FB7703391F416C1B0028EB84 /* MineFavoriteViewController.h */,
+				FB77033A1F416C1B0028EB84 /* MineFavoriteViewController.m */,
 			);
 			path = "收藏评价功能栏";
 			sourceTree = "<group>";
@@ -993,18 +1023,24 @@
 				FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */,
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
 				FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */,
+				FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */,
 				FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */,
 				FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */,
 				FB7FA5BA1F330EB60096F6F2 /* MessTableViewCell.m in Sources */,
+				FB7703351F413E430028EB84 /* EditworkerCollectionViewCell.m in Sources */,
 				FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */,
 				FB7FA59E1F32F75F0096F6F2 /* WorkerMessTableViewCell.m in Sources */,
 				FBD796651F286B3700FA50BE /* main.m in Sources */,
+				FB77033E1F4182000028EB84 /* SetViewController.m in Sources */,
 				FB7FA5B71F32F83F0096F6F2 /* SeachJobViewController.m in Sources */,
 				FB7FA59A1F32F75F0096F6F2 /* ProfessionViewController.m in Sources */,
 				FB7FA5AE1F32F7670096F6F2 /* MineLoginTableViewCell.m in Sources */,
+				FB7703411F4182B50028EB84 /* SetTableViewCell.m in Sources */,
 				FBE4216D1F3D7A9100336990 /* EditTextTableViewCell.m in Sources */,
+				FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */,
 				FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */,
 				FB6F86541F3416C800806108 /* workerModel.m in Sources */,
+				FB77033B1F416C1B0028EB84 /* MineFavoriteViewController.m in Sources */,
 				FB7FA5AC1F32F7670096F6F2 /* MineViewController.m in Sources */,
 				FB339D4A1F3C49E80086CF2D /* CraftTableViewCell.m in Sources */,
 				FBFD602F1F3BFF870061DB20 /* PreviewTableViewCell.m in Sources */,

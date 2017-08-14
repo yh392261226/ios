@@ -14,4 +14,6 @@
 @property (nonatomic, strong)UILabel *time;
 @property (nonatomic, strong)UILabel *detail;
 
+@property (nonatomic, strong)UILabel *look;
+
 @end

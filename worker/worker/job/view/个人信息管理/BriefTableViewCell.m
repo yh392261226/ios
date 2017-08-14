@@ -4,7 +4,8 @@
 //
 //  Created by 郭健 on 2017/8/10.
 //  Copyright © 2017年 郭健. All rights reserved.
-//
+
+
 
 #import "BriefTableViewCell.h"
 
@@ -42,7 +43,7 @@
         make.top.mas_equalTo(_name).offset(30);
         make.left.mas_equalTo(self.contentView).offset(15);
         make.right.mas_equalTo(self.contentView).offset(-15);
-        make.height.mas_equalTo(100);
+        make.height.mas_equalTo(80);
     }];
 }
 

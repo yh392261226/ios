@@ -1,14 +1,14 @@
 //
-//  workerCollectionViewCell.m
+//  EditworkerCollectionViewCell.m
 //  worker
 //
-//  Created by 郭健 on 2017/8/11.
+//  Created by 郭健 on 2017/8/14.
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
-#import "workerCollectionViewCell.h"
+#import "EditworkerCollectionViewCell.h"
 
-@implementation workerCollectionViewCell
+@implementation EditworkerCollectionViewCell
 
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -34,7 +34,19 @@
         [self.contentView addSubview:_workerName];
         
         
-     
+        _logoImage = [[UIImageView alloc] init];
+        _logoImage.layer.cornerRadius = 5;
+        _logoImage.backgroundColor = [UIColor orangeColor];
+        [self.contentView addSubview:_logoImage];
+        
+        [_logoImage mas_makeConstraints:^(MASConstraintMaker *make)
+         {
+             make.top.mas_equalTo(_workerName).offset(-2.5);
+             make.width.mas_equalTo(10);
+             make.right.mas_equalTo(_workerName).offset(2.5);
+             make.height.mas_equalTo(10);
+         }];
+        
     }
     
     return self;
@@ -60,17 +72,5 @@
     
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end

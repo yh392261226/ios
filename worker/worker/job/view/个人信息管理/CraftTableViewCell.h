@@ -10,8 +10,7 @@
 
 @interface CraftTableViewCell : UITableViewCell <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, strong)UILabel *craft;
-@property (nonatomic, strong)UIView *view;
+
 
 @property (nonatomic, strong)NSMutableArray *dataArray;
 
