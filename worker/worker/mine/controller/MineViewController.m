@@ -16,6 +16,9 @@
 #import "LoginViewController.h"
 #import "MineFavoriteViewController.h"
 #import "SetViewController.h"
+#import "EvaluateViewController.h"
+#import "MineMoneyViewController.h"
+#import "ServiceViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -183,8 +186,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     self.hidesBottomBarWhenPushed = YES;
+    if (indexPath.section == 4)
+    {
+        ServiceViewController *temp = [[ServiceViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
     
-    if (indexPath.section == 3)
+    else if (indexPath.section == 3)
     {
         //显示分享面板
 //        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo)
@@ -209,7 +218,12 @@
     }
     else
     {
-    
+        
+        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"15045281940"];
+        
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+       
     }
     
     self.hidesBottomBarWhenPushed = NO;
@@ -306,11 +320,15 @@
     }
     else if (val == 901)
     {
-     
+        EvaluateViewController *temp = [[EvaluateViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
     }
     else if (val == 902)
     {
-    
+        MineMoneyViewController *temp = [[MineMoneyViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
     }
     else
     {

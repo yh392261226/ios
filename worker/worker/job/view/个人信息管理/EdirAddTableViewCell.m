@@ -32,8 +32,8 @@
 {
     [super layoutSubviews];
     
-    [_AddImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+    [_AddImage mas_makeConstraints:^(MASConstraintMaker *make)
+    {
         make.top.mas_equalTo(self.contentView).offset(10);
         make.left.mas_equalTo(self.contentView).offset(20);
         make.width.mas_equalTo(30);

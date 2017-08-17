@@ -30,10 +30,17 @@
 		FB36878F1F2B2236008E8387 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB36878E1F2B2236008E8387 /* CoreTelephony.framework */; };
 		FB3687911F2B226F008E8387 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687901F2B226F008E8387 /* libstdc++.6.0.9.tbd */; };
 		FB3687931F2B22AD008E8387 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB3687921F2B22AD008E8387 /* mapapi.bundle */; };
+		FB5759B11F4430E100135B92 /* DressingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5759B01F4430E100135B92 /* DressingViewController.m */; };
+		FB5759B41F4433CF00135B92 /* DressingWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5759B31F4433CF00135B92 /* DressingWorkerViewController.m */; };
 		FB5D87E91F30226600830F89 /* MessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D87E81F30226600830F89 /* MessViewController.m */; };
 		FB5D87EC1F30227100830F89 /* JobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D87EB1F30227100830F89 /* JobViewController.m */; };
 		FB5D87F51F3045D900830F89 /* FirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D87F41F3045D900830F89 /* FirstTableViewCell.m */; };
 		FB5D87F81F3045E800830F89 /* ElseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D87F71F3045E800830F89 /* ElseTableViewCell.m */; };
+		FB64B3341F456CEF001418D1 /* DressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB64B3331F456CEE001418D1 /* DressTableViewCell.m */; };
+		FB64B3391F457E89001418D1 /* listTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB64B3361F457E89001418D1 /* listTableView.m */; };
+		FB64B33A1F457E89001418D1 /* mainlistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB64B3381F457E89001418D1 /* mainlistTableViewCell.m */; };
+		FB6D76001F418C63009FCF73 /* EvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6D75FF1F418C63009FCF73 /* EvaluateViewController.m */; };
+		FB6D76031F418CF3009FCF73 /* EvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6D76021F418CF3009FCF73 /* EvaluateTableViewCell.m */; };
 		FB6F86541F3416C800806108 /* workerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6F86531F3416C800806108 /* workerModel.m */; };
 		FB6F86981F346BA900806108 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86971F346BA900806108 /* CFNetwork.framework */; };
 		FB6F869A1F346BB300806108 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86991F346BB300806108 /* CoreFoundation.framework */; };
@@ -68,6 +75,10 @@
 		FB7FA5B41F32F81F0096F6F2 /* MineMessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FA5B31F32F81F0096F6F2 /* MineMessViewController.m */; };
 		FB7FA5B71F32F83F0096F6F2 /* SeachJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FA5B61F32F83F0096F6F2 /* SeachJobViewController.m */; };
 		FB7FA5BA1F330EB60096F6F2 /* MessTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FA5B91F330EB60096F6F2 /* MessTableViewCell.m */; };
+		FB8580151F42892D0085BAF1 /* MineMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8580141F42892D0085BAF1 /* MineMoneyViewController.m */; };
+		FB8580181F4290190085BAF1 /* MoneyDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8580171F4290190085BAF1 /* MoneyDetailsViewController.m */; };
+		FB85801B1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB85801A1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m */; };
+		FB85801E1F42A2C80085BAF1 /* ServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB85801D1F42A2C80085BAF1 /* ServiceViewController.m */; };
 		FB9911391F29757F0017A32B /* TabbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9911381F29757F0017A32B /* TabbarView.m */; };
 		FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */; };
 		FBD796651F286B3700FA50BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796641F286B3700FA50BE /* main.m */; };
@@ -141,6 +152,10 @@
 		FB36878E1F2B2236008E8387 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		FB3687901F2B226F008E8387 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		FB3687921F2B22AD008E8387 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = Pods/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle; sourceTree = "<group>"; };
+		FB5759AF1F4430E100135B92 /* DressingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressingViewController.h; sourceTree = "<group>"; };
+		FB5759B01F4430E100135B92 /* DressingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressingViewController.m; sourceTree = "<group>"; };
+		FB5759B21F4433CF00135B92 /* DressingWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressingWorkerViewController.h; sourceTree = "<group>"; };
+		FB5759B31F4433CF00135B92 /* DressingWorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressingWorkerViewController.m; sourceTree = "<group>"; };
 		FB5D87E71F30226600830F89 /* MessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessViewController.h; sourceTree = "<group>"; };
 		FB5D87E81F30226600830F89 /* MessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessViewController.m; sourceTree = "<group>"; };
 		FB5D87EA1F30227100830F89 /* JobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobViewController.h; sourceTree = "<group>"; };
@@ -149,6 +164,16 @@
 		FB5D87F41F3045D900830F89 /* FirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewCell.m; sourceTree = "<group>"; };
 		FB5D87F61F3045E800830F89 /* ElseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElseTableViewCell.h; sourceTree = "<group>"; };
 		FB5D87F71F3045E800830F89 /* ElseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElseTableViewCell.m; sourceTree = "<group>"; };
+		FB64B3321F456CEE001418D1 /* DressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressTableViewCell.h; sourceTree = "<group>"; };
+		FB64B3331F456CEE001418D1 /* DressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressTableViewCell.m; sourceTree = "<group>"; };
+		FB64B3351F457E89001418D1 /* listTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = listTableView.h; sourceTree = "<group>"; };
+		FB64B3361F457E89001418D1 /* listTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = listTableView.m; sourceTree = "<group>"; };
+		FB64B3371F457E89001418D1 /* mainlistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainlistTableViewCell.h; sourceTree = "<group>"; };
+		FB64B3381F457E89001418D1 /* mainlistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainlistTableViewCell.m; sourceTree = "<group>"; };
+		FB6D75FE1F418C63009FCF73 /* EvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateViewController.h; sourceTree = "<group>"; };
+		FB6D75FF1F418C63009FCF73 /* EvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateViewController.m; sourceTree = "<group>"; };
+		FB6D76011F418CF3009FCF73 /* EvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateTableViewCell.h; sourceTree = "<group>"; };
+		FB6D76021F418CF3009FCF73 /* EvaluateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateTableViewCell.m; sourceTree = "<group>"; };
 		FB6F86521F3416C800806108 /* workerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = workerModel.h; sourceTree = "<group>"; };
 		FB6F86531F3416C800806108 /* workerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = workerModel.m; sourceTree = "<group>"; };
 		FB6F86971F346BA900806108 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -210,6 +235,14 @@
 		FB7FA5B61F32F83F0096F6F2 /* SeachJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeachJobViewController.m; sourceTree = "<group>"; };
 		FB7FA5B81F330EB60096F6F2 /* MessTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessTableViewCell.h; sourceTree = "<group>"; };
 		FB7FA5B91F330EB60096F6F2 /* MessTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessTableViewCell.m; sourceTree = "<group>"; };
+		FB8580131F42892D0085BAF1 /* MineMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineMoneyViewController.h; sourceTree = "<group>"; };
+		FB8580141F42892D0085BAF1 /* MineMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineMoneyViewController.m; sourceTree = "<group>"; };
+		FB8580161F4290190085BAF1 /* MoneyDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyDetailsViewController.h; sourceTree = "<group>"; };
+		FB8580171F4290190085BAF1 /* MoneyDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyDetailsViewController.m; sourceTree = "<group>"; };
+		FB8580191F4294CA0085BAF1 /* MoneyDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyDetailTableViewCell.h; sourceTree = "<group>"; };
+		FB85801A1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyDetailTableViewCell.m; sourceTree = "<group>"; };
+		FB85801C1F42A2C80085BAF1 /* ServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceViewController.h; sourceTree = "<group>"; };
+		FB85801D1F42A2C80085BAF1 /* ServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceViewController.m; sourceTree = "<group>"; };
 		FB9911371F29757F0017A32B /* TabbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarView.h; sourceTree = "<group>"; };
 		FB9911381F29757F0017A32B /* TabbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarView.m; sourceTree = "<group>"; };
 		FBAB094C1F3D4BFE004CB16D /* workerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = workerCollectionViewCell.h; sourceTree = "<group>"; };
@@ -493,6 +526,8 @@
 				FB7FA5891F32F75F0096F6F2 /* ProfessionViewController.m */,
 				FB7FA58A1F32F75F0096F6F2 /* WorkerMessViewController.h */,
 				FB7FA58B1F32F75F0096F6F2 /* WorkerMessViewController.m */,
+				FB5759AF1F4430E100135B92 /* DressingViewController.h */,
+				FB5759B01F4430E100135B92 /* DressingViewController.m */,
 			);
 			path = "找工人";
 			sourceTree = "<group>";
@@ -502,6 +537,8 @@
 			children = (
 				FB7FA5B51F32F83F0096F6F2 /* SeachJobViewController.h */,
 				FB7FA5B61F32F83F0096F6F2 /* SeachJobViewController.m */,
+				FB5759B21F4433CF00135B92 /* DressingWorkerViewController.h */,
+				FB5759B31F4433CF00135B92 /* DressingWorkerViewController.m */,
 			);
 			path = "找工作";
 			sourceTree = "<group>";
@@ -537,10 +574,16 @@
 		FB7FA5921F32F75F0096F6F2 /* 找工人 */ = {
 			isa = PBXGroup;
 			children = (
+				FB64B3351F457E89001418D1 /* listTableView.h */,
+				FB64B3361F457E89001418D1 /* listTableView.m */,
+				FB64B3371F457E89001418D1 /* mainlistTableViewCell.h */,
+				FB64B3381F457E89001418D1 /* mainlistTableViewCell.m */,
 				FB7FA5931F32F75F0096F6F2 /* ProfessionTableViewCell.h */,
 				FB7FA5941F32F75F0096F6F2 /* ProfessionTableViewCell.m */,
 				FB7FA5951F32F75F0096F6F2 /* WorkerMessTableViewCell.h */,
 				FB7FA5961F32F75F0096F6F2 /* WorkerMessTableViewCell.m */,
+				FB64B3321F456CEE001418D1 /* DressTableViewCell.h */,
+				FB64B3331F456CEE001418D1 /* DressTableViewCell.m */,
 			);
 			path = "找工人";
 			sourceTree = "<group>";
@@ -561,6 +604,8 @@
 				FB7F38491F37FB130082A8FA /* LoginViewController.m */,
 				FB77033C1F4182000028EB84 /* SetViewController.h */,
 				FB77033D1F4182000028EB84 /* SetViewController.m */,
+				FB85801C1F42A2C80085BAF1 /* ServiceViewController.h */,
+				FB85801D1F42A2C80085BAF1 /* ServiceViewController.m */,
 				FB7FA5B11F32F80C0096F6F2 /* 收藏评价功能栏 */,
 			);
 			path = controller;
@@ -590,6 +635,10 @@
 				FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */,
 				FB77033F1F4182B50028EB84 /* SetTableViewCell.h */,
 				FB7703401F4182B50028EB84 /* SetTableViewCell.m */,
+				FB6D76011F418CF3009FCF73 /* EvaluateTableViewCell.h */,
+				FB6D76021F418CF3009FCF73 /* EvaluateTableViewCell.m */,
+				FB8580191F4294CA0085BAF1 /* MoneyDetailTableViewCell.h */,
+				FB85801A1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -601,6 +650,12 @@
 				FB7FA5B31F32F81F0096F6F2 /* MineMessViewController.m */,
 				FB7703391F416C1B0028EB84 /* MineFavoriteViewController.h */,
 				FB77033A1F416C1B0028EB84 /* MineFavoriteViewController.m */,
+				FB6D75FE1F418C63009FCF73 /* EvaluateViewController.h */,
+				FB6D75FF1F418C63009FCF73 /* EvaluateViewController.m */,
+				FB8580131F42892D0085BAF1 /* MineMoneyViewController.h */,
+				FB8580141F42892D0085BAF1 /* MineMoneyViewController.m */,
+				FB8580161F4290190085BAF1 /* MoneyDetailsViewController.h */,
+				FB8580171F4290190085BAF1 /* MoneyDetailsViewController.m */,
 			);
 			path = "收藏评价功能栏";
 			sourceTree = "<group>";
@@ -1007,21 +1062,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB64B3341F456CEF001418D1 /* DressTableViewCell.m in Sources */,
 				FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */,
 				FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */,
+				FB85801E1F42A2C80085BAF1 /* ServiceViewController.m in Sources */,
+				FB85801B1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m in Sources */,
 				FB5D87EC1F30227100830F89 /* JobViewController.m in Sources */,
 				FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */,
 				FB7F384A1F37FB130082A8FA /* LoginViewController.m in Sources */,
 				FB7FA59C1F32F75F0096F6F2 /* MainTableViewCell.m in Sources */,
 				FB7FA5B41F32F81F0096F6F2 /* MineMessViewController.m in Sources */,
 				FB7FA5991F32F75F0096F6F2 /* SelecdCityViewController.m in Sources */,
+				FB8580181F4290190085BAF1 /* MoneyDetailsViewController.m in Sources */,
 				FB5D87F81F3045E800830F89 /* ElseTableViewCell.m in Sources */,
 				FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */,
 				FB7FA59D1F32F75F0096F6F2 /* ProfessionTableViewCell.m in Sources */,
 				FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */,
+				FB8580151F42892D0085BAF1 /* MineMoneyViewController.m in Sources */,
 				FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */,
 				FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */,
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
+				FB6D76001F418C63009FCF73 /* EvaluateViewController.m in Sources */,
 				FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */,
 				FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */,
 				FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */,
@@ -1038,11 +1099,14 @@
 				FB7703411F4182B50028EB84 /* SetTableViewCell.m in Sources */,
 				FBE4216D1F3D7A9100336990 /* EditTextTableViewCell.m in Sources */,
 				FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */,
+				FB64B3391F457E89001418D1 /* listTableView.m in Sources */,
+				FB64B33A1F457E89001418D1 /* mainlistTableViewCell.m in Sources */,
 				FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */,
 				FB6F86541F3416C800806108 /* workerModel.m in Sources */,
 				FB77033B1F416C1B0028EB84 /* MineFavoriteViewController.m in Sources */,
 				FB7FA5AC1F32F7670096F6F2 /* MineViewController.m in Sources */,
 				FB339D4A1F3C49E80086CF2D /* CraftTableViewCell.m in Sources */,
+				FB5759B11F4430E100135B92 /* DressingViewController.m in Sources */,
 				FBFD602F1F3BFF870061DB20 /* PreviewTableViewCell.m in Sources */,
 				FBE421731F3D8B8800336990 /* EditSelecedTableViewCell.m in Sources */,
 				FB7FA5B01F32F7670096F6F2 /* MineScrTableViewCell.m in Sources */,
@@ -1050,6 +1114,7 @@
 				FB2581E41F39918200BE510F /* OneTableViewCell.m in Sources */,
 				FB7FA5AD1F32F7670096F6F2 /* MineElesTableViewCell.m in Sources */,
 				FB7FA5AF1F32F7670096F6F2 /* MineMoneyTableViewCell.m in Sources */,
+				FB6D76031F418CF3009FCF73 /* EvaluateTableViewCell.m in Sources */,
 				FB2581DB1F395BA100BE510F /* TypeView.m in Sources */,
 				FB9911391F29757F0017A32B /* TabbarView.m in Sources */,
 				FB339D471F3C3A550086CF2D /* BriefTableViewCell.m in Sources */,
@@ -1057,6 +1122,7 @@
 				FB5D87F51F3045D900830F89 /* FirstTableViewCell.m in Sources */,
 				FB7FA59B1F32F75F0096F6F2 /* WorkerMessViewController.m in Sources */,
 				FBD796A11F28899700FA50BE /* myselfway.m in Sources */,
+				FB5759B41F4433CF00135B92 /* DressingWorkerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

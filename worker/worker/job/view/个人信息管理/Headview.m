@@ -134,7 +134,7 @@
     }
     
     
-    [self.delegate tempVal:btn.tag];
+    [self.delegate tempval:btn.tag];
 }
 
 
