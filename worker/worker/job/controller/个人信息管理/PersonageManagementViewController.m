@@ -553,33 +553,61 @@
 
 
 //信息预览等点击事件的代理方法
-- (void)tempVal: (NSInteger)type
+- (void)tempval: (NSInteger)type
 {
-    [dataArray removeAllObjects];
     
     if (type == 500)
     {
+        [dataArray removeAllObjects];
+        
+        
         typeInfo = 0;
         
         [self initUiData];
+        
+        [self.tableview reloadData];
+        
     }
     else if (type == 501)
     {
-        typeInfo = 1;
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否修改您的个人信息" preferredStyle:UIAlertControllerStyleAlert];
         
-        [self initEditData];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okaction = [UIAlertAction actionWithTitle:@"确认修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+        {
+            [dataArray removeAllObjects];
+            
+            typeInfo = 1;
+            
+            [self initEditData];
+            
+            [self.tableview reloadData];
+        }];
+        
+                                   
+                                   
+        [alertController addAction:cancelAction];
+        [alertController addAction:okaction];
+        
+        
+        [self presentViewController:alertController animated:YES completion:nil];
     }
     else
     {
+        [dataArray removeAllObjects];
+        
+        
         typeInfo = 2;
         
         [dataArray addObject:@"1"];
         [dataArray addObject:@"1"];
         [dataArray addObject:@"1"];
         
+        [self.tableview reloadData];
+        
     }
     
-    [self.tableview reloadData];
+    
 }
 
 

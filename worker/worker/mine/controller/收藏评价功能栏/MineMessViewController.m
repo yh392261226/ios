@@ -134,9 +134,9 @@
     
     rightlab.text = @"系统消息";
     
-    rightlab.tag = 300;
+    rightlab.textColor = [UIColor grayColor];
     
-    rightlab.textColor = [myselfway stringTOColor:@"0x2E84F8"];
+    rightlab.tag = 300;
     
     rightlab.font = [UIFont systemFontOfSize:15];
     
@@ -175,6 +175,9 @@
     return view;
 }
 
+
+
+
 //工作邀约按钮
 - (void)workerBtn
 {
@@ -186,6 +189,11 @@
     
     label.textColor = [UIColor redColor];
 }
+
+
+
+
+
 
 //系统消息按钮
 - (void)messBtn

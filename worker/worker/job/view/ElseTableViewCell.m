@@ -17,7 +17,7 @@
     {
         _title = [[UILabel alloc] init];
         _title.frame = CGRectMake(20, 15, 200, 30);
-        _title.font = [UIFont boldSystemFontOfSize:15];
+        _title.font = [UIFont boldSystemFontOfSize:17];
         _title.textColor = [myselfway stringTOColor:@"0x2E84F8"];
         [self.contentView addSubview:_title];
         

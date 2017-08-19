@@ -16,4 +16,8 @@
 //设置右滑返回
 - (void)slitherBack: (UINavigationController *)navi;
 
+
+//返回
+- (void)temp;
+
 @end

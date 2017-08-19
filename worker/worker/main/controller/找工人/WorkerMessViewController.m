@@ -8,6 +8,7 @@
 
 #import "WorkerMessViewController.h"
 #import "WorkerMessTableViewCell.h"
+#import "DressingViewController.h"
 
 @interface WorkerMessViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -137,7 +138,12 @@
 //筛选按钮的点击事件
 - (void)screenBtn
 {
-    NSLog(@"1");
+    self.hidesBottomBarWhenPushed = YES;
+    
+    DressingViewController *temp = [[DressingViewController alloc] init];
+    
+    [self presentViewController:temp animated:YES completion:nil];
+    
 }
 
 

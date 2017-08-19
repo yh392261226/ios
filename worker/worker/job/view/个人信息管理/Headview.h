@@ -10,7 +10,7 @@
 
 @protocol temIndexNum <NSObject>
 
-- (void)tempVal: (NSInteger)type;
+- (void)tempval: (NSInteger)type;
 
 @end
 

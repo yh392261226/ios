@@ -8,6 +8,7 @@
 
 #import "SeachJobViewController.h"
 #import "WorkerMessTableViewCell.h"
+#import "DressingWorkerViewController.h"
 
 @interface SeachJobViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -137,7 +138,11 @@
 //筛选按钮的点击事件
 - (void)screenBtn
 {
-    NSLog(@"1");
+    self.hidesBottomBarWhenPushed = YES;
+    
+    DressingWorkerViewController *temp = [[DressingWorkerViewController alloc] init];
+    
+    [self presentViewController:temp animated:YES completion:nil];
 }
 
 
