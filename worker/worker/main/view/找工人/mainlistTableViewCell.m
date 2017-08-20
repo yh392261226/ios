@@ -15,7 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        self.backgroundColor = [myselfway stringTOColor:@"0xF1F1F1"];
+      //  self.backgroundColor = [myselfway stringTOColor:@"0xF1F1F1"];
         
         _name = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 200, 30)];
         _name.textAlignment = NSTextAlignmentLeft;

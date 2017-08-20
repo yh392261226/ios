@@ -20,7 +20,6 @@
         
         self.scrollEnabled = NO;
         
-        
         self.delegate = self;
         self.dataSource = self;
         
@@ -45,35 +44,47 @@
     mainlistTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     cell.name.text = [_arr objectAtIndex:indexPath.row];
-    cell.image.image = [UIImage imageNamed:@"main_ok"];
+   
     
-    if (indexPath.row == 0)
+    if (index == indexPath)
     {
         cell.name.textColor = [UIColor redColor];
-        
     }
     else
     {
-        cell.image.hidden = YES;
+        cell.name.textColor = [UIColor blackColor];
     }
     
     
     
     cell.name.tag = indexPath.row + 100;
-    cell.image.tag = indexPath.row + 200;
+    
     
     return cell;
 }
+
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 40;
 }
 
+
+
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
  
+    index = indexPath;
+    
+    
+    
+    [self reloadData];
+    
     
     [self.deleage tempinfo:indexPath.row];
 }

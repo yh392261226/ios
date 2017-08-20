@@ -50,6 +50,7 @@
 		FB6F86A21F346BF900806108 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A11F346BF900806108 /* AdSupport.framework */; };
 		FB6F86A41F346C0500806108 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A31F346C0500806108 /* UserNotifications.framework */; };
 		FB6F86A61F346C1000806108 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A51F346C1000806108 /* libresolv.tbd */; };
+		FB75E6D81F4966010049D864 /* ViewpagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB75E6D71F4966010049D864 /* ViewpagerViewController.m */; };
 		FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703311F413DF50028EB84 /* EditCraftTableViewCell.m */; };
 		FB7703351F413E430028EB84 /* EditworkerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703341F413E430028EB84 /* EditworkerCollectionViewCell.m */; };
 		FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703371F4148F20028EB84 /* EdirAddTableViewCell.m */; };
@@ -80,6 +81,7 @@
 		FB85801B1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB85801A1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m */; };
 		FB85801E1F42A2C80085BAF1 /* ServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB85801D1F42A2C80085BAF1 /* ServiceViewController.m */; };
 		FB9911391F29757F0017A32B /* TabbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9911381F29757F0017A32B /* TabbarView.m */; };
+		FB9F326C1F46C923000D0F19 /* DressworkerUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9F326B1F46C923000D0F19 /* DressworkerUITableViewCell.m */; };
 		FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */; };
 		FBD796651F286B3700FA50BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796641F286B3700FA50BE /* main.m */; };
 		FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796671F286B3700FA50BE /* AppDelegate.m */; };
@@ -185,6 +187,8 @@
 		FB6F86A31F346C0500806108 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		FB6F86A51F346C1000806108 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		FB6F86A71F346CE100806108 /* worker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = worker.entitlements; sourceTree = "<group>"; };
+		FB75E6D61F4966010049D864 /* ViewpagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewpagerViewController.h; path = main/ViewpagerViewController.h; sourceTree = "<group>"; };
+		FB75E6D71F4966010049D864 /* ViewpagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewpagerViewController.m; path = main/ViewpagerViewController.m; sourceTree = "<group>"; };
 		FB7703301F413DF50028EB84 /* EditCraftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCraftTableViewCell.h; sourceTree = "<group>"; };
 		FB7703311F413DF50028EB84 /* EditCraftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCraftTableViewCell.m; sourceTree = "<group>"; };
 		FB7703331F413E430028EB84 /* EditworkerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditworkerCollectionViewCell.h; sourceTree = "<group>"; };
@@ -245,6 +249,8 @@
 		FB85801D1F42A2C80085BAF1 /* ServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceViewController.m; sourceTree = "<group>"; };
 		FB9911371F29757F0017A32B /* TabbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarView.h; sourceTree = "<group>"; };
 		FB9911381F29757F0017A32B /* TabbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarView.m; sourceTree = "<group>"; };
+		FB9F326A1F46C923000D0F19 /* DressworkerUITableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressworkerUITableViewCell.h; sourceTree = "<group>"; };
+		FB9F326B1F46C923000D0F19 /* DressworkerUITableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressworkerUITableViewCell.m; sourceTree = "<group>"; };
 		FBAB094C1F3D4BFE004CB16D /* workerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = workerCollectionViewCell.h; sourceTree = "<group>"; };
 		FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = workerCollectionViewCell.m; sourceTree = "<group>"; };
 		FBD796601F286B3700FA50BE /* worker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = worker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -591,6 +597,8 @@
 		FB7FA5971F32F75F0096F6F2 /* 找工作 */ = {
 			isa = PBXGroup;
 			children = (
+				FB9F326A1F46C923000D0F19 /* DressworkerUITableViewCell.h */,
+				FB9F326B1F46C923000D0F19 /* DressworkerUITableViewCell.m */,
 			);
 			path = "找工作";
 			sourceTree = "<group>";
@@ -703,6 +711,8 @@
 				FBD796A01F28899700FA50BE /* myselfway.m */,
 				FB9911371F29757F0017A32B /* TabbarView.h */,
 				FB9911381F29757F0017A32B /* TabbarView.m */,
+				FB75E6D61F4966010049D864 /* ViewpagerViewController.h */,
+				FB75E6D71F4966010049D864 /* ViewpagerViewController.m */,
 				FBD796631F286B3700FA50BE /* Supporting Files */,
 			);
 			path = worker;
@@ -1073,6 +1083,7 @@
 				FB7FA59C1F32F75F0096F6F2 /* MainTableViewCell.m in Sources */,
 				FB7FA5B41F32F81F0096F6F2 /* MineMessViewController.m in Sources */,
 				FB7FA5991F32F75F0096F6F2 /* SelecdCityViewController.m in Sources */,
+				FB9F326C1F46C923000D0F19 /* DressworkerUITableViewCell.m in Sources */,
 				FB8580181F4290190085BAF1 /* MoneyDetailsViewController.m in Sources */,
 				FB5D87F81F3045E800830F89 /* ElseTableViewCell.m in Sources */,
 				FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */,
@@ -1081,6 +1092,7 @@
 				FB8580151F42892D0085BAF1 /* MineMoneyViewController.m in Sources */,
 				FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */,
 				FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */,
+				FB75E6D81F4966010049D864 /* ViewpagerViewController.m in Sources */,
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
 				FB6D76001F418C63009FCF73 /* EvaluateViewController.m in Sources */,
 				FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */,

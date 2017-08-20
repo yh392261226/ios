@@ -12,6 +12,8 @@
 @interface MineMessViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
     NSMutableArray *dataArray;
+    
+    NSInteger type;    //判断是工作邀约还是系统消息
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -20,9 +22,12 @@
 
 @implementation MineMessViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    type = 0;
     
     dataArray = [NSMutableArray array];
     [dataArray addObject:@"1"];
@@ -33,6 +38,7 @@
     self.view.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
     
     [self tableview];
+    
     
 }
 
@@ -70,6 +76,15 @@
 {
     MessTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messcell"];
     
+    if (type == 1)
+    {
+        cell.look.hidden = YES;
+    }
+    else
+    {
+        cell.look.hidden = NO;
+    }
+    
     
     return cell;
 }
@@ -88,6 +103,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (type == 0)
+    {
+        NSLog(@"工作邀约");
+    }
+    else
+    {
+        NSLog(@"系统消息");
+    }
     
     
 }
@@ -121,7 +145,7 @@
     
     leftlab.tag = 200;
     
-    leftlab.textColor = [UIColor redColor];
+    leftlab.textColor = [UIColor grayColor];
     
     leftlab.font = [UIFont systemFontOfSize:15];
     
@@ -143,6 +167,16 @@
     rightlab.textAlignment = NSTextAlignmentCenter;
     
     [view addSubview:rightlab];
+    
+    
+    if (type == 0)
+    {
+        leftlab.textColor = [UIColor redColor];
+    }
+    else
+    {
+        rightlab.textColor = [UIColor redColor];
+    }
     
     
     [leftlab mas_makeConstraints:^(MASConstraintMaker *make)
@@ -181,13 +215,10 @@
 //工作邀约按钮
 - (void)workerBtn
 {
-    UILabel *label = [self.view viewWithTag:200];
-    UILabel *label1 = [self.view viewWithTag:300];
+    type = 0;
+  
     
-    label.textColor = [UIColor grayColor];
-    label1.textColor = [UIColor grayColor];
-    
-    label.textColor = [UIColor redColor];
+    [self.tableview reloadData];
 }
 
 
@@ -198,13 +229,10 @@
 //系统消息按钮
 - (void)messBtn
 {
-    UILabel *label = [self.view viewWithTag:200];
-    UILabel *label1 = [self.view viewWithTag:300];
+    type = 1;
     
-    label.textColor = [UIColor grayColor];
-    label1.textColor = [UIColor grayColor];
     
-    label1.textColor = [UIColor redColor];
+    [self.tableview reloadData];
 }
 
 

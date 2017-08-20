@@ -14,6 +14,7 @@
 #import "JPUSHService.h"
 #import <UserNotifications/UserNotifications.h>
 #import <UMSocialCore/UMSocialCore.h>
+#import "ViewpagerViewController.h"
 
 
 #define UshareKey @"598278a7310c937245000d29"
@@ -28,22 +29,44 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
     self.window.backgroundColor = [UIColor whiteColor];
     
-    [self initTab];
+    NSUserDefaults *useDef = [NSUserDefaults standardUserDefaults];
     
+    NSString *userName = [useDef objectForKey:@"firstName"];
+    
+    // 使用 NSUserDefaults 读取用户数据
+    if (![userName isEqualToString:@"userId"])
+    {
+        // 如果是第一次进入引导页
+        [useDef setObject:@"userId" forKey:@"firstName"];
+        
+        _window.rootViewController = [[ViewpagerViewController alloc] init];
+        
+        
+        
+    }
+    else
+    {
+        // 否则直接进入应用
+        
+        [self initTab];
+    } 
+    
+  
     [self BaiduMap];
     
     [self Jpush];
     
     [self Ushare];
     
-    
     [self.window makeKeyAndVisible];
     
     return YES;
+    
 }
 
 
