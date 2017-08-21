@@ -27,7 +27,9 @@
     
     NSMutableArray *listArray;      //列表tableview的数组
     
+    UIControl *cor;      //背景
     
+    NSString *adree;     //位置信息的字段
 }
 
 
@@ -43,6 +45,10 @@
     self.window = [[UIApplication sharedApplication] keyWindow];
     
     listTab = [[listTableView alloc] init];
+    
+    cor = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    cor.hidden = YES;
+    
     
     listArray = [NSMutableArray arrayWithObjects:@"afafadf",@"asadf", @"dfgsgf", nil];
     
@@ -69,6 +75,7 @@
 {
     if (!_tableview)
     {
+        
         _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 65) style:UITableViewStylePlain];
         
         [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -84,6 +91,7 @@
         _tableview.dataSource = self;
         
         [self.view addSubview:_tableview];
+        
     }
     
     return _tableview;
@@ -123,6 +131,7 @@
             
             if (!cell)
             {
+                
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
                 
                 UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(20, 5, SCREEN_WIDTH - 40, 30)];
@@ -138,6 +147,7 @@
                 [cell addSubview:field];
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
             }
             
             
@@ -260,9 +270,11 @@
                 
                 data.font = [UIFont systemFontOfSize:16];
                 
+                data.placeholder = @"点击选择";
+                
                 data.enabled = NO;
                 
-                data.text = @"张飞喜欢上曹操";
+                data.text = adree;
                 
                 [cell addSubview:data];
                 
@@ -434,28 +446,45 @@
 //加载listtableveiw   列表的tableview。  点击显示
 - (void)initlistView
 {
+    cor.hidden = NO;
+    
+    cor.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    
+    [cor addTarget:self action:@selector(colseback) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_window addSubview:cor];
+    
     
     CGFloat height = listArray.count * 40;
     
     listTab.frame = CGRectMake(100, 185, 200, height);
     
+    listTab.deleage = self;
     
+    listTab.hidden = NO;
     listTab.arr = listArray;
     
-    [self.window addSubview:listTab];
+    listTab.layer.cornerRadius = 10;
+    
+    [cor addSubview:listTab];
     
     [listTab mas_makeConstraints:^(MASConstraintMaker *make)
     {
         make.top.mas_equalTo(self.view).offset(185);
-        make.left.mas_equalTo(self.view).offset(100);
-        make.right.mas_equalTo(self.view).offset(-15);
+        make.left.mas_equalTo(self.view).offset(20);
+        make.right.mas_equalTo(self.view).offset(-20);
         make.height.mas_equalTo(height);
     }];
     
 }
 
 
-
+//关闭背景和listview
+- (void)colseback
+{
+    cor.hidden = YES;
+    listTab.hidden = YES;
+}
 
 
 
@@ -471,7 +500,17 @@
 }
 
 
-
+//搜索范围的listtab的代理方法
+- (void)tempinfo: (NSInteger)info
+{
+    adree = [listArray objectAtIndex:info];
+    
+    listTab.hidden = YES;
+    cor.hidden = YES;
+    
+    
+    [self.tableview reloadData];
+}
 
 
 

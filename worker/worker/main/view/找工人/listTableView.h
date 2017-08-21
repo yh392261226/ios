@@ -10,11 +10,17 @@
 
 @protocol tpinfo <NSObject>
 
+
+//选择范围
 - (void)tempinfo: (NSInteger)info;
+
 
 @end
 
 @interface listTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
+{
+    NSIndexPath *index;
+}
 
 @property (nonatomic, strong)id <tpinfo> deleage;
 
