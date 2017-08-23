@@ -22,7 +22,9 @@
         
         _IconImage.layer.cornerRadius = 25;
         
-        _IconImage.backgroundColor = [UIColor orangeColor];
+        _IconImage.layer.masksToBounds = YES;
+        
+        _IconImage.image = [UIImage imageNamed:@"job_icon"];
         
         [self.contentView addSubview:_IconImage];
         

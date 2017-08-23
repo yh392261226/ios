@@ -18,9 +18,20 @@
     {
         _AddImage = [[UIImageView alloc] init];
         
+        _AddImage.frame = CGRectMake(20, 10, 30, 30);
+        
         _AddImage.image = [UIImage imageNamed:@"job_add"];
         
         [self.contentView addSubview:_AddImage];
+        
+        
+//        [_AddImage mas_makeConstraints:^(MASConstraintMaker *make)
+//         {
+//             make.top.mas_equalTo(self.contentView).offset(10);
+//             make.left.mas_equalTo(self.contentView).offset(20);
+//             make.width.mas_equalTo(30);
+//             make.height.mas_equalTo(30);
+//         }];
     
     }
     
@@ -28,19 +39,13 @@
 }
 
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    [_AddImage mas_makeConstraints:^(MASConstraintMaker *make)
-    {
-        make.top.mas_equalTo(self.contentView).offset(10);
-        make.left.mas_equalTo(self.contentView).offset(20);
-        make.width.mas_equalTo(30);
-        make.height.mas_equalTo(30);
-    }];
-    
-}
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    
+//    
+//    
+//}
 
 
 

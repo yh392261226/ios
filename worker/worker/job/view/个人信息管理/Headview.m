@@ -20,6 +20,10 @@
         
         _Icon.image = [UIImage imageNamed:@"job_icon"];
         
+        _Icon.layer.masksToBounds = YES;
+        
+        _Icon.layer.cornerRadius = 30;
+        
         [self addSubview:_Icon];
         
         
@@ -46,7 +50,7 @@
         [self addSubview:_introduce];
         
         
-        _line = [[UIView alloc] initWithFrame:CGRectMake(0, 69, SCREEN_WIDTH, 1)];
+        _line = [[UIView alloc] initWithFrame:CGRectMake(0, 79, SCREEN_WIDTH, 1)];
         _line.backgroundColor = [myselfway stringTOColor:@"0x808080"];
         [self addSubview:_line];
         
@@ -74,7 +78,7 @@
         
         [_btn addTarget:self action:@selector(selecedbtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        _btn.frame = CGRectMake(i * (SCREEN_WIDTH / self.dataArray.count), 70, SCREEN_WIDTH / self.dataArray.count, 40);
+        _btn.frame = CGRectMake(i * (SCREEN_WIDTH / self.dataArray.count), 80, SCREEN_WIDTH / self.dataArray.count, 40);
         
         [self addSubview:_btn];
         
@@ -118,20 +122,20 @@
 
 - (void)selecedbtn: (UIButton *)btn
 {
-    for (int i = 0; i < self.dataArray.count; i++)
-    {
-        UILabel *label = [self viewWithTag:600 + i];
-        
-        if (btn.tag == 500 + i)
-        {
-            label.textColor = [UIColor redColor];
-        }
-        else
-        {
-            label.textColor = [UIColor grayColor];
-        }
-        
-    }
+//    for (int i = 0; i < self.dataArray.count; i++)
+//    {
+//        UILabel *label = [self viewWithTag:600 + i];
+//        
+//        if (btn.tag == 500 + i)
+//        {
+//            label.textColor = [UIColor redColor];
+//        }
+//        else
+//        {
+//            label.textColor = [UIColor grayColor];
+//        }
+//        
+//    }
     
     
     [self.delegate tempval:btn.tag];
@@ -149,8 +153,8 @@
     {
         make.centerX.mas_equalTo(self);
         make.top.mas_equalTo(self).offset(10);
-        make.width.mas_equalTo(50);
-        make.height.mas_equalTo(50);
+        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(60);
     }];
     
     [_btnIcon mas_makeConstraints:^(MASConstraintMaker *make)
@@ -165,7 +169,7 @@
     [_introduce mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.left.mas_equalTo(_Icon).offset(70);
-         make.top.mas_equalTo(self).offset(15);
+         make.top.mas_equalTo(self).offset(20);
          make.width.mas_equalTo(100);
          make.height.mas_equalTo(40);
      }];
