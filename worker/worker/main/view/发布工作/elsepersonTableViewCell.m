@@ -22,7 +22,7 @@
         
         _money.text = @"元/人/天";
         
-        _money.font = [UIFont systemFontOfSize:14];
+        _money.font = [UIFont systemFontOfSize:15];
         
         [self.contentView addSubview:_money];
         
@@ -31,12 +31,15 @@
         
         _moneyfield.placeholder = @"输入工人工资";
         
+        [self.moneyfield setValue:[UIFont systemFontOfSize:16.0] forKeyPath:@"_placeholderLabel.font"];
+        
         [self.contentView addSubview:_moneyfield];
         
+
         
         _person = [[UILabel alloc] init];
         
-        _person.font = [UIFont systemFontOfSize:14];
+        _person.font = [UIFont systemFontOfSize:15];
         
         _person.textAlignment = NSTextAlignmentRight;
         
@@ -48,6 +51,8 @@
         _personfield = [[UITextField alloc] init];
         
         _personfield.placeholder = @"输入招工个数";
+        
+        [self.personfield setValue:[UIFont systemFontOfSize:16.0] forKeyPath:@"_placeholderLabel.font"];
         
         [self.contentView addSubview:_personfield];
         
@@ -66,6 +71,32 @@
 {
     [super layoutSubviews];
     
+    [_moneyfield mas_makeConstraints:^(MASConstraintMaker *make)
+    {
+        make.right.mas_equalTo(_money).offset(-65);
+        make.top.mas_equalTo(self.contentView).offset(7);
+        make.width.mas_equalTo(110);
+        make.height.mas_equalTo(30);
+    }];
+    
+    
+    
+    [_person mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.right.mas_equalTo(_moneyfield).offset(-120);
+         make.top.mas_equalTo(self.contentView).offset(5);
+         make.width.mas_equalTo(20);
+         make.height.mas_equalTo(30);
+     }];
+    
+    
+    [_personfield mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.right.mas_equalTo(_person).offset(-25);
+         make.top.mas_equalTo(self.contentView).offset(7);
+         make.width.mas_equalTo(107);
+         make.height.mas_equalTo(30);
+     }];
     
 
 }

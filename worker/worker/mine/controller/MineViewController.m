@@ -44,9 +44,9 @@
     
     dataArray = [NSMutableArray array];
     
-    elseIcon = [NSMutableArray arrayWithObjects:@"mine_wet",@"mine_list",@"mine_set",@"mine_call", nil];
+    elseIcon = [NSMutableArray arrayWithObjects:@" ", @"mine_wet",@"mine_list",@"mine_set",@"mine_call", nil];
     
-    titleArr = [NSMutableArray arrayWithObjects:@"邀请好友",@"服务条款",@"设置",@"客服", nil];
+    titleArr = [NSMutableArray arrayWithObjects:@"设置提现密码", @"邀请好友",@"服务条款",@"设置",@"客服", nil];
     
     
     [self initHeadView];
@@ -88,7 +88,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 7;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -187,26 +187,27 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     self.hidesBottomBarWhenPushed = YES;
-    if (indexPath.section == 4)
+    
+    if (indexPath.section == 5)
     {
         ServiceViewController *temp = [[ServiceViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
     }
     
-    else if (indexPath.section == 3)
+    else if (indexPath.section == 4)
     {
         FriendViewController *temp = [[FriendViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
     }
-    else if(indexPath.section == 5)
+    else if(indexPath.section == 6)
     {
         SetViewController *temp = [[SetViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
     }
-    else
+    else if(indexPath.section == 7)
     {
         
         NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"15045281940"];
@@ -215,6 +216,12 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
        
     }
+    else
+    {
+        NSLog(@"提现密码");
+    }
+    
+    
     
     self.hidesBottomBarWhenPushed = NO;
     

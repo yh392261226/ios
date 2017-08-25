@@ -52,6 +52,7 @@
 		FB6F86A41F346C0500806108 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A31F346C0500806108 /* UserNotifications.framework */; };
 		FB6F86A61F346C1000806108 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A51F346C1000806108 /* libresolv.tbd */; };
 		FB75E6D81F4966010049D864 /* ViewpagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB75E6D71F4966010049D864 /* ViewpagerViewController.m */; };
+		FB75E8291F4E67F100140335 /* elseDelegateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB75E8281F4E67F100140335 /* elseDelegateTableViewCell.m */; };
 		FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703311F413DF50028EB84 /* EditCraftTableViewCell.m */; };
 		FB7703351F413E430028EB84 /* EditworkerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703341F413E430028EB84 /* EditworkerCollectionViewCell.m */; };
 		FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703371F4148F20028EB84 /* EdirAddTableViewCell.m */; };
@@ -196,6 +197,8 @@
 		FB6F86A71F346CE100806108 /* worker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = worker.entitlements; sourceTree = "<group>"; };
 		FB75E6D61F4966010049D864 /* ViewpagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewpagerViewController.h; path = main/ViewpagerViewController.h; sourceTree = "<group>"; };
 		FB75E6D71F4966010049D864 /* ViewpagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewpagerViewController.m; path = main/ViewpagerViewController.m; sourceTree = "<group>"; };
+		FB75E8271F4E67F100140335 /* elseDelegateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = elseDelegateTableViewCell.h; sourceTree = "<group>"; };
+		FB75E8281F4E67F100140335 /* elseDelegateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = elseDelegateTableViewCell.m; sourceTree = "<group>"; };
 		FB7703301F413DF50028EB84 /* EditCraftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCraftTableViewCell.h; sourceTree = "<group>"; };
 		FB7703311F413DF50028EB84 /* EditCraftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCraftTableViewCell.m; sourceTree = "<group>"; };
 		FB7703331F413E430028EB84 /* EditworkerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditworkerCollectionViewCell.h; sourceTree = "<group>"; };
@@ -594,6 +597,8 @@
 				FBE30BD81F4D7271001F5DFB /* elsepersonTableViewCell.m */,
 				FBE30BDA1F4D7847001F5DFB /* elsetimeTableViewCell.h */,
 				FBE30BDB1F4D7847001F5DFB /* elsetimeTableViewCell.m */,
+				FB75E8271F4E67F100140335 /* elseDelegateTableViewCell.h */,
+				FB75E8281F4E67F100140335 /* elseDelegateTableViewCell.m */,
 			);
 			path = "发布工作";
 			sourceTree = "<group>";
@@ -1123,6 +1128,7 @@
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
 				FB6D76001F418C63009FCF73 /* EvaluateViewController.m in Sources */,
 				FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */,
+				FB75E8291F4E67F100140335 /* elseDelegateTableViewCell.m in Sources */,
 				FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */,
 				FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */,
 				FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */,

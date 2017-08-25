@@ -62,10 +62,14 @@
 #import "BriefTableViewCell.h"
 #import "elsepersonTableViewCell.h"
 #import "elsetimeTableViewCell.h"
+#import "elseDelegateTableViewCell.h"
 
 @interface IssueViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;        //支撑页面的大数组
+    
+    
+    
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -79,6 +83,7 @@
     // Do any additional setup after loading the view.
     
     dataArray = [NSMutableArray array];
+    
     
     [self initData];
     
@@ -107,8 +112,13 @@
         
         [_tableview registerClass:[elsepersonTableViewCell class] forCellReuseIdentifier:@"elseperson"];
         [_tableview registerClass:[elsetimeTableViewCell class] forCellReuseIdentifier:@"elsetime"];
+        [_tableview registerClass:[elseDelegateTableViewCell class] forCellReuseIdentifier:@"deletecell"];
+        
         
         _tableview.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
+        
+        _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
+        _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
         
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -149,13 +159,41 @@
         {
             lssueUserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"usercell"];
             
+            if(indexPath.row == 0)
+            {
+                cell.name.text = @"标题:";
+                cell.data.placeholder = @"工程名称";
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            else if (indexPath.row == 2)
+            {
+                cell.name.text = @"工作类型:";
+                cell.data.placeholder = @"选择项目类型";
+                cell.data.enabled = NO;
+            }
+            else if (indexPath.row == 3)
+            {
+                cell.name.text = @"选择区域:";
+                cell.data.enabled = NO;
+                cell.data.placeholder = @"选择工作所在区域";
+            }
+            else
+            {
+                cell.name.text = @"详细地址:";
+                cell.data.placeholder = @"请填写详细地址,不少于5个字";
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
             return cell;
         }
         else
         {
             BriefTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"briefcell"];
             
-            cell.name.text = @"描述";
+            cell.name.font = [UIFont systemFontOfSize:16];
+            cell.name.text = @"描述:";
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             return cell;
         }
@@ -167,20 +205,11 @@
         
         if (info.workerType == 0)
         {
-            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            lssueUserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"usercell"];
             
-            if (!cell)
-            {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-                
-                UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 80, 30)];
-                
-                name.text = @"选择招聘工种";
-                
-                name.font = [UIFont systemFontOfSize:16];
-                
-                [cell addSubview:name];
-            }
+            cell.name.text = @"选择工种:";
+            cell.data.placeholder = @"点击选择招聘工种";
+            cell.data.enabled = NO;
             
             return cell;
             
@@ -189,16 +218,26 @@
         {
             elsepersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"elseperson"];
             
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             return cell;
         }
-        else
+        else if(info.workerType == 2)
         {
             elsetimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"elsetime"];
             
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             return cell;
         
+        }
+        else
+        {
+            elseDelegateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"deletecell"];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            return cell;
         }
         
     }
@@ -209,15 +248,50 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    NSArray *arr = [dataArray objectAtIndex:indexPath.section];
+    
+    selecdType *data = [arr objectAtIndex:indexPath.row];
+    
+    if (data.bigType == 1)
+    {
+        firstModel *info = (firstModel *)data;
+        
+        if (info.type == 1)
+        {
+            return 120;
+        }
+        else
+        {
+            return 40;
+        }
+        
+    }
+    else
+    {
+        return 40;
+    }
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == 1 && section == 0)
+    {
+        return 0.1;
+    }
+    else
     {
         return 15;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    NSInteger count = dataArray.count;
+    
+    if (count - 1 == section)
+    {
+        return 70;
     }
     else
     {
@@ -225,25 +299,46 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 15;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
- 
+    NSArray *arr = [dataArray objectAtIndex:indexPath.section];
+    
+    selecdType *data = [arr objectAtIndex:indexPath.row];
+    
+    if (data.bigType == 1)
+    {
+        
+    }
+    else
+    {
+        elseModel *info = (elseModel *)data;
+        
+        if (info.workerType == 3)
+        {
+            //删除工种cell
+            
+            [dataArray removeObjectAtIndex:indexPath.section];
+            
+            [self.tableview reloadData];
+            
+        }
+    }
     
 }
+
+
+
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
+    NSInteger count = dataArray.count;
+    
     UIView *footview = [[UIView alloc] init];
     
-    if (section == 2)
+    if (count - 1 == section)
     {
+        
         UIButton *save = [UIButton buttonWithType:UIButtonTypeSystem];
         
         [save setTitle:@"确认提交" forState:UIControlStateNormal];
@@ -259,6 +354,7 @@
         save.tintColor = [UIColor whiteColor];
         
         [footview addSubview:save];
+        
     }
     
     
@@ -269,7 +365,12 @@
 
 
 
+//确认提交按钮
+- (void)Escbtn
+{
 
+    NSLog(@"提交");
+}
 
 
 
@@ -337,11 +438,24 @@
     
     [elseArray addObject:data2];
     
+
+    elseModel *data3 = [[elseModel alloc] init];
+    
+    data3.bigType = 0;
+    
+    data3.workerType = 3;
+    
+    [elseArray addObject:data3];
     
     [dataArray addObject:elseArray];
     
     
     [self.tableview reloadData];
+
+    NSIndexPath *dayOne = [NSIndexPath indexPathForRow:0 inSection:dataArray.count - 1];
+    
+    [self.tableview scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
 }
 
 
@@ -472,6 +586,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
+}
+
 
 
 

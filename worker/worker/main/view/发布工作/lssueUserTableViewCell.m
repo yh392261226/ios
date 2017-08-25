@@ -27,14 +27,13 @@
         
         
         
-        _data = [[UITextField alloc] initWithFrame:CGRectMake(100, 5, 200, 30)];
+        _data = [[UITextField alloc] initWithFrame:CGRectMake(100, 5, 300, 30)];
         
         _data.font = [UIFont systemFontOfSize:16];
         
         _data.placeholder = @"点击选择";
         
-        _data.enabled = NO;
-        
+//      _data.enabled = NO;
         
         [self.contentView addSubview:_data];
     }

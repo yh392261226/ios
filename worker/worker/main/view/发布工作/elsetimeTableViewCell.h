@@ -10,4 +10,10 @@
 
 @interface elsetimeTableViewCell : UITableViewCell
 
+
+@property (nonatomic, strong)UILabel *name;
+@property (nonatomic, strong)UIView *line;
+@property (nonatomic, strong)UITextField *startTime;
+@property (nonatomic, strong)UITextField *endTime;
+
 @end
