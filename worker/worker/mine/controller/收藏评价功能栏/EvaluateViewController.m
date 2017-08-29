@@ -96,9 +96,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     EvaluateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
+    cell.evaluate.image = [UIImage imageNamed:@"evalu_1"];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     

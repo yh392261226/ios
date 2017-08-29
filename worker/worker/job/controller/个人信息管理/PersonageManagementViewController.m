@@ -28,7 +28,7 @@
 
 
 
-//数据类
+//信息和信息预览数据类
 @interface PersonDataClass : NSObject
 
 @property (nonatomic)NSInteger typeInf;   //判断cell类型
@@ -57,22 +57,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-@interface PersonageManagementViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface PersonageManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
-    NSMutableArray *dataArray;
+    NSMutableArray *dataArray;    //信息和信息预览的数组
     
-    
+    NSMutableArray *recordArray;    //投递记录的数组
     
     NSMutableArray *nameArr;     //信息预览，编辑信息的按钮名称数组
     
@@ -81,9 +70,13 @@
     Headview *Hview;
     
     NSMutableArray *arr;    //预览页面最下放工种的数组
+    
+    NSString *dataTime;     //datapick获取的时间
 }
 
 @property (nonatomic, strong)UITableView *tableview;
+
+@property (nonatomic, strong)UIDatePicker *dataPick;
 
 @end
 
@@ -96,6 +89,10 @@
     typeInfo = 0;    //初始化为0，默认选择是信息预览
     
     dataArray = [NSMutableArray array];
+    recordArray = [NSMutableArray array];
+    [recordArray addObject:@"1"];
+    [recordArray addObject:@"1"];
+    [recordArray addObject:@"1"];
     
     arr = [NSMutableArray arrayWithObjects:@"水泥工",@"水暖工",@"瓦工", @"壁纸工",@"张飞", nil];
     
@@ -115,6 +112,10 @@
     
     [self tableview];
     
+    //加载datapick
+    [self dataPick];
+    _dataPick.hidden = YES;
+    
 }
 
 
@@ -122,7 +123,7 @@
 //加载headview
 - (void)initHeadView
 {
-    Hview = [[Headview alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, 110)];
+    Hview = [[Headview alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, 120)];
     
     Hview.dataArray = nameArr;
     
@@ -137,13 +138,65 @@
 
 
 
+#pragma dataPick
+- (UIDatePicker *)dataPick
+{
+    if (!_dataPick)
+    {
+        _dataPick = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 216, self.view.frame.size.width, 216)];
+        
+        _dataPick.datePickerMode = UIDatePickerModeDate;
+        _dataPick.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        
+        [_dataPick addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+        //重点：UIControlEventValueChanged
+        //设置显示格式
+        //默认根据手机本地设置显示为中文还是其他语言
+        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+        //设置为中文显示
+        _dataPick.locale = locale;
+        
+        _dataPick.timeZone = [NSTimeZone timeZoneWithName:@"GTM+8"];
+        _dataPick.datePickerMode = UIDatePickerModeDate;
+
+        [self.view addSubview:_dataPick];
+       
+    }
+    
+    return _dataPick;
+}
+
+//更改时间
+- (void)dateChanged: (id)sender
+{
+    //NSDate格式转换为NSString格式
+    NSDate *pickerDate = [_dataPick date];
+    
+    // 获取用户通过UIDatePicker设置的日期和时间
+    NSDateFormatter *pickerFormatter = [[NSDateFormatter alloc] init];
+    
+    // 创建一个日期格式器
+    [pickerFormatter setDateFormat:@"yyyy年MM月dd日"];
+    NSString *dateString = [pickerFormatter stringFromDate:pickerDate];
+    
+    //打印显示日期时间
+    dataTime = dateString;
+    
+    PersonDataClass *data = [dataArray objectAtIndex:2];
+    data.data = dataTime;
+    
+    [self.tableview reloadData];
+   
+}
+
+
 #pragma tableview代理
 
 - (UITableView *)tableview
 {
     if (!_tableview)
     {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 176, SCREEN_WIDTH, SCREEN_HEIGHT - 176) style:UITableViewStyleGrouped];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 186, SCREEN_WIDTH, SCREEN_HEIGHT - 186) style:UITableViewStyleGrouped];
         
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -177,7 +230,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return dataArray.count;
+    if (typeInfo == 2)
+    {
+        return recordArray.count;
+    }
+    else
+    {
+       return dataArray.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -326,7 +386,7 @@
             }
             else
             {
-                cell.womanBtn.backgroundColor = [UIColor grayColor];
+                cell.womanBtn.backgroundColor = [UIColor redColor];
             }
             
             return cell;
@@ -345,9 +405,16 @@
         }
         else
         {
-            EdirAddTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"endcell"];
+            EdirAddTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
-            
+            if (!cell)
+            {
+                cell = [[EdirAddTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"endcell"];
+                
+                
+               // cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+            }
             
             return cell;
         }
@@ -462,7 +529,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (typeInfo == 1)
+    {
+        if (indexPath.row == 2)
+        {
+            _dataPick.hidden = NO;
+        }
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -498,6 +571,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.view endEditing:YES];
+    _dataPick.hidden = YES;
 }
 
 
@@ -506,34 +580,46 @@
 //工种的点击事件代理方法，点击后删除该工种
 - (void)tempValNum: (NSInteger)info
 {
-    NSLog(@"%ld", info);
+    PersonDataClass *data = [dataArray objectAtIndex:8];
+    
+    [data.workerArray removeObjectAtIndex:info];
+    
+    [self.tableview reloadData];
 }
 
 
 //选择性别男的按钮
 - (void)manBtn: (UIButton *)btn
 {
-    NSLog(@"男");
+    PersonDataClass *data = [dataArray objectAtIndex:1];
+    data.sex = @"男";
+    [self.tableview reloadData];
 }
 
 //选择性别女的按钮
 - (void)womanBtn: (UIButton *)btn
 {
-    NSLog(@"女");
-}
-
-
-//我是工人按钮
-- (void)yesWorker: (UIButton *)btn
-{
-    NSLog(@"我是工人");
+    PersonDataClass *data = [dataArray objectAtIndex:1];
+    data.sex = @"女";
+    [self.tableview reloadData];
 }
 
 
 //我不是工人按钮
+- (void)yesWorker: (UIButton *)btn
+{
+    PersonDataClass *data = [dataArray objectAtIndex:7];
+    data.sex = @"我不是工人";
+    [self.tableview reloadData];
+}
+
+
+//我是工人按钮
 - (void)noWorker: (UIButton *)btn
 {
-    NSLog(@"我不是工人");
+    PersonDataClass *data = [dataArray objectAtIndex:7];
+    data.sex = @"我是工人";
+    [self.tableview reloadData];
 }
 
 
@@ -542,71 +628,78 @@
 //提交信息按钮
 - (void)savebtn
 {
-    NSLog(@"提交");
+    NSLog(@"%@", dataArray);
 }
 
 //更换头像的点击事件
 - (void)ImageBtn
 {
-    NSLog(@"1");
+    [self addimage];
 }
 
 
 //信息预览等点击事件的代理方法
 - (void)tempval: (NSInteger)type
 {
+    //通过tag改变字体的颜色
+    UILabel *label1 = [self.view viewWithTag:600];
+    UILabel *label2 = [self.view viewWithTag:601];
+    UILabel *label3 = [self.view viewWithTag:602];
     
-    if (type == 500)
-    {
-        [dataArray removeAllObjects];
-        
-        
-        typeInfo = 0;
-        
-        [self initUiData];
-        
-        [self.tableview reloadData];
-        
-    }
-    else if (type == 501)
-    {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否修改您的个人信息" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *okaction = [UIAlertAction actionWithTitle:@"确认修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+        if (type == 500)
         {
+            label1.textColor = [UIColor redColor];
+            label2.textColor = [UIColor grayColor];
+            label3.textColor = [UIColor grayColor];
+            
             [dataArray removeAllObjects];
             
-            typeInfo = 1;
+            typeInfo = 0;
             
-            [self initEditData];
+            [self initUiData];
             
             [self.tableview reloadData];
-        }];
+        }
+        else if (type == 501)
+        {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否修改您的个人信息" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *okaction = [UIAlertAction actionWithTitle:@"确认修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                       {
+                                           label1.textColor = [UIColor grayColor];
+                                           label2.textColor = [UIColor redColor];
+                                           label3.textColor = [UIColor grayColor];
+                                           
+                                           [dataArray removeAllObjects];
+                                           
+                                           typeInfo = 1;
+                                           
+                                           [self initEditData];
+                                           
+                                           [self.tableview reloadData];
+                                       }];
+            
+            
+            
+            [alertController addAction:cancelAction];
+            [alertController addAction:okaction];
+            
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        else
+        {
+            label1.textColor = [UIColor grayColor];
+            label2.textColor = [UIColor grayColor];
+            label3.textColor = [UIColor redColor];
+            
+            typeInfo = 2;
+            
+            [self.tableview reloadData];
+        }
+
         
-                                   
-                                   
-        [alertController addAction:cancelAction];
-        [alertController addAction:okaction];
-        
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else
-    {
-        [dataArray removeAllObjects];
-        
-        
-        typeInfo = 2;
-        
-        [dataArray addObject:@"1"];
-        [dataArray addObject:@"1"];
-        [dataArray addObject:@"1"];
-        
-        [self.tableview reloadData];
-        
-    }
-    
     
 }
 
@@ -770,7 +863,64 @@
 }
 
 
+//添更换头像按钮
+- (void)addimage
+{
+    UIAlertController *Alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [Alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
+                      {
+                          
+                      }]];
+    [Alert addAction:[UIAlertAction actionWithTitle:@"从相册选择图片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                      {
+                          UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+                          imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                          imagePicker.delegate = self;
+                          imagePicker.allowsEditing = YES;
+                          [imagePicker.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavBar1"] forBarMetrics:UIBarMetricsDefault];
+                          
+                          [self presentViewController:imagePicker animated:YES completion:nil];
+                      }]];
+    
+    [Alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                      {
+                          if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
+                          {
+                              UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+                              imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                              imagePicker.delegate = self;
+                              imagePicker.allowsEditing = YES;
+                              [self presentViewController:imagePicker animated:YES completion:nil];
+                          }
+                          else
+                          {
+                              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"未检测到摄像头" delegate:nil cancelButtonTitle:nil                                                 otherButtonTitles:@"确定", nil];
+                              [alert show];
+                          }
+                      }]];
+    
+    [self presentViewController:Alert animated:YES completion:nil];
+    
+}
 
+//照相完，使用相片所走的方法
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    Hview.Icon.image = image;
+    
+    //网络请求上传图片
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+//点击取消所走的方法
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 @end

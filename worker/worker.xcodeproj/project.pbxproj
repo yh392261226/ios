@@ -13,6 +13,7 @@
 		FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */; };
 		FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13901F3AB96900A1C463 /* IssueViewController.m */; };
 		FB0C13941F3B061100A1C463 /* Headview.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13931F3B061100A1C463 /* Headview.m */; };
+		FB1B15971F4AC220001A7132 /* FriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1B15961F4AC220001A7132 /* FriendViewController.m */; };
 		FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D11F39590200BE510F /* WorkerManagementViewController.m */; };
 		FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D41F39592400BE510F /* EmployerManagementViewController.m */; };
 		FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D71F39594900BE510F /* PersonageManagementViewController.m */; };
@@ -51,6 +52,7 @@
 		FB6F86A41F346C0500806108 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A31F346C0500806108 /* UserNotifications.framework */; };
 		FB6F86A61F346C1000806108 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6F86A51F346C1000806108 /* libresolv.tbd */; };
 		FB75E6D81F4966010049D864 /* ViewpagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB75E6D71F4966010049D864 /* ViewpagerViewController.m */; };
+		FB75E8291F4E67F100140335 /* elseDelegateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB75E8281F4E67F100140335 /* elseDelegateTableViewCell.m */; };
 		FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703311F413DF50028EB84 /* EditCraftTableViewCell.m */; };
 		FB7703351F413E430028EB84 /* EditworkerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703341F413E430028EB84 /* EditworkerCollectionViewCell.m */; };
 		FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703371F4148F20028EB84 /* EdirAddTableViewCell.m */; };
@@ -83,6 +85,7 @@
 		FB9911391F29757F0017A32B /* TabbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9911381F29757F0017A32B /* TabbarView.m */; };
 		FB9F326C1F46C923000D0F19 /* DressworkerUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9F326B1F46C923000D0F19 /* DressworkerUITableViewCell.m */; };
 		FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */; };
+		FBBEFA351F4986A200B19C9D /* WorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBEFA341F4986A200B19C9D /* WorkerViewController.m */; };
 		FBD796651F286B3700FA50BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796641F286B3700FA50BE /* main.m */; };
 		FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796671F286B3700FA50BE /* AppDelegate.m */; };
 		FBD796731F286B3700FA50BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBD796721F286B3700FA50BE /* Assets.xcassets */; };
@@ -91,6 +94,9 @@
 		FBD7968C1F286B3700FA50BE /* workerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD7968B1F286B3700FA50BE /* workerUITests.m */; };
 		FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD7969D1F28874C00FA50BE /* BaseViewController.m */; };
 		FBD796A11F28899700FA50BE /* myselfway.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796A01F28899700FA50BE /* myselfway.m */; };
+		FBE30BD61F4D661D001F5DFB /* lssueUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE30BD51F4D661D001F5DFB /* lssueUserTableViewCell.m */; };
+		FBE30BD91F4D7271001F5DFB /* elsepersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE30BD81F4D7271001F5DFB /* elsepersonTableViewCell.m */; };
+		FBE30BDC1F4D7847001F5DFB /* elsetimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE30BDB1F4D7847001F5DFB /* elsetimeTableViewCell.m */; };
 		FBE4216D1F3D7A9100336990 /* EditTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4216C1F3D7A9100336990 /* EditTextTableViewCell.m */; };
 		FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4216F1F3D7CC300336990 /* EditSetTableViewCell.m */; };
 		FBE421731F3D8B8800336990 /* EditSelecedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE421721F3D8B8800336990 /* EditSelecedTableViewCell.m */; };
@@ -130,6 +136,8 @@
 		FB0C13901F3AB96900A1C463 /* IssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueViewController.m; sourceTree = "<group>"; };
 		FB0C13921F3B061100A1C463 /* Headview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Headview.h; sourceTree = "<group>"; };
 		FB0C13931F3B061100A1C463 /* Headview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Headview.m; sourceTree = "<group>"; };
+		FB1B15951F4AC220001A7132 /* FriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendViewController.h; sourceTree = "<group>"; };
+		FB1B15961F4AC220001A7132 /* FriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendViewController.m; sourceTree = "<group>"; };
 		FB2581D01F39590200BE510F /* WorkerManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerManagementViewController.h; sourceTree = "<group>"; };
 		FB2581D11F39590200BE510F /* WorkerManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkerManagementViewController.m; sourceTree = "<group>"; };
 		FB2581D31F39592400BE510F /* EmployerManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmployerManagementViewController.h; sourceTree = "<group>"; };
@@ -189,6 +197,8 @@
 		FB6F86A71F346CE100806108 /* worker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = worker.entitlements; sourceTree = "<group>"; };
 		FB75E6D61F4966010049D864 /* ViewpagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewpagerViewController.h; path = main/ViewpagerViewController.h; sourceTree = "<group>"; };
 		FB75E6D71F4966010049D864 /* ViewpagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewpagerViewController.m; path = main/ViewpagerViewController.m; sourceTree = "<group>"; };
+		FB75E8271F4E67F100140335 /* elseDelegateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = elseDelegateTableViewCell.h; sourceTree = "<group>"; };
+		FB75E8281F4E67F100140335 /* elseDelegateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = elseDelegateTableViewCell.m; sourceTree = "<group>"; };
 		FB7703301F413DF50028EB84 /* EditCraftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCraftTableViewCell.h; sourceTree = "<group>"; };
 		FB7703311F413DF50028EB84 /* EditCraftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCraftTableViewCell.m; sourceTree = "<group>"; };
 		FB7703331F413E430028EB84 /* EditworkerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditworkerCollectionViewCell.h; sourceTree = "<group>"; };
@@ -253,6 +263,8 @@
 		FB9F326B1F46C923000D0F19 /* DressworkerUITableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressworkerUITableViewCell.m; sourceTree = "<group>"; };
 		FBAB094C1F3D4BFE004CB16D /* workerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = workerCollectionViewCell.h; sourceTree = "<group>"; };
 		FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = workerCollectionViewCell.m; sourceTree = "<group>"; };
+		FBBEFA331F4986A200B19C9D /* WorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WorkerViewController.h; path = main/WorkerViewController.h; sourceTree = "<group>"; };
+		FBBEFA341F4986A200B19C9D /* WorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WorkerViewController.m; path = main/WorkerViewController.m; sourceTree = "<group>"; };
 		FBD796601F286B3700FA50BE /* worker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = worker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBD796641F286B3700FA50BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBD796661F286B3700FA50BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -271,6 +283,12 @@
 		FBD7969D1F28874C00FA50BE /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		FBD7969F1F28899700FA50BE /* myselfway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myselfway.h; sourceTree = "<group>"; };
 		FBD796A01F28899700FA50BE /* myselfway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myselfway.m; sourceTree = "<group>"; };
+		FBE30BD41F4D661D001F5DFB /* lssueUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lssueUserTableViewCell.h; sourceTree = "<group>"; };
+		FBE30BD51F4D661D001F5DFB /* lssueUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lssueUserTableViewCell.m; sourceTree = "<group>"; };
+		FBE30BD71F4D7271001F5DFB /* elsepersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = elsepersonTableViewCell.h; sourceTree = "<group>"; };
+		FBE30BD81F4D7271001F5DFB /* elsepersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = elsepersonTableViewCell.m; sourceTree = "<group>"; };
+		FBE30BDA1F4D7847001F5DFB /* elsetimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = elsetimeTableViewCell.h; sourceTree = "<group>"; };
+		FBE30BDB1F4D7847001F5DFB /* elsetimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = elsetimeTableViewCell.m; sourceTree = "<group>"; };
 		FBE4216B1F3D7A9100336990 /* EditTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTextTableViewCell.h; sourceTree = "<group>"; };
 		FBE4216C1F3D7A9100336990 /* EditTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTextTableViewCell.m; sourceTree = "<group>"; };
 		FBE4216E1F3D7CC300336990 /* EditSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSetTableViewCell.h; sourceTree = "<group>"; };
@@ -573,6 +591,14 @@
 		FB7FA5911F32F75F0096F6F2 /* 发布工作 */ = {
 			isa = PBXGroup;
 			children = (
+				FBE30BD41F4D661D001F5DFB /* lssueUserTableViewCell.h */,
+				FBE30BD51F4D661D001F5DFB /* lssueUserTableViewCell.m */,
+				FBE30BD71F4D7271001F5DFB /* elsepersonTableViewCell.h */,
+				FBE30BD81F4D7271001F5DFB /* elsepersonTableViewCell.m */,
+				FBE30BDA1F4D7847001F5DFB /* elsetimeTableViewCell.h */,
+				FBE30BDB1F4D7847001F5DFB /* elsetimeTableViewCell.m */,
+				FB75E8271F4E67F100140335 /* elseDelegateTableViewCell.h */,
+				FB75E8281F4E67F100140335 /* elseDelegateTableViewCell.m */,
 			);
 			path = "发布工作";
 			sourceTree = "<group>";
@@ -614,6 +640,8 @@
 				FB77033D1F4182000028EB84 /* SetViewController.m */,
 				FB85801C1F42A2C80085BAF1 /* ServiceViewController.h */,
 				FB85801D1F42A2C80085BAF1 /* ServiceViewController.m */,
+				FB1B15951F4AC220001A7132 /* FriendViewController.h */,
+				FB1B15961F4AC220001A7132 /* FriendViewController.m */,
 				FB7FA5B11F32F80C0096F6F2 /* 收藏评价功能栏 */,
 			);
 			path = controller;
@@ -713,6 +741,8 @@
 				FB9911381F29757F0017A32B /* TabbarView.m */,
 				FB75E6D61F4966010049D864 /* ViewpagerViewController.h */,
 				FB75E6D71F4966010049D864 /* ViewpagerViewController.m */,
+				FBBEFA331F4986A200B19C9D /* WorkerViewController.h */,
+				FBBEFA341F4986A200B19C9D /* WorkerViewController.m */,
 				FBD796631F286B3700FA50BE /* Supporting Files */,
 			);
 			path = worker;
@@ -1079,12 +1109,14 @@
 				FB85801B1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m in Sources */,
 				FB5D87EC1F30227100830F89 /* JobViewController.m in Sources */,
 				FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */,
+				FBE30BD61F4D661D001F5DFB /* lssueUserTableViewCell.m in Sources */,
 				FB7F384A1F37FB130082A8FA /* LoginViewController.m in Sources */,
 				FB7FA59C1F32F75F0096F6F2 /* MainTableViewCell.m in Sources */,
 				FB7FA5B41F32F81F0096F6F2 /* MineMessViewController.m in Sources */,
 				FB7FA5991F32F75F0096F6F2 /* SelecdCityViewController.m in Sources */,
 				FB9F326C1F46C923000D0F19 /* DressworkerUITableViewCell.m in Sources */,
 				FB8580181F4290190085BAF1 /* MoneyDetailsViewController.m in Sources */,
+				FB1B15971F4AC220001A7132 /* FriendViewController.m in Sources */,
 				FB5D87F81F3045E800830F89 /* ElseTableViewCell.m in Sources */,
 				FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */,
 				FB7FA59D1F32F75F0096F6F2 /* ProfessionTableViewCell.m in Sources */,
@@ -1096,9 +1128,11 @@
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
 				FB6D76001F418C63009FCF73 /* EvaluateViewController.m in Sources */,
 				FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */,
+				FB75E8291F4E67F100140335 /* elseDelegateTableViewCell.m in Sources */,
 				FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */,
 				FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */,
 				FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */,
+				FBE30BDC1F4D7847001F5DFB /* elsetimeTableViewCell.m in Sources */,
 				FB7FA5BA1F330EB60096F6F2 /* MessTableViewCell.m in Sources */,
 				FB7703351F413E430028EB84 /* EditworkerCollectionViewCell.m in Sources */,
 				FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */,
@@ -1110,10 +1144,12 @@
 				FB7FA5AE1F32F7670096F6F2 /* MineLoginTableViewCell.m in Sources */,
 				FB7703411F4182B50028EB84 /* SetTableViewCell.m in Sources */,
 				FBE4216D1F3D7A9100336990 /* EditTextTableViewCell.m in Sources */,
+				FBE30BD91F4D7271001F5DFB /* elsepersonTableViewCell.m in Sources */,
 				FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */,
 				FB64B3391F457E89001418D1 /* listTableView.m in Sources */,
 				FB64B33A1F457E89001418D1 /* mainlistTableViewCell.m in Sources */,
 				FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */,
+				FBBEFA351F4986A200B19C9D /* WorkerViewController.m in Sources */,
 				FB6F86541F3416C800806108 /* workerModel.m in Sources */,
 				FB77033B1F416C1B0028EB84 /* MineFavoriteViewController.m in Sources */,
 				FB7FA5AC1F32F7670096F6F2 /* MineViewController.m in Sources */,

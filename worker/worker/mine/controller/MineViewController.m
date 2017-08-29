@@ -19,6 +19,7 @@
 #import "EvaluateViewController.h"
 #import "MineMoneyViewController.h"
 #import "ServiceViewController.h"
+#import "FriendViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -43,9 +44,9 @@
     
     dataArray = [NSMutableArray array];
     
-    elseIcon = [NSMutableArray arrayWithObjects:@"mine_wet",@"mine_list",@"mine_set",@"mine_call", nil];
+    elseIcon = [NSMutableArray arrayWithObjects:@" ", @"mine_wet",@"mine_list",@"mine_set",@"mine_call", nil];
     
-    titleArr = [NSMutableArray arrayWithObjects:@"邀请好友",@"服务条款",@"设置",@"客服", nil];
+    titleArr = [NSMutableArray arrayWithObjects:@"设置提现密码", @"邀请好友",@"服务条款",@"设置",@"客服", nil];
     
     
     [self initHeadView];
@@ -87,7 +88,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 7;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -186,37 +187,27 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     self.hidesBottomBarWhenPushed = YES;
-    if (indexPath.section == 4)
+    
+    if (indexPath.section == 5)
     {
         ServiceViewController *temp = [[ServiceViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
     }
     
-    else if (indexPath.section == 3)
+    else if (indexPath.section == 4)
     {
-        //显示分享面板
-//        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo)
-//        {
-//            // 根据获取的platformType确定所选平台进行下一步操作
-//        }];
+        FriendViewController *temp = [[FriendViewController alloc] init];
         
-        //如平台应用未安装，或平台应用不支持等会进行隐藏。 由于以上原因，在模拟器上部分平台会隐藏   ,,,  以下方法可设置平台顺序
-        
-        [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_Sina),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_WechatSession)]];
-        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            // 根据获取的platformType确定所选平台进行下一步操作
-            
-            NSLog(@"分享");
-        }];
+        [self.navigationController pushViewController:temp animated:YES];
     }
-    else if(indexPath.section == 5)
+    else if(indexPath.section == 6)
     {
         SetViewController *temp = [[SetViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
     }
-    else
+    else if(indexPath.section == 7)
     {
         
         NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"15045281940"];
@@ -225,6 +216,12 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
        
     }
+    else
+    {
+        NSLog(@"提现密码");
+    }
+    
+    
     
     self.hidesBottomBarWhenPushed = NO;
     

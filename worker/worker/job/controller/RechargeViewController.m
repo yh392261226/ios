@@ -119,10 +119,9 @@
     {
         RechargeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"firstCell"];
         
-        cell.textfield.delegate = self;
+        [cell.textfield addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
         
         return cell;
     }
@@ -131,7 +130,9 @@
        PayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"paycell"];
        
        cell.logoImage.image = [UIImage imageNamed:[imageArray objectAtIndex:indexPath.row]];
+       
        cell.name.text = [nameArray objectAtIndex:indexPath.row];
+       
        cell.selecd.backgroundColor = [UIColor orangeColor];
        
        if (indexPath.row == paySelecd)
@@ -339,6 +340,12 @@
     [self.view endEditing:YES];
 }
 
+- (void)textFieldEditChanged:(UITextField *)textField
+{
+    
+    NSLog(@"textfield text %@",textField.text);
+    
+}
 
 
 #pragma 自己定义的方法

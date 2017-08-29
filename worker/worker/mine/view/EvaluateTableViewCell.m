@@ -31,8 +31,6 @@
         
         _evaluate = [[UIImageView alloc] init];
         
-        _evaluate.backgroundColor = [UIColor blueColor];
-        
         [self.contentView addSubview:_evaluate];
         
         
