@@ -9,6 +9,7 @@
 #import "EmployerManagementViewController.h"
 #import "TypeView.h"
 #import "OneTableViewCell.h"
+#import "draftViewController.h"
 
 @interface EmployerManagementViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -240,7 +241,12 @@
 //草稿箱点击事件
 - (void)Draft
 {
-    NSLog(@"1");
+    self.hidesBottomBarWhenPushed = YES;
+    
+    draftViewController *temp = [[draftViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
+    
 }
 
 

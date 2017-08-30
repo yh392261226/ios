@@ -20,6 +20,7 @@
 #import "MineMoneyViewController.h"
 #import "ServiceViewController.h"
 #import "FriendViewController.h"
+#import "SetPasswordViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -44,7 +45,7 @@
     
     dataArray = [NSMutableArray array];
     
-    elseIcon = [NSMutableArray arrayWithObjects:@" ", @"mine_wet",@"mine_list",@"mine_set",@"mine_call", nil];
+    elseIcon = [NSMutableArray arrayWithObjects:@"mine_password", @"mine_wet",@"mine_list",@"mine_set",@"mine_call", nil];
     
     titleArr = [NSMutableArray arrayWithObjects:@"设置提现密码", @"邀请好友",@"服务条款",@"设置",@"客服", nil];
     
@@ -156,7 +157,7 @@
     }
     else
     {
-        return 50;
+        return 45;
     }
 }
 
@@ -200,7 +201,7 @@
         FriendViewController *temp = [[FriendViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
-    }
+    } 
     else if(indexPath.section == 6)
     {
         SetViewController *temp = [[SetViewController alloc] init];
@@ -216,9 +217,11 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
        
     }
-    else
+    else if(indexPath.section == 3)
     {
-        NSLog(@"提现密码");
+        SetPasswordViewController *temp = [[SetPasswordViewController alloc] init]; 
+        
+        [self.navigationController pushViewController:temp animated:YES];
     }
     
     
