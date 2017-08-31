@@ -13,6 +13,11 @@
 		FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */; };
 		FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13901F3AB96900A1C463 /* IssueViewController.m */; };
 		FB0C13941F3B061100A1C463 /* Headview.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13931F3B061100A1C463 /* Headview.m */; };
+		FB14A14F1F5651E60028282E /* SetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB14A14E1F5651E60028282E /* SetPasswordViewController.m */; };
+		FB14A1521F56566D0028282E /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB14A1511F56566D0028282E /* PasswordViewController.m */; };
+		FB14A1551F5660B10028282E /* SYPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB14A1541F5660B10028282E /* SYPasswordView.m */; };
+		FB14A1581F567F5F0028282E /* PasswordToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB14A1571F567F5F0028282E /* PasswordToViewController.m */; };
+		FB14A15B1F569B5E0028282E /* draftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB14A15A1F569B5E0028282E /* draftViewController.m */; };
 		FB1B15971F4AC220001A7132 /* FriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1B15961F4AC220001A7132 /* FriendViewController.m */; };
 		FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D11F39590200BE510F /* WorkerManagementViewController.m */; };
 		FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2581D41F39592400BE510F /* EmployerManagementViewController.m */; };
@@ -136,6 +141,16 @@
 		FB0C13901F3AB96900A1C463 /* IssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueViewController.m; sourceTree = "<group>"; };
 		FB0C13921F3B061100A1C463 /* Headview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Headview.h; sourceTree = "<group>"; };
 		FB0C13931F3B061100A1C463 /* Headview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Headview.m; sourceTree = "<group>"; };
+		FB14A14D1F5651E60028282E /* SetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPasswordViewController.h; sourceTree = "<group>"; };
+		FB14A14E1F5651E60028282E /* SetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPasswordViewController.m; sourceTree = "<group>"; };
+		FB14A1501F56566D0028282E /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
+		FB14A1511F56566D0028282E /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
+		FB14A1531F5660B10028282E /* SYPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPasswordView.h; sourceTree = "<group>"; };
+		FB14A1541F5660B10028282E /* SYPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPasswordView.m; sourceTree = "<group>"; };
+		FB14A1561F567F5F0028282E /* PasswordToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordToViewController.h; sourceTree = "<group>"; };
+		FB14A1571F567F5F0028282E /* PasswordToViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordToViewController.m; sourceTree = "<group>"; };
+		FB14A1591F569B5E0028282E /* draftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = draftViewController.h; sourceTree = "<group>"; };
+		FB14A15A1F569B5E0028282E /* draftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = draftViewController.m; sourceTree = "<group>"; };
 		FB1B15951F4AC220001A7132 /* FriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendViewController.h; sourceTree = "<group>"; };
 		FB1B15961F4AC220001A7132 /* FriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendViewController.m; sourceTree = "<group>"; };
 		FB2581D01F39590200BE510F /* WorkerManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerManagementViewController.h; sourceTree = "<group>"; };
@@ -384,6 +399,21 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FB14A14C1F5651C80028282E /* 设置提现密码 */ = {
+			isa = PBXGroup;
+			children = (
+				FB14A1531F5660B10028282E /* SYPasswordView.h */,
+				FB14A1541F5660B10028282E /* SYPasswordView.m */,
+				FB14A14D1F5651E60028282E /* SetPasswordViewController.h */,
+				FB14A14E1F5651E60028282E /* SetPasswordViewController.m */,
+				FB14A1501F56566D0028282E /* PasswordViewController.h */,
+				FB14A1511F56566D0028282E /* PasswordViewController.m */,
+				FB14A1561F567F5F0028282E /* PasswordToViewController.h */,
+				FB14A1571F567F5F0028282E /* PasswordToViewController.m */,
+			);
+			path = "设置提现密码";
+			sourceTree = "<group>";
+		};
 		FB2581CD1F3958CA00BE510F /* 个人信息管理 */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,6 +437,8 @@
 			children = (
 				FB2581D31F39592400BE510F /* EmployerManagementViewController.h */,
 				FB2581D41F39592400BE510F /* EmployerManagementViewController.m */,
+				FB14A1591F569B5E0028282E /* draftViewController.h */,
+				FB14A15A1F569B5E0028282E /* draftViewController.m */,
 			);
 			path = "雇主发布管理";
 			sourceTree = "<group>";
@@ -642,6 +674,7 @@
 				FB85801D1F42A2C80085BAF1 /* ServiceViewController.m */,
 				FB1B15951F4AC220001A7132 /* FriendViewController.h */,
 				FB1B15961F4AC220001A7132 /* FriendViewController.m */,
+				FB14A14C1F5651C80028282E /* 设置提现密码 */,
 				FB7FA5B11F32F80C0096F6F2 /* 收藏评价功能栏 */,
 			);
 			path = controller;
@@ -1103,6 +1136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB64B3341F456CEF001418D1 /* DressTableViewCell.m in Sources */,
+				FB14A1521F56566D0028282E /* PasswordViewController.m in Sources */,
 				FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */,
 				FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */,
 				FB85801E1F42A2C80085BAF1 /* ServiceViewController.m in Sources */,
@@ -1121,6 +1155,7 @@
 				FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */,
 				FB7FA59D1F32F75F0096F6F2 /* ProfessionTableViewCell.m in Sources */,
 				FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */,
+				FB14A15B1F569B5E0028282E /* draftViewController.m in Sources */,
 				FB8580151F42892D0085BAF1 /* MineMoneyViewController.m in Sources */,
 				FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */,
 				FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */,
@@ -1130,6 +1165,7 @@
 				FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */,
 				FB75E8291F4E67F100140335 /* elseDelegateTableViewCell.m in Sources */,
 				FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */,
+				FB14A1551F5660B10028282E /* SYPasswordView.m in Sources */,
 				FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */,
 				FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */,
 				FBE30BDC1F4D7847001F5DFB /* elsetimeTableViewCell.m in Sources */,
@@ -1152,6 +1188,7 @@
 				FBBEFA351F4986A200B19C9D /* WorkerViewController.m in Sources */,
 				FB6F86541F3416C800806108 /* workerModel.m in Sources */,
 				FB77033B1F416C1B0028EB84 /* MineFavoriteViewController.m in Sources */,
+				FB14A14F1F5651E60028282E /* SetPasswordViewController.m in Sources */,
 				FB7FA5AC1F32F7670096F6F2 /* MineViewController.m in Sources */,
 				FB339D4A1F3C49E80086CF2D /* CraftTableViewCell.m in Sources */,
 				FB5759B11F4430E100135B92 /* DressingViewController.m in Sources */,
@@ -1161,6 +1198,7 @@
 				FB0C13941F3B061100A1C463 /* Headview.m in Sources */,
 				FB2581E41F39918200BE510F /* OneTableViewCell.m in Sources */,
 				FB7FA5AD1F32F7670096F6F2 /* MineElesTableViewCell.m in Sources */,
+				FB14A1581F567F5F0028282E /* PasswordToViewController.m in Sources */,
 				FB7FA5AF1F32F7670096F6F2 /* MineMoneyTableViewCell.m in Sources */,
 				FB6D76031F418CF3009FCF73 /* EvaluateTableViewCell.m in Sources */,
 				FB2581DB1F395BA100BE510F /* TypeView.m in Sources */,

@@ -15,10 +15,10 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        _image = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 30, 30)];
+        _image = [[UIImageView alloc] initWithFrame:CGRectMake(15, 7.5, 30, 30)];
         [self.contentView addSubview:_image];
         
-        _name = [[UILabel alloc] initWithFrame:CGRectMake(55, 10, 100, 30)];
+        _name = [[UILabel alloc] initWithFrame:CGRectMake(55, 7.5, 100, 30)];
         _name.font = [UIFont systemFontOfSize:16];
         _name.textColor = [UIColor grayColor];
         _name.textAlignment = NSTextAlignmentLeft;
