@@ -13,6 +13,7 @@
 #import "WorkerManagementViewController.h"
 #import "EmployerManagementViewController.h"
 #import "PersonageManagementViewController.h"
+#import "IssueViewController.h"
 
 @interface JobViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -220,7 +221,13 @@
 //发布工作按钮
 - (void)workerBtn
 {
-    NSLog(@"发布工作");
+    self.hidesBottomBarWhenPushed = YES;
+    
+    IssueViewController *temp = [[IssueViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
+    
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 

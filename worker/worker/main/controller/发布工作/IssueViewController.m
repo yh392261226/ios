@@ -48,6 +48,10 @@
 @property (nonatomic, strong)NSString *startTime;
 @property (nonatomic, strong)NSString *endTime;
 
+
+@property (nonatomic, strong)NSString *workerName;
+@property (nonatomic, strong)NSString *placeData;
+
 @end
 
 
@@ -63,6 +67,7 @@
 #import "elsepersonTableViewCell.h"
 #import "elsetimeTableViewCell.h"
 #import "elseDelegateTableViewCell.h"
+#import "NormalTableViewCell.h"
 
 @interface IssueViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -115,6 +120,8 @@
         [_tableview registerClass:[elseDelegateTableViewCell class] forCellReuseIdentifier:@"deletecell"];
         
         
+        [_tableview registerClass:[NormalTableViewCell class] forCellReuseIdentifier:@"normalcell"];
+        
         _tableview.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
         
         _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
@@ -157,43 +164,54 @@
         
         if (info.type == 0)
         {
-            lssueUserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"usercell"];
+            lssueUserTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
-            if(indexPath.row == 0)
+            if (!cell)
             {
-                cell.name.text = @"标题:";
-                cell.data.placeholder = @"工程名称";
+                
+                cell = [[lssueUserTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"usercell"];
+                
+                
+                cell.name.text = info.name;
+                cell.data.placeholder = info.data;
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
             }
-            else if (indexPath.row == 2)
+            
+            
+            return cell;
+        }
+        else if (info.type == 10)
+        {
+            
+            NormalTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            
+            if (!cell)
             {
-                cell.name.text = @"工作类型:";
-                cell.data.placeholder = @"选择项目类型";
-                cell.data.enabled = NO;
-            }
-            else if (indexPath.row == 3)
-            {
-                cell.name.text = @"选择区域:";
-                cell.data.enabled = NO;
-                cell.data.placeholder = @"选择工作所在区域";
-            }
-            else
-            {
-                cell.name.text = @"详细地址:";
-                cell.data.placeholder = @"请填写详细地址,不少于5个字";
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell = [[NormalTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"normalcell"];
+                
+                cell.title.text = info.name;
+                cell.data.text = info.data;
+                
             }
             
             return cell;
         }
         else
         {
-            BriefTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"briefcell"];
+            BriefTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
-            cell.name.font = [UIFont systemFontOfSize:16];
-            cell.name.text = @"描述:";
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if (!cell)
+            {
+                cell = [[BriefTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"briefcell"];
+                
+                cell.name.font = [UIFont systemFontOfSize:16];
+                cell.name.text = @"描述:";
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            
             
             return cell;
         }
@@ -205,37 +223,68 @@
         
         if (info.workerType == 0)
         {
-            lssueUserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"usercell"];
+            NormalTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
-            cell.name.text = @"选择工种:";
-            cell.data.placeholder = @"点击选择招聘工种";
-            cell.data.enabled = NO;
+            if (!cell)
+            {
+                cell = [[NormalTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"normalcell"];
+                
+                cell.title.text = info.workerName;
+                
+                cell.data.text = info.placeData;
+                
+            }
+            
+            
             
             return cell;
             
         }
         else if (info.workerType == 1)
         {
-            elsepersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"elseperson"];
             
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            elsepersonTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            
+            if (!cell)
+            {
+                cell = [[elsepersonTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"elseperson"];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            
             
             return cell;
         }
         else if(info.workerType == 2)
         {
-            elsetimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"elsetime"];
+            elsetimeTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if (!cell)
+            {
+                cell = [[elsetimeTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"elsetime"];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            
             
             return cell;
         
         }
         else
         {
-            elseDelegateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"deletecell"];
+            elseDelegateTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if (!cell)
+            {
+                cell = [[elseDelegateTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"deletecell"];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            
             
             return cell;
         }
@@ -277,7 +326,7 @@
 {
     if (section == 1 && section == 0)
     {
-        return 0.1;
+        return 15;
     }
     else
     {
@@ -295,7 +344,7 @@
     }
     else
     {
-        return 0.1;
+        return 15;
     }
 }
 
@@ -307,6 +356,15 @@
     
     if (data.bigType == 1)
     {
+        firstModel *model = (firstModel *)data;
+        
+        if (model.type == 10)
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
+            
+            
+        }
         
     }
     else
@@ -320,6 +378,12 @@
             [dataArray removeObjectAtIndex:indexPath.section];
             
             [self.tableview reloadData];
+            
+        }
+        else if (info.workerType == 0)
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
             
         }
     }
@@ -408,6 +472,7 @@
 //增加工种按钮
 - (void)Draft
 {
+    
     NSMutableArray *elseArray = [NSMutableArray array];
     
     elseModel *data0 = [[elseModel alloc] init];
@@ -415,6 +480,10 @@
     data0.bigType = 0;
     
     data0.workerType = 0;
+    
+    data0.workerName = @"选择工种";
+    
+    data0.placeData = @"点击选择招聘工种";
     
     [elseArray addObject:data0];
     
@@ -479,6 +548,8 @@
     
     info0.name = @"标题:";
     
+    info0.data = @"工程名称";
+    
     info0.type = 0;
     
     info0.bigType = 1;
@@ -501,7 +572,9 @@
     
     info2.name = @"工程类型:";
     
-    info2.type = 0;
+    info2.data = @"选择项目类型";
+    
+    info2.type = 10;            //type = 10   左右都是label类型的cell
     
     info2.bigType = 1;
     
@@ -512,7 +585,9 @@
     
     info3.name = @"所在区域:";
     
-    info3.type = 0;
+    info3.data = @"选择工作所在区域";
+    
+    info3.type = 10;
     
     info3.bigType = 1;
     
@@ -522,6 +597,8 @@
     firstModel *info4 = [[firstModel alloc] init];
     
     info4.name = @"详细地址:";
+    
+    info4.data = @"请输入详细地址，不少于5个字";
     
     info4.type = 0;
     
@@ -540,6 +617,10 @@
     data0.bigType = 0;
     
     data0.workerType = 0;
+    
+    data0.workerName = @"选择工种";
+    
+    data0.placeData = @"点击选择招聘工种";
     
     [elseArray addObject:data0];
     

@@ -26,10 +26,12 @@
     listTableView *listTab;
     
     NSMutableArray *listArray;      //列表tableview的数组
+    NSMutableArray *aaaaaaaaaa;
     
     UIControl *cor;      //背景
     
     NSString *adree;     //位置信息的字段
+    NSString *worker;    //工种的字段
 }
 
 
@@ -51,6 +53,7 @@
     
     
     listArray = [NSMutableArray arrayWithObjects:@"afafadf",@"asadf", @"dfgsgf", nil];
+    aaaaaaaaaa = [NSMutableArray arrayWithObjects:@"张飞",@"刘悲剧", @"关于圈", nil];
     
     pyte = 0;
     
@@ -304,6 +307,8 @@
 
                 data.enabled = NO;
                 
+                data.text = worker;
+                
                 data.placeholder = @"点击选择";
                 
                 [cell addSubview:data];
@@ -394,10 +399,9 @@
     
     if (indexPath.section == 0)
     {
-        if (indexPath.row == 2)
-        {
-            [self initlistView];
-        }
+        
+        [self initlistView:indexPath.row];
+        
     }
     
     
@@ -444,7 +448,7 @@
 
 
 //加载listtableveiw   列表的tableview。  点击显示
-- (void)initlistView
+- (void)initlistView:(NSInteger)row
 {
     cor.hidden = NO;
     
@@ -462,7 +466,16 @@
     listTab.deleage = self;
     
     listTab.hidden = NO;
-    listTab.arr = listArray;
+    if (row == 2)
+    {
+        listTab.arr = listArray;
+    }
+    else
+    {
+        listTab.arr = aaaaaaaaaa;
+    }
+    
+    listTab.cellRow = row;
     
     listTab.layer.cornerRadius = 10;
     
@@ -501,13 +514,19 @@
 
 
 //搜索范围的listtab的代理方法
-- (void)tempinfo: (NSInteger)info
+- (void)tempinfo: (NSIndexPath *)info
 {
-    adree = [listArray objectAtIndex:info];
+    if (info.section == 2)
+    {
+        adree = [listArray objectAtIndex:info.row];
+    }
+    else
+    {
+        worker = [listArray objectAtIndex:info.row];
+    }
     
     listTab.hidden = YES;
     cor.hidden = YES;
-    
     
     [self.tableview reloadData];
 }

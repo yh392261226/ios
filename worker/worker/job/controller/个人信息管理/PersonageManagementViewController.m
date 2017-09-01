@@ -14,9 +14,6 @@
 
 #import "WorkerMessTableViewCell.h"
 
-
-
-
 #import "EditSelecedTableViewCell.h"
 #import "EditSetTableViewCell.h"
 #import "EditTextTableViewCell.h"
@@ -57,7 +54,7 @@
 
 
 
-@interface PersonageManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface PersonageManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextFieldDelegate>
 {
     NSMutableArray *dataArray;    //信息和信息预览的数组
     
@@ -103,7 +100,6 @@
     nameArr = [NSMutableArray arrayWithObjects:@"信息预览",@"编辑信息", @"投递记录", nil];
     
     
-    
     [self addhead:@"个人信息管理"];
     
     [self slitherBack:self.navigationController];
@@ -112,9 +108,11 @@
     
     [self tableview];
     
+    
+    
     //加载datapick
-    [self dataPick];
-    _dataPick.hidden = YES;
+//    [self dataPick];
+//    _dataPick.hidden = YES;
     
 }
 
@@ -143,7 +141,7 @@
 {
     if (!_dataPick)
     {
-        _dataPick = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 216, self.view.frame.size.width, 216)];
+        _dataPick = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 216, self.view.frame.size.width, 216)];
         
         _dataPick.datePickerMode = UIDatePickerModeDate;
         _dataPick.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -208,11 +206,9 @@
         [_tableview registerClass:[BriefTableViewCell class] forCellReuseIdentifier:@"briefcell"];
         [_tableview registerClass:[CraftTableViewCell class] forCellReuseIdentifier:@"craftcell"];
         
-        
         [_tableview registerClass:[WorkerMessTableViewCell class] forCellReuseIdentifier:@"workercell"];
         
         [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-        
         
         [_tableview registerClass:[EditTextTableViewCell class] forCellReuseIdentifier:@"cell0"];
         [_tableview registerClass:[EditSetTableViewCell class] forCellReuseIdentifier:@"cell1"];
@@ -304,6 +300,12 @@
             
             cell.name.text = data.name;
             cell.field.text = data.data;
+            
+            
+            cell.field.tag = indexPath.row + 700;
+            cell.field.delegate = self;
+            [cell.field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventTouchUpInside];
+            
             cell.field.placeholder = data.placehold;
             
             return cell;
@@ -311,7 +313,6 @@
         else if (data.typeInf == 1)
         {
             EditSetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
-            
             
             [cell.manBtn addTarget:self action:@selector(manBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell.womanBtn addTarget:self action:@selector(womanBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -394,6 +395,8 @@
         else if(data.typeInf == 5)
         {
             EditCraftTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell5"];
+            
+            cell.clipsToBounds = YES;
             
             cell.delegate = self;
             
@@ -511,6 +514,7 @@
     {
         return 0.1;
     }
+    
 }
 
 
@@ -533,7 +537,7 @@
     {
         if (indexPath.row == 2)
         {
-            _dataPick.hidden = NO;
+            
         }
     }
 }
@@ -575,12 +579,19 @@
 }
 
 
+
+-(void)textFieldDidChange:(UITextField *)textField
+{
+    NSLog(@"%@", textField.text);
+   
+}
+
 #pragma 自己的方法
 
 //工种的点击事件代理方法，点击后删除该工种
 - (void)tempValNum: (NSInteger)info
 {
-    PersonDataClass *data = [dataArray objectAtIndex:8];
+    PersonDataClass *data = [dataArray objectAtIndex:7];
     
     [data.workerArray removeObjectAtIndex:info];
     
@@ -731,11 +742,11 @@
     info1.data = @"男";
     [dataArray addObject:info1];
     
-    PersonDataClass *info2 = [[PersonDataClass alloc] init];
-    info2.typeInf = 0;
-    info2.name = @"出生日期:";
-    info2.data = @"1995-03-23";
-    [dataArray addObject:info2];
+//    PersonDataClass *info2 = [[PersonDataClass alloc] init];
+//    info2.typeInf = 0;
+//    info2.name = @"出生日期:";
+//    info2.data = @"1995-03-23";
+//    [dataArray addObject:info2];
     
     PersonDataClass *info3 = [[PersonDataClass alloc] init];
     info3.typeInf = 0;
@@ -798,12 +809,12 @@
     info1.sex = @"男";
     [dataArray addObject:info1];
     
-    PersonDataClass *info2 = [[PersonDataClass alloc] init];
-    info2.typeInf = 2;
-    info2.name = @"出生日期:";
-    info2.data = @"1995-03-23";
-    info2.placehold = @"点击选择";
-    [dataArray addObject:info2];
+//    PersonDataClass *info2 = [[PersonDataClass alloc] init];
+//    info2.typeInf = 2;
+//    info2.name = @"出生日期:";
+//    info2.data = @"1995-03-23";
+//    info2.placehold = @"点击选择";
+//    [dataArray addObject:info2];
     
     PersonDataClass *info3 = [[PersonDataClass alloc] init];
     info3.typeInf = 0;

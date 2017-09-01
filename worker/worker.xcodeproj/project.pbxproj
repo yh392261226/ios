@@ -36,6 +36,11 @@
 		FB36878F1F2B2236008E8387 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB36878E1F2B2236008E8387 /* CoreTelephony.framework */; };
 		FB3687911F2B226F008E8387 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687901F2B226F008E8387 /* libstdc++.6.0.9.tbd */; };
 		FB3687931F2B22AD008E8387 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB3687921F2B22AD008E8387 /* mapapi.bundle */; };
+		FB3D89F71F581CEA00864E8B /* RemoveCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3D89F61F581CEA00864E8B /* RemoveCardViewController.m */; };
+		FB4F230C1F58F25E00D8D7C6 /* NormalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F230B1F58F25E00D8D7C6 /* NormalTableViewCell.m */; };
+		FB4F230F1F59378300D8D7C6 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F230E1F59378300D8D7C6 /* MessageViewController.m */; };
+		FB4F23121F593DEC00D8D7C6 /* BoundPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F23111F593DEC00D8D7C6 /* BoundPhoneViewController.m */; };
+		FB4F23151F59418100D8D7C6 /* BoundTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F23141F59418100D8D7C6 /* BoundTableViewCell.m */; };
 		FB5759B11F4430E100135B92 /* DressingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5759B01F4430E100135B92 /* DressingViewController.m */; };
 		FB5759B41F4433CF00135B92 /* DressingWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5759B31F4433CF00135B92 /* DressingWorkerViewController.m */; };
 		FB5D87E91F30226600830F89 /* MessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D87E81F30226600830F89 /* MessViewController.m */; };
@@ -64,6 +69,8 @@
 		FB77033B1F416C1B0028EB84 /* MineFavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB77033A1F416C1B0028EB84 /* MineFavoriteViewController.m */; };
 		FB77033E1F4182000028EB84 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB77033D1F4182000028EB84 /* SetViewController.m */; };
 		FB7703411F4182B50028EB84 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703401F4182B50028EB84 /* SetTableViewCell.m */; };
+		FB7BFADE1F57A9D7007BA843 /* RemoveFirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7BFADD1F57A9D7007BA843 /* RemoveFirViewController.m */; };
+		FB7BFAE11F57B462007BA843 /* RemovePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7BFAE01F57B462007BA843 /* RemovePhoneViewController.m */; };
 		FB7F384A1F37FB130082A8FA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F38491F37FB130082A8FA /* LoginViewController.m */; };
 		FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F384C1F384A950082A8FA /* RechargeViewController.m */; };
 		FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F384F1F384B6A0082A8FA /* RechargeTableViewCell.m */; };
@@ -177,6 +184,16 @@
 		FB36878E1F2B2236008E8387 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		FB3687901F2B226F008E8387 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		FB3687921F2B22AD008E8387 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = Pods/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle; sourceTree = "<group>"; };
+		FB3D89F51F581CEA00864E8B /* RemoveCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveCardViewController.h; sourceTree = "<group>"; };
+		FB3D89F61F581CEA00864E8B /* RemoveCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveCardViewController.m; sourceTree = "<group>"; };
+		FB4F230A1F58F25E00D8D7C6 /* NormalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormalTableViewCell.h; sourceTree = "<group>"; };
+		FB4F230B1F58F25E00D8D7C6 /* NormalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalTableViewCell.m; sourceTree = "<group>"; };
+		FB4F230D1F59378300D8D7C6 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		FB4F230E1F59378300D8D7C6 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		FB4F23101F593DEC00D8D7C6 /* BoundPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundPhoneViewController.h; sourceTree = "<group>"; };
+		FB4F23111F593DEC00D8D7C6 /* BoundPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoundPhoneViewController.m; sourceTree = "<group>"; };
+		FB4F23131F59418100D8D7C6 /* BoundTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundTableViewCell.h; sourceTree = "<group>"; };
+		FB4F23141F59418100D8D7C6 /* BoundTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoundTableViewCell.m; sourceTree = "<group>"; };
 		FB5759AF1F4430E100135B92 /* DressingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressingViewController.h; sourceTree = "<group>"; };
 		FB5759B01F4430E100135B92 /* DressingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressingViewController.m; sourceTree = "<group>"; };
 		FB5759B21F4433CF00135B92 /* DressingWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressingWorkerViewController.h; sourceTree = "<group>"; };
@@ -226,6 +243,10 @@
 		FB77033D1F4182000028EB84 /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetViewController.m; sourceTree = "<group>"; };
 		FB77033F1F4182B50028EB84 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
 		FB7703401F4182B50028EB84 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
+		FB7BFADC1F57A9D7007BA843 /* RemoveFirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveFirViewController.h; sourceTree = "<group>"; };
+		FB7BFADD1F57A9D7007BA843 /* RemoveFirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveFirViewController.m; sourceTree = "<group>"; };
+		FB7BFADF1F57B462007BA843 /* RemovePhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemovePhoneViewController.h; sourceTree = "<group>"; };
+		FB7BFAE01F57B462007BA843 /* RemovePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemovePhoneViewController.m; sourceTree = "<group>"; };
 		FB7F38481F37FB130082A8FA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		FB7F38491F37FB130082A8FA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		FB7F384B1F384A950082A8FA /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
@@ -410,6 +431,12 @@
 				FB14A1511F56566D0028282E /* PasswordViewController.m */,
 				FB14A1561F567F5F0028282E /* PasswordToViewController.h */,
 				FB14A1571F567F5F0028282E /* PasswordToViewController.m */,
+				FB7BFADC1F57A9D7007BA843 /* RemoveFirViewController.h */,
+				FB7BFADD1F57A9D7007BA843 /* RemoveFirViewController.m */,
+				FB7BFADF1F57B462007BA843 /* RemovePhoneViewController.h */,
+				FB7BFAE01F57B462007BA843 /* RemovePhoneViewController.m */,
+				FB3D89F51F581CEA00864E8B /* RemoveCardViewController.h */,
+				FB3D89F61F581CEA00864E8B /* RemoveCardViewController.m */,
 			);
 			path = "设置提现密码";
 			sourceTree = "<group>";
@@ -631,6 +658,8 @@
 				FBE30BDB1F4D7847001F5DFB /* elsetimeTableViewCell.m */,
 				FB75E8271F4E67F100140335 /* elseDelegateTableViewCell.h */,
 				FB75E8281F4E67F100140335 /* elseDelegateTableViewCell.m */,
+				FB4F230A1F58F25E00D8D7C6 /* NormalTableViewCell.h */,
+				FB4F230B1F58F25E00D8D7C6 /* NormalTableViewCell.m */,
 			);
 			path = "发布工作";
 			sourceTree = "<group>";
@@ -674,6 +703,10 @@
 				FB85801D1F42A2C80085BAF1 /* ServiceViewController.m */,
 				FB1B15951F4AC220001A7132 /* FriendViewController.h */,
 				FB1B15961F4AC220001A7132 /* FriendViewController.m */,
+				FB4F230D1F59378300D8D7C6 /* MessageViewController.h */,
+				FB4F230E1F59378300D8D7C6 /* MessageViewController.m */,
+				FB4F23101F593DEC00D8D7C6 /* BoundPhoneViewController.h */,
+				FB4F23111F593DEC00D8D7C6 /* BoundPhoneViewController.m */,
 				FB14A14C1F5651C80028282E /* 设置提现密码 */,
 				FB7FA5B11F32F80C0096F6F2 /* 收藏评价功能栏 */,
 			);
@@ -708,6 +741,8 @@
 				FB6D76021F418CF3009FCF73 /* EvaluateTableViewCell.m */,
 				FB8580191F4294CA0085BAF1 /* MoneyDetailTableViewCell.h */,
 				FB85801A1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m */,
+				FB4F23131F59418100D8D7C6 /* BoundTableViewCell.h */,
+				FB4F23141F59418100D8D7C6 /* BoundTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1168,10 +1203,12 @@
 				FB14A1551F5660B10028282E /* SYPasswordView.m in Sources */,
 				FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */,
 				FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */,
+				FB7BFAE11F57B462007BA843 /* RemovePhoneViewController.m in Sources */,
 				FBE30BDC1F4D7847001F5DFB /* elsetimeTableViewCell.m in Sources */,
 				FB7FA5BA1F330EB60096F6F2 /* MessTableViewCell.m in Sources */,
 				FB7703351F413E430028EB84 /* EditworkerCollectionViewCell.m in Sources */,
 				FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */,
+				FB4F23121F593DEC00D8D7C6 /* BoundPhoneViewController.m in Sources */,
 				FB7FA59E1F32F75F0096F6F2 /* WorkerMessTableViewCell.m in Sources */,
 				FBD796651F286B3700FA50BE /* main.m in Sources */,
 				FB77033E1F4182000028EB84 /* SetViewController.m in Sources */,
@@ -1181,6 +1218,7 @@
 				FB7703411F4182B50028EB84 /* SetTableViewCell.m in Sources */,
 				FBE4216D1F3D7A9100336990 /* EditTextTableViewCell.m in Sources */,
 				FBE30BD91F4D7271001F5DFB /* elsepersonTableViewCell.m in Sources */,
+				FB3D89F71F581CEA00864E8B /* RemoveCardViewController.m in Sources */,
 				FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */,
 				FB64B3391F457E89001418D1 /* listTableView.m in Sources */,
 				FB64B33A1F457E89001418D1 /* mainlistTableViewCell.m in Sources */,
@@ -1195,13 +1233,17 @@
 				FBFD602F1F3BFF870061DB20 /* PreviewTableViewCell.m in Sources */,
 				FBE421731F3D8B8800336990 /* EditSelecedTableViewCell.m in Sources */,
 				FB7FA5B01F32F7670096F6F2 /* MineScrTableViewCell.m in Sources */,
+				FB4F230F1F59378300D8D7C6 /* MessageViewController.m in Sources */,
 				FB0C13941F3B061100A1C463 /* Headview.m in Sources */,
 				FB2581E41F39918200BE510F /* OneTableViewCell.m in Sources */,
 				FB7FA5AD1F32F7670096F6F2 /* MineElesTableViewCell.m in Sources */,
 				FB14A1581F567F5F0028282E /* PasswordToViewController.m in Sources */,
 				FB7FA5AF1F32F7670096F6F2 /* MineMoneyTableViewCell.m in Sources */,
 				FB6D76031F418CF3009FCF73 /* EvaluateTableViewCell.m in Sources */,
+				FB4F23151F59418100D8D7C6 /* BoundTableViewCell.m in Sources */,
+				FB7BFADE1F57A9D7007BA843 /* RemoveFirViewController.m in Sources */,
 				FB2581DB1F395BA100BE510F /* TypeView.m in Sources */,
+				FB4F230C1F58F25E00D8D7C6 /* NormalTableViewCell.m in Sources */,
 				FB9911391F29757F0017A32B /* TabbarView.m in Sources */,
 				FB339D471F3C3A550086CF2D /* BriefTableViewCell.m in Sources */,
 				FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */,

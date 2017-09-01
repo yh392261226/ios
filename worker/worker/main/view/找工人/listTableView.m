@@ -81,12 +81,10 @@
  
     index = indexPath;
     
-    
-    
     [self reloadData];
     
     
-    [self.deleage tempinfo:indexPath.row];
+    [self.deleage tempinfo:[NSIndexPath indexPathForRow:indexPath.row inSection:self.cellRow]];
 }
 
 
