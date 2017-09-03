@@ -8,6 +8,8 @@
 
 #import "SetViewController.h"
 #import "SetTableViewCell.h"
+#import "MessageViewController.h"
+#import "BoundPhoneViewController.h"
 
 @interface SetViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -85,7 +87,9 @@
     
     if (indexPath.section == 0)
     {
-        cell.data.text = @"15840344241";
+        NSString *str = @"15840344241";
+        
+        cell.data.text = [str stringByReplacingCharactersInRange:NSMakeRange(3, 4)  withString:@"****"];
     }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -122,7 +126,51 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    self.hidesBottomBarWhenPushed = YES;
 
+    if (indexPath.section == 2)
+    {
+        if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0f)
+        {
+            UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+            
+            if (UIUserNotificationTypeNone == setting.types)
+            {
+                NSLog(@"推送关闭");
+                
+                MessageViewController *temp = [[MessageViewController alloc] init];
+                
+                [self.navigationController pushViewController:temp animated:YES];
+                
+                
+            }
+            else
+            {
+                NSLog(@"推送打开");
+            }
+        }
+        else
+        {
+            UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+            
+            if(UIRemoteNotificationTypeNone == type)
+            {
+                NSLog(@"推送关闭");
+            }
+            else
+            {
+                NSLog(@"推送打开");
+            }
+        }
+    }
+    else if (indexPath.section == 0)
+    {
+        BoundPhoneViewController *temp = [[BoundPhoneViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
+    
 }
 
 

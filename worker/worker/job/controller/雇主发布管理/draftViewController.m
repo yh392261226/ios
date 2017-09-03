@@ -89,6 +89,13 @@
         
         cell.favoriteBtn.hidden = YES;
         cell.state.hidden = YES;
+        cell.leftBtn.hidden = YES;
+        
+        [cell.centerBtn setTitle:@"删除信息" forState:UIControlStateNormal];
+        [cell.rightBtn setTitle:@"修改" forState:UIControlStateNormal];
+        
+        [cell.centerBtn addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.rightBtn addTarget:self action:@selector(write:) forControlEvents:UIControlEventTouchUpInside];
         
         UILabel *state = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, 7.5, 50, 20)];
         
@@ -97,7 +104,7 @@
         state.backgroundColor = [UIColor grayColor];
         state.textAlignment = NSTextAlignmentCenter;
         state.font = [UIFont systemFontOfSize:13];
-        state.layer.cornerRadius = 8;
+        state.layer.cornerRadius = 5;
         state.layer.masksToBounds = YES;
         
         [cell addSubview:state];
@@ -132,9 +139,17 @@
 
 
 
+//编辑草稿箱信息
+- (void)close: (UIButton *)btn
+{
+    NSLog(@"1");
+}
 
-
-
+//修改草稿箱信息
+- (void)write: (UIButton *)btn
+{
+    NSLog(@"2");
+}
 
 
 

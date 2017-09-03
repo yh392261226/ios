@@ -12,7 +12,7 @@
 
 
 //选择范围
-- (void)tempinfo: (NSInteger)info;
+- (void)tempinfo: (NSIndexPath *)info;
 
 
 @end
@@ -22,7 +22,11 @@
     NSIndexPath *index;
 }
 
+
+
 @property (nonatomic, strong)id <tpinfo> deleage;
+
+@property (nonatomic) NSInteger cellRow;
 
 @property (nonatomic, strong)NSMutableArray *arr;
 

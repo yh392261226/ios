@@ -8,6 +8,7 @@
 
 #import "SetPasswordViewController.h"
 #import "PasswordViewController.h"
+#import "RemoveFirViewController.h"
 
 @interface SetPasswordViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -136,8 +137,9 @@
     if (self.type == 0)
     {
         //修改支付密码走的路
+        RemoveFirViewController *temp = [[RemoveFirViewController alloc] init];
         
-        
+        [self.navigationController pushViewController:temp animated:YES];
     }
     else
     {
