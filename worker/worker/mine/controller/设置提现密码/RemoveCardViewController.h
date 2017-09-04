@@ -10,4 +10,8 @@
 
 @interface RemoveCardViewController : BaseViewController
 
+
+@property (nonatomic, strong)NSString *name;
+@property (nonatomic, strong)NSString *card;
+
 @end

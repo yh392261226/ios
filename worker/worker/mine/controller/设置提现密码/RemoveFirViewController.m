@@ -9,6 +9,7 @@
 #import "RemoveFirViewController.h"
 #import "SYPasswordView.h"
 #import "RemovePhoneViewController.h"
+#import "PasswordViewController.h"
 
 @interface RemoveFirViewController ()
 {
@@ -20,6 +21,20 @@
 @end
 
 @implementation RemoveFirViewController
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [_pasView.textField becomeFirstResponder];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_pasView.textField resignFirstResponder];
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -111,6 +126,11 @@
 - (void)password: (NSString *)num
 {
     NSLog(@"1");
+    
+    
+    PasswordViewController *temp = [[PasswordViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
     
 }
 

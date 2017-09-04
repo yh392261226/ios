@@ -256,6 +256,7 @@
             
             
             return cell;
+            
         }
         else if(info.workerType == 2)
         {
@@ -361,7 +362,6 @@
         if (model.type == 10)
         {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            
             
             
         }

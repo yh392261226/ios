@@ -46,6 +46,12 @@
     
 }
 
+
+
+
+
+
+
 - (void)initUI
 {
     UILabel *title = [[UILabel alloc] init];

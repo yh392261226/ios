@@ -13,7 +13,7 @@
 #define K_Field_Height self.frame.size.height  //每一个输入框的高度等于当前view的高度
 @interface SYPasswordView ()
 
-@property (nonatomic, strong) UITextField *textField;
+
 @property (nonatomic, strong) NSMutableArray *dotArray; //用于存放黑色的点点
 
 @end
@@ -27,7 +27,7 @@
     {
         self.backgroundColor = [UIColor whiteColor];
         
-        [self.textField becomeFirstResponder];
+        
         
         [self initPwdTextField];
     }

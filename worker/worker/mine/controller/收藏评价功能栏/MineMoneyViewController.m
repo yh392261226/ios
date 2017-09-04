@@ -9,6 +9,7 @@
 #import "MineMoneyViewController.h"
 #import "ElseTableViewCell.h"
 #import "MoneyDetailsViewController.h"
+#import "RechargeViewController.h"
 
 @interface MineMoneyViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -22,11 +23,11 @@
 
 @implementation MineMoneyViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     dataArray = [NSMutableArray arrayWithObjects:@"立即充值", @"我要提现",  nil];
-    
     
     [self addhead:@"我的钱包"];
     
@@ -35,6 +36,7 @@
     [self slitherBack:self.navigationController];
     
     [self tableview];
+    
 }
 
 
@@ -147,7 +149,14 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    self.hidesBottomBarWhenPushed = YES;
     
+    if (indexPath.section == 1)
+    {
+        RechargeViewController *temp = [[RechargeViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
 }
 
 

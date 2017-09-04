@@ -158,7 +158,7 @@
     
     [login setTitle:@"确定" forState:0];
     
-    login.layer.cornerRadius = 10;
+    login.layer.cornerRadius = 8;
     
     [login addTarget:self action:@selector(loginBtn) forControlEvents:UIControlEventTouchUpInside];
     
