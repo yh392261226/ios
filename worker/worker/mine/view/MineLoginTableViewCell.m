@@ -67,7 +67,7 @@
     
     [_loginBtn mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.left.mas_equalTo(_IconImage).offset(60);
+        make.left.mas_equalTo(_IconImage).offset(80);
         make.centerY.mas_equalTo(self.contentView);
         make.width.mas_equalTo(80);
         make.height.mas_equalTo(25);
@@ -75,7 +75,7 @@
     
     [_introduce mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.left.mas_equalTo(_loginBtn).offset(85);
+         make.left.mas_equalTo(_loginBtn).offset(105);
          make.centerY.mas_equalTo(self.contentView);
          make.width.mas_equalTo(100);
          make.height.mas_equalTo(25);

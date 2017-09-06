@@ -41,7 +41,8 @@
 
 @implementation DressingViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.window = [[UIApplication sharedApplication] keyWindow];
@@ -58,6 +59,7 @@
     pyte = 0;
     
     typeArr = [NSMutableArray arrayWithObjects:@"空闲", @"洽谈中", @"工作中", nil];
+    
     
     dataArray = [NSMutableArray array];
     [dataArray addObject:@"1"];
@@ -145,6 +147,8 @@
                 
                 field.placeholder = @"请输入工人姓名";
                 
+                [field addTarget:self action:@selector(textchange:) forControlEvents:UIControlEventEditingChanged];
+                
                 field.borderStyle = UITextBorderStyleRoundedRect;
                 
                 [cell addSubview:field];
@@ -159,11 +163,7 @@
         }
         else if (indexPath.row == 1)
         {
-      
-            
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            
-            
             
             if (!cell)
             {
@@ -231,9 +231,7 @@
                         }
                     }
                     
-                    
-                    
-                    
+                 
                     [backview addSubview:button];
                     
                     [button mas_makeConstraints:^(MASConstraintMaker *make)
@@ -399,23 +397,22 @@
     
     if (indexPath.section == 0)
     {
-        
-        [self initlistView:indexPath.row];
+        if (indexPath.row == 2)
+        {
+            [self initAlert:aaaaaaaaaa title:@"搜索范围" type:0];
+        }
+        else if (indexPath.row == 3)
+        {
+            [self initAlert:listArray title:@"选择工种" type:1];
+        }
         
     }
-    
-    
+  
     
 }
 
 
 #pragma textfield的代理
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    nameStr = textField.text;
-
-}
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
    
@@ -551,6 +548,71 @@
 - (void)temp
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+
+
+//获取编辑内容
+- (void)textchange: (UITextField *)textfield;
+{
+    nameStr = textfield.text;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//重写alert
+- (void)initAlert: (NSMutableArray *)dataArrayAlert title: (NSString *)name type:(NSInteger)typpp
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:name preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertController addAction:cancelAction];
+    
+    
+    for (int i = 0; i < dataArrayAlert.count; i++)
+    {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:[dataArrayAlert objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+        {
+            if (typpp == 0)
+            {
+                adree = action.title;
+            }
+            else
+            {
+                worker = action.title;
+            }
+            
+            
+            [self.tableview reloadData];
+        }];
+        
+        [alertController addAction:action];
+    }
+    
+    
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+    
+    
+    
 }
 
 

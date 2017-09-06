@@ -15,6 +15,20 @@
     NSMutableArray *dataArray;
     
     NSMutableArray *nameArr;
+    
+    NSString *nameStr;    //编辑框内容
+    
+    
+    
+    
+    
+    NSString *range;     //搜索范围
+    NSString *project;   //选择工期
+    NSString *money;     //工资金额
+    NSString *time;      //项目时间
+    NSString *proType;   //项目类型
+    NSString *worker;    //选择工种
+    
 }
 
 
@@ -30,6 +44,10 @@
     dataArray = [NSMutableArray array];
     
     nameArr = [NSMutableArray arrayWithObjects:@"搜索范围:",@"选择工期",@"工资金额", @"项目时间", @"项目类型", @"选择工种", nil];
+    
+    
+    
+    
     
     [dataArray addObject:@"1"];
     [dataArray addObject:@"1"];
@@ -109,6 +127,10 @@
             
             field.placeholder = @"请输入工人姓名";
             
+            field.text = nameStr;
+            
+            [field addTarget:self action:@selector(textchange:) forControlEvents:UIControlEventEditingChanged];
+            
             field.borderStyle = UITextBorderStyleRoundedRect;
             
             [cell addSubview:field];
@@ -122,7 +144,31 @@
             DressworkerUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allcell"];
             
             cell.name.text = [nameArr objectAtIndex:indexPath.row - 1];
-            
+        
+            if (indexPath.row == 1)
+            {
+                cell.data.text = range;
+            }
+            else if (indexPath.row == 2)
+            {
+                cell.data.text = project;
+            }
+            else if (indexPath.row == 3)
+            {
+                cell.data.text = money;
+            }
+            else if (indexPath.row == 4)
+            {
+                cell.data.text = time;
+            }
+            else if (indexPath.row == 5)
+            {
+                cell.data.text = proType;
+            }
+            else
+            {
+                cell.data.text = worker;
+            }
             
             return cell;
         }
@@ -207,7 +253,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-   
+    if (indexPath.section == 0)
+    {
+        [self initAlert:dataArray title:[nameArr objectAtIndex:indexPath.row - 1] type:indexPath.row];
+    }
     
     
     
@@ -231,6 +280,91 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+
+//获取编辑框内容
+- (void)textchange: (UITextField *)textfield
+{
+    nameStr = textfield.text;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//重写alert
+- (void)initAlert: (NSMutableArray *)dataArrayAlert title: (NSString *)name type:(NSInteger)typpp
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:name preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertController addAction:cancelAction];
+    
+    
+    for (int i = 0; i < dataArrayAlert.count; i++)
+    {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:[dataArrayAlert objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                 {
+                                     if (typpp == 1)
+                                     {
+                                         range = action.title;
+                                     }
+                                     else if (typpp == 2)
+                                     {
+                                         project = action.title;
+                                     }
+                                     else if (typpp == 3)
+                                     {
+                                         money = action.title;
+                                     }
+                                     else if (typpp == 4)
+                                     {
+                                         time = action.title;
+                                     }
+                                     else if (typpp == 5)
+                                     {
+                                         proType = action.title;
+                                     }
+                                     else
+                                     {
+                                         worker = action.title;
+                                     }
+                                     
+                                     
+                                     [self.tableview reloadData];
+                                     
+                                 }];
+        
+        [alertController addAction:action];
+    }
+    
+    
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 
 
 

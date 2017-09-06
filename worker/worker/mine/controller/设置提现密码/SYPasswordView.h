@@ -24,6 +24,9 @@
 
 @property (nonatomic, weak)id <FirstNum> delegate;
 
+
+@property (nonatomic, strong) UITextField *textField;
+
 /**
  *  清除密码
  */

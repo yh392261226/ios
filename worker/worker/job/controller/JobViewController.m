@@ -14,6 +14,7 @@
 #import "EmployerManagementViewController.h"
 #import "PersonageManagementViewController.h"
 #import "IssueViewController.h"
+#import "MineMoneyViewController.h"
 
 @interface JobViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -211,7 +212,7 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     
-    RechargeViewController *temp = [[RechargeViewController alloc] init];
+    MineMoneyViewController *temp = [[MineMoneyViewController alloc] init];
     
     [self.navigationController pushViewController:temp animated:YES];
     
