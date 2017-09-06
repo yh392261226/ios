@@ -25,7 +25,7 @@
 
 @property (nonatomic, strong)NSString *name;
 @property (nonatomic, strong)NSString *data;
-
+@property (nonatomic, strong)NSString *bigData;
 
 @end
 
@@ -69,11 +69,13 @@
 #import "elseDelegateTableViewCell.h"
 #import "NormalTableViewCell.h"
 
-@interface IssueViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface IssueViewController ()<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 {
     NSMutableArray *dataArray;        //支撑页面的大数组
     
     
+    NSString *workerName;     //工程名称数据
+    NSString *workerAdree;    //工程地址数据
     
 }
 
@@ -175,6 +177,13 @@
                 cell.name.text = info.name;
                 cell.data.placeholder = info.data;
                 
+                
+                cell.data.text = info.bigData;
+                
+                cell.data.tag = indexPath.row + 600;
+                
+                [cell.data addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
+                
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
             }
@@ -209,6 +218,14 @@
                 cell.name.font = [UIFont systemFontOfSize:16];
                 cell.name.text = @"描述:";
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                cell.data.text = info.data;
+                cell.data.delegate = self;
+                
+                
+                
+                
+                
             }
             
             
@@ -655,15 +672,49 @@
 
 
 
+//获取编辑框的内容
+- (void)textFiled: (UITextField *)textfield
+{
+    NSArray *arr = [dataArray objectAtIndex:0];
+    
+    selecdType *data = [arr objectAtIndex:0];
+    
+    firstModel *info = (firstModel *)data;
+    
+    selecdType *data1 = [arr objectAtIndex:4];
+    
+    firstModel *info1 = (firstModel *)data1;
+    
+    if (textfield.tag == 600)
+    {
+        info.bigData = textfield.text;
+    }
+    else
+    {
+        info1.bigData = textfield.text;
+    }
+    
+    
+    
+}
 
 
 
+- (void)textViewDidChange:(UITextView *)textView
+{
+    NSArray *arr = [dataArray objectAtIndex:0];
+    
+    selecdType *data = [arr objectAtIndex:1];
+    
+    firstModel *info = (firstModel *)data;
+    
+    info.data = textView.text;
+}
 
 
 
-
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

@@ -57,6 +57,23 @@
     
     [self tableview];
     
+    
+    
+    UIButton *Mess = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [Mess setBackgroundImage:[UIImage imageNamed:@"main_mess"] forState:UIControlStateNormal];
+    
+    [Mess addTarget:self action:@selector(MessBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:Mess];
+    
+    [Mess mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.top.mas_equalTo(self.view).offset(30);
+         make.right.mas_equalTo(self.view).offset(-15);
+         make.height.mas_equalTo(22);
+         make.width.mas_equalTo(22);
+     }];
 }
 
 
@@ -303,16 +320,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 //重写alert
 - (void)initAlert: (NSMutableArray *)dataArrayAlert title: (NSString *)name type:(NSInteger)typpp
 {
@@ -363,9 +370,19 @@
     
     
     [self presentViewController:alertController animated:YES completion:nil];
+    
+    
 }
 
 
+
+
+
+//搜索按钮
+- (void)MessBtn
+{
+    NSLog(@"搜索");
+}
 
 
 

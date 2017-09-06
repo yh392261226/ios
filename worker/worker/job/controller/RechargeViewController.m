@@ -203,11 +203,7 @@
         make.width.mas_equalTo(200);
     }];
     
-    
-    
-    
-    
-    
+
     return view;
     
 }
@@ -226,8 +222,6 @@
     
     if (section == 1)
     {
-        
-       
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         
@@ -248,19 +242,11 @@
         
         [button mas_makeConstraints:^(MASConstraintMaker *make)
         {
-            make.top.mas_equalTo(view).offset(5);
-            make.centerX.mas_equalTo(view);
-            make.height.mas_equalTo(30);
-            make.width.mas_equalTo(150);
+            make.top.mas_equalTo(view).offset(25);
+            make.height.mas_equalTo(35);
+            make.left.mas_equalTo(view).offset(40);
+            make.right.mas_equalTo(view).offset(-40);
         }];
-        
-        
-        UITextField *field = [self.view viewWithTag:400];
-        
-        if (field.text.length == 0)
-        {
-            button.backgroundColor = [UIColor grayColor];
-        }
         
     }
     
@@ -286,50 +272,7 @@
 
 #pragma textfield的代理
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    UIButton *btn = [self.view viewWithTag:400];
-    
-    NSString *allStr = [NSString stringWithFormat:@"%@%@", textField.text, string];
-    
-    if (allStr == textField.text)   //说明在删除
-    {
-        if (allStr.length == 1)
-        {
-            btn.backgroundColor = [UIColor grayColor];
-            
-            btn.userInteractionEnabled = NO;
-        }
-        
-        else
-        {
-            btn.backgroundColor = [myselfway stringTOColor:@"0x2E84F8"];
-            btn.userInteractionEnabled = YES;
-        }
-    }
-    else                            //说明在添加
-    {
-        if (allStr.length == 0)
-        {
-            btn.backgroundColor = [UIColor grayColor];
-            btn.userInteractionEnabled = NO;
-        }
-        
-        else
-        {
-            btn.backgroundColor = [myselfway stringTOColor:@"0x2E84F8"];
-            btn.userInteractionEnabled = YES;
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    return YES;
-}
+
 
 
 
@@ -340,6 +283,8 @@
     [self.view endEditing:YES];
 }
 
+
+//获取充值金额数据
 - (void)textFieldEditChanged:(UITextField *)textField
 {
     

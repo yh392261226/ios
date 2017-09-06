@@ -14,6 +14,9 @@
 #import "MineMessViewController.h"
 #import "IssueViewController.h"
 
+
+#import "PartyDismissViewController.h"
+
 @interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate>
 {
     TabbarView *tabbar;
@@ -256,9 +259,14 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     
-    SelecdCityViewController *temp = [[SelecdCityViewController alloc] init];
+//    SelecdCityViewController *temp = [[SelecdCityViewController alloc] init];
+//    
+//    [self.navigationController pushViewController:temp animated:YES];
+    
+    PartyDismissViewController *temp = [[PartyDismissViewController alloc] init];
     
     [self.navigationController pushViewController:temp animated:YES];
+    
     
     self.hidesBottomBarWhenPushed = NO;
 }

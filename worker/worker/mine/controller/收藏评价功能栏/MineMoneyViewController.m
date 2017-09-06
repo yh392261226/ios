@@ -10,6 +10,7 @@
 #import "ElseTableViewCell.h"
 #import "MoneyDetailsViewController.h"
 #import "RechargeViewController.h"
+#import "DepositViewController.h"
 
 @interface MineMoneyViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -154,6 +155,12 @@
     if (indexPath.section == 1)
     {
         RechargeViewController *temp = [[RechargeViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
+    else if (indexPath.section == 2)
+    {
+        DepositViewController *temp = [[DepositViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
     }
