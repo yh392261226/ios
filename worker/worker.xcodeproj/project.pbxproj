@@ -37,6 +37,15 @@
 		FB3687911F2B226F008E8387 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3687901F2B226F008E8387 /* libstdc++.6.0.9.tbd */; };
 		FB3687931F2B22AD008E8387 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB3687921F2B22AD008E8387 /* mapapi.bundle */; };
 		FB3D89F71F581CEA00864E8B /* RemoveCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3D89F61F581CEA00864E8B /* RemoveCardViewController.m */; };
+		FB4C33AF1F5F8BA1005D0747 /* PartyDismissViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C33AE1F5F8BA1005D0747 /* PartyDismissViewController.m */; };
+		FB4C33B11F5F8BC7005D0747 /* worker.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB4C33B01F5F8BC7005D0747 /* worker.xib */; };
+		FB4C33B41F5FC0EB005D0747 /* PartyBdismissViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C33B31F5FC0EB005D0747 /* PartyBdismissViewController.m */; };
+		FB4C33B71F5FC6FD005D0747 /* PartyDomplainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C33B61F5FC6FD005D0747 /* PartyDomplainViewController.m */; };
+		FB4C33BC1F5FD85E005D0747 /* DomFirstCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C33BB1F5FD85E005D0747 /* DomFirstCollectionViewCell.m */; };
+		FB4C33BF1F5FDDDD005D0747 /* PartySecondCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C33BE1F5FDDDD005D0747 /* PartySecondCollectionViewCell.m */; };
+		FB4C33C21F5FDF3C005D0747 /* PartyThreeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C33C11F5FDF3C005D0747 /* PartyThreeCollectionViewCell.m */; };
+		FB4C33C51F5FE704005D0747 /* headCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C33C41F5FE704005D0747 /* headCollectionReusableView.m */; };
+		FB4C33C81F5FEA1F005D0747 /* PartyimageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C33C71F5FEA1F005D0747 /* PartyimageCollectionViewCell.m */; };
 		FB4F230C1F58F25E00D8D7C6 /* NormalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F230B1F58F25E00D8D7C6 /* NormalTableViewCell.m */; };
 		FB4F230F1F59378300D8D7C6 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F230E1F59378300D8D7C6 /* MessageViewController.m */; };
 		FB4F23121F593DEC00D8D7C6 /* BoundPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F23111F593DEC00D8D7C6 /* BoundPhoneViewController.m */; };
@@ -98,6 +107,8 @@
 		FB9F326C1F46C923000D0F19 /* DressworkerUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9F326B1F46C923000D0F19 /* DressworkerUITableViewCell.m */; };
 		FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */; };
 		FBBEFA351F4986A200B19C9D /* WorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBEFA341F4986A200B19C9D /* WorkerViewController.m */; };
+		FBCAB43F1F5E802900921FBE /* DepositViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBCAB43E1F5E802900921FBE /* DepositViewController.m */; };
+		FBCAB4421F5E830500921FBE /* DepositTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBCAB4411F5E830500921FBE /* DepositTableViewCell.m */; };
 		FBD796651F286B3700FA50BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796641F286B3700FA50BE /* main.m */; };
 		FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796671F286B3700FA50BE /* AppDelegate.m */; };
 		FBD796731F286B3700FA50BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBD796721F286B3700FA50BE /* Assets.xcassets */; };
@@ -186,6 +197,23 @@
 		FB3687921F2B22AD008E8387 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = Pods/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle; sourceTree = "<group>"; };
 		FB3D89F51F581CEA00864E8B /* RemoveCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveCardViewController.h; sourceTree = "<group>"; };
 		FB3D89F61F581CEA00864E8B /* RemoveCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveCardViewController.m; sourceTree = "<group>"; };
+		FB4C33AD1F5F8BA1005D0747 /* PartyDismissViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyDismissViewController.h; sourceTree = "<group>"; };
+		FB4C33AE1F5F8BA1005D0747 /* PartyDismissViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyDismissViewController.m; sourceTree = "<group>"; };
+		FB4C33B01F5F8BC7005D0747 /* worker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = worker.xib; sourceTree = "<group>"; };
+		FB4C33B21F5FC0EB005D0747 /* PartyBdismissViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyBdismissViewController.h; sourceTree = "<group>"; };
+		FB4C33B31F5FC0EB005D0747 /* PartyBdismissViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyBdismissViewController.m; sourceTree = "<group>"; };
+		FB4C33B51F5FC6FD005D0747 /* PartyDomplainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyDomplainViewController.h; sourceTree = "<group>"; };
+		FB4C33B61F5FC6FD005D0747 /* PartyDomplainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyDomplainViewController.m; sourceTree = "<group>"; };
+		FB4C33BA1F5FD85E005D0747 /* DomFirstCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomFirstCollectionViewCell.h; sourceTree = "<group>"; };
+		FB4C33BB1F5FD85E005D0747 /* DomFirstCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomFirstCollectionViewCell.m; sourceTree = "<group>"; };
+		FB4C33BD1F5FDDDD005D0747 /* PartySecondCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartySecondCollectionViewCell.h; sourceTree = "<group>"; };
+		FB4C33BE1F5FDDDD005D0747 /* PartySecondCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartySecondCollectionViewCell.m; sourceTree = "<group>"; };
+		FB4C33C01F5FDF3C005D0747 /* PartyThreeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyThreeCollectionViewCell.h; sourceTree = "<group>"; };
+		FB4C33C11F5FDF3C005D0747 /* PartyThreeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyThreeCollectionViewCell.m; sourceTree = "<group>"; };
+		FB4C33C31F5FE704005D0747 /* headCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = headCollectionReusableView.h; sourceTree = "<group>"; };
+		FB4C33C41F5FE704005D0747 /* headCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = headCollectionReusableView.m; sourceTree = "<group>"; };
+		FB4C33C61F5FEA1F005D0747 /* PartyimageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyimageCollectionViewCell.h; sourceTree = "<group>"; };
+		FB4C33C71F5FEA1F005D0747 /* PartyimageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyimageCollectionViewCell.m; sourceTree = "<group>"; };
 		FB4F230A1F58F25E00D8D7C6 /* NormalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormalTableViewCell.h; sourceTree = "<group>"; };
 		FB4F230B1F58F25E00D8D7C6 /* NormalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalTableViewCell.m; sourceTree = "<group>"; };
 		FB4F230D1F59378300D8D7C6 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
@@ -301,6 +329,10 @@
 		FBAB094D1F3D4BFE004CB16D /* workerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = workerCollectionViewCell.m; sourceTree = "<group>"; };
 		FBBEFA331F4986A200B19C9D /* WorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WorkerViewController.h; path = main/WorkerViewController.h; sourceTree = "<group>"; };
 		FBBEFA341F4986A200B19C9D /* WorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WorkerViewController.m; path = main/WorkerViewController.m; sourceTree = "<group>"; };
+		FBCAB43D1F5E802900921FBE /* DepositViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepositViewController.h; sourceTree = "<group>"; };
+		FBCAB43E1F5E802900921FBE /* DepositViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepositViewController.m; sourceTree = "<group>"; };
+		FBCAB4401F5E830500921FBE /* DepositTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepositTableViewCell.h; sourceTree = "<group>"; };
+		FBCAB4411F5E830500921FBE /* DepositTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepositTableViewCell.m; sourceTree = "<group>"; };
 		FBD796601F286B3700FA50BE /* worker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = worker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBD796641F286B3700FA50BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBD796661F286B3700FA50BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -547,6 +579,8 @@
 				FB7F384C1F384A950082A8FA /* RechargeViewController.m */,
 				FB2581D91F395BA100BE510F /* TypeView.h */,
 				FB2581DA1F395BA100BE510F /* TypeView.m */,
+				FBCAB43D1F5E802900921FBE /* DepositViewController.h */,
+				FBCAB43E1F5E802900921FBE /* DepositViewController.m */,
 				FB2581CD1F3958CA00BE510F /* 个人信息管理 */,
 				FB2581CE1F3958CA00BE510F /* 工人工作管理 */,
 				FB2581CF1F3958CA00BE510F /* 雇主发布管理 */,
@@ -575,8 +609,87 @@
 				FB7F384F1F384B6A0082A8FA /* RechargeTableViewCell.m */,
 				FB7F38511F3857E50082A8FA /* PayTableViewCell.h */,
 				FB7F38521F3857E50082A8FA /* PayTableViewCell.m */,
+				FBCAB4401F5E830500921FBE /* DepositTableViewCell.h */,
+				FBCAB4411F5E830500921FBE /* DepositTableViewCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		FB4C33A71F5F8B90005D0747 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				FB4C33A81F5F8B90005D0747 /* Party */,
+				FB4C33A91F5F8B90005D0747 /* PartyB */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		FB4C33A81F5F8B90005D0747 /* Party */ = {
+			isa = PBXGroup;
+			children = (
+				FB4C33AD1F5F8BA1005D0747 /* PartyDismissViewController.h */,
+				FB4C33AE1F5F8BA1005D0747 /* PartyDismissViewController.m */,
+				FB4C33B51F5FC6FD005D0747 /* PartyDomplainViewController.h */,
+				FB4C33B61F5FC6FD005D0747 /* PartyDomplainViewController.m */,
+			);
+			path = Party;
+			sourceTree = "<group>";
+		};
+		FB4C33A91F5F8B90005D0747 /* PartyB */ = {
+			isa = PBXGroup;
+			children = (
+				FB4C33B21F5FC0EB005D0747 /* PartyBdismissViewController.h */,
+				FB4C33B31F5FC0EB005D0747 /* PartyBdismissViewController.m */,
+			);
+			path = PartyB;
+			sourceTree = "<group>";
+		};
+		FB4C33AA1F5F8B90005D0747 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		FB4C33AB1F5F8B90005D0747 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				FB4C33B81F5FD767005D0747 /* Party */,
+				FB4C33B91F5FD767005D0747 /* PartyB */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		FB4C33AC1F5F8B90005D0747 /* xib */ = {
+			isa = PBXGroup;
+			children = (
+				FB4C33B01F5F8BC7005D0747 /* worker.xib */,
+			);
+			path = xib;
+			sourceTree = "<group>";
+		};
+		FB4C33B81F5FD767005D0747 /* Party */ = {
+			isa = PBXGroup;
+			children = (
+				FB4C33BA1F5FD85E005D0747 /* DomFirstCollectionViewCell.h */,
+				FB4C33BB1F5FD85E005D0747 /* DomFirstCollectionViewCell.m */,
+				FB4C33BD1F5FDDDD005D0747 /* PartySecondCollectionViewCell.h */,
+				FB4C33BE1F5FDDDD005D0747 /* PartySecondCollectionViewCell.m */,
+				FB4C33C01F5FDF3C005D0747 /* PartyThreeCollectionViewCell.h */,
+				FB4C33C11F5FDF3C005D0747 /* PartyThreeCollectionViewCell.m */,
+				FB4C33C31F5FE704005D0747 /* headCollectionReusableView.h */,
+				FB4C33C41F5FE704005D0747 /* headCollectionReusableView.m */,
+				FB4C33C61F5FEA1F005D0747 /* PartyimageCollectionViewCell.h */,
+				FB4C33C71F5FEA1F005D0747 /* PartyimageCollectionViewCell.m */,
+			);
+			path = Party;
+			sourceTree = "<group>";
+		};
+		FB4C33B91F5FD767005D0747 /* PartyB */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PartyB;
 			sourceTree = "<group>";
 		};
 		FB7FA5811F32F75F0096F6F2 /* controller */ = {
@@ -764,6 +877,17 @@
 			path = "收藏评价功能栏";
 			sourceTree = "<group>";
 		};
+		FBCAB4431F5E996900921FBE /* project */ = {
+			isa = PBXGroup;
+			children = (
+				FB4C33A71F5F8B90005D0747 /* controller */,
+				FB4C33AA1F5F8B90005D0747 /* model */,
+				FB4C33AB1F5F8B90005D0747 /* view */,
+				FB4C33AC1F5F8B90005D0747 /* xib */,
+			);
+			path = project;
+			sourceTree = "<group>";
+		};
 		FBD796571F286B3700FA50BE = {
 			isa = PBXGroup;
 			children = (
@@ -791,6 +915,7 @@
 			isa = PBXGroup;
 			children = (
 				FB6F86A71F346CE100806108 /* worker.entitlements */,
+				FBCAB4431F5E996900921FBE /* project */,
 				FBD796A81F288CA100FA50BE /* job */,
 				FBD796A61F288C9A00FA50BE /* message */,
 				FBD796A71F288C9A00FA50BE /* mine */,
@@ -1006,6 +1131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB3687931F2B22AD008E8387 /* mapapi.bundle in Resources */,
+				FB4C33B11F5F8BC7005D0747 /* worker.xib in Resources */,
 				FBD796761F286B3700FA50BE /* LaunchScreen.storyboard in Resources */,
 				FBD796731F286B3700FA50BE /* Assets.xcassets in Resources */,
 			);
@@ -1173,13 +1299,16 @@
 				FB64B3341F456CEF001418D1 /* DressTableViewCell.m in Sources */,
 				FB14A1521F56566D0028282E /* PasswordViewController.m in Sources */,
 				FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */,
+				FB4C33C51F5FE704005D0747 /* headCollectionReusableView.m in Sources */,
 				FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */,
 				FB85801E1F42A2C80085BAF1 /* ServiceViewController.m in Sources */,
 				FB85801B1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m in Sources */,
+				FB4C33B41F5FC0EB005D0747 /* PartyBdismissViewController.m in Sources */,
 				FB5D87EC1F30227100830F89 /* JobViewController.m in Sources */,
 				FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */,
 				FBE30BD61F4D661D001F5DFB /* lssueUserTableViewCell.m in Sources */,
 				FB7F384A1F37FB130082A8FA /* LoginViewController.m in Sources */,
+				FBCAB4421F5E830500921FBE /* DepositTableViewCell.m in Sources */,
 				FB7FA59C1F32F75F0096F6F2 /* MainTableViewCell.m in Sources */,
 				FB7FA5B41F32F81F0096F6F2 /* MineMessViewController.m in Sources */,
 				FB7FA5991F32F75F0096F6F2 /* SelecdCityViewController.m in Sources */,
@@ -1193,6 +1322,8 @@
 				FB14A15B1F569B5E0028282E /* draftViewController.m in Sources */,
 				FB8580151F42892D0085BAF1 /* MineMoneyViewController.m in Sources */,
 				FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */,
+				FBCAB43F1F5E802900921FBE /* DepositViewController.m in Sources */,
+				FB4C33C21F5FDF3C005D0747 /* PartyThreeCollectionViewCell.m in Sources */,
 				FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */,
 				FB75E6D81F4966010049D864 /* ViewpagerViewController.m in Sources */,
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
@@ -1241,10 +1372,15 @@
 				FB7FA5AF1F32F7670096F6F2 /* MineMoneyTableViewCell.m in Sources */,
 				FB6D76031F418CF3009FCF73 /* EvaluateTableViewCell.m in Sources */,
 				FB4F23151F59418100D8D7C6 /* BoundTableViewCell.m in Sources */,
+				FB4C33BC1F5FD85E005D0747 /* DomFirstCollectionViewCell.m in Sources */,
 				FB7BFADE1F57A9D7007BA843 /* RemoveFirViewController.m in Sources */,
+				FB4C33AF1F5F8BA1005D0747 /* PartyDismissViewController.m in Sources */,
+				FB4C33BF1F5FDDDD005D0747 /* PartySecondCollectionViewCell.m in Sources */,
 				FB2581DB1F395BA100BE510F /* TypeView.m in Sources */,
 				FB4F230C1F58F25E00D8D7C6 /* NormalTableViewCell.m in Sources */,
 				FB9911391F29757F0017A32B /* TabbarView.m in Sources */,
+				FB4C33B71F5FC6FD005D0747 /* PartyDomplainViewController.m in Sources */,
+				FB4C33C81F5FEA1F005D0747 /* PartyimageCollectionViewCell.m in Sources */,
 				FB339D471F3C3A550086CF2D /* BriefTableViewCell.m in Sources */,
 				FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */,
 				FB5D87F51F3045D900830F89 /* FirstTableViewCell.m in Sources */,

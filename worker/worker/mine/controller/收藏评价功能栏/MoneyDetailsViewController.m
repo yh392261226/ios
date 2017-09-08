@@ -87,7 +87,6 @@
 
 //右上角点击出现的
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isKindOfClass:[self.tableview class]])
