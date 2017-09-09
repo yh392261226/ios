@@ -12,4 +12,7 @@
 
 @property (nonatomic, strong)UIImageView *image;
 
+@property (nonatomic, strong)UIButton *close;
+
+
 @end

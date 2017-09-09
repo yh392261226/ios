@@ -19,10 +19,11 @@
         _image = [[UIImageView alloc] init];
         
         _image.layer.masksToBounds = YES;
-        
-        _image.backgroundColor = [UIColor redColor];
+
         
         _image.layer.cornerRadius = 3;
+        
+      
         
         [self.contentView addSubview:_image];
         
@@ -33,6 +34,33 @@
             make.width.mas_equalTo(90);
             make.height.mas_equalTo(90);
         }];
+        
+        
+        
+        _close = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+       
+        
+        [_close setBackgroundImage:[UIImage imageNamed:@"project_close"] forState:UIControlStateNormal];
+        
+        _close.layer.cornerRadius = 10;
+        
+        
+        
+        [self.contentView addSubview:_close];
+        
+        
+        [_close mas_makeConstraints:^(MASConstraintMaker *make)
+        {
+            make.top.mas_equalTo(_image).offset(-5);
+            make.right.mas_equalTo(_image).offset(5);
+            make.height.mas_equalTo(20);
+            make.width.mas_equalTo(20);
+        }];
+        
+        
+        
+        
         
     }
     

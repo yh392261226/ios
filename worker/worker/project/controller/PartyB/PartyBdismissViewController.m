@@ -41,6 +41,8 @@
     
     UILabel *tousuZiyang;   //投诉雇主字样
 
+    
+    NSString *qustion;    //辞退原因
 }
 
 @end
@@ -67,7 +69,7 @@
 
 - (void)initUI
 {
-    [self addhead:@"解雇原因"];
+    [self addhead:@"辞职原因"];
     
     UIView *backview = [[[NSBundle mainBundle] loadNibNamed:@"worker" owner:self options:nil] objectAtIndex:0];
     
@@ -181,7 +183,14 @@
 //提交按钮
 - (void)yesBtn
 {
-    NSLog(@"yes");
+    if (qustion.length == 0)
+    {
+        [SVProgressHUD showInfoWithStatus:@"请填写辞退原因"];
+    }
+    else
+    {
+        
+    }
 }
 
 
@@ -237,7 +246,7 @@
     
     
     
-    NSLog(@"%@", textView.text);
+    qustion = textView.text;
 }
 
 

@@ -10,6 +10,10 @@
 #import "MoneyDetailsViewController.h"
 #import "PartyDomplainViewController.h"
 
+
+
+#import "PartyClauseViewController.h"
+
 @interface PartyDismissViewController ()<UITextViewDelegate>
 {
     UIImageView *icon;    //头像
@@ -36,13 +40,16 @@
     NSInteger evaluation;   //评价， 传给后台
     
     UILabel *plans;   //水印字样
+    
+    NSString *question;    //问题原因
 }
 
 @end
 
 @implementation PartyDismissViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -162,7 +169,20 @@
 //提交按钮
 - (void)yesBtn
 {
-    NSLog(@"yes");
+    if (question.length == 0)
+    {
+        [SVProgressHUD showInfoWithStatus:@"请填写辞退原因"];
+    }
+    else
+    {
+        self.hidesBottomBarWhenPushed = YES;
+        
+        PartyClauseViewController *temp = [[PartyClauseViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:yes];
+    }
+    
+    
 }
 
 
@@ -216,9 +236,7 @@
         [plans setHidden:YES];
     }
     
-    
-    
-    NSLog(@"%@", textView.text);
+    question = textView.text;
 }
 
 

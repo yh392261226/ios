@@ -56,6 +56,55 @@
 		FB5D87EC1F30227100830F89 /* JobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D87EB1F30227100830F89 /* JobViewController.m */; };
 		FB5D87F51F3045D900830F89 /* FirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D87F41F3045D900830F89 /* FirstTableViewCell.m */; };
 		FB5D87F81F3045E800830F89 /* ElseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D87F71F3045E800830F89 /* ElseTableViewCell.m */; };
+		FB5DEC3D1F60F14B00008EA5 /* NSBundle+ZLPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC071F60F14B00008EA5 /* NSBundle+ZLPhotoBrowser.m */; };
+		FB5DEC3E1F60F14B00008EA5 /* btn_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC091F60F14B00008EA5 /* btn_circle@2x.png */; };
+		FB5DEC3F1F60F14B00008EA5 /* btn_circle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC0A1F60F14B00008EA5 /* btn_circle@3x.png */; };
+		FB5DEC401F60F14B00008EA5 /* btn_original_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC0B1F60F14B00008EA5 /* btn_original_circle.png */; };
+		FB5DEC411F60F14B00008EA5 /* btn_original_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC0C1F60F14B00008EA5 /* btn_original_circle@2x.png */; };
+		FB5DEC421F60F14B00008EA5 /* btn_original_circle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC0D1F60F14B00008EA5 /* btn_original_circle@3x.png */; };
+		FB5DEC431F60F14B00008EA5 /* btn_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC0E1F60F14B00008EA5 /* btn_selected.png */; };
+		FB5DEC441F60F14B00008EA5 /* btn_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC0F1F60F14B00008EA5 /* btn_selected@2x.png */; };
+		FB5DEC451F60F14B00008EA5 /* btn_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC101F60F14B00008EA5 /* btn_selected@3x.png */; };
+		FB5DEC461F60F14B00008EA5 /* btn_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC111F60F14B00008EA5 /* btn_unselected.png */; };
+		FB5DEC471F60F14B00008EA5 /* btn_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC121F60F14B00008EA5 /* btn_unselected@2x.png */; };
+		FB5DEC481F60F14B00008EA5 /* btn_unselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC131F60F14B00008EA5 /* btn_unselected@3x.png */; };
+		FB5DEC491F60F14B00008EA5 /* defaultphoto.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC141F60F14B00008EA5 /* defaultphoto.png */; };
+		FB5DEC4A1F60F14B00008EA5 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC151F60F14B00008EA5 /* lock.png */; };
+		FB5DEC4B1F60F14B00008EA5 /* navBackBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC161F60F14B00008EA5 /* navBackBtn@2x.png */; };
+		FB5DEC4C1F60F14B00008EA5 /* ZLCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC171F60F14B00008EA5 /* ZLCollectionCell.xib */; };
+		FB5DEC4D1F60F14B00008EA5 /* ZLNoAuthorityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC181F60F14B00008EA5 /* ZLNoAuthorityViewController.xib */; };
+		FB5DEC4E1F60F14B00008EA5 /* ZLPhotoActionSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC191F60F14B00008EA5 /* ZLPhotoActionSheet.xib */; };
+		FB5DEC4F1F60F14B00008EA5 /* ZLPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC1A1F60F14B00008EA5 /* ZLPhotoBrowser.bundle */; };
+		FB5DEC501F60F14B00008EA5 /* ZLPhotoBrowserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC1B1F60F14B00008EA5 /* ZLPhotoBrowserCell.xib */; };
+		FB5DEC511F60F14B00008EA5 /* ZLThumbnailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5DEC1C1F60F14B00008EA5 /* ZLThumbnailViewController.xib */; };
+		FB5DEC521F60F14B00008EA5 /* ToastUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC1E1F60F14B00008EA5 /* ToastUtils.m */; };
+		FB5DEC531F60F14B00008EA5 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC211F60F14B00008EA5 /* VPImageCropperViewController.m */; };
+		FB5DEC541F60F14B00008EA5 /* ZLBigImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC231F60F14B00008EA5 /* ZLBigImageCell.m */; };
+		FB5DEC551F60F14B00008EA5 /* ZLCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC251F60F14B00008EA5 /* ZLCollectionCell.m */; };
+		FB5DEC561F60F14B00008EA5 /* ZLNoAuthorityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC281F60F14B00008EA5 /* ZLNoAuthorityViewController.m */; };
+		FB5DEC571F60F14B00008EA5 /* ZLOnePhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC2A1F60F14B00008EA5 /* ZLOnePhoto.m */; };
+		FB5DEC581F60F14B00008EA5 /* ZLPhotoActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC2C1F60F14B00008EA5 /* ZLPhotoActionSheet.m */; };
+		FB5DEC591F60F14B00008EA5 /* ZLPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC2E1F60F14B00008EA5 /* ZLPhotoBrowser.m */; };
+		FB5DEC5A1F60F14B00008EA5 /* ZLPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC301F60F14B00008EA5 /* ZLPhotoBrowserCell.m */; };
+		FB5DEC5B1F60F14B00008EA5 /* ZLPhotoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC321F60F14B00008EA5 /* ZLPhotoTool.m */; };
+		FB5DEC5C1F60F14B00008EA5 /* ZLProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC341F60F14B00008EA5 /* ZLProgressHUD.m */; };
+		FB5DEC5D1F60F14B00008EA5 /* ZLSelectPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC361F60F14B00008EA5 /* ZLSelectPhotoModel.m */; };
+		FB5DEC5E1F60F14B00008EA5 /* ZLShowBigImage.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC381F60F14B00008EA5 /* ZLShowBigImage.m */; };
+		FB5DEC5F1F60F14B00008EA5 /* ZLShowBigImgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC3A1F60F14B00008EA5 /* ZLShowBigImgViewController.m */; };
+		FB5DEC601F60F14B00008EA5 /* ZLThumbnailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC3C1F60F14B00008EA5 /* ZLThumbnailViewController.m */; };
+		FB5DEC631F61290A00008EA5 /* PartyRefuseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC621F61290A00008EA5 /* PartyRefuseViewController.m */; };
+		FB5DEC661F61338900008EA5 /* PartyBdomplainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC651F61338900008EA5 /* PartyBdomplainViewController.m */; };
+		FB5DEC691F61339C00008EA5 /* PartyBrefuseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC681F61339C00008EA5 /* PartyBrefuseViewController.m */; };
+		FB5DEC6C1F61400900008EA5 /* PartyCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC6B1F61400900008EA5 /* PartyCommentViewController.m */; };
+		FB5DEC6F1F61401E00008EA5 /* PartyBcommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC6E1F61401E00008EA5 /* PartyBcommentViewController.m */; };
+		FB5DEC721F614BF300008EA5 /* PartyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DEC711F614BF300008EA5 /* PartyInfoViewController.m */; };
+		FB61EB4B1F62311E00066A8A /* ImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61EB4A1F62311E00066A8A /* ImageTableViewCell.m */; };
+		FB61EB4E1F62321400066A8A /* PersonInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61EB4D1F62321400066A8A /* PersonInfoTableViewCell.m */; };
+		FB61EB511F6232EF00066A8A /* PersonTextviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61EB501F6232EF00066A8A /* PersonTextviewTableViewCell.m */; };
+		FB61EB541F62369100066A8A /* PersonEvaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61EB531F62369100066A8A /* PersonEvaTableViewCell.m */; };
+		FB61EB571F62450500066A8A /* PartyBinfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61EB561F62450500066A8A /* PartyBinfoViewController.m */; };
+		FB61EB5A1F625FD700066A8A /* PersonWorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61EB591F625FD700066A8A /* PersonWorTableViewCell.m */; };
+		FB61EB5D1F6286FD00066A8A /* PartyClauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61EB5C1F6286FD00066A8A /* PartyClauseViewController.m */; };
 		FB64B3341F456CEF001418D1 /* DressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB64B3331F456CEE001418D1 /* DressTableViewCell.m */; };
 		FB64B3391F457E89001418D1 /* listTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB64B3361F457E89001418D1 /* listTableView.m */; };
 		FB64B33A1F457E89001418D1 /* mainlistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB64B3381F457E89001418D1 /* mainlistTableViewCell.m */; };
@@ -109,6 +158,7 @@
 		FBBEFA351F4986A200B19C9D /* WorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBEFA341F4986A200B19C9D /* WorkerViewController.m */; };
 		FBCAB43F1F5E802900921FBE /* DepositViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBCAB43E1F5E802900921FBE /* DepositViewController.m */; };
 		FBCAB4421F5E830500921FBE /* DepositTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBCAB4411F5E830500921FBE /* DepositTableViewCell.m */; };
+		FBD056EB1F63BDC5001B9E85 /* PartyBclauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD056EA1F63BDC5001B9E85 /* PartyBclauseViewController.m */; };
 		FBD796651F286B3700FA50BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796641F286B3700FA50BE /* main.m */; };
 		FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796671F286B3700FA50BE /* AppDelegate.m */; };
 		FBD796731F286B3700FA50BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBD796721F286B3700FA50BE /* Assets.xcassets */; };
@@ -234,6 +284,85 @@
 		FB5D87F41F3045D900830F89 /* FirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewCell.m; sourceTree = "<group>"; };
 		FB5D87F61F3045E800830F89 /* ElseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElseTableViewCell.h; sourceTree = "<group>"; };
 		FB5D87F71F3045E800830F89 /* ElseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElseTableViewCell.m; sourceTree = "<group>"; };
+		FB5DEC061F60F14B00008EA5 /* NSBundle+ZLPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+ZLPhotoBrowser.h"; sourceTree = "<group>"; };
+		FB5DEC071F60F14B00008EA5 /* NSBundle+ZLPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+ZLPhotoBrowser.m"; sourceTree = "<group>"; };
+		FB5DEC091F60F14B00008EA5 /* btn_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_circle@2x.png"; sourceTree = "<group>"; };
+		FB5DEC0A1F60F14B00008EA5 /* btn_circle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_circle@3x.png"; sourceTree = "<group>"; };
+		FB5DEC0B1F60F14B00008EA5 /* btn_original_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_original_circle.png; sourceTree = "<group>"; };
+		FB5DEC0C1F60F14B00008EA5 /* btn_original_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_original_circle@2x.png"; sourceTree = "<group>"; };
+		FB5DEC0D1F60F14B00008EA5 /* btn_original_circle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_original_circle@3x.png"; sourceTree = "<group>"; };
+		FB5DEC0E1F60F14B00008EA5 /* btn_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_selected.png; sourceTree = "<group>"; };
+		FB5DEC0F1F60F14B00008EA5 /* btn_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_selected@2x.png"; sourceTree = "<group>"; };
+		FB5DEC101F60F14B00008EA5 /* btn_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_selected@3x.png"; sourceTree = "<group>"; };
+		FB5DEC111F60F14B00008EA5 /* btn_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_unselected.png; sourceTree = "<group>"; };
+		FB5DEC121F60F14B00008EA5 /* btn_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_unselected@2x.png"; sourceTree = "<group>"; };
+		FB5DEC131F60F14B00008EA5 /* btn_unselected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_unselected@3x.png"; sourceTree = "<group>"; };
+		FB5DEC141F60F14B00008EA5 /* defaultphoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultphoto.png; sourceTree = "<group>"; };
+		FB5DEC151F60F14B00008EA5 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
+		FB5DEC161F60F14B00008EA5 /* navBackBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBackBtn@2x.png"; sourceTree = "<group>"; };
+		FB5DEC171F60F14B00008EA5 /* ZLCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLCollectionCell.xib; sourceTree = "<group>"; };
+		FB5DEC181F60F14B00008EA5 /* ZLNoAuthorityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLNoAuthorityViewController.xib; sourceTree = "<group>"; };
+		FB5DEC191F60F14B00008EA5 /* ZLPhotoActionSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLPhotoActionSheet.xib; sourceTree = "<group>"; };
+		FB5DEC1A1F60F14B00008EA5 /* ZLPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZLPhotoBrowser.bundle; sourceTree = "<group>"; };
+		FB5DEC1B1F60F14B00008EA5 /* ZLPhotoBrowserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLPhotoBrowserCell.xib; sourceTree = "<group>"; };
+		FB5DEC1C1F60F14B00008EA5 /* ZLThumbnailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLThumbnailViewController.xib; sourceTree = "<group>"; };
+		FB5DEC1D1F60F14B00008EA5 /* ToastUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastUtils.h; sourceTree = "<group>"; };
+		FB5DEC1E1F60F14B00008EA5 /* ToastUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastUtils.m; sourceTree = "<group>"; };
+		FB5DEC201F60F14B00008EA5 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
+		FB5DEC211F60F14B00008EA5 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
+		FB5DEC221F60F14B00008EA5 /* ZLBigImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBigImageCell.h; sourceTree = "<group>"; };
+		FB5DEC231F60F14B00008EA5 /* ZLBigImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBigImageCell.m; sourceTree = "<group>"; };
+		FB5DEC241F60F14B00008EA5 /* ZLCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLCollectionCell.h; sourceTree = "<group>"; };
+		FB5DEC251F60F14B00008EA5 /* ZLCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLCollectionCell.m; sourceTree = "<group>"; };
+		FB5DEC261F60F14B00008EA5 /* ZLDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLDefine.h; sourceTree = "<group>"; };
+		FB5DEC271F60F14B00008EA5 /* ZLNoAuthorityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLNoAuthorityViewController.h; sourceTree = "<group>"; };
+		FB5DEC281F60F14B00008EA5 /* ZLNoAuthorityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLNoAuthorityViewController.m; sourceTree = "<group>"; };
+		FB5DEC291F60F14B00008EA5 /* ZLOnePhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLOnePhoto.h; sourceTree = "<group>"; };
+		FB5DEC2A1F60F14B00008EA5 /* ZLOnePhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLOnePhoto.m; sourceTree = "<group>"; };
+		FB5DEC2B1F60F14B00008EA5 /* ZLPhotoActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPhotoActionSheet.h; sourceTree = "<group>"; };
+		FB5DEC2C1F60F14B00008EA5 /* ZLPhotoActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPhotoActionSheet.m; sourceTree = "<group>"; };
+		FB5DEC2D1F60F14B00008EA5 /* ZLPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPhotoBrowser.h; sourceTree = "<group>"; };
+		FB5DEC2E1F60F14B00008EA5 /* ZLPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPhotoBrowser.m; sourceTree = "<group>"; };
+		FB5DEC2F1F60F14B00008EA5 /* ZLPhotoBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPhotoBrowserCell.h; sourceTree = "<group>"; };
+		FB5DEC301F60F14B00008EA5 /* ZLPhotoBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPhotoBrowserCell.m; sourceTree = "<group>"; };
+		FB5DEC311F60F14B00008EA5 /* ZLPhotoTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPhotoTool.h; sourceTree = "<group>"; };
+		FB5DEC321F60F14B00008EA5 /* ZLPhotoTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPhotoTool.m; sourceTree = "<group>"; };
+		FB5DEC331F60F14B00008EA5 /* ZLProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLProgressHUD.h; sourceTree = "<group>"; };
+		FB5DEC341F60F14B00008EA5 /* ZLProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLProgressHUD.m; sourceTree = "<group>"; };
+		FB5DEC351F60F14B00008EA5 /* ZLSelectPhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLSelectPhotoModel.h; sourceTree = "<group>"; };
+		FB5DEC361F60F14B00008EA5 /* ZLSelectPhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLSelectPhotoModel.m; sourceTree = "<group>"; };
+		FB5DEC371F60F14B00008EA5 /* ZLShowBigImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLShowBigImage.h; sourceTree = "<group>"; };
+		FB5DEC381F60F14B00008EA5 /* ZLShowBigImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLShowBigImage.m; sourceTree = "<group>"; };
+		FB5DEC391F60F14B00008EA5 /* ZLShowBigImgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLShowBigImgViewController.h; sourceTree = "<group>"; };
+		FB5DEC3A1F60F14B00008EA5 /* ZLShowBigImgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLShowBigImgViewController.m; sourceTree = "<group>"; };
+		FB5DEC3B1F60F14B00008EA5 /* ZLThumbnailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLThumbnailViewController.h; sourceTree = "<group>"; };
+		FB5DEC3C1F60F14B00008EA5 /* ZLThumbnailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLThumbnailViewController.m; sourceTree = "<group>"; };
+		FB5DEC611F61290A00008EA5 /* PartyRefuseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyRefuseViewController.h; sourceTree = "<group>"; };
+		FB5DEC621F61290A00008EA5 /* PartyRefuseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyRefuseViewController.m; sourceTree = "<group>"; };
+		FB5DEC641F61338900008EA5 /* PartyBdomplainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyBdomplainViewController.h; sourceTree = "<group>"; };
+		FB5DEC651F61338900008EA5 /* PartyBdomplainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyBdomplainViewController.m; sourceTree = "<group>"; };
+		FB5DEC671F61339C00008EA5 /* PartyBrefuseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyBrefuseViewController.h; sourceTree = "<group>"; };
+		FB5DEC681F61339C00008EA5 /* PartyBrefuseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyBrefuseViewController.m; sourceTree = "<group>"; };
+		FB5DEC6A1F61400900008EA5 /* PartyCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyCommentViewController.h; sourceTree = "<group>"; };
+		FB5DEC6B1F61400900008EA5 /* PartyCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyCommentViewController.m; sourceTree = "<group>"; };
+		FB5DEC6D1F61401E00008EA5 /* PartyBcommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyBcommentViewController.h; sourceTree = "<group>"; };
+		FB5DEC6E1F61401E00008EA5 /* PartyBcommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyBcommentViewController.m; sourceTree = "<group>"; };
+		FB5DEC701F614BF300008EA5 /* PartyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyInfoViewController.h; sourceTree = "<group>"; };
+		FB5DEC711F614BF300008EA5 /* PartyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyInfoViewController.m; sourceTree = "<group>"; };
+		FB61EB491F62311E00066A8A /* ImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTableViewCell.h; sourceTree = "<group>"; };
+		FB61EB4A1F62311E00066A8A /* ImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTableViewCell.m; sourceTree = "<group>"; };
+		FB61EB4C1F62321400066A8A /* PersonInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoTableViewCell.h; sourceTree = "<group>"; };
+		FB61EB4D1F62321400066A8A /* PersonInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoTableViewCell.m; sourceTree = "<group>"; };
+		FB61EB4F1F6232EF00066A8A /* PersonTextviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonTextviewTableViewCell.h; sourceTree = "<group>"; };
+		FB61EB501F6232EF00066A8A /* PersonTextviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTextviewTableViewCell.m; sourceTree = "<group>"; };
+		FB61EB521F62369100066A8A /* PersonEvaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonEvaTableViewCell.h; sourceTree = "<group>"; };
+		FB61EB531F62369100066A8A /* PersonEvaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonEvaTableViewCell.m; sourceTree = "<group>"; };
+		FB61EB551F62450500066A8A /* PartyBinfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyBinfoViewController.h; sourceTree = "<group>"; };
+		FB61EB561F62450500066A8A /* PartyBinfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyBinfoViewController.m; sourceTree = "<group>"; };
+		FB61EB581F625FD700066A8A /* PersonWorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonWorTableViewCell.h; sourceTree = "<group>"; };
+		FB61EB591F625FD700066A8A /* PersonWorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonWorTableViewCell.m; sourceTree = "<group>"; };
+		FB61EB5B1F6286FD00066A8A /* PartyClauseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyClauseViewController.h; sourceTree = "<group>"; };
+		FB61EB5C1F6286FD00066A8A /* PartyClauseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyClauseViewController.m; sourceTree = "<group>"; };
 		FB64B3321F456CEE001418D1 /* DressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressTableViewCell.h; sourceTree = "<group>"; };
 		FB64B3331F456CEE001418D1 /* DressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressTableViewCell.m; sourceTree = "<group>"; };
 		FB64B3351F457E89001418D1 /* listTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = listTableView.h; sourceTree = "<group>"; };
@@ -333,6 +462,8 @@
 		FBCAB43E1F5E802900921FBE /* DepositViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepositViewController.m; sourceTree = "<group>"; };
 		FBCAB4401F5E830500921FBE /* DepositTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepositTableViewCell.h; sourceTree = "<group>"; };
 		FBCAB4411F5E830500921FBE /* DepositTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepositTableViewCell.m; sourceTree = "<group>"; };
+		FBD056E91F63BDC5001B9E85 /* PartyBclauseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyBclauseViewController.h; sourceTree = "<group>"; };
+		FBD056EA1F63BDC5001B9E85 /* PartyBclauseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyBclauseViewController.m; sourceTree = "<group>"; };
 		FBD796601F286B3700FA50BE /* worker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = worker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBD796641F286B3700FA50BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBD796661F286B3700FA50BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -618,6 +749,7 @@
 		FB4C33A71F5F8B90005D0747 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				FB5DEC051F60F14B00008EA5 /* PhotoBrowser */,
 				FB4C33A81F5F8B90005D0747 /* Party */,
 				FB4C33A91F5F8B90005D0747 /* PartyB */,
 			);
@@ -631,6 +763,14 @@
 				FB4C33AE1F5F8BA1005D0747 /* PartyDismissViewController.m */,
 				FB4C33B51F5FC6FD005D0747 /* PartyDomplainViewController.h */,
 				FB4C33B61F5FC6FD005D0747 /* PartyDomplainViewController.m */,
+				FB5DEC611F61290A00008EA5 /* PartyRefuseViewController.h */,
+				FB5DEC621F61290A00008EA5 /* PartyRefuseViewController.m */,
+				FB5DEC6A1F61400900008EA5 /* PartyCommentViewController.h */,
+				FB5DEC6B1F61400900008EA5 /* PartyCommentViewController.m */,
+				FB5DEC701F614BF300008EA5 /* PartyInfoViewController.h */,
+				FB5DEC711F614BF300008EA5 /* PartyInfoViewController.m */,
+				FB61EB5B1F6286FD00066A8A /* PartyClauseViewController.h */,
+				FB61EB5C1F6286FD00066A8A /* PartyClauseViewController.m */,
 			);
 			path = Party;
 			sourceTree = "<group>";
@@ -640,6 +780,16 @@
 			children = (
 				FB4C33B21F5FC0EB005D0747 /* PartyBdismissViewController.h */,
 				FB4C33B31F5FC0EB005D0747 /* PartyBdismissViewController.m */,
+				FB5DEC641F61338900008EA5 /* PartyBdomplainViewController.h */,
+				FB5DEC651F61338900008EA5 /* PartyBdomplainViewController.m */,
+				FB5DEC671F61339C00008EA5 /* PartyBrefuseViewController.h */,
+				FB5DEC681F61339C00008EA5 /* PartyBrefuseViewController.m */,
+				FB5DEC6D1F61401E00008EA5 /* PartyBcommentViewController.h */,
+				FB5DEC6E1F61401E00008EA5 /* PartyBcommentViewController.m */,
+				FB61EB551F62450500066A8A /* PartyBinfoViewController.h */,
+				FB61EB561F62450500066A8A /* PartyBinfoViewController.m */,
+				FBD056E91F63BDC5001B9E85 /* PartyBclauseViewController.h */,
+				FBD056EA1F63BDC5001B9E85 /* PartyBclauseViewController.m */,
 			);
 			path = PartyB;
 			sourceTree = "<group>";
@@ -671,6 +821,7 @@
 		FB4C33B81F5FD767005D0747 /* Party */ = {
 			isa = PBXGroup;
 			children = (
+				FB61EB481F62310900066A8A /* 个人信息需要的cell */,
 				FB4C33BA1F5FD85E005D0747 /* DomFirstCollectionViewCell.h */,
 				FB4C33BB1F5FD85E005D0747 /* DomFirstCollectionViewCell.m */,
 				FB4C33BD1F5FDDDD005D0747 /* PartySecondCollectionViewCell.h */,
@@ -690,6 +841,99 @@
 			children = (
 			);
 			path = PartyB;
+			sourceTree = "<group>";
+		};
+		FB5DEC051F60F14B00008EA5 /* PhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				FB5DEC061F60F14B00008EA5 /* NSBundle+ZLPhotoBrowser.h */,
+				FB5DEC071F60F14B00008EA5 /* NSBundle+ZLPhotoBrowser.m */,
+				FB5DEC081F60F14B00008EA5 /* resource */,
+				FB5DEC1D1F60F14B00008EA5 /* ToastUtils.h */,
+				FB5DEC1E1F60F14B00008EA5 /* ToastUtils.m */,
+				FB5DEC1F1F60F14B00008EA5 /* VPImageCropper */,
+				FB5DEC221F60F14B00008EA5 /* ZLBigImageCell.h */,
+				FB5DEC231F60F14B00008EA5 /* ZLBigImageCell.m */,
+				FB5DEC241F60F14B00008EA5 /* ZLCollectionCell.h */,
+				FB5DEC251F60F14B00008EA5 /* ZLCollectionCell.m */,
+				FB5DEC261F60F14B00008EA5 /* ZLDefine.h */,
+				FB5DEC271F60F14B00008EA5 /* ZLNoAuthorityViewController.h */,
+				FB5DEC281F60F14B00008EA5 /* ZLNoAuthorityViewController.m */,
+				FB5DEC291F60F14B00008EA5 /* ZLOnePhoto.h */,
+				FB5DEC2A1F60F14B00008EA5 /* ZLOnePhoto.m */,
+				FB5DEC2B1F60F14B00008EA5 /* ZLPhotoActionSheet.h */,
+				FB5DEC2C1F60F14B00008EA5 /* ZLPhotoActionSheet.m */,
+				FB5DEC2D1F60F14B00008EA5 /* ZLPhotoBrowser.h */,
+				FB5DEC2E1F60F14B00008EA5 /* ZLPhotoBrowser.m */,
+				FB5DEC2F1F60F14B00008EA5 /* ZLPhotoBrowserCell.h */,
+				FB5DEC301F60F14B00008EA5 /* ZLPhotoBrowserCell.m */,
+				FB5DEC311F60F14B00008EA5 /* ZLPhotoTool.h */,
+				FB5DEC321F60F14B00008EA5 /* ZLPhotoTool.m */,
+				FB5DEC331F60F14B00008EA5 /* ZLProgressHUD.h */,
+				FB5DEC341F60F14B00008EA5 /* ZLProgressHUD.m */,
+				FB5DEC351F60F14B00008EA5 /* ZLSelectPhotoModel.h */,
+				FB5DEC361F60F14B00008EA5 /* ZLSelectPhotoModel.m */,
+				FB5DEC371F60F14B00008EA5 /* ZLShowBigImage.h */,
+				FB5DEC381F60F14B00008EA5 /* ZLShowBigImage.m */,
+				FB5DEC391F60F14B00008EA5 /* ZLShowBigImgViewController.h */,
+				FB5DEC3A1F60F14B00008EA5 /* ZLShowBigImgViewController.m */,
+				FB5DEC3B1F60F14B00008EA5 /* ZLThumbnailViewController.h */,
+				FB5DEC3C1F60F14B00008EA5 /* ZLThumbnailViewController.m */,
+			);
+			path = PhotoBrowser;
+			sourceTree = "<group>";
+		};
+		FB5DEC081F60F14B00008EA5 /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				FB5DEC091F60F14B00008EA5 /* btn_circle@2x.png */,
+				FB5DEC0A1F60F14B00008EA5 /* btn_circle@3x.png */,
+				FB5DEC0B1F60F14B00008EA5 /* btn_original_circle.png */,
+				FB5DEC0C1F60F14B00008EA5 /* btn_original_circle@2x.png */,
+				FB5DEC0D1F60F14B00008EA5 /* btn_original_circle@3x.png */,
+				FB5DEC0E1F60F14B00008EA5 /* btn_selected.png */,
+				FB5DEC0F1F60F14B00008EA5 /* btn_selected@2x.png */,
+				FB5DEC101F60F14B00008EA5 /* btn_selected@3x.png */,
+				FB5DEC111F60F14B00008EA5 /* btn_unselected.png */,
+				FB5DEC121F60F14B00008EA5 /* btn_unselected@2x.png */,
+				FB5DEC131F60F14B00008EA5 /* btn_unselected@3x.png */,
+				FB5DEC141F60F14B00008EA5 /* defaultphoto.png */,
+				FB5DEC151F60F14B00008EA5 /* lock.png */,
+				FB5DEC161F60F14B00008EA5 /* navBackBtn@2x.png */,
+				FB5DEC171F60F14B00008EA5 /* ZLCollectionCell.xib */,
+				FB5DEC181F60F14B00008EA5 /* ZLNoAuthorityViewController.xib */,
+				FB5DEC191F60F14B00008EA5 /* ZLPhotoActionSheet.xib */,
+				FB5DEC1A1F60F14B00008EA5 /* ZLPhotoBrowser.bundle */,
+				FB5DEC1B1F60F14B00008EA5 /* ZLPhotoBrowserCell.xib */,
+				FB5DEC1C1F60F14B00008EA5 /* ZLThumbnailViewController.xib */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
+		FB5DEC1F1F60F14B00008EA5 /* VPImageCropper */ = {
+			isa = PBXGroup;
+			children = (
+				FB5DEC201F60F14B00008EA5 /* VPImageCropperViewController.h */,
+				FB5DEC211F60F14B00008EA5 /* VPImageCropperViewController.m */,
+			);
+			path = VPImageCropper;
+			sourceTree = "<group>";
+		};
+		FB61EB481F62310900066A8A /* 个人信息需要的cell */ = {
+			isa = PBXGroup;
+			children = (
+				FB61EB491F62311E00066A8A /* ImageTableViewCell.h */,
+				FB61EB4A1F62311E00066A8A /* ImageTableViewCell.m */,
+				FB61EB4C1F62321400066A8A /* PersonInfoTableViewCell.h */,
+				FB61EB4D1F62321400066A8A /* PersonInfoTableViewCell.m */,
+				FB61EB4F1F6232EF00066A8A /* PersonTextviewTableViewCell.h */,
+				FB61EB501F6232EF00066A8A /* PersonTextviewTableViewCell.m */,
+				FB61EB521F62369100066A8A /* PersonEvaTableViewCell.h */,
+				FB61EB531F62369100066A8A /* PersonEvaTableViewCell.m */,
+				FB61EB581F625FD700066A8A /* PersonWorTableViewCell.h */,
+				FB61EB591F625FD700066A8A /* PersonWorTableViewCell.m */,
+			);
+			path = "个人信息需要的cell";
 			sourceTree = "<group>";
 		};
 		FB7FA5811F32F75F0096F6F2 /* controller */ = {
@@ -1130,10 +1374,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB5DEC411F60F14B00008EA5 /* btn_original_circle@2x.png in Resources */,
 				FB3687931F2B22AD008E8387 /* mapapi.bundle in Resources */,
+				FB5DEC4A1F60F14B00008EA5 /* lock.png in Resources */,
+				FB5DEC4D1F60F14B00008EA5 /* ZLNoAuthorityViewController.xib in Resources */,
+				FB5DEC491F60F14B00008EA5 /* defaultphoto.png in Resources */,
+				FB5DEC3E1F60F14B00008EA5 /* btn_circle@2x.png in Resources */,
+				FB5DEC471F60F14B00008EA5 /* btn_unselected@2x.png in Resources */,
+				FB5DEC3F1F60F14B00008EA5 /* btn_circle@3x.png in Resources */,
+				FB5DEC501F60F14B00008EA5 /* ZLPhotoBrowserCell.xib in Resources */,
+				FB5DEC461F60F14B00008EA5 /* btn_unselected.png in Resources */,
+				FB5DEC401F60F14B00008EA5 /* btn_original_circle.png in Resources */,
+				FB5DEC4E1F60F14B00008EA5 /* ZLPhotoActionSheet.xib in Resources */,
+				FB5DEC481F60F14B00008EA5 /* btn_unselected@3x.png in Resources */,
+				FB5DEC451F60F14B00008EA5 /* btn_selected@3x.png in Resources */,
+				FB5DEC431F60F14B00008EA5 /* btn_selected.png in Resources */,
+				FB5DEC4C1F60F14B00008EA5 /* ZLCollectionCell.xib in Resources */,
+				FB5DEC4B1F60F14B00008EA5 /* navBackBtn@2x.png in Resources */,
 				FB4C33B11F5F8BC7005D0747 /* worker.xib in Resources */,
+				FB5DEC4F1F60F14B00008EA5 /* ZLPhotoBrowser.bundle in Resources */,
+				FB5DEC441F60F14B00008EA5 /* btn_selected@2x.png in Resources */,
 				FBD796761F286B3700FA50BE /* LaunchScreen.storyboard in Resources */,
 				FBD796731F286B3700FA50BE /* Assets.xcassets in Resources */,
+				FB5DEC421F60F14B00008EA5 /* btn_original_circle@3x.png in Resources */,
+				FB5DEC511F60F14B00008EA5 /* ZLThumbnailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1298,19 +1562,27 @@
 			files = (
 				FB64B3341F456CEF001418D1 /* DressTableViewCell.m in Sources */,
 				FB14A1521F56566D0028282E /* PasswordViewController.m in Sources */,
+				FB61EB511F6232EF00066A8A /* PersonTextviewTableViewCell.m in Sources */,
 				FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */,
 				FB4C33C51F5FE704005D0747 /* headCollectionReusableView.m in Sources */,
+				FB5DEC5B1F60F14B00008EA5 /* ZLPhotoTool.m in Sources */,
 				FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */,
+				FB5DEC571F60F14B00008EA5 /* ZLOnePhoto.m in Sources */,
 				FB85801E1F42A2C80085BAF1 /* ServiceViewController.m in Sources */,
 				FB85801B1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m in Sources */,
 				FB4C33B41F5FC0EB005D0747 /* PartyBdismissViewController.m in Sources */,
 				FB5D87EC1F30227100830F89 /* JobViewController.m in Sources */,
+				FB5DEC631F61290A00008EA5 /* PartyRefuseViewController.m in Sources */,
 				FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */,
+				FB5DEC521F60F14B00008EA5 /* ToastUtils.m in Sources */,
 				FBE30BD61F4D661D001F5DFB /* lssueUserTableViewCell.m in Sources */,
+				FB5DEC601F60F14B00008EA5 /* ZLThumbnailViewController.m in Sources */,
 				FB7F384A1F37FB130082A8FA /* LoginViewController.m in Sources */,
 				FBCAB4421F5E830500921FBE /* DepositTableViewCell.m in Sources */,
 				FB7FA59C1F32F75F0096F6F2 /* MainTableViewCell.m in Sources */,
+				FB5DEC541F60F14B00008EA5 /* ZLBigImageCell.m in Sources */,
 				FB7FA5B41F32F81F0096F6F2 /* MineMessViewController.m in Sources */,
+				FB5DEC5E1F60F14B00008EA5 /* ZLShowBigImage.m in Sources */,
 				FB7FA5991F32F75F0096F6F2 /* SelecdCityViewController.m in Sources */,
 				FB9F326C1F46C923000D0F19 /* DressworkerUITableViewCell.m in Sources */,
 				FB8580181F4290190085BAF1 /* MoneyDetailsViewController.m in Sources */,
@@ -1319,6 +1591,7 @@
 				FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */,
 				FB7FA59D1F32F75F0096F6F2 /* ProfessionTableViewCell.m in Sources */,
 				FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */,
+				FB5DEC6C1F61400900008EA5 /* PartyCommentViewController.m in Sources */,
 				FB14A15B1F569B5E0028282E /* draftViewController.m in Sources */,
 				FB8580151F42892D0085BAF1 /* MineMoneyViewController.m in Sources */,
 				FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */,
@@ -1328,7 +1601,12 @@
 				FB75E6D81F4966010049D864 /* ViewpagerViewController.m in Sources */,
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
 				FB6D76001F418C63009FCF73 /* EvaluateViewController.m in Sources */,
+				FB5DEC5C1F60F14B00008EA5 /* ZLProgressHUD.m in Sources */,
+				FB5DEC591F60F14B00008EA5 /* ZLPhotoBrowser.m in Sources */,
+				FB5DEC581F60F14B00008EA5 /* ZLPhotoActionSheet.m in Sources */,
 				FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */,
+				FB5DEC6F1F61401E00008EA5 /* PartyBcommentViewController.m in Sources */,
+				FB5DEC5D1F60F14B00008EA5 /* ZLSelectPhotoModel.m in Sources */,
 				FB75E8291F4E67F100140335 /* elseDelegateTableViewCell.m in Sources */,
 				FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */,
 				FB14A1551F5660B10028282E /* SYPasswordView.m in Sources */,
@@ -1338,16 +1616,24 @@
 				FBE30BDC1F4D7847001F5DFB /* elsetimeTableViewCell.m in Sources */,
 				FB7FA5BA1F330EB60096F6F2 /* MessTableViewCell.m in Sources */,
 				FB7703351F413E430028EB84 /* EditworkerCollectionViewCell.m in Sources */,
+				FB5DEC721F614BF300008EA5 /* PartyInfoViewController.m in Sources */,
+				FB5DEC3D1F60F14B00008EA5 /* NSBundle+ZLPhotoBrowser.m in Sources */,
+				FB61EB5D1F6286FD00066A8A /* PartyClauseViewController.m in Sources */,
 				FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */,
 				FB4F23121F593DEC00D8D7C6 /* BoundPhoneViewController.m in Sources */,
+				FB5DEC5F1F60F14B00008EA5 /* ZLShowBigImgViewController.m in Sources */,
 				FB7FA59E1F32F75F0096F6F2 /* WorkerMessTableViewCell.m in Sources */,
+				FB5DEC691F61339C00008EA5 /* PartyBrefuseViewController.m in Sources */,
 				FBD796651F286B3700FA50BE /* main.m in Sources */,
+				FB61EB571F62450500066A8A /* PartyBinfoViewController.m in Sources */,
 				FB77033E1F4182000028EB84 /* SetViewController.m in Sources */,
 				FB7FA5B71F32F83F0096F6F2 /* SeachJobViewController.m in Sources */,
 				FB7FA59A1F32F75F0096F6F2 /* ProfessionViewController.m in Sources */,
 				FB7FA5AE1F32F7670096F6F2 /* MineLoginTableViewCell.m in Sources */,
 				FB7703411F4182B50028EB84 /* SetTableViewCell.m in Sources */,
 				FBE4216D1F3D7A9100336990 /* EditTextTableViewCell.m in Sources */,
+				FBD056EB1F63BDC5001B9E85 /* PartyBclauseViewController.m in Sources */,
+				FB61EB541F62369100066A8A /* PersonEvaTableViewCell.m in Sources */,
 				FBE30BD91F4D7271001F5DFB /* elsepersonTableViewCell.m in Sources */,
 				FB3D89F71F581CEA00864E8B /* RemoveCardViewController.m in Sources */,
 				FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */,
@@ -1355,7 +1641,10 @@
 				FB64B33A1F457E89001418D1 /* mainlistTableViewCell.m in Sources */,
 				FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */,
 				FBBEFA351F4986A200B19C9D /* WorkerViewController.m in Sources */,
+				FB5DEC5A1F60F14B00008EA5 /* ZLPhotoBrowserCell.m in Sources */,
+				FB61EB5A1F625FD700066A8A /* PersonWorTableViewCell.m in Sources */,
 				FB6F86541F3416C800806108 /* workerModel.m in Sources */,
+				FB5DEC531F60F14B00008EA5 /* VPImageCropperViewController.m in Sources */,
 				FB77033B1F416C1B0028EB84 /* MineFavoriteViewController.m in Sources */,
 				FB14A14F1F5651E60028282E /* SetPasswordViewController.m in Sources */,
 				FB7FA5AC1F32F7670096F6F2 /* MineViewController.m in Sources */,
@@ -1368,7 +1657,9 @@
 				FB0C13941F3B061100A1C463 /* Headview.m in Sources */,
 				FB2581E41F39918200BE510F /* OneTableViewCell.m in Sources */,
 				FB7FA5AD1F32F7670096F6F2 /* MineElesTableViewCell.m in Sources */,
+				FB5DEC661F61338900008EA5 /* PartyBdomplainViewController.m in Sources */,
 				FB14A1581F567F5F0028282E /* PasswordToViewController.m in Sources */,
+				FB61EB4E1F62321400066A8A /* PersonInfoTableViewCell.m in Sources */,
 				FB7FA5AF1F32F7670096F6F2 /* MineMoneyTableViewCell.m in Sources */,
 				FB6D76031F418CF3009FCF73 /* EvaluateTableViewCell.m in Sources */,
 				FB4F23151F59418100D8D7C6 /* BoundTableViewCell.m in Sources */,
@@ -1377,6 +1668,7 @@
 				FB4C33AF1F5F8BA1005D0747 /* PartyDismissViewController.m in Sources */,
 				FB4C33BF1F5FDDDD005D0747 /* PartySecondCollectionViewCell.m in Sources */,
 				FB2581DB1F395BA100BE510F /* TypeView.m in Sources */,
+				FB5DEC561F60F14B00008EA5 /* ZLNoAuthorityViewController.m in Sources */,
 				FB4F230C1F58F25E00D8D7C6 /* NormalTableViewCell.m in Sources */,
 				FB9911391F29757F0017A32B /* TabbarView.m in Sources */,
 				FB4C33B71F5FC6FD005D0747 /* PartyDomplainViewController.m in Sources */,
@@ -1384,9 +1676,11 @@
 				FB339D471F3C3A550086CF2D /* BriefTableViewCell.m in Sources */,
 				FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */,
 				FB5D87F51F3045D900830F89 /* FirstTableViewCell.m in Sources */,
+				FB61EB4B1F62311E00066A8A /* ImageTableViewCell.m in Sources */,
 				FB7FA59B1F32F75F0096F6F2 /* WorkerMessViewController.m in Sources */,
 				FBD796A11F28899700FA50BE /* myselfway.m in Sources */,
 				FB5759B41F4433CF00135B92 /* DressingWorkerViewController.m in Sources */,
+				FB5DEC551F60F14B00008EA5 /* ZLCollectionCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,17 +13,31 @@
 #import "headCollectionReusableView.h"
 #import "PartyimageCollectionViewCell.h"
 
+#import "PartyRefuseViewController.h"
+
+#import "ZLPhotoActionSheet.h"
+#import "ZLDefine.h"
+
 @interface PartyDomplainViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextViewDelegate>
 {
     NSMutableArray *dataArray;
     
     NSMutableArray *imageArray;
     
+    NSMutableArray *nameArray;
     
+    NSString *name;   //投诉原因的字段
+    
+    NSString *textDetail;    //投诉原因详情的数据
 }
 
 
 @property (nonatomic, strong)UICollectionView *collection;
+
+
+
+
+@property (nonatomic, strong) NSArray<ZLSelectPhotoModel *> *lastSelectMoldels;
 
 @end
 
@@ -39,8 +53,18 @@
     
     
     imageArray = [NSMutableArray array];
-    [imageArray addObject:@"1"];
     
+    UIImage *image = [UIImage imageNamed:@"project_add"];
+    [imageArray addObject:image];
+    
+    
+    nameArray = [NSMutableArray array];
+    [nameArray addObject:@"暗示健康的哈数据的卡萨丁"];
+    [nameArray addObject:@"暗示健康萨丁"];
+    [nameArray addObject:@"暗示健康的哈数据丁"];
+    [nameArray addObject:@"暗示ad"];
+    [nameArray addObject:@"暗示健康的"];
+    [nameArray addObject:@"暗示健康的哈数据的卡萨丁aas"];
     
     
     [self collection];
@@ -111,7 +135,7 @@
     {
         PartySecondCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"secondcell" forIndexPath:indexPath];
         
-    
+        cell.data.text = name;
         
         return cell;
     }
@@ -126,12 +150,30 @@
     }
     else
     {
-        PartyimageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        NSString *identifier = [NSString stringWithFormat:@"%ldcell", indexPath.row];
         
+        [_collection registerClass:[PartyimageCollectionViewCell class] forCellWithReuseIdentifier:identifier];
+        
+        
+        PartyimageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        
+        
+        cell.close.tag = indexPath.row + 400;
+        
+        [cell.close addTarget:self action:@selector(closeBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.image.image = [imageArray objectAtIndex:indexPath.row];
+        
+        
+        if (indexPath.row == 0)
+        {
+            cell.close.hidden = YES;
+        }
         
         
         
         return cell;
+        
     }
     
     
@@ -151,6 +193,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (indexPath.section == 0)
     {
         return CGSizeMake(SCREEN_WIDTH, 100);
@@ -178,13 +221,69 @@
     {
         [collectionView deselectItemAtIndexPath:indexPath animated:YES];
         
+        UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:nil message:@"选择问题" preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *returnAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertcontroller addAction:returnAction];
+        
+        
+        for (int i = 0; i < nameArray.count; i++)
+        {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[nameArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+            {
+                name = action.title;
+                
+                [self.collection reloadData];
+            }];
+            
+            
+            [alertcontroller addAction:action];
+            
+        }
+        
+        [self presentViewController:alertcontroller animated:YES completion:nil];
        
     }
     else if (indexPath.section == 3)
     {
         if (indexPath.item == 0)
         {
-            
+            if (imageArray.count >= 5)
+            {
+                [SVProgressHUD showInfoWithStatus:@"图片已够5张"];
+            }
+            else
+            {
+                ZLPhotoActionSheet *actionSheet = [[ZLPhotoActionSheet alloc] init];
+                //设置照片最大选择数
+                actionSheet.maxSelectCount = 5;
+                [actionSheet showPhotoLibraryWithSender:self lastSelectPhotoModels:self.lastSelectMoldels completion:^(NSArray<UIImage *> * _Nonnull selectPhotos, NSArray<ZLSelectPhotoModel *> * _Nonnull selectPhotoModels)
+                 {
+                     
+                     for (int i = 0; i < selectPhotos.count; i++)
+                     {
+                         
+                         UIImage *image = [selectPhotos objectAtIndex:i];
+                         
+                         if (imageArray.count <= 5)
+                         {
+                             [imageArray addObject:image];
+                         }
+                         else
+                         {
+                             [SVProgressHUD showInfoWithStatus:@"图片至多上传5张"];
+                         }
+                         
+                     }
+                     
+                     NSLog(@"%@", imageArray);
+                     
+                     [self.collection reloadData];
+                     
+                 }];
+
+            }
         }
     }
     
@@ -210,7 +309,7 @@
 {
     if (section == 3)
     {
-        return CGSizeMake(SCREEN_WIDTH, 50);
+        return CGSizeMake(SCREEN_WIDTH, 60);
     }
     else
     {
@@ -278,6 +377,9 @@
         label.hidden = YES;
     }
 
+    textDetail = textView.text;
+    
+    
 }
 
 
@@ -286,7 +388,23 @@
 //提交按钮
 - (void)yesBtn
 {
-    NSLog(@"tijiao");
+    if (name.length == 0)
+    {
+        [SVProgressHUD showInfoWithStatus:@"请选择投诉问题"];
+    }
+    else if (textDetail.length == 0)
+    {
+        [SVProgressHUD showInfoWithStatus:@"请填写描述您的投诉问题"];
+    }
+    else
+    {
+        PartyRefuseViewController *temp = [PartyRefuseViewController alloc];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
+    
+    
+    
 }
 
 
@@ -295,7 +413,15 @@
     [self.view endEditing:YES];
 }
 
-
+//删除图片按钮
+- (void)closeBtn: (UIButton *)sender
+{
+    NSInteger i = sender.tag - 400;
+    
+    [imageArray removeObjectAtIndex:i];
+    
+    [self.collection reloadData];
+}
 
 
 
