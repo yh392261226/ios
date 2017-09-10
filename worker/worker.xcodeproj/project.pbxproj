@@ -10,6 +10,7 @@
 		9034A1169F3D004D73422530 /* libPods-workerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1F10145795CF94D2603748 /* libPods-workerUITests.a */; };
 		9A4E47774D86A37BFCDC317C /* libPods-workerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47CF5FEACEC1393A60B87D /* libPods-workerTests.a */; };
 		AD02FD82877B50F9BA7F2EE9 /* libPods-worker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7643CA759AC79643AC0EEDC /* libPods-worker.a */; };
+		FB0465871F652D95006BC38F /* TWLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0465861F652D95006BC38F /* TWLAlertView.m */; };
 		FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */; };
 		FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13901F3AB96900A1C463 /* IssueViewController.m */; };
 		FB0C13941F3B061100A1C463 /* Headview.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13931F3B061100A1C463 /* Headview.m */; };
@@ -203,6 +204,8 @@
 		D6F71C262734D4AA28314D81 /* Pods-worker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worker.release.xcconfig"; path = "Pods/Target Support Files/Pods-worker/Pods-worker.release.xcconfig"; sourceTree = "<group>"; };
 		D7643CA759AC79643AC0EEDC /* libPods-worker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-worker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E16E4F74CA02791E4BFA0747 /* Pods-worker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-worker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-worker/Pods-worker.debug.xcconfig"; sourceTree = "<group>"; };
+		FB0465851F652D95006BC38F /* TWLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLAlertView.h; sourceTree = "<group>"; };
+		FB0465861F652D95006BC38F /* TWLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLAlertView.m; sourceTree = "<group>"; };
 		FB0C138C1F3AA5E300A1C463 /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
 		FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewCell.m; sourceTree = "<group>"; };
 		FB0C138F1F3AB96900A1C463 /* IssueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueViewController.h; sourceTree = "<group>"; };
@@ -749,6 +752,8 @@
 		FB4C33A71F5F8B90005D0747 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				FBF7AE851F64D4A7005AB36E /* mapA */,
+				FBF7AE861F64D4A7005AB36E /* mapB */,
 				FB5DEC051F60F14B00008EA5 /* PhotoBrowser */,
 				FB4C33A81F5F8B90005D0747 /* Party */,
 				FB4C33A91F5F8B90005D0747 /* PartyB */,
@@ -1251,6 +1256,22 @@
 			path = job;
 			sourceTree = "<group>";
 		};
+		FBF7AE851F64D4A7005AB36E /* mapA */ = {
+			isa = PBXGroup;
+			children = (
+				FB0465851F652D95006BC38F /* TWLAlertView.h */,
+				FB0465861F652D95006BC38F /* TWLAlertView.m */,
+			);
+			path = mapA;
+			sourceTree = "<group>";
+		};
+		FBF7AE861F64D4A7005AB36E /* mapB */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = mapB;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1671,6 +1692,7 @@
 				FB5DEC561F60F14B00008EA5 /* ZLNoAuthorityViewController.m in Sources */,
 				FB4F230C1F58F25E00D8D7C6 /* NormalTableViewCell.m in Sources */,
 				FB9911391F29757F0017A32B /* TabbarView.m in Sources */,
+				FB0465871F652D95006BC38F /* TWLAlertView.m in Sources */,
 				FB4C33B71F5FC6FD005D0747 /* PartyDomplainViewController.m in Sources */,
 				FB4C33C81F5FEA1F005D0747 /* PartyimageCollectionViewCell.m in Sources */,
 				FB339D471F3C3A550086CF2D /* BriefTableViewCell.m in Sources */,
