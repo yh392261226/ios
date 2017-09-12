@@ -197,6 +197,9 @@
     return 15;
 }
 
+
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -205,12 +208,11 @@
     
     if (indexPath.section == 0)
     {
-        
-        
+
+       
         ProfessionViewController *temp = [[ProfessionViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
-        
         
         
     }

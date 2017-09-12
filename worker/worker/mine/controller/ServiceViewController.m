@@ -26,7 +26,7 @@
     
     webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];
     
-    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"file:///Users/sd/Desktop/first.html"]];
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://zy.persistence.net.cn/"]];
     
     [self.view addSubview:webview];
     
