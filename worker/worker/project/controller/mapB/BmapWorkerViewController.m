@@ -7,6 +7,8 @@
 //
 
 #import "BmapWorkerViewController.h"
+#import "PartyInfoViewController.h"
+#import "BYesOrNoViewController.h"
 
 @interface BmapWorkerViewController ()<BMKMapViewDelegate, BMKLocationServiceDelegate>
 {
@@ -15,7 +17,7 @@
     UIView *backview;     //页面下面的view
     
     
-    UIImageView *icon;   //头像
+    UIButton *icon;   //头像
     UILabel *name;     //名字
     UIImageView *sex;   //性别
     UILabel *workerType;   //工人状态
@@ -54,7 +56,8 @@
 
 @implementation BmapWorkerViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -91,6 +94,7 @@
     icon.layer.masksToBounds = yes;
     icon.layer.cornerRadius = 35;
     icon.backgroundColor = [UIColor orangeColor];
+    [icon addTarget:self action:@selector(iconBtn) forControlEvents:UIControlEventTouchUpInside];
     
     
     name = [backview viewWithTag:1002];
@@ -175,6 +179,7 @@
     yes = [backview viewWithTag:1017];
     yes.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
     yes.layer.cornerRadius = 7;
+    [yes setTitle:@"我要接活" forState:UIControlStateNormal];
     [yes addTarget:self action:@selector(yesBtn) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -306,25 +311,52 @@
     
 }
 
-
+//雇主详情   头像按钮
+- (void)iconBtn
+{
+    PartyInfoViewController *temp = [[PartyInfoViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
+}
 
 
 //拨打电话按钮
 - (void)callBtn
 {
-    NSLog(@"拨打");
+    BYesOrNoViewController *temp = [[BYesOrNoViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
 }
 
 
 //我要接活按钮
 - (void)yesBtn
 {
-    NSLog(@"1接活");
+    
+    [SVProgressHUD showSuccessWithStatus:@"求职邀约以发送 \n 等待雇主同意可进行电话沟通"];
+    
+    [self performSelector:@selector(Invitation) withObject:nil afterDelay:1.5];
+    
+    [yes setTitle:@"邀约请求已发送" forState:UIControlStateNormal];
+    
+    yes.userInteractionEnabled = NO;
+    
+    
+}
+
+
+//定时取消弹窗
+- (void)Invitation
+{
+    [SVProgressHUD dismiss];
 }
 
 
 
-- (void)didReceiveMemoryWarning {
+
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

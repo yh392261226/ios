@@ -400,15 +400,23 @@
     }
     else
     {
-        PartyRefuseViewController *temp = [PartyRefuseViewController alloc];
+        [SVProgressHUD showInfoWithStatus:@"投诉成功"];
         
-        [self.navigationController pushViewController:temp animated:YES];
+        [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
+        
+        self.hidesBottomBarWhenPushed = NO;
+        self.tabBarController.selectedIndex = 1;
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
     
     
     
 }
 
+- (void)infoBtn
+{
+    [SVProgressHUD dismiss];
+}
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {

@@ -7,7 +7,7 @@
 //
 
 
-//甲方辞退工人
+//甲方解雇工人
 #import "BaseViewController.h"
 
 @interface PartyDismissViewController : BaseViewController

@@ -8,6 +8,7 @@
 
 #import "PartyBdismissViewController.h"
 #import "MoneyDetailsViewController.h"
+#import "PartyBdomplainViewController.h"
 
 @interface PartyBdismissViewController ()<UITextViewDelegate>
 {
@@ -172,10 +173,12 @@
 
 
 
-//投诉工人按钮
+//投诉雇主按钮
 - (void)compBtn
 {
-    NSLog(@" tousu");
+    PartyBdomplainViewController *temp = [[PartyBdomplainViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
 }
 
 
@@ -189,10 +192,22 @@
     }
     else
     {
+        [SVProgressHUD showInfoWithStatus:@"投诉成功"];
         
+        [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
+        
+        self.hidesBottomBarWhenPushed = NO;
+        self.tabBarController.selectedIndex = 1;
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
+
+
+- (void)infoBtn
+{
+    [SVProgressHUD dismiss];
+}
 
 
 //改变好评1

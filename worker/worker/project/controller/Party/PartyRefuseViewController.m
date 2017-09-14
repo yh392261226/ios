@@ -7,6 +7,7 @@
 //
 
 #import "PartyRefuseViewController.h"
+#import "WorkerMessViewController.h"
 
 @interface PartyRefuseViewController ()<UITextViewDelegate>
 {
@@ -193,7 +194,16 @@
     }
     else
     {
-        NSLog(@"1");
+       
+        for (UIViewController *temp in self.navigationController.viewControllers)
+        {
+            if ([temp isKindOfClass:[WorkerMessViewController class]])
+            {
+                WorkerMessViewController *revise =(WorkerMessViewController *)temp;
+                [self.navigationController popToViewController:revise animated:YES];
+            }
+        }
+        
     }
 }
 

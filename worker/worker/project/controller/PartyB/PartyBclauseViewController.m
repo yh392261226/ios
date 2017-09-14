@@ -7,6 +7,7 @@
 //
 
 #import "PartyBclauseViewController.h"
+#import "BYesWorkerViewController.h"
 
 @interface PartyBclauseViewController ()
 {
@@ -48,7 +49,7 @@
 {
     
     
-    UIView *backview = [[[NSBundle mainBundle] loadNibNamed:@"worker" owner:self options:nil] objectAtIndex:3];
+    UIView *backview = [[[NSBundle mainBundle] loadNibNamed:@"worker" owner:self options:nil] objectAtIndex:4];
     
     backview.frame = CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 65);
     
@@ -92,7 +93,7 @@
     
     
     
-    right = [backview viewWithTag:3999];
+    right = [backview viewWithTag:2999];
     
     right.layer.cornerRadius = 6.0;//2.0是圆角的弧度，根据需求自己更改
     right.layer.borderColor = [UIColor blackColor].CGColor;//设置边框颜色
@@ -104,22 +105,19 @@
 //工资不对按钮
 - (void)leftBtn
 {
-    NSLog(@"不开");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
-//开始干活按钮
-- (void)centerBtn
-{
-    NSLog(@"修改");
-}
 
 
 
 //开始干活按钮
 - (void)rightBtn
 {
-    NSLog(@"开始");
+    BYesWorkerViewController *temp = [[BYesWorkerViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
 }
 
 

@@ -177,13 +177,21 @@
     }
     else
     {
+        [SVProgressHUD showInfoWithStatus:@"评价成功"];
+        [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
+        self.hidesBottomBarWhenPushed = NO;
         
+        self.navigationController.tabBarController.selectedIndex = 1;
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
     
     
 }
 
-
+- (void)bbbbbb
+{
+    [SVProgressHUD dismiss];
+}
 
 //改变好评1
 - (void)goodBtn1

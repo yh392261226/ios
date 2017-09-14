@@ -10,6 +10,16 @@
 //甲方开工条款
 #import "BaseViewController.h"
 
+
+@protocol workerSeccuss <NSObject>
+
+- (void)secuuss;
+
+@end
+
+
 @interface PartyClauseViewController : BaseViewController
+
+@property (nonatomic, strong)id <workerSeccuss> delegate;
 
 @end

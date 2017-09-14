@@ -398,13 +398,19 @@
     }
     else
     {
-        PartyRefuseViewController *temp = [PartyRefuseViewController alloc];
+        [SVProgressHUD showInfoWithStatus:@"投诉成功"];
+        [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
         
-        [self.navigationController pushViewController:temp animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
     
     
     
+}
+
+- (void)bbbbbb
+{
+    [SVProgressHUD dismiss];
 }
 
 

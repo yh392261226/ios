@@ -7,6 +7,7 @@
 //
 
 #import "PartyClauseViewController.h"
+#import "IssueViewController.h"
 
 @interface PartyClauseViewController ()
 {
@@ -109,14 +110,16 @@
 //先不开工按钮
 - (void)leftBtn
 {
-    NSLog(@"不开");
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 
 //修改工资按钮
 - (void)centerBtn
 {
-    NSLog(@"修改");
+    IssueViewController *temp = [[IssueViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
 }
 
 
@@ -124,7 +127,8 @@
 //开始干活按钮
 - (void)rightBtn
 {
-    NSLog(@"开始");
+    [self.delegate secuuss];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 

@@ -175,11 +175,11 @@
     }
     else
     {
-        self.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = NO;
         
-        PartyClauseViewController *temp = [[PartyClauseViewController alloc] init];
+        self.navigationController.tabBarController.selectedIndex = 1;
         
-        [self.navigationController pushViewController:temp animated:yes];
+        
     }
     
     

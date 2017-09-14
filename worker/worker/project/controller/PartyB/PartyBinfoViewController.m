@@ -238,6 +238,8 @@
                 cell = [[PersonWorTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"infocell"];
                 
                 cell.dataArray = worArr;
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             
            
@@ -264,7 +266,7 @@
             
             NSURL *url = [NSURL URLWithString:info.imageStr];
             
-            [cell.imageView sd_setImageWithURL:url];
+            [cell.icon sd_setImageWithURL:url];
             
             cell.title.text = info.detail;
             cell.time.text = info.time;
@@ -464,7 +466,7 @@
     info7.bigType = 0;
     info7.type = 0;
     info7.name = @"角色选择:";
-    info7.data = @"雇主";
+    info7.data = @"工人";
     
     [firstArray addObject:info7];
     

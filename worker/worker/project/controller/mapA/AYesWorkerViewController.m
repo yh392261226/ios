@@ -1,26 +1,21 @@
 //
-//  AmapWorkerViewController.m
+//  AYesWorkerViewController.m
 //  worker
 //
-//  Created by 郭健 on 2017/9/11.
+//  Created by 郭健 on 2017/9/13.
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
-#import "AmapWorkerViewController.h"
+#import "AYesWorkerViewController.h"
 #import "PartyBinfoViewController.h"
-#import "WorkerProjectViewController.h"
+#import "PartyDismissViewController.h"
+#import "PartyCommentViewController.h"
 
-
-
-#import "AYesOrNoViewController.h"
-
-@interface AmapWorkerViewController ()<BMKMapViewDelegate, BMKLocationServiceDelegate>
+@interface AYesWorkerViewController ()<BMKMapViewDelegate, BMKLocationServiceDelegate>
 {
     NSMutableArray *dataArray;
     
-    UIView *backview;    //页面下方的view
-    
-    
+    UIView *backview;
     
     
     UIButton *icon;   //头像
@@ -36,8 +31,13 @@
     UILabel *redLab;   //红点右面的文字
     UILabel *blueLab;  //蓝点右面的文字
     
-    UIButton *yes;   //我要招工按钮
+    UILabel *bluelLabTo;
     
+    
+    UILabel *noLab;   //
+    UIButton *noBtn;  //解雇工人按钮
+    UILabel *yesLab;   //
+    UIButton *yesBtn;   //工程结束按钮
 }
 
 @property (nonatomic, strong)BMKMapView *mapView;
@@ -45,16 +45,16 @@
 
 @end
 
-@implementation AmapWorkerViewController
+@implementation AYesWorkerViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
+    // Do any additional setup after loading the view.
     
     dataArray = [NSMutableArray array];
     
-    [self addhead:@"工人位置"];
+    
+    [self addhead:@"已开工"];
     
     [self initUI];
     
@@ -66,22 +66,20 @@
 
 
 
-
-
 - (void)initUI
 {
     
-    backview = [[[NSBundle mainBundle] loadNibNamed:@"Empty" owner:self options:nil] objectAtIndex:0];
+    backview = [[[NSBundle mainBundle] loadNibNamed:@"Empty" owner:self options:nil] objectAtIndex:2];
     
     [self.view addSubview:backview];
     
     [backview mas_makeConstraints:^(MASConstraintMaker *make)
-    {
-        make.bottom.mas_equalTo(self.view).offset(0);
-        make.left.mas_equalTo(self.view).offset(0);
-        make.right.mas_equalTo(self.view).offset(0);
-        make.height.mas_equalTo(267);
-    }];
+     {
+         make.bottom.mas_equalTo(self.view).offset(0);
+         make.left.mas_equalTo(self.view).offset(0);
+         make.right.mas_equalTo(self.view).offset(0);
+         make.height.mas_equalTo(292);
+     }];
     
     
     icon = [backview viewWithTag:1001];
@@ -101,10 +99,10 @@
     
     
     workerType = [backview viewWithTag:1004];
-    workerType.text = @"空闲";
+    workerType.text = @"工作中";
     workerType.layer.masksToBounds = YES;
     workerType.layer.cornerRadius = 5;
-    workerType.backgroundColor = [UIColor greenColor];
+    workerType.backgroundColor = [UIColor redColor];
     workerType.textAlignment = NSTextAlignmentCenter;
     workerType.textColor = [UIColor whiteColor];
     workerType.font = [UIFont systemFontOfSize:14];
@@ -137,15 +135,40 @@
     
     
     blueLab = [backview viewWithTag:1010];
-    blueLab.text = @"哈尔滨市第四中学，  开原街，  现据我0.9千米";
+    blueLab.text = @"哈尔滨市第四中学";
     blueLab.textColor = [UIColor grayColor];
     blueLab.font = [UIFont systemFontOfSize:15];
     
+    bluelLabTo = [backview viewWithTag:1011];
+    bluelLabTo.text = @"开原街  距离我0.9钱蜜蜜";
+    bluelLabTo.textColor = [UIColor grayColor];
+    bluelLabTo.font = [UIFont systemFontOfSize:15];
     
-    yes = [backview viewWithTag:1011];
-    yes.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
-    yes.layer.cornerRadius = 7;
-    [yes addTarget:self action:@selector(yesBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    noLab = [backview viewWithTag:1012];
+    
+    
+    
+    
+    noBtn = [backview viewWithTag:1013];
+    [noBtn addTarget:self action:@selector(nobtn) forControlEvents:UIControlEventTouchUpInside];
+    [noBtn setTitle:@"解雇工人" forState:UIControlStateNormal];
+    noBtn.layer.cornerRadius = 6;
+    noBtn.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
+    
+    
+    
+    
+    yesLab = [backview viewWithTag:1014];
+    
+    
+    
+    
+    yesBtn = [backview viewWithTag:1015];
+    [yesBtn addTarget:self action:@selector(yesbtn) forControlEvents:UIControlEventTouchUpInside];
+    yesBtn.backgroundColor = [myselfway stringTOColor:@"0xFC4154"];
+    yesBtn.layer.cornerRadius = 6;
+    [yesBtn setTitle:@"工程结束" forState:UIControlStateNormal];
     
     
 }
@@ -165,19 +188,19 @@
     self.mapView.showsUserLocation = YES;
     
     self.mapView.zoomLevel = 10;
-
+    
     
     //添加到view上
     [self.view addSubview:self.mapView];
     
     
     [self.mapView mas_makeConstraints:^(MASConstraintMaker *make)
-    {
-        make.top.mas_equalTo(self.view).offset(64);
-        make.left.mas_equalTo(self.view).offset(0);
-        make.right.mas_equalTo(self.view).offset(0);
-        make.bottom.mas_equalTo(backview).offset(-267);
-    }];
+     {
+         make.top.mas_equalTo(self.view).offset(64);
+         make.left.mas_equalTo(self.view).offset(0);
+         make.right.mas_equalTo(self.view).offset(0);
+         make.bottom.mas_equalTo(backview).offset(-292);
+     }];
     
     
     
@@ -199,7 +222,7 @@
     displayParam.locationViewOffsetX = 0;//定位偏移量(经度)
     displayParam.locationViewOffsetY = 0;//定位偏移量（纬度）
     [self.mapView updateLocationViewWithParam:displayParam];
-
+    
     
 }
 
@@ -251,7 +274,7 @@
                 
                 BMKOfflineMap * _offlineMap = [[BMKOfflineMap alloc] init];
                 
-           //     _offlineMap.delegate = self;//可以不要
+                //     _offlineMap.delegate = self;//可以不要
                 
                 NSArray* records = [_offlineMap searchCity:city];
                 
@@ -278,7 +301,7 @@
 }
 
 
-//工人头像按钮， 进入工人详情页面
+//头像按钮， 进入工人详情
 - (void)detailBtn
 {
     PartyBinfoViewController *temp = [[PartyBinfoViewController alloc] init];
@@ -288,45 +311,80 @@
 
 
 
-//我要招工按钮
-- (void)yesBtn
-{
-    WorkerProjectViewController *temp = [[WorkerProjectViewController alloc] init];
-    
-    temp.delegate = self;
-    
-    [self presentViewController:temp animated:YES completion:nil];
-}
-
 
 //拨打电话按钮
 - (void)callBtn
 {
-    AYesOrNoViewController *temp = [[AYesOrNoViewController alloc] init];
     
-    [self.navigationController pushViewController:temp animated:YES];
-}
-
-
-//邀请成功的代理方法
-- (void)success
-{
-    [yes setTitle:@"邀约请求以发送" forState:UIControlStateNormal];
-    
-    yes.userInteractionEnabled = NO;
 }
 
 
 
 
-
-
-- (void)didReceiveMemoryWarning
+//解雇工人按钮
+- (void)nobtn
 {
+    UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"请与工人先进行沟通再进行此项操作" message:@"当日解雇工人需支付工人当日工资 \n建议今日工作完毕后再解雇工人" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"再考虑考虑" style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *yAction = [UIAlertAction actionWithTitle:@"我要解雇工人" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        PartyDismissViewController *temp = [[PartyDismissViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+        
+        
+    }];
+    
+    
+    [alertcontroller addAction:action];
+    [alertcontroller addAction:yAction];
+    
+    [self presentViewController:alertcontroller animated:YES completion:nil];
+    
+}
+
+
+
+//工程结束按钮
+- (void)yesbtn
+{
+    UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"注意" message:@"确认完工后，您将付给工人相应的工资 \n 200元/人/天，工期2天，共400元 \n 是否确认已经完工？" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"还未完工" style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *yAction = [UIAlertAction actionWithTitle:@"确认完工" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        PartyCommentViewController *temp = [[PartyCommentViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+        
+        
+    }];
+    
+    
+    [alertcontroller addAction:action];
+    [alertcontroller addAction:yAction];
+    
+    [self presentViewController:alertcontroller animated:YES completion:nil];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 
 @end

@@ -194,8 +194,21 @@
     }
     else
     {
-        NSLog(@"1");
+        [SVProgressHUD showInfoWithStatus:@"取消成功"];
+        
+        [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
+        
+        self.hidesBottomBarWhenPushed = NO;
+        self.tabBarController.selectedIndex = 1;
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
     }
+}
+
+
+- (void)infoBtn
+{
+    [SVProgressHUD dismiss];
 }
 
 
