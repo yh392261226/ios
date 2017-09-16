@@ -9,6 +9,7 @@
 #import "SeachJobViewController.h"
 #import "WorkerMessTableViewCell.h"
 #import "DressingWorkerViewController.h"
+#import "BmapWorkerViewController.h"
 
 @interface SeachJobViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -36,7 +37,7 @@
     
     [self initScreenBtn];
     
-    [self slitherBack:self.navigationController];
+   // [self slitherBack:self.navigationController];
     
     [self tableview];
     
@@ -110,7 +111,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.hidesBottomBarWhenPushed = YES;
     
+    BmapWorkerViewController *temp = [[BmapWorkerViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
     
     
     

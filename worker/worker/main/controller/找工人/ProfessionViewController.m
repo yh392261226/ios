@@ -36,7 +36,7 @@
     
     [self addhead:@"选择工种"];
     
-    [self slitherBack:self.navigationController];
+  //  [self slitherBack:self.navigationController];
     
     [self tableview];
 }

@@ -18,7 +18,7 @@
     {
         _yes = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        _yes.frame = CGRectMake(40, 5, SCREEN_WIDTH - 80, 40);
+        _yes.frame = CGRectMake(40, 20, SCREEN_WIDTH - 80, 35);
         
         [_yes setTitle:@"提交" forState:0];
         

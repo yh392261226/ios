@@ -9,6 +9,7 @@
 #import "WorkerMessViewController.h"
 #import "WorkerMessTableViewCell.h"
 #import "DressingViewController.h"
+#import "AmapWorkerViewController.h"
 
 @interface WorkerMessViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -37,7 +38,7 @@
     
     [self initScreenBtn];
     
-    [self slitherBack:self.navigationController];
+ //   [self slitherBack:self.navigationController];
     
     [self tableview];
 }
@@ -111,7 +112,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    self.hidesBottomBarWhenPushed = YES;
     
+    AmapWorkerViewController *temp = [[AmapWorkerViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
     
     
 }

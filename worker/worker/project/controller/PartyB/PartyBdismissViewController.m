@@ -8,6 +8,7 @@
 
 #import "PartyBdismissViewController.h"
 #import "MoneyDetailsViewController.h"
+#import "PartyBdomplainViewController.h"
 
 @interface PartyBdismissViewController ()<UITextViewDelegate>
 {
@@ -41,6 +42,8 @@
     
     UILabel *tousuZiyang;   //投诉雇主字样
 
+    
+    NSString *qustion;    //辞退原因
 }
 
 @end
@@ -67,7 +70,7 @@
 
 - (void)initUI
 {
-    [self addhead:@"解雇原因"];
+    [self addhead:@"辞职原因"];
     
     UIView *backview = [[[NSBundle mainBundle] loadNibNamed:@"worker" owner:self options:nil] objectAtIndex:0];
     
@@ -170,10 +173,12 @@
 
 
 
-//投诉工人按钮
+//投诉雇主按钮
 - (void)compBtn
 {
-    NSLog(@" tousu");
+    PartyBdomplainViewController *temp = [[PartyBdomplainViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
 }
 
 
@@ -181,9 +186,28 @@
 //提交按钮
 - (void)yesBtn
 {
-    NSLog(@"yes");
+    if (qustion.length == 0)
+    {
+        [SVProgressHUD showInfoWithStatus:@"请填写辞退原因"];
+    }
+    else
+    {
+        [SVProgressHUD showInfoWithStatus:@"投诉成功"];
+        
+        [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
+        
+        self.hidesBottomBarWhenPushed = NO;
+        self.tabBarController.selectedIndex = 1;
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
+
+
+- (void)infoBtn
+{
+    [SVProgressHUD dismiss];
+}
 
 
 //改变好评1
@@ -237,7 +261,7 @@
     
     
     
-    NSLog(@"%@", textView.text);
+    qustion = textView.text;
 }
 
 

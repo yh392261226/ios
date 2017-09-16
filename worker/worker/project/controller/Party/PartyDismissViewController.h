@@ -6,6 +6,8 @@
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
+
+//甲方解雇工人
 #import "BaseViewController.h"
 
 @interface PartyDismissViewController : BaseViewController
