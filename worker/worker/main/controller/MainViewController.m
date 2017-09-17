@@ -33,6 +33,9 @@
     UILabel *num;     //主页右上角消息数量
     
     UILabel *adreeLab;
+    
+    
+    
 }
 
 
@@ -75,7 +78,10 @@
 //获取经纬度，城市名称
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
+    
     BMKCoordinateRegion region;
+    
+    
     
     region.center.latitude  = userLocation.location.coordinate.latitude;
     
@@ -87,6 +93,8 @@
     
     NSLog(@"当前的坐标是:%f,%f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     
+    
+    
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     
     [geocoder reverseGeocodeLocation: userLocation.location completionHandler:^(NSArray *array, NSError *error) {
@@ -95,36 +103,23 @@
             
             CLPlacemark *placemark = [array objectAtIndex:0];
             
-            if (placemark != nil)
-            {
+            if (placemark != nil) {
+                
                 NSString *city = placemark.locality;
                 
-                adreeLab.text = city;
-                
                 NSLog(@"当前城市名称------%@",city);
-                
-                BMKOfflineMap * _offlineMap = [[BMKOfflineMap alloc] init];
-                
-                NSArray* records = [_offlineMap searchCity:city];
-                
-                BMKOLSearchRecord* oneRecord = [records objectAtIndex:0];
-                
-                //城市编码如:北京为131
-                
-                NSInteger cityId = oneRecord.cityID;
-                
-                NSLog(@"当前城市编号-------->%zd",cityId);
                 
                 //找到了当前位置城市后就关闭服务
                 
                 [_locService stopUserLocationService];
+                
+                adreeLab.text = city;
                 
             }
             
         }
         
     }];
-    
     
     
 }
@@ -306,7 +301,7 @@
     
     adreeLab = [[UILabel alloc] init];
     
-    adreeLab.text = @"未定位";
+    adreeLab.text = @"定位中...";
     
     [adreeLab setTextColor:[myselfway stringTOColor:@"0x2E84F8"]];
     
@@ -317,9 +312,9 @@
     [adreeLab mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.bottom.mas_equalTo(view).offset(-12);
-         make.left.mas_equalTo(view).offset(25);
+         make.left.mas_equalTo(view).offset(20);
          make.height.mas_equalTo(18);
-         make.width.mas_equalTo(80);
+         make.width.mas_equalTo(85);
      }];
     
     UIButton *adree = [UIButton buttonWithType:UIButtonTypeCustom];
