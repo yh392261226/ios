@@ -1,20 +1,14 @@
 //
-//  AmapWorkerViewController.m
+//  AFirstAnsViewController.m
 //  worker
 //
-//  Created by 郭健 on 2017/9/11.
+//  Created by 郭健 on 2017/9/17.
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
-#import "AmapWorkerViewController.h"
-#import "PartyBinfoViewController.h"
-#import "WorkerProjectViewController.h"
+#import "AFirstAnsViewController.h"
 
-
-
-#import "AYesOrNoViewController.h"
-
-@interface AmapWorkerViewController ()<BMKMapViewDelegate, BMKLocationServiceDelegate>
+@interface AFirstAnsViewController ()<BMKLocationServiceDelegate, BMKMapViewDelegate>
 {
     NSMutableArray *dataArray;
     
@@ -36,7 +30,8 @@
     UILabel *redLab;   //红点右面的文字
     UILabel *blueLab;  //蓝点右面的文字
     
-    UIButton *yes;   //我要招工按钮
+    UIButton *yes;   //溜达看看按钮
+    
     
 }
 
@@ -48,30 +43,50 @@
 
 @property (nonatomic, assign) CGFloat longitude;  // 经度
 
-@property (nonatomic, assign) CGFloat latitude; // 纬度
+@property (nonatomic, assign) CGFloat latitude; // 纬
+
 
 @end
 
-@implementation AmapWorkerViewController
+@implementation AFirstAnsViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
     
-    dataArray = [NSMutableArray array];
     
-    [self addhead:@"工人位置"];
+    [self addhead:@"应答"];
+    
+    [self Answer];
     
     [self initUI];
     
     [self initMapView];
     
     
-   
 }
 
 
+
+- (void)Answer
+{
+    UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"提示" message:@"雇主有工作想要接洽\n是否同意雇主邀约" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"不同意" style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *Continue = [UIAlertAction actionWithTitle:@"同意并获取联系方式" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+    {
+        NSLog(@"1");
+    }];
+    
+    [alertcontroller addAction:action];
+    
+    [alertcontroller addAction:Continue];
+    
+    [self presentViewController:alertcontroller animated:YES completion:nil];
+    
+}
 
 
 
@@ -83,18 +98,18 @@
     [self.view addSubview:backview];
     
     [backview mas_makeConstraints:^(MASConstraintMaker *make)
-    {
-        make.bottom.mas_equalTo(self.view).offset(0);
-        make.left.mas_equalTo(self.view).offset(0);
-        make.right.mas_equalTo(self.view).offset(0);
-        make.height.mas_equalTo(267);
-    }];
+     {
+         make.bottom.mas_equalTo(self.view).offset(0);
+         make.left.mas_equalTo(self.view).offset(0);
+         make.right.mas_equalTo(self.view).offset(0);
+         make.height.mas_equalTo(267);
+     }];
     
     
     icon = [backview viewWithTag:1001];
     icon.layer.cornerRadius = 35;
     icon.backgroundColor = [UIColor orangeColor];
-    [icon addTarget:self action:@selector(detailBtn) forControlEvents:UIControlEventTouchUpInside];
+    
     
     
     name = [backview viewWithTag:1002];
@@ -151,6 +166,7 @@
     
     yes = [backview viewWithTag:1011];
     yes.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
+    [yes setTitle:@"在溜达看看" forState:0];
     yes.layer.cornerRadius = 7;
     [yes addTarget:self action:@selector(yesBtn) forControlEvents:UIControlEventTouchUpInside];
     
@@ -173,7 +189,7 @@
     
     self.mapView.zoomLevel = 15;
     
-     [_mapView setMapType:BMKMapTypeStandard];
+    [_mapView setMapType:BMKMapTypeStandard];
     
     //设置地图上是否显示比例尺
     self.mapView.showMapScaleBar = YES;
@@ -182,19 +198,19 @@
     self.mapView.mapScaleBarPosition = CGPointMake(200, 100);
     
     
-
+    
     
     //添加到view上
     [self.view addSubview:self.mapView];
     
     
     [self.mapView mas_makeConstraints:^(MASConstraintMaker *make)
-    {
-        make.top.mas_equalTo(self.view).offset(64);
-        make.left.mas_equalTo(self.view).offset(0);
-        make.right.mas_equalTo(self.view).offset(0);
-        make.bottom.mas_equalTo(backview).offset(-267);
-    }];
+     {
+         make.top.mas_equalTo(self.view).offset(64);
+         make.left.mas_equalTo(self.view).offset(0);
+         make.right.mas_equalTo(self.view).offset(0);
+         make.bottom.mas_equalTo(backview).offset(-267);
+     }];
     
     
     //定位
@@ -211,7 +227,7 @@
     displayParam.locationViewOffsetX = 0;//定位偏移量(经度)
     displayParam.locationViewOffsetY = 0;//定位偏移量（纬度）
     [self.mapView updateLocationViewWithParam:displayParam];
-
+    
     
 }
 
@@ -261,19 +277,7 @@
                 
                 NSLog(@"当前城市名称------%@",city);
                 
-                BMKOfflineMap * _offlineMap = [[BMKOfflineMap alloc] init];
-                
-           //     _offlineMap.delegate = self;//可以不要
-                
-                NSArray* records = [_offlineMap searchCity:city];
-                
-                BMKOLSearchRecord* oneRecord = [records objectAtIndex:0];
-                
-                //城市编码如:北京为131
-                
-                NSInteger cityId = oneRecord.cityID;
-                
-                NSLog(@"当前城市编号-------->%zd",cityId);
+            
                 
                 //找到了当前位置城市后就关闭服务
                 
@@ -290,42 +294,21 @@
 }
 
 
-//工人头像按钮， 进入工人详情页面
-- (void)detailBtn
-{
-    PartyBinfoViewController *temp = [[PartyBinfoViewController alloc] init];
-    
-    [self.navigationController pushViewController:temp animated:YES];
-}
 
 
 
-//我要招工按钮
+
+//溜达看看
 - (void)yesBtn
 {
-    WorkerProjectViewController *temp = [[WorkerProjectViewController alloc] init];
     
-    temp.delegate = self;
-    
-    [self presentViewController:temp animated:YES completion:nil];
 }
 
 
 //拨打电话按钮
 - (void)callBtn
 {
-    AYesOrNoViewController *temp = [[AYesOrNoViewController alloc] init];
     
-    [self.navigationController pushViewController:temp animated:YES];
-}
-
-
-//邀请成功的代理方法
-- (void)success
-{
-    [yes setTitle:@"邀约请求以发送" forState:UIControlStateNormal];
-    
-    yes.userInteractionEnabled = NO;
 }
 
 
@@ -333,11 +316,34 @@
 
 
 
-- (void)didReceiveMemoryWarning
-{
+
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
