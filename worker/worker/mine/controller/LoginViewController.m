@@ -8,10 +8,14 @@
 
 #import "LoginViewController.h"
 #import "LoginTableViewCell.h"
+#import "BFirstAnsViewController.h"
 
 @interface LoginViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 {
     NSMutableArray *dataArray;
+    
+    NSString *userPhone;
+    NSString *password;
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -56,13 +60,35 @@
         
         [self.view addSubview:_tableview];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, SCREEN_HEIGHT - 60, SCREEN_WIDTH - 40, 30)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, SCREEN_HEIGHT - 60, 190, 30)];
         label.font = [UIFont systemFontOfSize:13];
         
         label.textColor = [UIColor grayColor];
-        label.text = @"说明: 登录/注册代表您已经同意《钢建众工用户协议》";
-        label.textAlignment = NSTextAlignmentCenter;
+        label.text = @"说明: 登录/注册代表您已经同意";
+        label.textAlignment = NSTextAlignmentLeft;
         [self.view addSubview:label];
+        
+        
+        
+        UIButton *protocol = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [protocol setTitle:@"《钢建众工用户协议》" forState:UIControlStateNormal];
+        
+        [protocol setTitleColor:[myselfway stringTOColor:@"0x3E9FEA"] forState:UIControlStateNormal];
+        
+        [protocol addTarget:self action:@selector(protocolBtn) forControlEvents:UIControlEventTouchUpInside];
+        
+        protocol.titleLabel.font = [UIFont systemFontOfSize:13];
+        
+        [self.view addSubview:protocol];
+        
+        [protocol mas_makeConstraints:^(MASConstraintMaker *make)
+        {
+            make.bottom.mas_equalTo(self.view).offset(- 30);
+            make.left.mas_equalTo(label).offset(175);
+            make.height.mas_equalTo(30);
+            make.width.mas_equalTo(150);
+        }];
         
     }
     
@@ -88,6 +114,12 @@
     
     cell.textuser.delegate = self;
     cell.textpassword.delegate = self;
+    
+    
+    cell.textuser.tag = 500;
+    cell.textpassword.tag = 600;
+    [cell.textuser addTarget:self action:@selector(changeBtn:) forControlEvents:UIControlEventEditingChanged];
+    [cell.textpassword addTarget:self action:@selector(changeBtn:) forControlEvents:UIControlEventEditingChanged];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -127,7 +159,7 @@
         NSInteger existedLength = textField.text.length;
         NSInteger selectedLength = range.length;
         NSInteger replaceLength = string.length;
-        if (existedLength - selectedLength + replaceLength > 11)
+        if (existedLength - selectedLength + replaceLength > 6)
         {
             return NO;
         }
@@ -142,7 +174,7 @@
         NSInteger existedLength = textField.text.length;
         NSInteger selectedLength = range.length;
         NSInteger replaceLength = string.length;
-        if (existedLength - selectedLength + replaceLength > 4)
+        if (existedLength - selectedLength + replaceLength > 11)
         {
             return NO;
         }
@@ -223,20 +255,34 @@
 
 
 #pragma 自己的方法
+//获取手机号和验证码
+- (void)changeBtn: (UITextField *)textfield
+{
+    if (textfield.tag == 500)
+    {
+        userPhone = textfield.text;
+    }
+    else
+    {
+        password = textfield.text;
+    }
+}
+
 
 //点击验证码按钮
 - (void)yanzhengmaBtn: (UIButton *)btn
 {
-    UITextField *field = [self.view viewWithTag:10001];
+
     
-    if (field.text.length == 0)
+    if (userPhone.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"手机号为空"];
     }
     else
     {
-        [self time:btn];
+        [self getdata:btn];
     }
+    
     
 }
 
@@ -244,22 +290,21 @@
 //登录按钮
 - (void)loginBtn
 {
-    UITextField *field = [self.view viewWithTag:10001];
-    UITextField *fielf1 = [self.view viewWithTag:10002];
-    
-    if (field.text.length == 0)
+        //登录
+    if (userPhone.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"手机号为空"];
     }
-    else if (fielf1.text.length == 1)
+    else if (password.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"验证码为空"];
     }
     else
     {
-        NSLog(@"1");
+        [self logindata];
+        
     }
-    
+
 }
 
 
@@ -426,7 +471,108 @@
 
 
 
+//登录接口
+- (void)getdata: (UIButton *)btn
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/sendVerifyCode?phone_number=%@", baseUrl, userPhone];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *mess = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showInfoWithStatus:mess];
+             
+             [self time:btn];
+             
+             
+             
+         }
+         else
+         {
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
+
+//获取验证码接口
+- (void)logindata
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/login", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic = @{@"phone_number": userPhone,
+                          @"verify_code": password};
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+    {
+        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        
+        if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+        {
+            
+            NSDictionary *dic = [dictionary objectForKey:@"data"];
+            
+            NSString *mess = [dic objectForKey:@"msg"];
+            
+            [SVProgressHUD showInfoWithStatus:mess];
+            
+        }
+        else
+        {
+            
+
+            
+        }
+        
+        
+        
+    }
+     failure:^(NSURLSessionDataTask *task, NSError *error)
+    {
+        
+    }];
+    
+    
+}
+
+
+
+
+
+
+
+
+
+//用工协议按钮
+- (void)protocolBtn
+{
+    NSLog(@"协议");
+    
+}
 
 
 

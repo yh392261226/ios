@@ -31,6 +31,8 @@
     [self addhead:@"城市选择"];
     
     [self slitherBack:self.navigationController];
+    
+    [self getdata];
 
 }
 
@@ -38,6 +40,40 @@
 
 
 
+- (void)getdata
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Regions/index?action=letter"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    {
+        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        
+        if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+        {
+            NSMutableArray *tem = [dictionary objectForKey:@"data"];
+
+            
+            NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"r_first" ascending:YES]];
+            
+            [tem sortUsingDescriptors:sortDescriptors];
+            
+            NSLog(@"%@", tem);
+        }
+        
+        
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+        
+    }];
+    
+    
+}
 
 
 

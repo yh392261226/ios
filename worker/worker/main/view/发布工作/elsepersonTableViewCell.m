@@ -29,6 +29,8 @@
         
         _moneyfield = [[UITextField alloc] init];
         
+        _moneyfield.textAlignment = NSTextAlignmentRight;
+        
         _moneyfield.placeholder = @"输入工人工资";
         
         [self.moneyfield setValue:[UIFont systemFontOfSize:16.0] forKeyPath:@"_placeholderLabel.font"];
@@ -49,6 +51,8 @@
         
         
         _personfield = [[UITextField alloc] init];
+        
+        _personfield.textAlignment = NSTextAlignmentRight;
         
         _personfield.placeholder = @"输入招工个数";
         

@@ -25,7 +25,7 @@
 
 @property (nonatomic, strong)NSString *name;
 @property (nonatomic, strong)NSString *data;
-@property (nonatomic, strong)NSString *bigData;
+//@property (nonatomic, strong)NSString *bigData;
 
 @end
 
@@ -77,6 +77,11 @@
     NSString *workerName;     //工程名称数据
     NSString *workerAdree;    //工程地址数据
     
+    NSMutableArray *workerArr;  //工种的列表
+    NSString *workerStr;    //工种的选择
+    
+    
+    NSMutableArray *newArr;
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -88,8 +93,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    newArr = [NSMutableArray array];
     
     dataArray = [NSMutableArray array];
+    
+    workerArr = [NSMutableArray array];
+    [workerArr addObject:@"张飞"];
+    [workerArr addObject:@"关羽"];
+    [workerArr addObject:@"李贝"];
     
     
     [self initData];
@@ -101,6 +112,7 @@
     [self initDraft];
     
     [self tableview];
+    
 }
 
 
@@ -173,14 +185,21 @@
                 
                 cell = [[lssueUserTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"usercell"];
                 
-                
                 cell.name.text = info.name;
-                cell.data.placeholder = info.data;
+                if (indexPath.row == 0)
+                {
+                    cell.data.placeholder = @"工程名称";
+                }
+                else if(indexPath.row == 4)
+                {
+                   cell.data.placeholder = @"请输入详细地址，不少于5个字";
+                }
                 
                 
-                cell.data.text = info.bigData;
+                cell.data.text = info.data;
                 
-                cell.data.tag = indexPath.row + 600;
+                
+                cell.data.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row , @"0"];
                 
                 [cell.data addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
                 
@@ -213,6 +232,7 @@
             
             if (!cell)
             {
+                
                 cell = [[BriefTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"briefcell"];
                 
                 cell.name.font = [UIFont systemFontOfSize:16];
@@ -221,9 +241,6 @@
                 
                 cell.data.text = info.data;
                 cell.data.delegate = self;
-                
-                
-                
                 
                 
             }
@@ -250,6 +267,8 @@
                 
                 cell.data.text = info.placeData;
                 
+                cell.data.restorationIdentifier = [NSString stringWithFormat:@"%ld", indexPath.section];
+                
             }
             
             
@@ -259,8 +278,6 @@
         }
         else if (info.workerType == 1)
         {
-            
-            
             elsepersonTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
             if (!cell)
@@ -268,15 +285,25 @@
                 cell = [[elsepersonTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"elseperson"];
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                cell.personfield.text = info.personNum;
+                
+                cell.moneyfield.text = info.money;
+                
+                [cell.personfield addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
+                [cell.moneyfield addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
+                
+                cell.personfield.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"1"];
+                cell.moneyfield.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"2"];
+                
             }
-            
-            
             
             return cell;
             
         }
         else if(info.workerType == 2)
         {
+            
             elsetimeTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
             if (!cell)
@@ -284,9 +311,16 @@
                 cell = [[elsetimeTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"elsetime"];
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                cell.startTime.text = info.startTime;
+                cell.endTime.text = info.endTime;
+                
+                [cell.startTime addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
+                [cell.endTime addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
+                
+                cell.startTime.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"3"];
+                cell.endTime.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"4"];
             }
-            
-            
             
             return cell;
         
@@ -380,7 +414,44 @@
         {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             
-            
+            if (indexPath.row == 2)
+            {
+                NSArray *arr = [dataArray objectAtIndex:0];
+                
+                selecdType *data = [arr objectAtIndex:2];
+                
+                firstModel *model = (firstModel *)data;
+                
+                //工程类型点击
+                UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"工程类型" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                UIAlertAction *Return = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+                
+                [AlertController addAction:Return];
+                
+                for (int i = 0; i < workerArr.count; i++)
+                {
+                    UIAlertAction *action = [UIAlertAction actionWithTitle:[workerArr objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                             {
+                                                 
+                                                 model.data = action.title;
+                                                 
+                                                 [self.tableview reloadData];
+                                                 
+                                             }];
+                    
+                    
+                    [AlertController addAction:action];
+                }
+                
+                [self presentViewController:AlertController animated:YES completion:nil];
+                
+                
+            }
+            else
+            {
+                //所在区域点击
+            }
         }
         
     }
@@ -401,7 +472,7 @@
         {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             
-            
+            [self addWorker:indexPath];
         }
     }
     
@@ -449,8 +520,29 @@
 //确认提交按钮
 - (void)Escbtn
 {
+    
+    
+//    for (int i = 0; i < dataArray.count; i++)
+//    {
+//        NSArray *arr = [dataArray objectAtIndex:i];
+//        
+//        NSMutableArray *infoArr = [NSMutableArray array];
+//        
+//        for (int j = 0; j < arr.count; j++)
+//        {
+//            
+//            selecdType *data = [arr objectAtIndex:j];
+//            
+//            NSDictionary *dic = [myselfway entityToDictionary:data];
+//            
+//            [infoArr addObject:dic];
+//        }
+//        
+//        [newArr addObject:infoArr];
+    
+//    }
+    
 
-    NSLog(@"提交");
 }
 
 
@@ -565,7 +657,7 @@
     
     info0.name = @"标题:";
     
-    info0.data = @"工程名称";
+   // info0.data = @"工程名称";
     
     info0.type = 0;
     
@@ -611,11 +703,13 @@
     [first addObject:info3];
     
     
+    
+    
     firstModel *info4 = [[firstModel alloc] init];
     
     info4.name = @"详细地址:";
     
-    info4.data = @"请输入详细地址，不少于5个字";
+//    info4.data = @"请输入详细地址，不少于5个字";
     
     info4.type = 0;
     
@@ -649,6 +743,8 @@
     
     data1.workerType = 1;
     
+    
+    
     [elseArray addObject:data1];
     
     
@@ -675,27 +771,89 @@
 //获取编辑框的内容
 - (void)textFiled: (UITextField *)textfield
 {
-    NSArray *arr = [dataArray objectAtIndex:0];
+    NSString *str = textfield.restorationIdentifier;
     
-    selecdType *data = [arr objectAtIndex:0];
+    NSString *sectionStr = [str substringToIndex:1];//section
     
-    firstModel *info = (firstModel *)data;
+    NSString *rowStr = [str substringWithRange:NSMakeRange(1, 1)]; //row
     
-    selecdType *data1 = [arr objectAtIndex:4];
+    NSString *numStr = [str substringFromIndex:str.length - 1];  //最后一位
     
-    firstModel *info1 = (firstModel *)data1;
+    NSInteger section = [sectionStr integerValue];
+    NSInteger row = [rowStr integerValue];
+    NSInteger end = [numStr integerValue];
     
-    if (textfield.tag == 600)
+   // NSLog(@"%ld%ld%ld", section, row, end);
+    
+    NSArray *arr = [dataArray objectAtIndex:section];
+    
+    selecdType *data = [arr objectAtIndex:row];
+
+    if (data.bigType == 1)
     {
-        info.bigData = textfield.text;
+        firstModel *model = (firstModel *)data;
+        
+        model.data = textfield.text;
+        
     }
     else
     {
-        info1.bigData = textfield.text;
+        elseModel *model = (elseModel *)data;
+        
+        if (end == 1)
+        {
+            model.personNum = textfield.text;
+        }
+        else if (end == 2)
+        {
+            model.money = textfield.text;
+        }
+        else if (end == 3)
+        {
+            model.startTime = textfield.text;
+        }
+        else
+        {
+            model.endTime = textfield.text;
+        }
     }
     
     
     
+//    NSArray *arr = [dataArray objectAtIndex:0];
+//    
+//    selecdType *data = [arr objectAtIndex:0];
+//    
+//    if (data.bigType == 1)
+//    {
+//        firstModel *info = (firstModel *)data;
+//        
+//        selecdType *data1 = [arr objectAtIndex:4];
+//        
+//        firstModel *info1 = (firstModel *)data1;
+//        
+//        if (textfield.tag == 600)
+//        {
+//            info.bigData = textfield.text;
+//        }
+//        else
+//        {
+//            info1.bigData = textfield.text;
+//        }
+//    }
+//    else
+//    {
+//        NSMutableArray *Array = [dataArray objectAtIndex:textfield.tag - 1000];
+//        
+//        selecdType *data = [Array objectAtIndex:1];
+//        
+//        elseModel *model = (elseModel *)data;
+//        
+//        model.personNum = textfield.text;
+//        
+//    }
+    
+
 }
 
 
@@ -710,6 +868,42 @@
     
     info.data = textView.text;
 }
+
+
+
+//调出工种列表
+- (void)addWorker: (NSIndexPath *)index
+{
+    NSArray *arr = [dataArray objectAtIndex:index.section];
+    
+    selecdType *data = [arr objectAtIndex:0];
+    
+    elseModel *info = (elseModel *)data;
+    
+    UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"工种选择" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *Return = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+    
+    [AlertController addAction:Return];
+    
+    for (int i = 0; i < workerArr.count; i++)
+    {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:[workerArr objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+        {
+            
+            info.placeData = action.title;
+            
+            [self.tableview reloadData];
+        }];
+        
+        
+        [AlertController addAction:action];
+    }
+    
+    [self presentViewController:AlertController animated:YES completion:nil];
+    
+}
+
 
 
 

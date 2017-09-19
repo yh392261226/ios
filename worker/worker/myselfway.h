@@ -16,7 +16,8 @@
 //设置navi主页的headview
 + (void)initHeadView: (UIView *)backview title:(NSString *)titleText;
 
-
+//类的对象转成字典对象
++ (NSDictionary *)entityToDictionary:(id)entity;
 
 
 

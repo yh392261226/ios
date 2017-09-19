@@ -81,8 +81,6 @@
     
     BMKCoordinateRegion region;
     
-    
-    
     region.center.latitude  = userLocation.location.coordinate.latitude;
     
     region.center.longitude = userLocation.location.coordinate.longitude;
@@ -256,14 +254,9 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     
-//    SelecdCityViewController *temp = [[SelecdCityViewController alloc] init];
-//    
-//    [self.navigationController pushViewController:temp animated:YES];
-    
-    PartyDismissViewController *temp = [[PartyDismissViewController alloc] init];
+    SelecdCityViewController *temp = [[SelecdCityViewController alloc] init];
     
     [self.navigationController pushViewController:temp animated:YES];
-    
     
     self.hidesBottomBarWhenPushed = NO;
 }
@@ -385,6 +378,8 @@
     
     
 }
+
+
 
 
 //消息的点击事件

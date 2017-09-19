@@ -15,6 +15,7 @@
 		FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C138D1F3AA5E300A1C463 /* LoginTableViewCell.m */; };
 		FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13901F3AB96900A1C463 /* IssueViewController.m */; };
 		FB0C13941F3B061100A1C463 /* Headview.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C13931F3B061100A1C463 /* Headview.m */; };
+		FB12C6C91F70FDDB00F261AD /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12C6C81F70FDDB00F261AD /* NullSafe.m */; };
 		FB14A14F1F5651E60028282E /* SetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB14A14E1F5651E60028282E /* SetPasswordViewController.m */; };
 		FB14A1521F56566D0028282E /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB14A1511F56566D0028282E /* PasswordViewController.m */; };
 		FB14A1551F5660B10028282E /* SYPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB14A1541F5660B10028282E /* SYPasswordView.m */; };
@@ -225,6 +226,7 @@
 		FB0C13901F3AB96900A1C463 /* IssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueViewController.m; sourceTree = "<group>"; };
 		FB0C13921F3B061100A1C463 /* Headview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Headview.h; sourceTree = "<group>"; };
 		FB0C13931F3B061100A1C463 /* Headview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Headview.m; sourceTree = "<group>"; };
+		FB12C6C81F70FDDB00F261AD /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
 		FB14A14D1F5651E60028282E /* SetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPasswordViewController.h; sourceTree = "<group>"; };
 		FB14A14E1F5651E60028282E /* SetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPasswordViewController.m; sourceTree = "<group>"; };
 		FB14A1501F56566D0028282E /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
@@ -1247,6 +1249,7 @@
 				FBD796721F286B3700FA50BE /* Assets.xcassets */,
 				FBD796741F286B3700FA50BE /* LaunchScreen.storyboard */,
 				FBD7969B1F28825B00FA50BE /* workerobject.pch */,
+				FB12C6C81F70FDDB00F261AD /* NullSafe.m */,
 				FBD796771F286B3700FA50BE /* Info.plist */,
 				FBD7969C1F28874C00FA50BE /* BaseViewController.h */,
 				FBD7969D1F28874C00FA50BE /* BaseViewController.m */,
@@ -1672,6 +1675,7 @@
 				FB14A1521F56566D0028282E /* PasswordViewController.m in Sources */,
 				FB61EB511F6232EF00066A8A /* PersonTextviewTableViewCell.m in Sources */,
 				FBD796681F286B3700FA50BE /* AppDelegate.m in Sources */,
+				FB12C6C91F70FDDB00F261AD /* NullSafe.m in Sources */,
 				FB4C33C51F5FE704005D0747 /* headCollectionReusableView.m in Sources */,
 				FB5DEC5B1F60F14B00008EA5 /* ZLPhotoTool.m in Sources */,
 				FB2581D51F39592400BE510F /* EmployerManagementViewController.m in Sources */,

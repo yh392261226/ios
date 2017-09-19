@@ -329,7 +329,7 @@
     
     mapManager = [[BMKMapManager alloc] init];
     
-    BOOL ret = [mapManager start:@"68ckoM9IQgUg4w0T0Cvg7yQHqjRlUegy" generalDelegate:nil];
+    BOOL ret = [mapManager start:@"EMcgUVa9NRQe9EgILyKOrFv9l7Zj3iIv" generalDelegate:nil];
     
     if (!ret)
     {

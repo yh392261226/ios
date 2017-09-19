@@ -173,7 +173,9 @@
     
     self.mapView.zoomLevel = 15;
     
-     [_mapView setMapType:BMKMapTypeStandard];
+    [self createBtn];
+    
+    [_mapView setMapType:BMKMapTypeStandard];
     
     //设置地图上是否显示比例尺
     self.mapView.showMapScaleBar = YES;
@@ -181,11 +183,9 @@
     //设置地图比例尺在地图上的位置
     self.mapView.mapScaleBarPosition = CGPointMake(200, 100);
     
-    
-
-    
     //添加到view上
     [self.view addSubview:self.mapView];
+    
     
     
     [self.mapView mas_makeConstraints:^(MASConstraintMaker *make)
@@ -198,7 +198,7 @@
     
     
     //定位
-    _locService = [[BMKLocationService alloc]init];
+    _locService = [[BMKLocationService alloc] init];
     _locService.delegate = self;
     [_locService startUserLocationService];
     
@@ -208,11 +208,13 @@
     BMKLocationViewDisplayParam *displayParam = [[BMKLocationViewDisplayParam alloc] init];
     displayParam.isRotateAngleValid = NO;
     displayParam.isAccuracyCircleShow = NO;
+    
     displayParam.locationViewOffsetX = 0;//定位偏移量(经度)
     displayParam.locationViewOffsetY = 0;//定位偏移量（纬度）
     [self.mapView updateLocationViewWithParam:displayParam];
 
     
+     [self.mapView setShowsUserLocation:YES];//显示定位的蓝点儿
 }
 
 
@@ -229,7 +231,34 @@
     self.mapView.delegate = nil; // 不用时，置nil
 }
 
+//创建按钮
+- (void)createBtn
+{
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    leftBtn.frame =CGRectMake(SCREEN_WIDTH*0.6,SCREEN_HEIGHT*0.93,60, 30);
+    leftBtn.backgroundColor = [UIColor orangeColor];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"left_btn"]forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(leftBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:leftBtn];
+    
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    rightBtn.backgroundColor = [UIColor greenColor];
+    rightBtn.frame =CGRectMake(SCREEN_WIDTH*0.6+61,SCREEN_HEIGHT*0.93,60, 30);
+    [rightBtn setBackgroundImage:[UIImage imageNamed:@"right_btn"]forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(rightAction:)forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:rightBtn];
+}
 
+//实现点击按钮地图放大和缩小，后面的数字表示，点击一次按钮放大或者缩小地图的等级数
+- (void)leftBtnAction:(UIButton *)btn
+{
+    [_mapView setZoomLevel:_mapView.zoomLevel - 3];
+}
+
+- (void)rightAction:(UIButton *)btn
+{
+    [_mapView setZoomLevel:_mapView.zoomLevel + 3];
+}
 
 
 //获取经纬度，城市名称
@@ -261,19 +290,7 @@
                 
                 NSLog(@"当前城市名称------%@",city);
                 
-                BMKOfflineMap * _offlineMap = [[BMKOfflineMap alloc] init];
-                
-           //     _offlineMap.delegate = self;//可以不要
-                
-                NSArray* records = [_offlineMap searchCity:city];
-                
-                BMKOLSearchRecord* oneRecord = [records objectAtIndex:0];
-                
-                //城市编码如:北京为131
-                
-                NSInteger cityId = oneRecord.cityID;
-                
-                NSLog(@"当前城市编号-------->%zd",cityId);
+              
                 
                 //找到了当前位置城市后就关闭服务
                 
@@ -285,7 +302,23 @@
         
     }];
     
+    //展示定位
+    self.mapView.showsUserLocation = YES;
     
+    //更新位置数据
+    [self.mapView updateLocationData:userLocation];
+    
+    
+    self.mapView.zoomLevel = 15;
+    
+    //获取自身的位置
+    CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
+    //将中心点设置为自身位置
+    _mapView.centerCoordinate = coor;
+    BMKPointAnnotation *annotation = [[BMKPointAnnotation alloc] init];
+    annotation.coordinate = coor;
+    [_mapView addAnnotation:annotation];
+    [_mapView updateLocationData:userLocation];
     
 }
 

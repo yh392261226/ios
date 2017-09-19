@@ -283,19 +283,6 @@
                 
                 NSLog(@"当前城市名称------%@",city);
                 
-                BMKOfflineMap * _offlineMap = [[BMKOfflineMap alloc] init];
-                
-                //     _offlineMap.delegate = self;//可以不要
-                
-                NSArray* records = [_offlineMap searchCity:city];
-                
-                BMKOLSearchRecord* oneRecord = [records objectAtIndex:0];
-                
-                //城市编码如:北京为131
-                
-                NSInteger cityId = oneRecord.cityID;
-                
-                NSLog(@"当前城市编号-------->%zd",cityId);
                 
                 //找到了当前位置城市后就关闭服务
                 
