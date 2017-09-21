@@ -6,9 +6,17 @@
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
+
+
+
 #import "BaseViewController.h"
 
+
+
 @interface BaseViewController ()
+{
+    CGRect rectOfNavigationbar;
+}
 
 @end
 
@@ -18,6 +26,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+   
+    
 }
 
 
@@ -25,11 +36,22 @@
 {
     self.view.backgroundColor = [myselfway stringTOColor:@"0xF3F3F3"];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    UIView *view = [[UIView alloc] init];
     
     view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:view];
+    
+    [view mas_makeConstraints:^(MASConstraintMaker *make)
+    {
+        make.top.mas_equalTo(self.view).offset(0);
+        make.left.mas_equalTo(self.view).offset(0);
+        make.right.mas_equalTo(self.view).offset(0);
+        make.height.mas_equalTo(44 + StatusBarHeigh);
+    }];
+    
+    NSLog(@"%lf", StatusBarHeigh);
     
     UILabel *headlabel = [[UILabel alloc] init];
     
@@ -40,12 +62,12 @@
     
     headlabel.font = [UIFont systemFontOfSize:17];
     
-    [self.view addSubview:headlabel];
+    [view addSubview:headlabel];
     
     [headlabel mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.center.equalTo(self.view);
-         make.bottom.mas_equalTo(view).offset(-7);
+         make.centerX.equalTo(view);
+         make.bottom.mas_equalTo(view).offset(-6);
          make.height.mas_equalTo(30);
          make.width.mas_equalTo(200);
      }];

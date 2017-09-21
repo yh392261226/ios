@@ -4,7 +4,7 @@
 //
 //  Created by 郭健 on 2017/7/31.
 //  Copyright © 2017年 郭健. All rights reserved.
-//
+
 
 #import "ProfessionViewController.h"
 #import "ProfessionTableViewCell.h"
@@ -63,7 +63,6 @@
 }
 
 
-
 #pragma Tableview
 
 - (UITableView *)tableview
@@ -111,6 +110,7 @@
     [cell.logoImage sd_setImageWithURL:url];
     
     return cell;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,7 +121,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    return 20;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 30;
+    
 }
 
 
@@ -184,6 +190,7 @@
              
              
              [self.tableview reloadData];
+             
          }
          
          
@@ -282,7 +289,10 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
+
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

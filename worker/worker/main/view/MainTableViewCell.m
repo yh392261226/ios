@@ -31,10 +31,10 @@
 {
    [_worker mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.top.mas_equalTo(self.contentView).offset(5);
+        make.top.mas_equalTo(self.contentView).offset(0);
         make.left.mas_equalTo(self.contentView).offset(10);
         make.right.mas_equalTo(self.contentView).offset(-10);
-        make.bottom.mas_equalTo(self.contentView).offset(-5);
+        make.bottom.mas_equalTo(self.contentView).offset(0);
    }];
     
 }

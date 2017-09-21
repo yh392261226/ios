@@ -55,6 +55,7 @@
 		FB4F230F1F59378300D8D7C6 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F230E1F59378300D8D7C6 /* MessageViewController.m */; };
 		FB4F23121F593DEC00D8D7C6 /* BoundPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F23111F593DEC00D8D7C6 /* BoundPhoneViewController.m */; };
 		FB4F23151F59418100D8D7C6 /* BoundTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F23141F59418100D8D7C6 /* BoundTableViewCell.m */; };
+		FB556BB51F711A7D00C2702A /* ProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB556BB41F711A7D00C2702A /* ProtocolViewController.m */; };
 		FB55C7CA1F67D9BD00ED8733 /* WorkerProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB55C7C91F67D9BD00ED8733 /* WorkerProjectViewController.m */; };
 		FB55C7CD1F67DD2E00ED8733 /* WorkerProTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB55C7CC1F67DD2E00ED8733 /* WorkerProTableViewCell.m */; };
 		FB5759B11F4430E100135B92 /* DressingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5759B01F4430E100135B92 /* DressingViewController.m */; };
@@ -294,6 +295,8 @@
 		FB4F23111F593DEC00D8D7C6 /* BoundPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoundPhoneViewController.m; sourceTree = "<group>"; };
 		FB4F23131F59418100D8D7C6 /* BoundTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundTableViewCell.h; sourceTree = "<group>"; };
 		FB4F23141F59418100D8D7C6 /* BoundTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoundTableViewCell.m; sourceTree = "<group>"; };
+		FB556BB31F711A7D00C2702A /* ProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolViewController.h; sourceTree = "<group>"; };
+		FB556BB41F711A7D00C2702A /* ProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProtocolViewController.m; sourceTree = "<group>"; };
 		FB55C7C81F67D9BD00ED8733 /* WorkerProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerProjectViewController.h; sourceTree = "<group>"; };
 		FB55C7C91F67D9BD00ED8733 /* WorkerProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkerProjectViewController.m; sourceTree = "<group>"; };
 		FB55C7CB1F67DD2E00ED8733 /* WorkerProTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerProTableViewCell.h; sourceTree = "<group>"; };
@@ -1108,6 +1111,8 @@
 				FB4F230E1F59378300D8D7C6 /* MessageViewController.m */,
 				FB4F23101F593DEC00D8D7C6 /* BoundPhoneViewController.h */,
 				FB4F23111F593DEC00D8D7C6 /* BoundPhoneViewController.m */,
+				FB556BB31F711A7D00C2702A /* ProtocolViewController.h */,
+				FB556BB41F711A7D00C2702A /* ProtocolViewController.m */,
 				FB14A14C1F5651C80028282E /* 设置提现密码 */,
 				FB7FA5B11F32F80C0096F6F2 /* 收藏评价功能栏 */,
 			);
@@ -1714,6 +1719,7 @@
 				FBCAB43F1F5E802900921FBE /* DepositViewController.m in Sources */,
 				FB20E6101F6A16800085C606 /* BYesOrNoViewController.m in Sources */,
 				FBD3A54B1F67BB3900A2EF23 /* BmapWorkerViewController.m in Sources */,
+				FB556BB51F711A7D00C2702A /* ProtocolViewController.m in Sources */,
 				FB4C33C21F5FDF3C005D0747 /* PartyThreeCollectionViewCell.m in Sources */,
 				FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */,
 				FB75E6D81F4966010049D864 /* ViewpagerViewController.m in Sources */,

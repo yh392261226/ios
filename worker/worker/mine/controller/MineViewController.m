@@ -63,7 +63,7 @@
 {
     if (!_tableview)
     {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
         
         _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
         _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
@@ -80,7 +80,13 @@
         
         [self.view addSubview:_tableview];
         
-        
+        [_tableview mas_makeConstraints:^(MASConstraintMaker *make)
+         {
+             make.top.mas_equalTo(self.view).offset(44 + StatusBarHeigh);
+             make.left.mas_equalTo(self.view).offset(0);
+             make.right.mas_equalTo(self.view).offset(0);
+             make.bottom.mas_equalTo(self.view).offset(SCREEN_HEIGHT - 44 - StatusBarHeigh);
+         }];
     }
     
     return _tableview;
@@ -277,11 +283,19 @@
 //加载头部view
 - (void)initHeadView
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    UIView *view = [[UIView alloc] init];
     
     view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:view];
+    
+    [view mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.top.mas_equalTo(self.view).offset(0);
+         make.left.mas_equalTo(self.view).offset(0);
+         make.right.mas_equalTo(self.view).offset(0);
+         make.height.mas_equalTo(44 + StatusBarHeigh);
+     }];
     
     UILabel *headlabel = [[UILabel alloc] init];
     
@@ -293,12 +307,12 @@
     
     headlabel.font = [UIFont boldSystemFontOfSize:17];
     
-    [self.view addSubview:headlabel];
+    [view addSubview:headlabel];
     
     [headlabel mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.center.equalTo(self.view);
-         make.bottom.mas_equalTo(view).offset(-7);
+         make.centerX.equalTo(view);
+         make.bottom.mas_equalTo(view).offset(-6);
          make.height.mas_equalTo(30);
          make.width.mas_equalTo(200);
      }];

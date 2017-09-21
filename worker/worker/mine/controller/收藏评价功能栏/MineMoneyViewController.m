@@ -12,10 +12,27 @@
 #import "RechargeViewController.h"
 #import "DepositViewController.h"
 
+@interface moneyData : NSObject
+
+@property (nonatomic, strong)NSString *u_id;
+@property (nonatomic, strong)NSString *uef_overage;   //钱包余额
+@property (nonatomic, strong)NSString *uef_ticket;    //代金券余额
+@property (nonatomic, strong)NSString *uef_envelope;  //红包余额
+
+
+@end
+
+@implementation moneyData
+
+
+@end
+
+
 @interface MineMoneyViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;
  
+    moneyData *info;    //网络请求数据类
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -29,6 +46,8 @@
     [super viewDidLoad];
     
     dataArray = [NSMutableArray arrayWithObjects:@"立即充值", @"我要提现",  nil];
+    
+    [self getdata];
     
     [self addhead:@"我的钱包"];
     
@@ -89,8 +108,22 @@
         [cell addSubview:title];
         
         
+        UILabel *qian = [[UILabel alloc] init];
+        qian.textColor = [UIColor redColor];
+        qian.text = @"￥";
+        qian.font = [UIFont systemFontOfSize:30];
+        [cell addSubview:qian];
+        [qian mas_makeConstraints:^(MASConstraintMaker *make)
+         {
+             make.top.mas_equalTo(title).offset(60);
+             make.left.mas_equalTo(cell).offset(10);
+             make.width.mas_equalTo(30);
+             make.height.mas_equalTo(40);
+         }];
+        
+        
         UILabel *money = [[UILabel alloc] init];
-        money.text = @"1234.51";
+        money.text = info.uef_overage;
         money.font = [UIFont systemFontOfSize:30];
         money.textColor = [UIColor redColor];
         [cell addSubview:money];
@@ -98,7 +131,7 @@
         [money mas_makeConstraints:^(MASConstraintMaker *make)
         {
             make.top.mas_equalTo(title).offset(60);
-            make.left.mas_equalTo(cell).offset(35);
+            make.left.mas_equalTo(cell).offset(40);
             make.width.mas_equalTo(200);
             make.height.mas_equalTo(40);
         }];
@@ -211,7 +244,44 @@
 
 
 
-
+- (void)getdata
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Users/usersFunds?u_id=1"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *tem = [dictionary objectForKey:@"data"];
+             
+             NSDictionary *dic = [tem objectForKey:@"data"];
+             
+             info = [[moneyData alloc] init];
+             
+             info.uef_overage = [dic objectForKey:@"uef_overage"];
+             info.uef_ticket = [dic objectForKey:@"uef_ticket"];
+             info.uef_envelope = [dic objectForKey:@"uef_envelope"];
+             
+             [self.tableview reloadData];
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

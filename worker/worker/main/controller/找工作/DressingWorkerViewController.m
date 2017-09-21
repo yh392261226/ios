@@ -10,6 +10,7 @@
 #import "DressworkerUITableViewCell.h"
 #import "DressTableViewCell.h"
 
+
 @interface DressingWorkerViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
     NSMutableArray *dataArray;
@@ -18,16 +19,16 @@
     
     NSString *nameStr;    //编辑框内容
     
-    
-    
-    
-    
     NSString *range;     //搜索范围
     NSString *project;   //选择工期
     NSString *money;     //工资金额
     NSString *time;      //项目时间
     NSString *proType;   //项目类型
     NSString *worker;    //选择工种
+    
+    NSArray *rangeArray;   //搜索范围的数组
+    NSArray *projectArray;  //选择工期的数组
+    
     
 }
 
@@ -41,12 +42,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    rangeArray = [NSArray arrayWithObjects:@"2公里以内", @"5公里以内", @"10公里以内", @"10公里以上", nil];
+    
     dataArray = [NSMutableArray array];
     
     nameArr = [NSMutableArray arrayWithObjects:@"搜索范围:",@"选择工期",@"工资金额", @"项目时间", @"项目类型", @"选择工种", nil];
-    
-    
-    
     
     
     [dataArray addObject:@"1"];
@@ -386,6 +386,50 @@
 
 
 
+- (void)getdata
+{
+    
+    NSString *url = @"";
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSLog(@"%@", dic);
+             
+             NSString *mess = [dic objectForKey:@"msg"];
+             
+             
+             
+             [SVProgressHUD showInfoWithStatus:mess];
+             
+         }
+         else
+         {
+             
+             
+             
+         }
+         
+         
+         
+     }
+         failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

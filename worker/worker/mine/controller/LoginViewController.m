@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "LoginTableViewCell.h"
 #import "BFirstAnsViewController.h"
+#import "ProtocolViewController.h"
 
 @interface LoginViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 {
@@ -16,6 +17,9 @@
     
     NSString *userPhone;
     NSString *password;
+    
+    NSDictionary *userInfo;   //用户信息， 存到本地
+    
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -29,7 +33,7 @@
     [super viewDidLoad];
     
     dataArray = [NSMutableArray array];
-    
+    userInfo = [NSDictionary dictionary];
     
     
     [self initHeadView];
@@ -273,7 +277,6 @@
 - (void)yanzhengmaBtn: (UIButton *)btn
 {
 
-    
     if (userPhone.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"手机号为空"];
@@ -471,7 +474,7 @@
 
 
 
-//登录接口
+//获取验证码接口
 - (void)getdata: (UIButton *)btn
 {
     
@@ -514,20 +517,17 @@
 }
 
 
-//获取验证码接口
+//登录接口
 - (void)logindata
 {
     
-    NSString *url = [NSString stringWithFormat:@"%@Users/login", baseUrl];
+    NSString *url = [NSString stringWithFormat:@"%@Users/login?phone_number=%@&verify_code=%@", baseUrl, userPhone, password];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    NSDictionary *dic = @{@"phone_number": userPhone,
-                          @"verify_code": password};
-    
-    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
     {
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         
@@ -536,7 +536,11 @@
             
             NSDictionary *dic = [dictionary objectForKey:@"data"];
             
+            NSLog(@"%@", dic);
+            
             NSString *mess = [dic objectForKey:@"msg"];
+            
+            
             
             [SVProgressHUD showInfoWithStatus:mess];
             
@@ -570,8 +574,9 @@
 //用工协议按钮
 - (void)protocolBtn
 {
-    NSLog(@"协议");
+    ProtocolViewController *temp = [[ProtocolViewController alloc] init];
     
+    [self presentViewController:temp animated:NO completion:nil];
 }
 
 

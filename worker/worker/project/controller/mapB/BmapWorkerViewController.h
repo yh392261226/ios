@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "SeachJobViewController.h"
 
 @interface BmapWorkerViewController : BaseViewController
+
+@property (nonatomic, strong)jobListData *info;
 
 @end

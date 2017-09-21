@@ -58,9 +58,7 @@
             NSMutableArray *tem = [dictionary objectForKey:@"data"];
 
             
-            NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"r_first" ascending:YES]];
             
-            [tem sortUsingDescriptors:sortDescriptors];
             
             NSLog(@"%@", tem);
         }
