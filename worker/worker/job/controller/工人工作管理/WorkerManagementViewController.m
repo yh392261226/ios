@@ -63,10 +63,22 @@
         
         _tableview.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
         
+        
+        _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
+        _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
+        
         _tableview.delegate = self;
         _tableview.dataSource = self;
         
         [self.view addSubview:_tableview];
+        
+        [_tableview mas_makeConstraints:^(MASConstraintMaker *make)
+         {
+             make.top.mas_equalTo(self.view).offset(44 + StatusBarHeigh);
+             make.left.mas_equalTo(self.view).offset(0);
+             make.right.mas_equalTo(self.view).offset(0);
+             make.bottom.mas_equalTo(self.view).offset(SCREEN_HEIGHT - 44 - StatusBarHeigh);
+         }];
     }
     
     return _tableview;
@@ -88,6 +100,8 @@
     return 1;
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OneTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -107,8 +121,8 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    
     return cell;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -118,12 +132,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.1;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    return 0;
 }
 
 

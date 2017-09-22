@@ -30,8 +30,7 @@
         
         _worker = [[UILabel alloc] init];
         _worker.font = [UIFont systemFontOfSize:16];
-        _worker.frame = CGRectMake(85, 25, 300, 20);
-        _worker.text = @"我宁愿犯错，也不愿什么都不做";
+        _worker.frame = CGRectMake(100, 25, 300, 20);
         _worker.textColor = [UIColor grayColor];
         [_backview addSubview:_worker];
         

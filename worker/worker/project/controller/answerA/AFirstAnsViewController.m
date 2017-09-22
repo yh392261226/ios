@@ -10,12 +10,10 @@
 
 @interface AFirstAnsViewController ()<BMKLocationServiceDelegate, BMKMapViewDelegate>
 {
+    
     NSMutableArray *dataArray;
     
     UIView *backview;    //页面下方的view
-    
-    
-    
     
     UIButton *icon;   //头像
     UILabel *name;     //名字
@@ -31,7 +29,6 @@
     UILabel *blueLab;  //蓝点右面的文字
     
     UIButton *yes;   //溜达看看按钮
-    
     
 }
 
@@ -50,42 +47,45 @@
 
 @implementation AFirstAnsViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    
     [self addhead:@"应答"];
-    
-    [self Answer];
-    
+
     [self initUI];
     
     [self initMapView];
     
-    
 }
 
 
-
-- (void)Answer
+//重写父类的返回方法
+- (void)temp
 {
-    UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"提示" message:@"雇主有工作想要接洽\n是否同意雇主邀约" preferredStyle:UIAlertControllerStyleAlert];
+    self.tabBarController.selectedIndex = 1;
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"提示" message:@"您发布的工作有工人想要接洽\n是否同意工人邀约" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"不同意" style:UIAlertActionStyleCancel handler:nil];
     
-    UIAlertAction *Continue = [UIAlertAction actionWithTitle:@"同意并获取联系方式" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-    {
-        NSLog(@"1");
-    }];
+    UIAlertAction *Continue = [UIAlertAction actionWithTitle:@"同意" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                               {
+                                   NSLog(@"1");
+                               }];
     
     [alertcontroller addAction:action];
     
     [alertcontroller addAction:Continue];
     
     [self presentViewController:alertcontroller animated:YES completion:nil];
-    
 }
 
 

@@ -10,6 +10,24 @@
 #import "TypeView.h"
 #import "WorkerMessTableViewCell.h"
 
+
+@interface favoriteData : NSObject
+
+@property (nonatomic, strong)NSString *u_id;
+@property (nonatomic, strong)NSString *u_sex;
+@property (nonatomic, strong)NSString *u_online;
+@property (nonatomic, strong)NSString *u_start;
+@property (nonatomic, strong)NSString *u_worked_num;
+@property (nonatomic, strong)NSString *f_id;
+
+
+@end
+
+@implementation favoriteData
+
+
+@end
+
 @interface MineFavoriteViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;
@@ -30,9 +48,9 @@
     [super viewDidLoad];
     
     dataArray = [NSMutableArray array];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
+
+    
+    [self getdata:0];
     
     nameArr = [NSMutableArray arrayWithObjects:@"收藏的工作", @"收藏的工人", nil];
     
@@ -176,6 +194,58 @@
 
 
 
+
+- (void)getdata:(NSInteger)type
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Users_favorate/tasks?u_id=2"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSArray *arr = [dic objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dic = [arr objectAtIndex:i];
+                 
+                 favoriteData *data = [[favoriteData alloc] init];
+                 
+                 data.u_id = [dic objectForKey:@"u_id"];
+                 data.u_sex = [dic objectForKey:@"u_sex"];
+                 data.u_start = [dic objectForKey:@"u_start"];
+                 data.u_online = [dic objectForKey:@"u_online"];
+                 data.u_worked_num = [dic objectForKey:@"u_worked_num"];
+                 
+                 
+                 [dataArray addObject:data];
+             }
+             
+             [self.tableview reloadData];
+             
+             
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

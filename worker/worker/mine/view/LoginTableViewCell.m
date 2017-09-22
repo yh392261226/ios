@@ -37,14 +37,14 @@
         
         _textuser = [[UITextField alloc] initWithFrame:CGRectMake(60, 0.5, 250, 50)];
         _textuser.keyboardType = UIKeyboardTypeNumberPad;
-        _textuser.tag = 10001;
+      //  _textuser.tag = 10001;
         _textuser.placeholder = @"请输入手机号";
         [_view addSubview:_textuser];
         
         _textpassword = [[UITextField alloc] initWithFrame:CGRectMake(60, 51.5, 250, 50)];
         _textpassword.keyboardType = UIKeyboardTypeNumberPad;
         _textpassword.placeholder = @"请输入收到的动态密码";
-        _textpassword.tag = 10002;
+      //  _textpassword.tag = 10002;
         _textpassword.secureTextEntry = YES;
         [_view addSubview:_textpassword];
         

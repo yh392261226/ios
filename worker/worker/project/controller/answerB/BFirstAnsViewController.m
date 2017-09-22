@@ -55,7 +55,6 @@
     
     [self addhead:@"应答"];
     
-    [self Answer];
     
     [self initUI];
     
@@ -64,15 +63,22 @@
     
 }
 
+//重写父类的返回方法
+- (void)temp
+{
+    self.tabBarController.selectedIndex = 1;
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 
-- (void)Answer
+- (void)viewDidAppear:(BOOL)animated
 {
     UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"提示" message:@"您发布的工作有工人想要接洽\n是否同意工人邀约" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"不同意" style:UIAlertActionStyleCancel handler:nil];
     
-    UIAlertAction *Continue = [UIAlertAction actionWithTitle:@"同意并获取联系方式" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+    UIAlertAction *Continue = [UIAlertAction actionWithTitle:@"同意" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                                {
                                    NSLog(@"1");
                                }];
@@ -82,8 +88,10 @@
     [alertcontroller addAction:Continue];
     
     [self presentViewController:alertcontroller animated:YES completion:nil];
-    
 }
+
+
+
 
 
 
