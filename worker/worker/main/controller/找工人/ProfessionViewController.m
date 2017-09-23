@@ -121,14 +121,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20;
+    return 15;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    UIView *view = [[UIView alloc] init];
     
+    return view;
 }
+
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -260,7 +264,7 @@
     
 }
 
-- (void)creatPlistFileWithArr:(NSArray *)array
+- (void)creatPlistFileWithArr:(NSMutableArray *)array
 {
     //将字典保存到document文件->获取appdocument路径
     NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -275,17 +279,21 @@
     {
         [fileManager createDirectoryAtPath:workerPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    
     else
     {
+        // 删除旧的缓存数据
+       // [[NSFileManager defaultManager] removeItemAtPath:workerPath error:nil];
+        
+        
+        
         
     }
-
+    
+    
     NSString *userInfo = [workerPath stringByAppendingPathComponent:@"listWorker.plist"];
     
     [array writeToFile:userInfo atomically:YES];
     
-
 }
 
 

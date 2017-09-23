@@ -522,25 +522,25 @@
 {
     
     
-//    for (int i = 0; i < dataArray.count; i++)
-//    {
-//        NSArray *arr = [dataArray objectAtIndex:i];
-//        
-//        NSMutableArray *infoArr = [NSMutableArray array];
-//        
-//        for (int j = 0; j < arr.count; j++)
-//        {
-//            
-//            selecdType *data = [arr objectAtIndex:j];
-//            
-//            NSDictionary *dic = [myselfway entityToDictionary:data];
-//            
-//            [infoArr addObject:dic];
-//        }
-//        
-//        [newArr addObject:infoArr];
+    for (int i = 0; i < dataArray.count; i++)
+    {
+        NSArray *arr = [dataArray objectAtIndex:i];
+        
+        NSMutableArray *infoArr = [NSMutableArray array];
+        
+        for (int j = 0; j < arr.count; j++)
+        {
+            
+            selecdType *data = [arr objectAtIndex:j];
+            
+            NSDictionary *dic = [myselfway entityToDictionary:data];
+            
+            [infoArr addObject:dic];
+        }
+        
+        [newArr addObject:infoArr];
     
-//    }
+    }
     
 
 }

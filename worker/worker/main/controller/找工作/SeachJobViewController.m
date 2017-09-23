@@ -69,7 +69,7 @@
         
         _tableview.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
         
-        _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 15)];
+       
         
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -146,7 +146,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 50;
+    return 10;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
 }
 
 
@@ -248,6 +255,7 @@
                  data.t_phone_status = [dic objectForKey:@"t_pho ne_status"];
                  
                  [dataArray addObject:data];
+                 
              }
              
              for (int i = 0; i < dataArray.count; i++)
@@ -262,7 +270,7 @@
              [self.tableview reloadData];
              
              
-             
+             [self cacheData];
              
          }
          else
@@ -323,8 +331,9 @@
         
     }
     
-    NSString *userInfo = [workerPath stringByAppendingPathComponent:@"ListEmployer.plist"];
+    NSString *userInfo = [workerPath stringByAppendingPathComponent:@"listEmployer.plist"];
     
+
     [array writeToFile:userInfo atomically:YES];
     
     

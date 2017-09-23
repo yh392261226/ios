@@ -142,6 +142,12 @@
 }
 
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
 
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -477,7 +483,6 @@
 //获取验证码接口
 - (void)getdata: (UIButton *)btn
 {
-    
     NSString *url = [NSString stringWithFormat:@"%@Users/sendVerifyCode?phone_number=%@", baseUrl, userPhone];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -497,7 +502,6 @@
              [SVProgressHUD showInfoWithStatus:mess];
              
              [self time:btn];
-             
              
              
          }
