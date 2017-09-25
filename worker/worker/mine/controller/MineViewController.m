@@ -63,10 +63,10 @@
 {
     if (!_tableview)
     {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 65) style:UITableViewStylePlain];
         
-        _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
-        _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
+//        _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
+//        _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
         
         [_tableview registerClass:[MineLoginTableViewCell class] forCellReuseIdentifier:@"logincell"];
         [_tableview registerClass:[MineScrTableViewCell class] forCellReuseIdentifier:@"scrcell"];
@@ -171,7 +171,7 @@
 {
     if (section == 0)
     {
-        return 0.1;
+        return 1;
     }
     else if(section == 2)
     {
@@ -272,6 +272,10 @@
              make.width.mas_equalTo(200);
          }];
 
+    }
+    else if (section == 0)
+    {
+        view.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
     }
     
     

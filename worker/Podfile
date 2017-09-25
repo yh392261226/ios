@@ -10,6 +10,8 @@ target 'worker' do
     pod 'SVProgressHUD','~> 2.1.2'
     pod 'BaiduMapKit'
     pod 'JPush', '3.0.2'
+    pod 'YYKit'
+    pod 'FMDB'
     
     # U-Share SDK UI模块（分享面板，建议添加）
     pod 'UMengUShare/UI'

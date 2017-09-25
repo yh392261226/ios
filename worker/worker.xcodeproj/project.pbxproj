@@ -137,6 +137,7 @@
 		FB7703411F4182B50028EB84 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7703401F4182B50028EB84 /* SetTableViewCell.m */; };
 		FB7BFADE1F57A9D7007BA843 /* RemoveFirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7BFADD1F57A9D7007BA843 /* RemoveFirViewController.m */; };
 		FB7BFAE11F57B462007BA843 /* RemovePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7BFAE01F57B462007BA843 /* RemovePhoneViewController.m */; };
+		FB7E59621F78E4F3005F3EB4 /* ThreeCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E59611F78E4F3005F3EB4 /* ThreeCityViewController.m */; };
 		FB7F384A1F37FB130082A8FA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F38491F37FB130082A8FA /* LoginViewController.m */; };
 		FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F384C1F384A950082A8FA /* RechargeViewController.m */; };
 		FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7F384F1F384B6A0082A8FA /* RechargeTableViewCell.m */; };
@@ -433,6 +434,8 @@
 		FB7BFADD1F57A9D7007BA843 /* RemoveFirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveFirViewController.m; sourceTree = "<group>"; };
 		FB7BFADF1F57B462007BA843 /* RemovePhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemovePhoneViewController.h; sourceTree = "<group>"; };
 		FB7BFAE01F57B462007BA843 /* RemovePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemovePhoneViewController.m; sourceTree = "<group>"; };
+		FB7E59601F78E4F3005F3EB4 /* ThreeCityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThreeCityViewController.h; sourceTree = "<group>"; };
+		FB7E59611F78E4F3005F3EB4 /* ThreeCityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThreeCityViewController.m; sourceTree = "<group>"; };
 		FB7F38481F37FB130082A8FA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		FB7F38491F37FB130082A8FA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		FB7F384B1F384A950082A8FA /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
@@ -1002,6 +1005,8 @@
 			children = (
 				FB0C138F1F3AB96900A1C463 /* IssueViewController.h */,
 				FB0C13901F3AB96900A1C463 /* IssueViewController.m */,
+				FB7E59601F78E4F3005F3EB4 /* ThreeCityViewController.h */,
+				FB7E59611F78E4F3005F3EB4 /* ThreeCityViewController.m */,
 			);
 			path = "发布工作";
 			sourceTree = "<group>";
@@ -1750,6 +1755,7 @@
 				FB5DEC691F61339C00008EA5 /* PartyBrefuseViewController.m in Sources */,
 				FBD796651F286B3700FA50BE /* main.m in Sources */,
 				FB61EB571F62450500066A8A /* PartyBinfoViewController.m in Sources */,
+				FB7E59621F78E4F3005F3EB4 /* ThreeCityViewController.m in Sources */,
 				FB77033E1F4182000028EB84 /* SetViewController.m in Sources */,
 				FB7FA5B71F32F83F0096F6F2 /* SeachJobViewController.m in Sources */,
 				FB7FA59A1F32F75F0096F6F2 /* ProfessionViewController.m in Sources */,

@@ -24,7 +24,7 @@
         
         _data = [[UITextView alloc] init];
         _data.font = [UIFont systemFontOfSize:14];
-        _data.textColor = [UIColor grayColor];
+        _data.textColor = [UIColor blackColor];
         [self.contentView addSubview:_data];
         
     }

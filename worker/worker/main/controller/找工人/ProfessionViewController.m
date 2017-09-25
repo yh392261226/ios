@@ -39,7 +39,7 @@
     NSMutableArray *newArray;   //存入本地的数组
 }
 
-
+@property (nonatomic, strong)FMDatabase *db;
 @property (nonatomic, strong)UITableView *tableview;
 
 @end
@@ -61,6 +61,43 @@
     [self tableview];
     
 }
+
+
+- (void)FMDBdome
+{
+    //1.获得数据库文件的路径
+    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) lastObject]; NSString *fileName = [doc stringByAppendingPathComponent:@"workerList.sqlite"];
+    
+    //2.获得数据库
+    FMDatabase *db = [FMDatabase databaseWithPath:fileName];
+    
+    //3.使用如下语句，如果打开失败，可能是权限不足或者资源不足。通常打开完操作操作后，需要调用 close 方法来关闭数据库。在和数据库交互 之前，数据库必须是打开的。如果资源或权限不足无法打开或创建数据库，都会导致打开失败。
+    if ([db open])
+    {
+        //4.创表
+        BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_student (id integer PRIMARY KEY AUTOINCREMENT, name text NOT NULL, age integer NOT NULL);"];
+        
+        if (result)
+        {
+            NSLog(@"创建表成功");
+            
+            
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+}
+
+
+
+
+
 
 
 #pragma Tableview
@@ -195,6 +232,7 @@
              
              [self.tableview reloadData];
              
+             [self FMDBdome];
          }
          
          
@@ -202,36 +240,36 @@
      } failure:^(NSURLSessionDataTask *task, NSError *error)
      {
          //没有网络时候，获取缓存信息
-         NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-         
-         NSString *workerPath = [NSString stringWithFormat:@"%@/workerPath", docPath];
-         
-         NSString *userInfo = [workerPath stringByAppendingPathComponent:@"listWorker.plist"];
-         //读取文件
-         newArray = (NSMutableArray *)[NSArray arrayWithContentsOfFile:userInfo];
-
-         
-         for (int i = 0; i < newArray.count; i++)
-         {
-             NSDictionary *dic = [newArray objectAtIndex:i];
-             
-             workerListData *data = [[workerListData alloc] init];
-             
-             data.s_id = [dic objectForKey:@"s_id"];
-             data.s_desc = [dic objectForKey:@"s_desc"];
-             data.s_info = [dic objectForKey:@"s_info"];
-             data.s_name = [dic objectForKey:@"s_name"];
-             data.s_status = [dic objectForKey:@"s_status"];
-             
-             [dataArray addObject:data];
-             
-         }
-         
-         [self.tableview reloadData];
-         
+//         NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//
+//         NSString *workerPath = [NSString stringWithFormat:@"%@/workerPath", docPath];
+//
+//         NSString *userInfo = [workerPath stringByAppendingPathComponent:@"listWorker.plist"];
+//         //读取文件
+//         newArray = (NSMutableArray *)[NSArray arrayWithContentsOfFile:userInfo];
+//
+//
+//         for (int i = 0; i < newArray.count; i++)
+//         {
+//             NSDictionary *dic = [newArray objectAtIndex:i];
+//
+//             workerListData *data = [[workerListData alloc] init];
+//
+//             data.s_id = [dic objectForKey:@"s_id"];
+//             data.s_desc = [dic objectForKey:@"s_desc"];
+//             data.s_info = [dic objectForKey:@"s_info"];
+//             data.s_name = [dic objectForKey:@"s_name"];
+//             data.s_status = [dic objectForKey:@"s_status"];
+//
+//             [dataArray addObject:data];
+//
+//         }
+//
+//         [self.tableview reloadData];
+//
      }];
     
-    
+     
 }
 
 
@@ -243,58 +281,58 @@
     for (int i = 0; i < IDimage.count; i++)
     {
         workerListData *data = [IDimage objectAtIndex:i];
-        
+
         NSString *IDwor = data.s_id;
-        
+
         data.s_image = [NSString stringWithFormat:@"http://static.gangjianwang.com/images/skills/%@.png", IDwor];
     }
- 
+
     [newArray removeAllObjects];
-    
+
     for (int i = 0; i < dataArray.count; i++)
     {
         workerListData *data = [dataArray objectAtIndex:i];
-        
+
         NSDictionary *dic = [myselfway entityToDictionary:data];
-        
+
         [newArray addObject:dic];
     }
-    
-    [self creatPlistFileWithArr:newArray];
-    
-}
 
-- (void)creatPlistFileWithArr:(NSMutableArray *)array
-{
-    //将字典保存到document文件->获取appdocument路径
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    
-    //创建工种列表的路径
-    NSString *workerPath = [NSString stringWithFormat:@"%@/workerPath", docPath];
-    
-    // 判断文件夹是否存在，如果不存在，则创建
-    if (![[NSFileManager defaultManager] fileExistsAtPath:workerPath])
-    {
-        [fileManager createDirectoryAtPath:workerPath withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    else
-    {
-        // 删除旧的缓存数据
-       // [[NSFileManager defaultManager] removeItemAtPath:workerPath error:nil];
-        
-        
-        
-        
-    }
-    
-    
-    NSString *userInfo = [workerPath stringByAppendingPathComponent:@"listWorker.plist"];
-    
-    [array writeToFile:userInfo atomically:YES];
-    
+  //  [self creatPlistFileWithArr:newArray];
+
 }
+//
+//- (void)creatPlistFileWithArr:(NSMutableArray *)array
+//{
+//    //将字典保存到document文件->获取appdocument路径
+//    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//
+//    NSFileManager *fileManager = [[NSFileManager alloc] init];
+//
+//    //创建工种列表的路径
+//    NSString *workerPath = [NSString stringWithFormat:@"%@/workerPath", docPath];
+//
+//    // 判断文件夹是否存在，如果不存在，则创建
+//    if (![[NSFileManager defaultManager] fileExistsAtPath:workerPath])
+//    {
+//        [fileManager createDirectoryAtPath:workerPath withIntermediateDirectories:YES attributes:nil error:nil];
+//    }
+//    else
+//    {
+//        // 删除旧的缓存数据
+//       // [[NSFileManager defaultManager] removeItemAtPath:workerPath error:nil];
+//
+//
+//
+//
+//    }
+//
+//
+//    NSString *userInfo = [workerPath stringByAppendingPathComponent:@"listWorker.plist"];
+//
+//    [array writeToFile:userInfo atomically:YES];
+//
+//}
 
 
 

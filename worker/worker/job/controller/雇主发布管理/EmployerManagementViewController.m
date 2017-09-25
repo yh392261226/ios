@@ -93,7 +93,7 @@
     
     [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    cell.favoriteBtn.tag = 700 + indexPath.section;
+    cell.favoriteBtn.hidden = YES;
     
     cell.leftBtn.tag = 100 + indexPath.section;
     cell.centerBtn.tag = 200 + indexPath.section;

@@ -17,7 +17,7 @@
 
 #import "PartyDismissViewController.h"
 
-@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate>
+@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate, CLLocationManagerDelegate>
 {
     TabbarView *tabbar;
     
@@ -34,10 +34,11 @@
     
     UILabel *adreeLab;
     
-    
+    NSString *cityName;  //城市名称
+    NSString *cityFirst; //城市名称首字母
     
 }
-
+@property (strong, nonatomic) CLLocationManager *locationManager;  //系统定位
 
 @property (nonatomic, strong)UITableView *tableview;
 
@@ -59,68 +60,91 @@
     
     [self tableview];
     
-    [self initBaiduMap];
+    [self startLocation];
     
 }
 
 //百度地图
-- (void)initBaiduMap
+//- (void)initBaiduMap
+//{
+//    //初始化BMKLocationService
+//    _locService = [[BMKLocationService alloc]init];
+//    _locService.delegate = self;
+//    //启动LocationService
+//    [_locService startUserLocationService];
+//
+//}
+
+//七星定位
+-(void)startLocation
 {
-    _locService = [[BMKLocationService alloc]init];
-    _locService.delegate = self;
-    //启动LocationService
-    [_locService startUserLocationService];
+    
+    if ([CLLocationManager locationServicesEnabled])
+    {//判断定位操作是否被允许
+        
+        self.locationManager = [[CLLocationManager alloc] init];
+        
+        self.locationManager.delegate = self;//遵循代理
+        
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        
+        self.locationManager.distanceFilter = 10.0f;
+        
+        [_locationManager requestWhenInUseAuthorization];
+        
+        [self.locationManager startUpdatingLocation];//开始定位
+        
+    }
+    else
+    {
+        
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                             message:@"您还没有授权本应用使用定位服务,请到 设置 > 隐私 > 位置 > 定位服务 中授权"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"确定"
+                                                   otherButtonTitles:nil,  nil];
+        [alertView show];
+    }
     
 }
 
-
-
-//获取经纬度，城市名称
-- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
+          fromLocation:(CLLocation *)oldLocation
 {
+    // 获取经纬度
+    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
+    NSLog(@"经度:%f",newLocation.coordinate.longitude);
+    // 停止位置更新
+    [manager stopUpdatingLocation];
     
-    BMKCoordinateRegion region;
+    // 保存 Device 的现语言 (英语 法语 ，，，)
+    NSMutableArray *userDefaultLanguages = [[NSUserDefaults standardUserDefaults]
+                                            objectForKey:@"AppleLanguages"];
+    // 强制 成 简体中文
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"zh-hans",nil]
+                                              forKey:@"AppleLanguages"];
     
-    region.center.latitude  = userLocation.location.coordinate.latitude;
-    
-    region.center.longitude = userLocation.location.coordinate.longitude;
-    
-    region.span.latitudeDelta = 0;
-    
-    region.span.longitudeDelta = 0;
-    
-    NSLog(@"当前的坐标是:%f,%f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
-    
-    
-    
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-    [geocoder reverseGeocodeLocation: userLocation.location completionHandler:^(NSArray *array, NSError *error) {
-        
-        if (array.count > 0) {
-            
-            CLPlacemark *placemark = [array objectAtIndex:0];
-            
-            if (placemark != nil) {
-                
-                NSString *city = placemark.locality;
-                
-                NSLog(@"当前城市名称------%@",city);
-                
-                //找到了当前位置城市后就关闭服务
-                
-                [_locService stopUserLocationService];
-                
-                adreeLab.text = city;
-                
+    // 逆地理编码
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if(!error){
+            for (CLPlacemark * placemark in placemarks)
+            {
+                cityName = [placemark locality];
+                NSLog(@"cityName===》%@", cityName);//这里可看到输出为中文
+                break;
             }
             
+            adreeLab.text = cityName;
+            
+            //获取首字母
+            [self getStrCity:cityName];
         }
-        
+        // 还原Device 的语言
+        [[NSUserDefaults standardUserDefaults] setObject:userDefaultLanguages forKey:@"AppleLanguages"];
     }];
-    
-    
 }
+
 
 #pragma Tableview
 
@@ -422,8 +446,28 @@
 
 
 
-
-
+//去除定位城市的“市”字， 并且获取城市首字母， 用于查找城市ID， 传给服务器
+- (void)getStrCity: (NSString *)city
+{
+    //去除“市”字
+    NSString *city_Name = [city substringToIndex:[city length] - 1];
+    
+    //获取城市首字母
+    NSMutableString *str = [NSMutableString stringWithString:city_Name];
+    
+    CFStringTransform((CFMutableStringRef) str, NULL, kCFStringTransformMandarinLatin, NO);
+    
+    CFStringTransform((CFMutableStringRef)str, NULL, kCFStringTransformStripDiacritics, NO);
+    
+    NSString *pinYin = [str capitalizedString];
+    
+    NSString *TEACHERLower = [pinYin substringToIndex:1];
+    
+    //大小写转换
+    cityFirst = [TEACHERLower lowercaseString];
+    
+    NSLog(@"%@", cityFirst);
+}
 
 
 

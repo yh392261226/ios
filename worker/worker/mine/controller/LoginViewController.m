@@ -18,7 +18,7 @@
     NSString *userPhone;
     NSString *password;
     
-    NSDictionary *userInfo;   //用户信息， 存到本地
+    NSString *user;   //用户信息， 存到本地
     
 }
 
@@ -32,10 +32,10 @@
 {
     [super viewDidLoad];
     
+    [self cacheUser];
+    
     dataArray = [NSMutableArray array];
-    userInfo = [NSDictionary dictionary];
-    
-    
+
     [self initHeadView];
     
     [self tableview];
@@ -542,11 +542,11 @@
             
             NSLog(@"%@", dic);
             
-            NSString *mess = [dic objectForKey:@"msg"];
+            user = [dic objectForKey:@"user_ID"];
+            
+            [self cacheUser];
             
             
-            
-            [SVProgressHUD showInfoWithStatus:mess];
             
         }
         else
@@ -568,8 +568,15 @@
 }
 
 
-
-
+//用户信息缓存
+- (void)cacheUser
+{
+    //储存账户
+    [[NSUserDefaults standardUserDefaults] setObject:@"2" forKey:@"user_ID"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
 
 
 

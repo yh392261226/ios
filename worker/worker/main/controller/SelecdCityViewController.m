@@ -55,11 +55,8 @@
     
     [self slitherBack:self.navigationController];
     
-    
     [self hotdata];
-    
-    
-    
+
     [self tableview];
 }
 
@@ -67,6 +64,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
 
@@ -80,8 +78,10 @@
 {
     NSArray *arr = [dataArray objectAtIndex:section];
     
+    
     return arr.count;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -103,6 +103,7 @@
         name.text = data.r_name;
         
         [cell addSubview:name];
+        
         
     }
     

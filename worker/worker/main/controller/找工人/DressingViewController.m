@@ -13,6 +13,26 @@
 
 #define num 3
 
+
+@interface DressWorkerData : NSObject
+
+@property (nonatomic, strong)NSString *s_id;
+@property (nonatomic, strong)NSString *s_name;
+@property (nonatomic, strong)NSString *s_info;
+@property (nonatomic, strong)NSString *s_desc;
+@property (nonatomic, strong)NSString *s_status;
+
+
+@property (nonatomic, strong)NSString *s_image;
+
+
+@end
+
+@implementation DressWorkerData
+
+
+@end
+
 @interface DressingViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 {
     NSMutableArray *dataArray;
@@ -26,7 +46,9 @@
     listTableView *listTab;
     
     NSMutableArray *listArray;      //列表tableview的数组
-    NSMutableArray *aaaaaaaaaa;
+    NSMutableArray *aaaaaaaaaa;     //选择范围数组
+    
+    NSMutableArray *newListArr;    //  工种的数组
     
     UIControl *cor;      //背景
     
@@ -48,23 +70,23 @@
     self.window = [[UIApplication sharedApplication] keyWindow];
     
     listTab = [[listTableView alloc] init];
+
+    dataArray = [NSMutableArray array];
+    [dataArray addObject:@"1"];
+    [dataArray addObject:@"1"];
+    [dataArray addObject:@"1"];
     
-    cor = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    cor.hidden = YES;
+    aaaaaaaaaa = [NSMutableArray arrayWithObjects:@"2公里以内",@"5公里以内", @"10公里以内", @"10公里以上", nil];
     
-    
-    listArray = [NSMutableArray arrayWithObjects:@"afafadf",@"asadf", @"dfgsgf", nil];
-    aaaaaaaaaa = [NSMutableArray arrayWithObjects:@"张飞",@"刘悲剧", @"关于圈", nil];
+    listArray = [NSMutableArray array];
+    newListArr = [NSMutableArray array];
     
     pyte = 0;
     
     typeArr = [NSMutableArray arrayWithObjects:@"空闲", @"洽谈中", @"工作中", nil];
     
+    [self getdata];
     
-    dataArray = [NSMutableArray array];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
     
     [self addhead:@"工人信息筛选"];
     
@@ -417,11 +439,60 @@
     {
         if (indexPath.row == 2)
         {
-            [self initAlert:aaaaaaaaaa title:@"搜索范围" type:0];
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"搜索范围" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertController addAction:cancelAction];
+            
+            for (int i = 0; i < aaaaaaaaaa.count; i++)
+            {
+                UIAlertAction *action = [UIAlertAction actionWithTitle:[aaaaaaaaaa objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                {
+                    adree = action.title;
+                    [self.tableview reloadData];
+                }];
+                
+                [alertController addAction:action];
+            }
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+            
         }
         else if (indexPath.row == 3)
         {
-            [self initAlert:listArray title:@"选择工种" type:1];
+            
+            [newListArr removeAllObjects];
+            for (int i = 0; i < listArray.count; i++)
+            {
+                DressWorkerData *data = [listArray objectAtIndex:i];
+                
+                [newListArr addObject:data.s_name];
+            }
+            
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择工种" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertController addAction:cancelAction];
+            
+            for (int i = 0; i < newListArr.count; i++)
+            {
+                UIAlertAction *action = [UIAlertAction actionWithTitle:[newListArr objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                         {
+                                             worker = action.title;
+                                             
+                                             [self.tableview reloadData];
+                                         }];
+                
+                [alertController addAction:action];
+            }
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+            
         }
         
     }
@@ -462,57 +533,7 @@
 
 
 
-//加载listtableveiw   列表的tableview。  点击显示
-- (void)initlistView:(NSInteger)row
-{
-    cor.hidden = NO;
-    
-    cor.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
-    
-    [cor addTarget:self action:@selector(colseback) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_window addSubview:cor];
-    
-    
-    CGFloat height = listArray.count * 40;
-    
-    listTab.frame = CGRectMake(100, 185, 200, height);
-    
-    listTab.deleage = self;
-    
-    listTab.hidden = NO;
-    if (row == 2)
-    {
-        listTab.arr = listArray;
-    }
-    else
-    {
-        listTab.arr = aaaaaaaaaa;
-    }
-    
-    listTab.cellRow = row;
-    
-    listTab.layer.cornerRadius = 10;
-    
-    [cor addSubview:listTab];
-    
-    [listTab mas_makeConstraints:^(MASConstraintMaker *make)
-    {
-        make.top.mas_equalTo(self.view).offset(185);
-        make.left.mas_equalTo(self.view).offset(20);
-        make.right.mas_equalTo(self.view).offset(-20);
-        make.height.mas_equalTo(height);
-    }];
-    
-}
 
-
-//关闭背景和listview
-- (void)colseback
-{
-    cor.hidden = YES;
-    listTab.hidden = YES;
-}
 
 
 
@@ -528,23 +549,7 @@
 }
 
 
-//搜索范围的listtab的代理方法
-- (void)tempinfo: (NSIndexPath *)info
-{
-    if (info.section == 2)
-    {
-        adree = [listArray objectAtIndex:info.row];
-    }
-    else
-    {
-        worker = [listArray objectAtIndex:info.row];
-    }
-    
-    listTab.hidden = YES;
-    cor.hidden = YES;
-    
-    [self.tableview reloadData];
-}
+
 
 
 
@@ -582,7 +587,23 @@
 //搜索按钮
 - (void)MessBtn
 {
-    NSLog(@"搜索");
+   // NSString *url = [NSString stringWithFormat:@"%@Tasks/index?skills=%@", baseUrl]
+    NSString *worker_ID;   //工种ID
+    
+    //获取工种ID
+    for (int i = 0; i < listArray.count; i++)
+    {
+        DressWorkerData *data = [listArray objectAtIndex:i];
+        
+        if ([data.s_name isEqualToString:worker])
+        {
+            worker_ID = data.s_id;
+        }
+        
+    }
+    
+    
+    
 }
 
 
@@ -597,38 +618,59 @@
 
 
 
-//重写alert
-- (void)initAlert: (NSMutableArray *)dataArrayAlert title: (NSString *)name type:(NSInteger)typpp
+
+
+
+
+
+//获取工人列表数据请求
+- (void)getdata
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:name preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Skills/index"];
     
-    [alertController addAction:cancelAction];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    for (int i = 0; i < dataArrayAlert.count; i++)
-    {
-        UIAlertAction *action = [UIAlertAction actionWithTitle:[dataArrayAlert objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-        {
-            if (typpp == 0)
-            {
-                adree = action.title;
-            }
-            else
-            {
-                worker = action.title;
-            }
-            
-            
-            [self.tableview reloadData];
-        }];
-        
-        [alertController addAction:action];
-    }
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSArray *arr = [dictionary objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dic = [arr objectAtIndex:i];
+                 
+                 DressWorkerData *data = [[DressWorkerData alloc] init];
+                 
+                 data.s_id = [dic objectForKey:@"s_id"];
+                 data.s_desc = [dic objectForKey:@"s_desc"];
+                 data.s_info = [dic objectForKey:@"s_info"];
+                 data.s_name = [dic objectForKey:@"s_name"];
+                 data.s_status = [dic objectForKey:@"s_status"];
+                 
+                 [listArray addObject:data];
+                 
+                 
+             }
+             
+             
+           
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+         
+     }];
     
-    
-    [self presentViewController:alertController animated:YES completion:nil];
     
 }
 
