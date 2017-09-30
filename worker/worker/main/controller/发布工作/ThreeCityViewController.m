@@ -36,6 +36,13 @@
     NSString *city_id;     //城市ID
     
     NSInteger level;   //记录点击是哪一级
+    
+    
+    NSString *levelName1;
+    NSString *levelID1;
+    
+    NSString *levelName2;
+    NSString *levelID2;
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -121,20 +128,42 @@
     
     threeCityData *data = [dataArray objectAtIndex:indexPath.row];
     
-    if (level == 3)
-    {
-        //表示区列表点击
-        
-        [self.delegate tempCityNum:data.r_id city_name:data.r_name];
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-    else
+    
+    
+    
+    
+    if (level == 1)
     {
         [self getCityData:data.r_id];
         
+        levelName1 = data.r_name;
+        levelID1 = data.r_id;
+        
         level++;
     }
+    else if (level == 2)
+    {
+        [self getCityData:data.r_id];
+        
+        levelName2 = data.r_name;
+        levelID2 = data.r_id;
+        
+        level++;
+    }
+    else if(level == 3)
+    {
+        //表示区列表点击
+        
+      //  [self.delegate tempCityNum:data.r_id city_name:data.r_name];
+        
+        [self.delegate post3Level:levelID1 city_name1:levelName1 city_id2:levelID2 city_name2:levelName2 city_id2:data.r_id city_name3:data.r_name];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        
+    }
+    
+    
     
     
     

@@ -24,7 +24,7 @@
 #import "AFNetworking.h"
 
 #import "AFHTTPSessionManager.h"
-
+#import "UserInfoModel.h"
 #import "AFHTTPSessionManager.h"
 #import "AFNetworkReachabilityManager.h"
 #import "AFSecurityPolicy.h"
@@ -40,7 +40,7 @@
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
 #import <objc/runtime.h>
-
+#import "Singleton.h"
 
 #import <UMSocialCore/UMSocialCore.h>
 

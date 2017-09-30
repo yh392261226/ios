@@ -32,14 +32,19 @@
 @end
 
 
+
+
 @interface ProfessionViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;    //页面使用的数据数组
     
     NSMutableArray *newArray;   //存入本地的数组
+    
+ 
 }
 
-@property (nonatomic, strong)FMDatabase *db;
+@property (nonatomic, strong)FMDatabaseQueue *queue;
+@property (nonatomic, strong)NSString *path;    //本地数据库路径
 @property (nonatomic, strong)UITableView *tableview;
 
 @end
@@ -49,6 +54,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     
     dataArray = [NSMutableArray array];
     
@@ -63,36 +70,7 @@
 }
 
 
-- (void)FMDBdome
-{
-    //1.获得数据库文件的路径
-    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) lastObject]; NSString *fileName = [doc stringByAppendingPathComponent:@"workerList.sqlite"];
-    
-    //2.获得数据库
-    FMDatabase *db = [FMDatabase databaseWithPath:fileName];
-    
-    //3.使用如下语句，如果打开失败，可能是权限不足或者资源不足。通常打开完操作操作后，需要调用 close 方法来关闭数据库。在和数据库交互 之前，数据库必须是打开的。如果资源或权限不足无法打开或创建数据库，都会导致打开失败。
-    if ([db open])
-    {
-        //4.创表
-        BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_student (id integer PRIMARY KEY AUTOINCREMENT, name text NOT NULL, age integer NOT NULL);"];
-        
-        if (result)
-        {
-            NSLog(@"创建表成功");
-            
-            
-        }
-        
-        
-    }
-    
-    
-    
-    
-    
-    
-}
+
 
 
 
@@ -176,9 +154,16 @@
 {
      [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    workerListData *data = [dataArray objectAtIndex:indexPath.section];
+    
     self.hidesBottomBarWhenPushed = YES;
     
     WorkerMessViewController *temp = [[WorkerMessViewController alloc] init];
+    
+    temp.longitude = self.longitudeWor;
+    temp.latitude = self.latitudeWor;
+    temp.city_id = self.cityID;
+    temp.worker_ID = data.s_id;
     
     [self.navigationController pushViewController:temp animated:YES];
     
@@ -231,8 +216,9 @@
              
              
              [self.tableview reloadData];
-             
-             [self FMDBdome];
+             [self path];
+             [self queue];
+             [self createTableWithSQL];
          }
          
          
@@ -333,6 +319,86 @@
 //    [array writeToFile:userInfo atomically:YES];
 //
 //}
+
+
+
+
+#pragma 本地缓存数据库
+
+// 懒加载数据库队列
+- (FMDatabaseQueue *)queue
+{
+    if (!_queue)
+    {
+        _queue = [FMDatabaseQueue databaseQueueWithPath:[Singleton instance].dataPath];
+    }
+    return _queue;
+}
+
+
+////创建表
+- (BOOL)createTableWithSQL
+{
+    __block BOOL createSResult = NO;
+    [self.queue inTransaction:^(FMDatabase * _Nonnull db, BOOL * _Nonnull rollback)
+     {
+         
+         NSString *studentSql = @"CREATE TABLE 'worker' ('id' INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL ,'s_id' VARCHAR(255),'s_name' VARCHAR(255),'s_info' VARCHAR(255),'s_desc'VARCHAR(255),'s_status'VARCHAR(255), 's_image'VARCHAR(255)) ";
+
+        BOOL result = [db executeUpdate:studentSql];
+        if (result)
+        {
+            NSLog(@"创建表格成功");
+            createSResult = result;
+
+//            for (int i = 0; i < dataArray.count; i++)
+//            {
+//                workerListData *data = [dataArray objectAtIndex:i];
+//
+//                [self addStudent:data];
+//            }
+            
+            NSLog(@"%@", [Singleton instance].dataPath);
+        }
+        else
+        {
+            NSLog(@"创建表格失败");
+            createSResult = result;
+        }
+         
+    }];
+    return createSResult;
+}
+
+
+
+#pragma mark - 增删改查
+//表里面增加数据
+- (BOOL)addStudent:(workerListData *)info
+{
+    __block BOOL addResult = NO;
+    [self.queue inTransaction:^(FMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
+
+        BOOL result = [db executeUpdate:@"INSERT INTO worker(s_id,s_name,s_info,s_desc,s_status,s_image)VALUES(?,?,?,?,?,?)",info.s_id,info.s_name,info.s_info,info.s_desc,info.s_status, info.s_image];
+
+        if (result)
+        {
+            NSLog(@"插入数据成功");
+        }
+        else
+        {
+            NSLog(@"插入数据失败");
+        }
+
+    }];
+    return addResult;
+}
+
+
+
+
+
+
 
 
 

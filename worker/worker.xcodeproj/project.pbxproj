@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7214EA681F7F68FE00ADC7E3 /* packetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7214EA671F7F68FE00ADC7E3 /* packetViewController.m */; };
+		7214EA6B1F7F6A0100ADC7E3 /* packetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7214EA6A1F7F6A0100ADC7E3 /* packetTableViewCell.m */; };
 		9034A1169F3D004D73422530 /* libPods-workerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1F10145795CF94D2603748 /* libPods-workerUITests.a */; };
 		9A4E47774D86A37BFCDC317C /* libPods-workerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47CF5FEACEC1393A60B87D /* libPods-workerTests.a */; };
 		AD02FD82877B50F9BA7F2EE9 /* libPods-worker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7643CA759AC79643AC0EEDC /* libPods-worker.a */; };
@@ -181,6 +183,7 @@
 		FBD7968C1F286B3700FA50BE /* workerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD7968B1F286B3700FA50BE /* workerUITests.m */; };
 		FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD7969D1F28874C00FA50BE /* BaseViewController.m */; };
 		FBD796A11F28899700FA50BE /* myselfway.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD796A01F28899700FA50BE /* myselfway.m */; };
+		FBDCDFDF1F7B4BF300167A04 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDCDFDE1F7B4BF300167A04 /* UserInfoModel.m */; };
 		FBE30BD61F4D661D001F5DFB /* lssueUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE30BD51F4D661D001F5DFB /* lssueUserTableViewCell.m */; };
 		FBE30BD91F4D7271001F5DFB /* elsepersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE30BD81F4D7271001F5DFB /* elsepersonTableViewCell.m */; };
 		FBE30BDC1F4D7847001F5DFB /* elsetimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE30BDB1F4D7847001F5DFB /* elsetimeTableViewCell.m */; };
@@ -188,6 +191,7 @@
 		FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4216F1F3D7CC300336990 /* EditSetTableViewCell.m */; };
 		FBE421731F3D8B8800336990 /* EditSelecedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE421721F3D8B8800336990 /* EditSelecedTableViewCell.m */; };
 		FBFD602F1F3BFF870061DB20 /* PreviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFD602E1F3BFF870061DB20 /* PreviewTableViewCell.m */; };
+		FBFD96E91F79EEFF00CBA084 /* Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFD96E81F79EEFF00CBA084 /* Singleton.m */; };
 		FBFDC6151F667F9900CDA9E5 /* AmapWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFDC6141F667F9900CDA9E5 /* AmapWorkerViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -210,6 +214,10 @@
 
 /* Begin PBXFileReference section */
 		5C1F10145795CF94D2603748 /* libPods-workerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-workerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7214EA661F7F68FE00ADC7E3 /* packetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = packetViewController.h; sourceTree = "<group>"; };
+		7214EA671F7F68FE00ADC7E3 /* packetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = packetViewController.m; sourceTree = "<group>"; };
+		7214EA691F7F6A0100ADC7E3 /* packetTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = packetTableViewCell.h; sourceTree = "<group>"; };
+		7214EA6A1F7F6A0100ADC7E3 /* packetTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = packetTableViewCell.m; sourceTree = "<group>"; };
 		75A1E32B57AD3D54EE9A9353 /* Pods-workerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-workerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-workerUITests/Pods-workerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8B01216A04274A3E9541D2C5 /* Pods-workerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-workerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-workerUITests/Pods-workerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8BE55178E65C1E141E4DE270 /* Pods-workerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-workerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-workerTests/Pods-workerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -523,6 +531,8 @@
 		FBD7969D1F28874C00FA50BE /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		FBD7969F1F28899700FA50BE /* myselfway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myselfway.h; sourceTree = "<group>"; };
 		FBD796A01F28899700FA50BE /* myselfway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myselfway.m; sourceTree = "<group>"; };
+		FBDCDFDD1F7B4BF300167A04 /* UserInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
+		FBDCDFDE1F7B4BF300167A04 /* UserInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		FBE30BD41F4D661D001F5DFB /* lssueUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lssueUserTableViewCell.h; sourceTree = "<group>"; };
 		FBE30BD51F4D661D001F5DFB /* lssueUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lssueUserTableViewCell.m; sourceTree = "<group>"; };
 		FBE30BD71F4D7271001F5DFB /* elsepersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = elsepersonTableViewCell.h; sourceTree = "<group>"; };
@@ -537,6 +547,8 @@
 		FBE421721F3D8B8800336990 /* EditSelecedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSelecedTableViewCell.m; sourceTree = "<group>"; };
 		FBFD602D1F3BFF870061DB20 /* PreviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewTableViewCell.h; sourceTree = "<group>"; };
 		FBFD602E1F3BFF870061DB20 /* PreviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewTableViewCell.m; sourceTree = "<group>"; };
+		FBFD96E71F79EEFF00CBA084 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		FBFD96E81F79EEFF00CBA084 /* Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singleton.m; sourceTree = "<group>"; };
 		FBFDC6131F667F9900CDA9E5 /* AmapWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmapWorkerViewController.h; sourceTree = "<group>"; };
 		FBFDC6141F667F9900CDA9E5 /* AmapWorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmapWorkerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -765,6 +777,8 @@
 		FB36877C1F2B1CD5008E8387 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				FBDCDFDD1F7B4BF300167A04 /* UserInfoModel.h */,
+				FBDCDFDE1F7B4BF300167A04 /* UserInfoModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1120,6 +1134,8 @@
 				FB556BB41F711A7D00C2702A /* ProtocolViewController.m */,
 				FB14A14C1F5651C80028282E /* 设置提现密码 */,
 				FB7FA5B11F32F80C0096F6F2 /* 收藏评价功能栏 */,
+				7214EA661F7F68FE00ADC7E3 /* packetViewController.h */,
+				7214EA671F7F68FE00ADC7E3 /* packetViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1154,6 +1170,8 @@
 				FB85801A1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m */,
 				FB4F23131F59418100D8D7C6 /* BoundTableViewCell.h */,
 				FB4F23141F59418100D8D7C6 /* BoundTableViewCell.m */,
+				7214EA691F7F6A0100ADC7E3 /* packetTableViewCell.h */,
+				7214EA6A1F7F6A0100ADC7E3 /* packetTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1256,6 +1274,8 @@
 				FBD796A21F288A6700FA50BE /* main */,
 				FBD796661F286B3700FA50BE /* AppDelegate.h */,
 				FBD796671F286B3700FA50BE /* AppDelegate.m */,
+				FBFD96E71F79EEFF00CBA084 /* Singleton.h */,
+				FBFD96E81F79EEFF00CBA084 /* Singleton.m */,
 				FBD796721F286B3700FA50BE /* Assets.xcassets */,
 				FBD796741F286B3700FA50BE /* LaunchScreen.storyboard */,
 				FBD7969B1F28825B00FA50BE /* workerobject.pch */,
@@ -1692,11 +1712,13 @@
 				FB5DEC571F60F14B00008EA5 /* ZLOnePhoto.m in Sources */,
 				FB85801E1F42A2C80085BAF1 /* ServiceViewController.m in Sources */,
 				FB55C7CD1F67DD2E00ED8733 /* WorkerProTableViewCell.m in Sources */,
+				7214EA681F7F68FE00ADC7E3 /* packetViewController.m in Sources */,
 				FB85801B1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m in Sources */,
 				FB4C33B41F5FC0EB005D0747 /* PartyBdismissViewController.m in Sources */,
 				FB5D87EC1F30227100830F89 /* JobViewController.m in Sources */,
 				FB5DEC631F61290A00008EA5 /* PartyRefuseViewController.m in Sources */,
 				FB7F38501F384B6A0082A8FA /* RechargeTableViewCell.m in Sources */,
+				FBFD96E91F79EEFF00CBA084 /* Singleton.m in Sources */,
 				FB5DEC521F60F14B00008EA5 /* ToastUtils.m in Sources */,
 				FBE30BD61F4D661D001F5DFB /* lssueUserTableViewCell.m in Sources */,
 				FB5DEC601F60F14B00008EA5 /* ZLThumbnailViewController.m in Sources */,
@@ -1733,6 +1755,7 @@
 				FB5DEC5C1F60F14B00008EA5 /* ZLProgressHUD.m in Sources */,
 				FB5DEC591F60F14B00008EA5 /* ZLPhotoBrowser.m in Sources */,
 				FB5DEC581F60F14B00008EA5 /* ZLPhotoActionSheet.m in Sources */,
+				7214EA6B1F7F6A0100ADC7E3 /* packetTableViewCell.m in Sources */,
 				FBE421701F3D7CC300336990 /* EditSetTableViewCell.m in Sources */,
 				FB5DEC6F1F61401E00008EA5 /* PartyBcommentViewController.m in Sources */,
 				FB5DEC5D1F60F14B00008EA5 /* ZLSelectPhotoModel.m in Sources */,
@@ -1796,6 +1819,7 @@
 				FB7FA5AF1F32F7670096F6F2 /* MineMoneyTableViewCell.m in Sources */,
 				FB6D76031F418CF3009FCF73 /* EvaluateTableViewCell.m in Sources */,
 				FB4F23151F59418100D8D7C6 /* BoundTableViewCell.m in Sources */,
+				FBDCDFDF1F7B4BF300167A04 /* UserInfoModel.m in Sources */,
 				FB4C33BC1F5FD85E005D0747 /* DomFirstCollectionViewCell.m in Sources */,
 				FB7BFADE1F57A9D7007BA843 /* RemoveFirViewController.m in Sources */,
 				FB4C33AF1F5F8BA1005D0747 /* PartyDismissViewController.m in Sources */,

@@ -882,11 +882,11 @@
 
 
 //所在区域的代理方法， 获取r_id
-- (void)tempCityNum: (NSString *)city_id city_name:(NSString *)name;
+- (void)post3Level: (NSString *)city_id1 city_name1:(NSString *)name city_id2:(NSString *)city_id city_name2:(NSString *)city_name2 city_id2:(NSString *)city_id2 city_name3:(NSString *)city_name3
 {
-    adree = name;
-    adree_id = city_id;
     
+    adree = city_name3;
+    adree_id = city_id2;
     
     NSArray *arr = [dataArray objectAtIndex:0];
     selecdType *data = [arr objectAtIndex:3];
@@ -896,6 +896,7 @@
     model.data = adree;
 
     [self.tableview reloadData];
+    
 }
 
 

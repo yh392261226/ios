@@ -7,32 +7,16 @@
 //
 
 #import "SelecdCityViewController.h"
+#import "MainViewController.h"
 
-@interface cityData : NSObject
-
-@property (nonatomic, strong)NSString *r_id;
-@property (nonatomic, strong)NSString *r_pid;
-@property (nonatomic, strong)NSString *r_shortname;
-@property (nonatomic, strong)NSString *r_name;
-@property (nonatomic, strong)NSString *r_first;
-@property (nonatomic, strong)NSString *r_hot;
-@property (nonatomic, strong)NSString *r_status;
-
-
-@end
-
-@implementation cityData
-
-
-@end
 
 
 
 @interface SelecdCityViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
-    NSMutableArray *dataArray;
+   
     
-    NSMutableArray *EnglishArray;   //存放字母的数组
+    
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -48,14 +32,14 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    dataArray = [NSMutableArray array];
-    EnglishArray = [NSMutableArray array];
+    
+    
     
     [self addhead:@"城市选择"];
     
     [self slitherBack:self.navigationController];
     
-    [self hotdata];
+    
 
     [self tableview];
 }
@@ -70,13 +54,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return dataArray.count;
+    return _dataArray.count;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *arr = [dataArray objectAtIndex:section];
+    NSArray *arr = [_dataArray objectAtIndex:section];
     
     
     return arr.count;
@@ -87,7 +71,7 @@
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    NSArray *arr = [dataArray objectAtIndex:indexPath.section];
+    NSArray *arr = [_dataArray objectAtIndex:indexPath.section];
     
     cityData *data = [arr objectAtIndex:indexPath.row];
     
@@ -153,13 +137,13 @@
     {
         return nil;
     }
-    
+
     NSMutableArray *listArray = [NSMutableArray array];
-    
-    for (int i = 0; i < EnglishArray.count; i++)
+
+    for (int i = 0; i < _EnglishArray.count; i++)
     {
-        NSString *str = [EnglishArray objectAtIndex:i];
-        
+        NSString *str = [_EnglishArray objectAtIndex:i];
+
         if (i == 0)
         {
             [listArray addObject:@"#"];
@@ -169,7 +153,7 @@
             [listArray addObject:str];
         }
     }
-    
+
     return listArray;
 }
 
@@ -234,7 +218,7 @@
     UILabel *name = [[UILabel alloc] init];
     name.textColor = [UIColor grayColor];
     name.font = [UIFont systemFontOfSize:15];
-    name.text = [EnglishArray objectAtIndex:section];
+    name.text = [_EnglishArray objectAtIndex:section];
     
     [view addSubview:name];
     
@@ -262,83 +246,6 @@
     
 }
 
-- (void)getdata
-{
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Regions/index?action=letter"];
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
-    {
-        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        
-        if ([[dictionary objectForKey:@"code"] integerValue] == 200)
-        {
-            NSDictionary *tem = [dictionary objectForKey:@"data"];
-            
-            NSMutableArray *allkey = (NSMutableArray *)[tem allKeys];
-            
-            //数组排序
-            NSArray *sortResultArr = [allkey sortedArrayUsingSelector:@selector(compare:)];
-            
-            
-            //制作所有head头的数组
-            for (int k = 0; k < sortResultArr.count; k++)
-            {
-                NSString *str = [sortResultArr objectAtIndex:k];
-                
-                [EnglishArray addObject:str];
-            }
-            
-            NSLog(@"%@", EnglishArray);
-            
-            
-            
-            for (int i = 0; i < sortResultArr.count; i++)
-            {
-                NSArray *arr = [tem objectForKey:[sortResultArr objectAtIndex:i]];
-                
-                NSMutableArray *cityA = [NSMutableArray array];
-                
-                for (int j = 0; j < arr.count; j++)
-                {
-                    NSDictionary *dic = [arr objectAtIndex:j];
-                    
-
-                    cityData *data = [[cityData alloc] init];
-                    
-                    data.r_id = [dic objectForKey:@"r_id"];
-                    data.r_hot = [dic objectForKey:@"r_hot"];
-                    data.r_pid = [dic objectForKey:@"r_pid"];
-                    data.r_name = [dic objectForKey:@"r_name"];
-                    data.r_first = [dic objectForKey:@"r_first"];
-                    data.r_status = [dic objectForKey:@"r_status"];
-                    data.r_shortname = [dic objectForKey:@"r_shortname"];
-                    
-                    
-                    [cityA addObject:data];
-                }
-                
-                [dataArray addObject:cityA];
-            }
-            
-            [self.tableview reloadData];
-  
-            [SVProgressHUD dismiss];
-        }
-        
-        
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error)
-     {
-        
-    }];
-    
-    
-}
 
 
 
@@ -347,57 +254,8 @@
 
 
 
-- (void)hotdata
-{
-    [SVProgressHUD showWithStatus:@"加载中..."];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Regions/index?action=hot"];
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
-     {
-         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-         
-         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
-         {
-             NSArray *tem = [dictionary objectForKey:@"data"];
-             
-             NSMutableArray *cityHot = [NSMutableArray array];
-             
-             [EnglishArray addObject:@"热门城市"];
-             
-             for (int i = 0; i < tem.count; i++)
-             {
-                 NSDictionary *dic = [tem objectAtIndex:i];
-                 
-                 cityData *data = [[cityData alloc] init];
-                 
-                 data.r_id = [dic objectForKey:@"r_id"];
-                 data.r_hot = [dic objectForKey:@"r_hot"];
-                 data.r_pid = [dic objectForKey:@"r_pid"];
-                 data.r_name = [dic objectForKey:@"r_name"];
-                 data.r_first = [dic objectForKey:@"r_first"];
-                 data.r_status = [dic objectForKey:@"r_status"];
-                 data.r_shortname = [dic objectForKey:@"r_shortname"];
-                 
-                 [cityHot addObject:data];
-                 
-             }
-             
-             [dataArray addObject:cityHot];
-         
-             [self getdata];
-         }
-     } failure:^(NSURLSessionDataTask *task, NSError *error)
-     {
-         
-     }];
-    
-    
-}
+
+
 
 
 //当前位置按钮的点击

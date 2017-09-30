@@ -21,6 +21,7 @@
 #import "ServiceViewController.h"
 #import "FriendViewController.h"
 #import "SetPasswordViewController.h"
+#import "packetViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -364,9 +365,13 @@
 //我的资产的点击事件代理
 - (void)temMoney: (NSInteger)index
 {
+    self.hidesBottomBarWhenPushed = YES;
     if (index == 800)
     {
-        NSLog(@"1");
+        packetViewController *temp = [[packetViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+        
     }
     else if (index == 801)
     {
@@ -376,6 +381,7 @@
     {
         NSLog(@"3");
     }
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 

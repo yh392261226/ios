@@ -19,6 +19,7 @@
 //类的对象转成字典对象
 + (NSDictionary *)entityToDictionary:(id)entity;
 
-
+//十六进制转二进制
++ (NSString *)getBinaryByhex:(NSString *)hex;
 
 @end
