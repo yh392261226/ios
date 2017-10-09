@@ -17,7 +17,12 @@
 
 #import "PartyDismissViewController.h"
 
-@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate>
+@implementation cityData
+
+
+@end
+
+@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate, CLLocationManagerDelegate>
 {
     TabbarView *tabbar;
     
@@ -34,10 +39,20 @@
     
     UILabel *adreeLab;
     
+    NSString *cityName;  //城市名称
+    NSString *cityFirst; //城市名称首字母
     
+    NSMutableArray *cityArray;   //城市大数组，缓存本地
+    NSMutableArray *EnglishArray;   //存放字母的数组
+    
+    NSString *city_id;  //定位城市的ID， 传给服务器
+    
+    CGFloat longitude;   //经度
+    CGFloat latitude;     //纬度
     
 }
 
+@property (strong, nonatomic) CLLocationManager *locationManager;  //系统定位
 
 @property (nonatomic, strong)UITableView *tableview;
 
@@ -48,6 +63,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    EnglishArray = [NSMutableArray array];
+    cityArray = [NSMutableArray array];
     
     dataArray = [NSMutableArray arrayWithObjects:@" ",@" ",@" ", nil];
     
@@ -59,68 +76,96 @@
     
     [self tableview];
     
-    [self initBaiduMap];
+    [self hotdata];
     
 }
 
 //百度地图
-- (void)initBaiduMap
+//- (void)initBaiduMap
+//{
+//    //初始化BMKLocationService
+//    _locService = [[BMKLocationService alloc]init];
+//    _locService.delegate = self;
+//    //启动LocationService
+//    [_locService startUserLocationService];
+//
+//}
+
+//七星定位
+-(void)startLocation
 {
-    _locService = [[BMKLocationService alloc]init];
-    _locService.delegate = self;
-    //启动LocationService
-    [_locService startUserLocationService];
+    if ([CLLocationManager locationServicesEnabled])
+    {//判断定位操作是否被允许
+        
+        self.locationManager = [[CLLocationManager alloc] init];
+        
+        self.locationManager.delegate = self;//遵循代理
+        
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        
+        self.locationManager.distanceFilter = 10.0f;
+        
+        [_locationManager requestWhenInUseAuthorization];
+        
+        [self.locationManager startUpdatingLocation];//开始定位
+        
+    }
+    else
+    {
+        
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                             message:@"您还没有授权本应用使用定位服务,请到 设置 > 隐私 > 位置 > 定位服务 中授权"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"确定"
+                                                   otherButtonTitles:nil,  nil];
+        [alertView show];
+    }
     
 }
 
-
-
-//获取经纬度，城市名称
-- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
+          fromLocation:(CLLocation *)oldLocation
 {
-    
-    BMKCoordinateRegion region;
-    
-    region.center.latitude  = userLocation.location.coordinate.latitude;
-    
-    region.center.longitude = userLocation.location.coordinate.longitude;
-    
-    region.span.latitudeDelta = 0;
-    
-    region.span.longitudeDelta = 0;
-    
-    NSLog(@"当前的坐标是:%f,%f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+    // 获取经纬度
+    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
+    NSLog(@"经度:%f",newLocation.coordinate.longitude);
     
     
+    longitude = newLocation.coordinate.longitude;
+    latitude = newLocation.coordinate.latitude;
     
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     
-    [geocoder reverseGeocodeLocation: userLocation.location completionHandler:^(NSArray *array, NSError *error) {
-        
-        if (array.count > 0) {
-            
-            CLPlacemark *placemark = [array objectAtIndex:0];
-            
-            if (placemark != nil) {
-                
-                NSString *city = placemark.locality;
-                
-                NSLog(@"当前城市名称------%@",city);
-                
-                //找到了当前位置城市后就关闭服务
-                
-                [_locService stopUserLocationService];
-                
-                adreeLab.text = city;
-                
+    // 停止位置更新
+    [manager stopUpdatingLocation];
+    
+    // 保存 Device 的现语言 (英语 法语 ，，，)
+    NSMutableArray *userDefaultLanguages = [[NSUserDefaults standardUserDefaults]
+                                            objectForKey:@"AppleLanguages"];
+    // 强制 成 简体中文
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"zh-hans",nil]
+                                              forKey:@"AppleLanguages"];
+    
+    // 逆地理编码
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if(!error){
+            for (CLPlacemark * placemark in placemarks)
+            {
+                cityName = [placemark locality];
+                NSLog(@"cityName===》%@", cityName);//这里可看到输出为中文
+                break;
             }
             
+            adreeLab.text = cityName;
+            
+            //获取首字母
+            [self getStrCity:cityName];
         }
-        
+        // 还原Device 的语言
+        [[NSUserDefaults standardUserDefaults] setObject:userDefaultLanguages forKey:@"AppleLanguages"];
     }];
-    
-    
 }
+
 
 #pragma Tableview
 
@@ -203,7 +248,12 @@
     return 15;
 }
 
-
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -217,7 +267,9 @@
 
        
         ProfessionViewController *temp = [[ProfessionViewController alloc] init];
-        
+        temp.longitudeWor = longitude;
+        temp.latitudeWor = latitude;
+        temp.cityID = city_id;
         [self.navigationController pushViewController:temp animated:YES];
         
         
@@ -269,6 +321,9 @@
     
     SelecdCityViewController *temp = [[SelecdCityViewController alloc] init];
     
+    temp.EnglishArray = EnglishArray;
+    temp.dataArray = cityArray;
+    
     [self.navigationController pushViewController:temp animated:YES];
     
     self.hidesBottomBarWhenPushed = NO;
@@ -293,9 +348,10 @@
          make.height.mas_equalTo(44 + StatusBarHeigh);
      }];
     
+    
     UILabel *headlabel = [[UILabel alloc] init];
     
-    headlabel.text = @"钢建众工";
+    headlabel.text = @"新用工";
     
     [headlabel setTextColor:[myselfway stringTOColor:@"0x2E84F8"]];
     
@@ -418,7 +474,189 @@
 
 
 
+#pragma 城市列表数据获取，然后缓存到本地，城市列表页面从本地获取数据
 
+//获取城市列表的数据，缓存本地
+- (void)hotdata
+{
+    //[SVProgressHUD showWithStatus:@"加载中..."];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Regions/index?action=hot"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSArray *tem = [dictionary objectForKey:@"data"];
+             
+             NSMutableArray *cityHot = [NSMutableArray array];
+             
+             [EnglishArray addObject:@"热门城市"];
+             
+             for (int i = 0; i < tem.count; i++)
+             {
+                 NSDictionary *dic = [tem objectAtIndex:i];
+                 
+                 cityData *data = [[cityData alloc] init];
+                 
+                 data.r_id = [dic objectForKey:@"r_id"];
+                 data.r_hot = [dic objectForKey:@"r_hot"];
+                 data.r_pid = [dic objectForKey:@"r_pid"];
+                 data.r_name = [dic objectForKey:@"r_name"];
+                 data.r_first = [dic objectForKey:@"r_first"];
+                 data.r_status = [dic objectForKey:@"r_status"];
+                 data.r_shortname = [dic objectForKey:@"r_shortname"];
+                 
+                 [cityHot addObject:data];
+                 
+             }
+             
+             [cityArray addObject:cityHot];
+             
+             [self getdata];
+         }
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+- (void)getdata
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Regions/index?action=letter"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSDictionary *tem = [dictionary objectForKey:@"data"];
+             
+             NSMutableArray *allkey = (NSMutableArray *)[tem allKeys];
+             
+             //数组排序
+             NSArray *sortResultArr = [allkey sortedArrayUsingSelector:@selector(compare:)];
+             
+             
+             //制作所有head头的数组
+             for (int k = 0; k < sortResultArr.count; k++)
+             {
+                 NSString *str = [sortResultArr objectAtIndex:k];
+                 
+                 [EnglishArray addObject:str];
+             }
+             
+             for (int i = 0; i < sortResultArr.count; i++)
+             {
+                 NSArray *arr = [tem objectForKey:[sortResultArr objectAtIndex:i]];
+                 
+                 NSMutableArray *cityA = [NSMutableArray array];
+                 
+                 for (int j = 0; j < arr.count; j++)
+                 {
+                     NSDictionary *dic = [arr objectAtIndex:j];
+                     
+                     cityData *data = [[cityData alloc] init];
+                     
+                     data.r_id = [dic objectForKey:@"r_id"];
+                     data.r_hot = [dic objectForKey:@"r_hot"];
+                     data.r_pid = [dic objectForKey:@"r_pid"];
+                     data.r_name = [dic objectForKey:@"r_name"];
+                     data.r_first = [dic objectForKey:@"r_first"];
+                     data.r_status = [dic objectForKey:@"r_status"];
+                     data.r_shortname = [dic objectForKey:@"r_shortname"];
+                     
+                     
+                     [cityA addObject:data];
+                 }
+                 
+                 [cityArray addObject:cityA];
+             }
+             
+             //网络请求成功之后获取定位城市信息
+             
+             [self startLocation];
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+//去除定位城市的“市”字， 并且获取城市首字母， 用于查找城市ID， 传给服务器
+- (void)getStrCity: (NSString *)city
+{
+    //去除“市”字
+    NSString *city_Name = [city substringToIndex:[city length] - 1];
+    
+    //获取城市首字母
+    NSMutableString *str = [NSMutableString stringWithString:city_Name];
+    
+    CFStringTransform((CFMutableStringRef) str, NULL, kCFStringTransformMandarinLatin, NO);
+    
+    CFStringTransform((CFMutableStringRef)str, NULL, kCFStringTransformStripDiacritics, NO);
+    
+    NSString *pinYin = [str capitalizedString];
+    
+    NSString *TEACHERLower = [pinYin substringToIndex:1];
+    
+    //大小写转换
+    cityFirst = [TEACHERLower lowercaseString];
+    
+    //记录在数组中是第多少个
+    NSInteger num = 0;
+    
+    //城市首字母在数组中多少位
+    for (int i = 0; i < EnglishArray.count; i++)
+    {
+        NSString *citySss = [EnglishArray objectAtIndex:i];
+        
+        if ([citySss isEqualToString:cityFirst])
+        {
+            num = i;
+            
+            break;
+        }
+        
+    }
+    
+        NSArray *arr = [cityArray objectAtIndex:num];
+        
+        for (int k = 0; k < arr.count; k++)
+        {
+            cityData *data = [arr objectAtIndex:k];
+            
+            if ([data.r_name isEqualToString:city_Name])
+            {
+                city_id = data.r_id;
+                
+                NSLog(@"城市ID == %@", city_id);
+            }
+        }
+    
+
+}
 
 
 

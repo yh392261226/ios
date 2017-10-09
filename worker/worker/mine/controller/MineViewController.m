@@ -21,6 +21,7 @@
 #import "ServiceViewController.h"
 #import "FriendViewController.h"
 #import "SetPasswordViewController.h"
+#import "packetViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -63,10 +64,10 @@
 {
     if (!_tableview)
     {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 65) style:UITableViewStylePlain];
         
-        _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
-        _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
+//        _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
+//        _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
         
         [_tableview registerClass:[MineLoginTableViewCell class] forCellReuseIdentifier:@"logincell"];
         [_tableview registerClass:[MineScrTableViewCell class] forCellReuseIdentifier:@"scrcell"];
@@ -171,7 +172,7 @@
 {
     if (section == 0)
     {
-        return 0.1;
+        return 1;
     }
     else if(section == 2)
     {
@@ -273,6 +274,10 @@
          }];
 
     }
+    else if (section == 0)
+    {
+        view.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
+    }
     
     
     return view;
@@ -360,9 +365,13 @@
 //我的资产的点击事件代理
 - (void)temMoney: (NSInteger)index
 {
+    self.hidesBottomBarWhenPushed = YES;
     if (index == 800)
     {
-        NSLog(@"1");
+        packetViewController *temp = [[packetViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+        
     }
     else if (index == 801)
     {
@@ -372,6 +381,7 @@
     {
         NSLog(@"3");
     }
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 

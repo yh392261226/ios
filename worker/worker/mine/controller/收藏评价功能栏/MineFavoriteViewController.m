@@ -28,13 +28,32 @@
 
 @end
 
+@interface workerFavoData : NSObject
+
+@property (nonatomic, strong)NSString *t_title;
+@property (nonatomic, strong)NSString *t_amount;
+@property (nonatomic, strong)NSString *t_duration;
+@property (nonatomic, strong)NSString *t_author;
+@property (nonatomic, strong)NSString *t_status;
+
+
+@end
+
+@implementation workerFavoData
+
+
+@end
+
 @interface MineFavoriteViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
-    NSMutableArray *dataArray;
+    NSMutableArray *dataArray;    //收藏的人
+    NSMutableArray *workerArray;  //收藏的工作
     
     TypeView *typeView;  //上面选择类型的view
     
     NSMutableArray *nameArr;   //类型上的view名字数组,传给自定义view
+    
+    NSInteger type;   //判断是收藏工人， 还是收藏工作
 }
 
 
@@ -47,10 +66,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    dataArray = [NSMutableArray array];
-
     
-    [self getdata:0];
+    
+    dataArray = [NSMutableArray array];
+    workerArray = [NSMutableArray array];
+    type = 0;
+    
+    [self getdata];
     
     nameArr = [NSMutableArray arrayWithObjects:@"收藏的工作", @"收藏的工人", nil];
     
@@ -147,6 +169,19 @@
     
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
 
 #pragma type的view
 - (void)initTypeView
@@ -173,11 +208,15 @@
     
     if (i == 0)
     {
-        NSLog(@"0");
+        type = 0;   //状态
+        
+        [self getdata];
     }
     else
     {
-        NSLog(@"1");
+        type = 1;
+        
+        [self getWorkerdata];
     }
 }
 
@@ -194,11 +233,10 @@
 
 
 
-
-- (void)getdata:(NSInteger)type
+//收藏的工人
+- (void)getdata
 {
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Users_favorate/tasks?u_id=2"];
+    NSString *url = [NSString stringWithFormat:@"%@Users_favorate/tasks?u_id=%@", baseUrl, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -210,6 +248,7 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 1)
          {
+             [dataArray removeAllObjects];
              
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
@@ -226,7 +265,7 @@
                  data.u_start = [dic objectForKey:@"u_start"];
                  data.u_online = [dic objectForKey:@"u_online"];
                  data.u_worked_num = [dic objectForKey:@"u_worked_num"];
-                 
+                 data.f_id = [dic objectForKey:@"f_id"];
                  
                  [dataArray addObject:data];
              }
@@ -249,6 +288,58 @@
 
 
 
+//收藏的工作
+- (void)getWorkerdata
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/favorateTasks?u_id=%@", baseUrl, user_ID];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             [workerArray removeAllObjects];
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSArray *arr = [dic objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dic = [arr objectAtIndex:i];
+                 
+                 workerFavoData *data = [[workerFavoData alloc] init];
+                 
+                 data.t_title = [dic objectForKey:@"t_title"];
+                 data.t_amount = [dic objectForKey:@"t_amount"];
+                 data.t_author = [dic objectForKey:@"t_author"];
+                 data.t_status = [dic objectForKey:@"t_status"];
+                 data.t_duration = [dic objectForKey:@"t_duration"];
+                 
+                 [workerArray addObject:data];
+             }
+             
+             [self.tableview reloadData];
+             
+             
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

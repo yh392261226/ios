@@ -11,6 +11,28 @@
 #import "DressingViewController.h"
 #import "AmapWorkerViewController.h"
 
+
+@interface ListWorData : NSObject
+
+@property (nonatomic, strong)NSString *u_id;
+@property (nonatomic, strong)NSString *u_skills;
+@property (nonatomic, strong)NSString *uei_info;
+@property (nonatomic, strong)NSString *u_task_status;
+@property (nonatomic, strong)NSString *u_true_name;
+@property (nonatomic, strong)NSString *u_img;
+@property (nonatomic, strong)NSString *distance;
+
+@end
+
+@implementation ListWorData
+
+
+@end
+
+
+
+
+
 @interface WorkerMessViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;
@@ -28,11 +50,9 @@
     // Do any additional setup after loading the view.
     
     dataArray = [NSMutableArray array];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
+    
+    
+    [self getdata];
     
     [self addhead:@"工人信息"];
     
@@ -40,7 +60,10 @@
     
  //   [self slitherBack:self.navigationController];
     
+    
+    
     [self tableview];
+    
 }
 
 
@@ -84,11 +107,32 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    ListWorData *data = [dataArray objectAtIndex:indexPath.section];
+    
     WorkerMessTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.favoriteBtn.tag = 500 + indexPath.section;
+    
+    cell.title.text = data.u_true_name;
+    cell.details.text = data.uei_info;
+    
+    
+    if ([data.u_task_status isEqualToString:@"0"])
+    {
+        cell.state.image = [UIImage imageNamed:@"main_state1"];
+    }
+    else if ([data.u_task_status isEqualToString:@"1"])
+    {
+        cell.state.image = [UIImage imageNamed:@"main_state3"];
+    }
+    else
+    {
+        cell.state.image = [UIImage imageNamed:@"main_state5"];
+    }
+    
+    
     
     [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -105,6 +149,17 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 10;
+}
+
+
+
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
 }
 
 
@@ -152,7 +207,6 @@
 }
 
 
-
 //cell上收藏按钮的点击
 - (void)favoriteBtn: (UIButton *)btn
 {
@@ -160,7 +214,52 @@
 }
 
 
-
+- (void)getdata
+{
+    //[SVProgressHUD showWithStatus:@"加载中..."];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/getUsersBySkills?s_id=%@&users_posit_x=%f&users_posit_y=%f", baseUrl, self.worker_ID, self.longitude, self.latitude];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSArray *arr = [dic objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dicInfo = [arr objectAtIndex:i];
+                 ListWorData *data = [[ListWorData alloc] init];
+                 
+                 data.u_id = [dicInfo objectForKey:@"u_id"];
+                 data.u_skills = [dicInfo objectForKey:@"u_skills"];
+                 data.uei_info = [dicInfo objectForKey:@"uei_info"];
+                 data.u_task_status = [dicInfo objectForKey:@"u_task_status"];
+                 data.u_true_name = [dicInfo objectForKey:@"u_true_name"];
+                 data.u_img = [dicInfo objectForKey:@"u_img"];
+                 data.distance = [dicInfo objectForKey:@"distance"];
+                 
+                 [dataArray addObject:data];
+             }
+             
+             [self.tableview reloadData];
+             
+         }
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

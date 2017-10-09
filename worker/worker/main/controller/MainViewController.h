@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+
+@interface cityData : NSObject
+
+@property (nonatomic, strong)NSString *r_id;
+@property (nonatomic, strong)NSString *r_pid;
+@property (nonatomic, strong)NSString *r_shortname;
+@property (nonatomic, strong)NSString *r_name;
+@property (nonatomic, strong)NSString *r_first;
+@property (nonatomic, strong)NSString *r_hot;
+@property (nonatomic, strong)NSString *r_status;
+
+
+@end
+
+
+
 @interface MainViewController : UIViewController
 
 @end

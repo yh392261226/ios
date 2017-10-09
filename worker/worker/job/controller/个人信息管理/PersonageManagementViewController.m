@@ -11,24 +11,41 @@
 #import "PreviewTableViewCell.h"
 #import "BriefTableViewCell.h"
 #import "CraftTableViewCell.h"
-
 #import "WorkerMessTableViewCell.h"
-
 #import "EditSelecedTableViewCell.h"
 #import "EditSetTableViewCell.h"
 #import "EditTextTableViewCell.h"
 #import "EditCraftTableViewCell.h"
 #import "EdirAddTableViewCell.h"
+#import "ThreeCityViewController.h"
 
 
 #define workerNum 4
 
+//获取工人列表数据
+@interface workerPerData : NSObject
 
+@property (nonatomic, strong)NSString *s_id;
+@property (nonatomic, strong)NSString *s_name;
+@property (nonatomic, strong)NSString *s_info;
+@property (nonatomic, strong)NSString *s_desc;
+@property (nonatomic, strong)NSString *s_status;
+
+
+@property (nonatomic, strong)NSString *s_image;
+
+
+@end
+
+@implementation workerPerData
+
+
+@end
 
 //信息和信息预览数据类
 @interface PersonDataClass : NSObject
 
-@property (nonatomic)NSInteger typeInf;   //判断cell类型
+@property (nonatomic, strong)NSString *typeInf;   //判断cell类型
 
 @property (nonatomic, strong)NSString *name;
 
@@ -41,24 +58,20 @@
 @property (nonatomic, strong)NSString *sex;
 @property (nonatomic, strong)NSString *placehold;
 
-
-
 @end
 
 
 @implementation PersonDataClass
 
-
-
 @end
 
 
 
-@interface PersonageManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextFieldDelegate>
+@interface PersonageManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate>
 {
     NSMutableArray *dataArray;    //信息和信息预览的数组
+    NSMutableArray *writeArray;   //编辑信息数组
     
-    NSMutableArray *recordArray;    //投递记录的数组
     
     NSMutableArray *nameArr;     //信息预览，编辑信息的按钮名称数组
     
@@ -66,9 +79,29 @@
     
     Headview *Hview;
     
-    NSMutableArray *arr;    //预览页面最下放工种的数组
+    NSMutableArray *Warr;   //没啥用
     
-    NSString *dataTime;     //datapick获取的时间
+    NSMutableArray *addworker;   //添加工种的数组
+    
+
+    UserInfoModel *model;   //用户信息数据模型
+    UserAdreeData *addmodel;   //用户地址信息数据模型
+    
+    NSMutableArray *workerPer;   //获取工种列表的数据数组
+    
+    NSInteger xianzhiCount;    //限制编辑信息里，数组添加的次数， 只能添加一次
+    
+    NSString *selectWorker;    //alert所选择的工种
+    
+    NSMutableArray *chineseWorker;    //信息预览页面  工种添加的中文数组
+    
+    
+    NSString *level1;  //省ID
+    NSString *level2;  //市ID
+    NSString *level3;  //区ID
+    
+    
+    
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -83,21 +116,28 @@
 {
     [super viewDidLoad];
     
+    Warr = [NSMutableArray array];
+
+    
     typeInfo = 0;    //初始化为0，默认选择是信息预览
     
-    dataArray = [NSMutableArray array];
-    recordArray = [NSMutableArray array];
-    [recordArray addObject:@"1"];
-    [recordArray addObject:@"1"];
-    [recordArray addObject:@"1"];
-    
-    arr = [NSMutableArray arrayWithObjects:@"水泥工",@"水暖工",@"瓦工", @"壁纸工",@"张飞", nil];
-    
-    [self initUiData];
-   
+    chineseWorker = [NSMutableArray array];
+    addworker = [NSMutableArray array];
+    dataArray = [NSMutableArray array];       //信息预览数组
+    writeArray = [NSMutableArray array];      //编辑信息数组
+    workerPer = [NSMutableArray array];
+
     
     
-    nameArr = [NSMutableArray arrayWithObjects:@"信息预览",@"编辑信息", @"投递记录", nil];
+    [self workerData];   //获取工种列表
+    
+ //   arr = [NSMutableArray arrayWithObjects:@"水泥工",@"水暖工",@"瓦工", @"壁纸工",@"张飞", nil];
+    
+    
+    
+    
+    
+    nameArr = [NSMutableArray arrayWithObjects:@"信息预览",@"编辑信息", nil];
     
     
     [self addhead:@"个人信息管理"];
@@ -108,11 +148,6 @@
     
     [self tableview];
     
-    
-    
-    //加载datapick
-//    [self dataPick];
-//    _dataPick.hidden = YES;
     
 }
 
@@ -135,57 +170,6 @@
 }
 
 
-
-#pragma dataPick
-- (UIDatePicker *)dataPick
-{
-    if (!_dataPick)
-    {
-        _dataPick = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 216, self.view.frame.size.width, 216)];
-        
-        _dataPick.datePickerMode = UIDatePickerModeDate;
-        _dataPick.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        
-        [_dataPick addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
-        //重点：UIControlEventValueChanged
-        //设置显示格式
-        //默认根据手机本地设置显示为中文还是其他语言
-        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
-        //设置为中文显示
-        _dataPick.locale = locale;
-        
-        _dataPick.timeZone = [NSTimeZone timeZoneWithName:@"GTM+8"];
-        _dataPick.datePickerMode = UIDatePickerModeDate;
-
-        [self.view addSubview:_dataPick];
-       
-    }
-    
-    return _dataPick;
-}
-
-//更改时间
-- (void)dateChanged: (id)sender
-{
-    //NSDate格式转换为NSString格式
-    NSDate *pickerDate = [_dataPick date];
-    
-    // 获取用户通过UIDatePicker设置的日期和时间
-    NSDateFormatter *pickerFormatter = [[NSDateFormatter alloc] init];
-    
-    // 创建一个日期格式器
-    [pickerFormatter setDateFormat:@"yyyy年MM月dd日"];
-    NSString *dateString = [pickerFormatter stringFromDate:pickerDate];
-    
-    //打印显示日期时间
-    dataTime = dateString;
-    
-    PersonDataClass *data = [dataArray objectAtIndex:2];
-    data.data = dataTime;
-    
-    [self.tableview reloadData];
-   
-}
 
 
 #pragma tableview代理
@@ -226,25 +210,26 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (typeInfo == 2)
+    if(typeInfo == 0)
     {
-        return recordArray.count;
+       return dataArray.count;
     }
     else
     {
-       return dataArray.count;
+       return writeArray.count;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PersonDataClass *data = [dataArray objectAtIndex:indexPath.row];
     
     if (typeInfo == 0)    //信息预览
     {
+        PersonDataClass *data = [dataArray objectAtIndex:indexPath.row];
         
         if (data.typeInf == 0)
         {
+            
             PreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"typecell"];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -253,8 +238,9 @@
             cell.data.text = data.data;
             
             return cell;
+            
         }
-        else if(data.typeInf == 1)
+        else if([data.typeInf isEqualToString:@"1"])
         {
             BriefTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"briefcell"];
             
@@ -274,23 +260,15 @@
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.dataArray = arr;
+            cell.dataArray = data.workerArray;
             
             return cell;
         }
         
     }
-    else if(typeInfo == 2)    //投递记录
-    {
-
-        WorkerMessTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"workercell"];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return cell;
-    }
     else                      //信息编辑
     {
+        PersonDataClass *data = [writeArray objectAtIndex:indexPath.row];
         
         if (data.typeInf == 0)
         {
@@ -304,13 +282,13 @@
             
             cell.field.tag = indexPath.row + 700;
             cell.field.delegate = self;
-            [cell.field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
             
             cell.field.placeholder = data.placehold;
             
             return cell;
         }
-        else if (data.typeInf == 1)
+        else if ([data.typeInf isEqualToString:@"1"])
         {
             EditSetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
             
@@ -328,7 +306,7 @@
             cell.man.text = @"男";
             cell.woman.text = @"女";
             
-            if ([data.sex isEqualToString:@"男"])
+            if ([data.data isEqualToString:@"男"])
             {
                 cell.manBtn.backgroundColor = [UIColor redColor];
                 
@@ -341,7 +319,7 @@
             
             return cell;
         }
-        else if (data.typeInf == 2)
+        else if ([data.typeInf isEqualToString:@"2"])
         {
             PreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"typecell"];
             
@@ -351,21 +329,26 @@
             return cell;
             
         }
-        else if (data.typeInf == 3)
+        else if ([data.typeInf isEqualToString:@"3"])
         {
+            
             BriefTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"briefcell"];
             
             cell.name.text = data.name;
             
             cell.data.text = data.data;
             
+            cell.data.delegate = self;
+            
             cell.data.userInteractionEnabled = YES;
             
             
             return cell;
+            
         }
-        else if (data.typeInf == 4)
+        else if ([data.typeInf isEqualToString:@"4"])
         {
+            
             EditSelecedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell3"];
             
             [cell.manBtn addTarget:self action:@selector(yesWorker:) forControlEvents:UIControlEventTouchUpInside];
@@ -381,7 +364,7 @@
             cell.man.text = @"我不是工人";
             cell.woman.text = @"我是工人";
             
-            if ([data.sex isEqualToString:@"我不是工人"])
+            if ([data.data isEqualToString:@"我不是工人"])
             {
                 cell.manBtn.backgroundColor = [UIColor redColor];
             }
@@ -391,9 +374,11 @@
             }
             
             return cell;
+            
         }
-        else if(data.typeInf == 5)
+        else if([data.typeInf isEqualToString:@"5"])
         {
+            
             EditCraftTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell5"];
             
             cell.clipsToBounds = YES;
@@ -405,6 +390,7 @@
             cell.dataArray = data.workerArray;
             
             return cell;
+            
         }
         else
         {
@@ -437,7 +423,7 @@
         {
             return 40;
         }
-        else if(data.typeInf == 1)
+        else if([data.typeInf isEqualToString:@"1"])
         {
             return 120;
         }
@@ -460,19 +446,15 @@
         }
         
     }
-    else if(typeInfo == 2)
-    {
-        return 100;
-    }
     else
     {
-        PersonDataClass *data = [dataArray objectAtIndex:indexPath.row];
+        PersonDataClass *data = [writeArray objectAtIndex:indexPath.row];
         
-        if (data.typeInf == 3)
+        if ([data.typeInf isEqualToString:@"3"])
         {
             return 120;
         }
-        else if(data.typeInf == 5)
+        else if([data.typeInf isEqualToString:@"5"])
         {
             NSInteger num = data.workerArray.count;
             
@@ -489,7 +471,7 @@
             
             return 40 * i;
         }
-        else if(data.typeInf == 6)
+        else if([data.typeInf isEqualToString:@"6"])
         {
             return 50;
         }
@@ -535,8 +517,56 @@
 {
     if (typeInfo == 1)
     {
-        if (indexPath.row == 2)
+        if (indexPath.row == 3)
         {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
+            ThreeCityViewController *temp = [[ThreeCityViewController alloc] init];
+            
+            temp.delegate = self;
+            
+            [self presentViewController:temp animated:YES completion:nil];
+            
+        }
+        else if (indexPath.row == 9)
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
+            UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"工种列表" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *returnAlert = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertcontroller addAction:returnAlert];
+            
+            
+            for (int i = 0; i < workerPer.count; i++)
+            {
+                workerPerData *data = [workerPer objectAtIndex:i];
+                
+                UIAlertAction *action = [UIAlertAction actionWithTitle:data.s_name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                {
+                    selectWorker = action.title;
+                    
+                   
+                    [chineseWorker addObject:selectWorker];
+                    
+                    PersonDataClass *data = [writeArray objectAtIndex:7];
+                    
+                    data.workerArray = chineseWorker;
+                    
+                    [self.tableview reloadData];
+                    
+                }];
+                
+                
+                
+                
+                
+                [alertcontroller addAction:action];
+            }
+            
+            
+            [self presentViewController:alertcontroller animated:YES completion:nil];
             
         }
     }
@@ -579,19 +609,36 @@
 }
 
 
-
--(void)textFieldDidChange:(UITextField *)textField
+//获取textfield的数据
+- (void)textFieldDidChange:(UITextField *)textField
 {
-    NSLog(@"%@", textField.text);
+    NSInteger row = textField.tag - 700;
+    
+    PersonDataClass *info = [writeArray objectAtIndex:row];
+    
+    info.data = textField.text;
    
 }
+
+
+//textview的代理方法， 获取textview 的数据
+- (void)textViewDidChangeSelection:(UITextView *)textView
+{
+    PersonDataClass *data = [writeArray objectAtIndex:5];
+    
+    data.data = textView.text;
+    
+}
+
+
+
 
 #pragma 自己的方法
 
 //工种的点击事件代理方法，点击后删除该工种
 - (void)tempValNum: (NSInteger)info
 {
-    PersonDataClass *data = [dataArray objectAtIndex:7];
+    PersonDataClass *data = [dataArray objectAtIndex:8];
     
     [data.workerArray removeObjectAtIndex:info];
     
@@ -602,16 +649,16 @@
 //选择性别男的按钮
 - (void)manBtn: (UIButton *)btn
 {
-    PersonDataClass *data = [dataArray objectAtIndex:1];
-    data.sex = @"男";
+    PersonDataClass *data = [writeArray objectAtIndex:1];
+    data.data = @"男";
     [self.tableview reloadData];
 }
 
 //选择性别女的按钮
 - (void)womanBtn: (UIButton *)btn
 {
-    PersonDataClass *data = [dataArray objectAtIndex:1];
-    data.sex = @"女";
+    PersonDataClass *data = [writeArray objectAtIndex:1];
+    data.data = @"女";
     [self.tableview reloadData];
 }
 
@@ -619,18 +666,56 @@
 //我不是工人按钮
 - (void)yesWorker: (UIButton *)btn
 {
-    PersonDataClass *data = [dataArray objectAtIndex:7];
-    data.sex = @"我不是工人";
-    [self.tableview reloadData];
+    PersonDataClass *data = [writeArray objectAtIndex:7];
+    data.data = @"我不是工人";
+    
+    if (xianzhiCount == 1)
+    {
+        [writeArray removeObjectAtIndex:9];
+        [writeArray removeObjectAtIndex:8];
+        
+        [self.tableview reloadData];
+        
+        //只可删除一次， 然后不可删除
+        xianzhiCount = 0;
+    }
+    
+    
+    
+    
+    
+    
 }
 
 
 //我是工人按钮
 - (void)noWorker: (UIButton *)btn
 {
-    PersonDataClass *data = [dataArray objectAtIndex:7];
-    data.sex = @"我是工人";
-    [self.tableview reloadData];
+    PersonDataClass *data = [writeArray objectAtIndex:7];
+    data.data = @"我是工人";
+    
+    if (xianzhiCount == 0)
+    {
+        PersonDataClass *info8 = [[PersonDataClass alloc] init];
+        info8.workerArray = chineseWorker;
+        info8.typeInf = @"5";
+        
+        [writeArray addObject:info8];
+        
+        
+        PersonDataClass *info9 = [[PersonDataClass alloc] init];
+        
+        info9.typeInf = @"6";
+        
+        [writeArray addObject:info9];
+        
+        [self.tableview reloadData];
+        
+        //只可添加一次， 然后不可添加
+        xianzhiCount = 1;
+    }
+
+    
 }
 
 
@@ -639,7 +724,26 @@
 //提交信息按钮
 - (void)savebtn
 {
-    NSLog(@"%@", dataArray);
+    NSMutableArray *postArray = [NSMutableArray array];
+    
+    for (int i = 0; i < writeArray.count; i++)
+    {
+        PersonDataClass *data = [writeArray objectAtIndex:i];
+        
+        NSDictionary *dic = [myselfway entityToDictionary:data];
+        
+        if (i == 8)
+        {
+            NSArray *arr = data.workerArray;
+            
+            [postArray addObject:arr];
+        }
+        
+        [postArray addObject:dic];
+    }
+    
+    [self postInfoData];
+    
 }
 
 //更换头像的点击事件
@@ -647,6 +751,8 @@
 {
     [self addimage];
 }
+
+
 
 
 //信息预览等点击事件的代理方法
@@ -671,7 +777,7 @@
             
             [self.tableview reloadData];
         }
-        else if (type == 501)
+        else
         {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否修改您的个人信息" preferredStyle:UIAlertControllerStyleAlert];
             
@@ -682,13 +788,14 @@
                                            label2.textColor = [UIColor redColor];
                                            label3.textColor = [UIColor grayColor];
                                            
-                                           [dataArray removeAllObjects];
+                                           [writeArray removeAllObjects];
                                            
                                            typeInfo = 1;
                                            
                                            [self initEditData];
                                            
                                            [self.tableview reloadData];
+                                           
                                        }];
             
             
@@ -699,18 +806,6 @@
             
             [self presentViewController:alertController animated:YES completion:nil];
         }
-        else
-        {
-            label1.textColor = [UIColor grayColor];
-            label2.textColor = [UIColor grayColor];
-            label3.textColor = [UIColor redColor];
-            
-            typeInfo = 2;
-            
-            [self.tableview reloadData];
-        }
-
-        
     
 }
 
@@ -733,37 +828,52 @@
     PersonDataClass *info0 = [[PersonDataClass alloc] init];
     info0.typeInf = 0;
     info0.name = @"姓名:";
-    info0.data = @"郭健";
+    info0.data = model.u_true_name;
     [dataArray addObject:info0];
     
     PersonDataClass *info1 = [[PersonDataClass alloc] init];
     info1.typeInf = 0;
     info1.name = @"性别:";
-    info1.data = @"男";
-    [dataArray addObject:info1];
     
-//    PersonDataClass *info2 = [[PersonDataClass alloc] init];
-//    info2.typeInf = 0;
-//    info2.name = @"出生日期:";
-//    info2.data = @"1995-03-23";
-//    [dataArray addObject:info2];
+    if ([model.u_sex isEqualToString:@"0"])
+    {
+        info1.data = @"女";
+    }
+    else
+    {
+        info1.data = @"男";
+    }
+    
+    [dataArray addObject:info1];
+
     
     PersonDataClass *info3 = [[PersonDataClass alloc] init];
     info3.typeInf = 0;
     info3.name = @"身份证号:";
-    info3.data = @"210911199503230536";
+    info3.data = model.u_idcard;
     [dataArray addObject:info3];
     
     PersonDataClass *info4 = [[PersonDataClass alloc] init];
     info4.typeInf = 0;
     info4.name = @"现居住地:";
-    info4.data = @"沈阳市和平区";
+    info4.data = addmodel.user_area_name;
     [dataArray addObject:info4];
     
+    
+    PersonDataClass *info99 = [[PersonDataClass alloc] init];
+    info99.typeInf = 0;
+    info99.name = @"户口所在地:";
+    info99.data = addmodel.uei_address;
+    [dataArray addObject:info99];
+    
+    
+    
+    
+    
     PersonDataClass *info5 = [[PersonDataClass alloc] init];
-    info5.typeInf = 1;
+    info5.typeInf = @"1";
     info5.name = @"个人简介:";
-    info5.data = @"专业水泥工、精通水暖,刮大白";
+    info5.data = model.u_info;
     [dataArray addObject:info5];
     
     
@@ -771,24 +881,69 @@
     PersonDataClass *info6 = [[PersonDataClass alloc] init];
     info6.typeInf = 0;
     info6.name = @"电话号:";
-    info6.data = @"15840344241";
+    info6.data = model.u_phone;
     [dataArray addObject:info6];
     
     
     PersonDataClass *info7 = [[PersonDataClass alloc] init];
     info7.typeInf = 0;
     info7.name = @"角色选择:";
-    info7.data = @"我不是工人";
+    
+    if ([model.u_skills isEqualToString:@",,"] || [model.u_skills isEqualToString:@""])
+    {
+        info7.data = @"我不是工人";
+    }
+    else
+    {
+        info7.data = @"我是工人";
+    }
+    
     [dataArray addObject:info7];
     
     
 
     PersonDataClass *info8 = [[PersonDataClass alloc] init];
-    info8.workerArray = arr;
-    info8.typeInf = 2;
+    
+    if ([model.u_skills isEqualToString:@",,"] || [model.u_skills isEqualToString:@""])
+    {
+        //我不是工人
+        info8.workerArray = Warr;
+        
+    }
+    else
+    {
+        //我是工人
+        NSArray *array = [model.u_skills componentsSeparatedByString:@","];
+        
+        [chineseWorker removeAllObjects];
+        
+        for (int i = 0; i < workerPer.count; i++)
+        {
+            workerPerData *data = [workerPer objectAtIndex:i];
+            
+            for (int j = 0; j < array.count; j++)
+            {
+                NSString *str = [array objectAtIndex:j];
+                
+                if ([str isEqualToString:data.s_id])
+                {
+                    [chineseWorker addObject:data.s_name];
+                }
+            }
+            
+        }
+        
+        info8.workerArray = chineseWorker;
+        
+    }
+    
+    
+    info8.typeInf = @"2";
     
     
     [dataArray addObject:info8];
+    
+    [self.tableview reloadData];
     
 }
 
@@ -800,76 +955,101 @@
     info0.typeInf = 0;
     info0.name = @"姓名:";
     info0.placehold = @"请输入姓名";
-    info0.data = @"郭健";
-    [dataArray addObject:info0];
+    info0.data = model.u_true_name;
+    [writeArray addObject:info0];
     
     PersonDataClass *info1 = [[PersonDataClass alloc] init];
-    info1.typeInf = 1;
+    info1.typeInf = @"1";
     info1.name = @"性别:";
-    info1.sex = @"男";
-    [dataArray addObject:info1];
+    if ([model.u_sex isEqualToString:@"0"])
+    {
+        info1.data = @"女";
+    }
+    else
+    {
+        info1.data = @"男";
+    }
+    [writeArray addObject:info1];
     
-//    PersonDataClass *info2 = [[PersonDataClass alloc] init];
-//    info2.typeInf = 2;
-//    info2.name = @"出生日期:";
-//    info2.data = @"1995-03-23";
-//    info2.placehold = @"点击选择";
-//    [dataArray addObject:info2];
     
     PersonDataClass *info3 = [[PersonDataClass alloc] init];
     info3.typeInf = 0;
     info3.name = @"身份证号:";
-    info3.data = @"210911199503230536";
+    info3.data = model.u_idcard;
     info3.placehold = @"输入身份证号";
-    [dataArray addObject:info3];
+    [writeArray addObject:info3];
     
     PersonDataClass *info4 = [[PersonDataClass alloc] init];
-    info4.typeInf = 2;
+    info4.typeInf = @"2";
     info4.name = @"现居住地:";
-    info4.data = @"沈阳市和平区";
+    info4.data = addmodel.user_area_name;
     info4.placehold = @"点击选择";
-    [dataArray addObject:info4];
+    [writeArray addObject:info4];
+    
+    
+    PersonDataClass *info99 = [[PersonDataClass alloc] init];
+    info99.typeInf = 0;
+    info99.name = @"户口所在地:";
+    info99.data = addmodel.uei_address;
+    [writeArray addObject:info99];
+    
     
     PersonDataClass *info5 = [[PersonDataClass alloc] init];
-    info5.typeInf = 3;
+    info5.typeInf = @"3";
     info5.name = @"个人简介:";
-    info5.data = @"专业水泥工、精通水暖,刮大白";
+    info5.data = model.u_info;
     info5.placehold = @"请简要描述自己";
-    [dataArray addObject:info5];
-    
+    [writeArray addObject:info5];
     
     
     PersonDataClass *info6 = [[PersonDataClass alloc] init];
     info6.typeInf = 0;
     info6.name = @"电话号:";
-    info6.data = @"15840344241";
+    info6.data = model.u_phone;
     info6.placehold = @"请填写绑定手机号";
-    [dataArray addObject:info6];
+    [writeArray addObject:info6];
     
     
     PersonDataClass *info7 = [[PersonDataClass alloc] init];
-    info7.typeInf = 4;
+    info7.typeInf = @"4";
     info7.name = @"角色选择:";
-    info7.sex = @"我不是工人";
-    [dataArray addObject:info7];
+    if ([model.u_skills isEqualToString:@",,"] || [model.u_skills isEqualToString:@""])
+    {
+        info7.data = @"我不是工人";
+        
+        xianzhiCount = 0;
+    }
+    else
+    {
+        info7.data = @"我是工人";
+        
+        xianzhiCount = 1;
+    }
+    
+    [writeArray addObject:info7];
     
     
+    if ([info7.data isEqualToString:@"我是工人"])
+    {
+
+            PersonDataClass *info8 = [[PersonDataClass alloc] init];
+            info8.workerArray = chineseWorker;
+            info8.typeInf = @"5";
+            
+            [writeArray addObject:info8];
+            
+            
+            PersonDataClass *info9 = [[PersonDataClass alloc] init];
+            
+            info9.typeInf = @"6";
+            
+            [writeArray addObject:info9];
+            
+            [self.tableview reloadData];
+            
+
+    }
     
-    PersonDataClass *info8 = [[PersonDataClass alloc] init];
-    info8.workerArray = arr;
-    info8.typeInf = 5;
-    
-    
-    [dataArray addObject:info8];
-    
-    
-    
-    PersonDataClass *info9 = [[PersonDataClass alloc] init];
-    
-    info9.typeInf = 6;
-    
-    
-    [dataArray addObject:info9];
     
 }
 
@@ -918,11 +1098,7 @@
 //照相完，使用相片所走的方法
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    Hview.Icon.image = image;
-    
-    //网络请求上传图片
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self imageData:image];
     
 }
 
@@ -932,6 +1108,377 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+
+
+- (void)imageData:(UIImage *)ima
+{
+    
+    NSData *data = UIImageJPEGRepresentation(ima, 1.0);
+    
+    NSString *pictureDataString = [data base64EncodedStringWithOptions:0];   //data转base64
+    
+    NSString *houzhui = [self contentTypeForImageData:data];
+
+    NSString *geshi = [houzhui substringFromIndex:6];//截取掉下标7之前的字符串
+
+    NSString *end = [NSString stringWithFormat:@"123.%@", geshi];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/usersHeadEidt?u_id=%@&img_name=%@", baseUrl, user_ID, end];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic = @{@"base64": pictureDataString};
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+    {
+        
+        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        
+        if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+        {
+            Hview.Icon.image = ima;
+        }
+        else
+        {
+            NSDictionary *dic = [dictionary objectForKey:@"data"];
+            
+            [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
+        }
+        
+    }
+    failure:^(NSURLSessionDataTask *task, NSError *error)
+    {
+        [SVProgressHUD showInfoWithStatus:@"头像上传失败，请检查网络"];
+    }];
+     
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+
+
+
+//图片转二进制，获取图片格式
+- (NSString *)contentTypeForImageData:(NSData *)data
+{
+    uint8_t c;
+    [data getBytes:&c length:1];
+    
+    switch (c) {
+        case 0xFF:
+            return @"image/jpeg";
+        case 0x89:
+            return @"image/png";
+        case 0x47:
+            return @"image/gif";
+        case 0x49:
+            break;
+        case 0x42:
+            return @"image/bmp";
+        case 0x4D:
+            return @"image/tiff";
+    }
+    return nil;
+}
+
+
+
+//用户信息网络请求
+- (void)getinfoData
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/usersInfo?u_id=%@", baseUrl, user_ID];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    {
+        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        
+        if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+        {
+            NSDictionary *dic = [dictionary objectForKey:@"data"];
+            
+            NSDictionary *dicData = [dic objectForKey:@"data"];
+            
+            model = [[UserInfoModel alloc] init];
+            
+            model.u_id = [dicData objectForKey:@"u_id"];
+            model.u_name = [dicData objectForKey:@"u_name"];
+            model.u_mobile = [dicData objectForKey:@"u_mobile"];
+            model.u_phone = [dicData objectForKey:@"u_phone"];
+            model.u_sex = [dicData objectForKey:@"u_sex"];
+            model.u_in_time = [dicData objectForKey:@"u_in_time"];
+            model.u_online = [dicData objectForKey:@"u_online"];
+            model.u_status = [dicData objectForKey:@"u_status"];
+            model.u_type = [dicData objectForKey:@"u_type"];
+            model.u_task_status = [dicData objectForKey:@"u_task_status"];
+            model.u_skills = [dicData objectForKey:@"u_skills"];
+            model.u_start = [dicData objectForKey:@"u_start"];
+            model.u_credit = [dicData objectForKey:@"u_credit"];
+            model.u_top = [dicData objectForKey:@"u_top"];
+            model.u_recommend = [dicData objectForKey:@"u_recommend"];
+            model.u_jobs_num = [dicData objectForKey:@"u_jobs_num"];
+            model.u_worked_num = [dicData objectForKey:@"u_worked_num"];
+            model.u_high_opinions = [dicData objectForKey:@"u_high_opinions"];
+            model.u_low_opinions = [dicData objectForKey:@"u_low_opinions"];
+            model.u_middle_opinions = [dicData objectForKey:@"u_middle_opinions"];
+            model.u_dissensions = [dicData objectForKey:@"u_dissensions"];
+            model.u_true_name = [dicData objectForKey:@"u_true_name"];
+            model.u_idcard = [dicData objectForKey:@"u_idcard"];
+            model.u_info = [dicData objectForKey:@"u_info"];
+            model.u_img = [dicData objectForKey:@"u_img"];
+            model.uei_province = [dicData objectForKey:@"uei_province"];
+            model.uei_city = [dicData objectForKey:@"uei_city"];
+            model.uei_area = [dicData objectForKey:@"uei_area"];
+            model.uei_address = [dicData objectForKey:@"uei_address"];
+            
+            
+            
+            model.area = [dicData objectForKey:@"area"];
+            
+            addmodel = [[UserAdreeData alloc] init];
+            
+            addmodel.uei_info = [model.area objectForKey:@"uei_info"];
+            addmodel.uei_province = [model.area objectForKey:@"uei_province"];
+            addmodel.uei_city = [model.area objectForKey:@"uei_city"];
+            addmodel.uei_area = [model.area objectForKey:@"uei_area"];
+            addmodel.uei_address = [model.area objectForKey:@"uei_address"];
+            addmodel.user_area_name = [model.area objectForKey:@"user_area_name"];
+            
+            
+            [self initUiData];
+            
+        }
+        
+        
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error)
+    {
+        
+    }];
+    
+}
+
+
+
+
+
+//获取工种列表数据
+- (void)workerData
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Skills/index"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSArray *arr = [dictionary objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dic = [arr objectAtIndex:i];
+                 
+                 workerPerData *data = [[workerPerData alloc] init];
+                 
+                 data.s_id = [dic objectForKey:@"s_id"];
+                 data.s_desc = [dic objectForKey:@"s_desc"];
+                 data.s_info = [dic objectForKey:@"s_info"];
+                 data.s_name = [dic objectForKey:@"s_name"];
+                 data.s_status = [dic objectForKey:@"s_status"];
+                 
+                 [workerPer addObject:data];
+                 
+                 
+             }
+             
+             
+             [self getinfoData];   //网络请求用户信息
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+
+
+//用户信息修改上传接口
+- (void)postInfoData
+{
+    PersonDataClass *data = [writeArray objectAtIndex:0];
+    NSString *name = data.data;
+
+    NSString *sex;
+    PersonDataClass *data1 = [writeArray objectAtIndex:1];
+    if ([data1.data isEqualToString:@"男"])
+    {
+        sex = @"1";
+    }
+    else
+    {
+        sex = @"0";
+    }
+    
+
+    PersonDataClass *data2 = [writeArray objectAtIndex:2];
+    NSString *card = data2.data;
+
+
+    PersonDataClass *data3 = [writeArray objectAtIndex:3];
+    NSString *adree = data3.data;
+
+    
+    PersonDataClass *data99 = [writeArray objectAtIndex:4];
+    NSString *hukou = data99.data;
+
+    PersonDataClass *data4 = [writeArray objectAtIndex:5];
+    NSString *text = data4.data;
+
+    PersonDataClass *data5 = [writeArray objectAtIndex:6];
+    NSString *iphone = data5.data;
+
+    
+    
+    NSString *worker_Di = @"";   //工种ID   字符串
+    
+    if (writeArray.count == 10)
+    {
+        PersonDataClass *data6 = [writeArray objectAtIndex:7];
+        NSString *isWorker = data6.data;
+        
+        
+        PersonDataClass *data7 = [writeArray objectAtIndex:8];
+        NSArray *workerArr = data7.workerArray;
+        
+        NSMutableArray *numArr = [NSMutableArray array];
+        
+        for (int i = 0; i < workerPer.count; i++)
+        {
+            workerPerData *data = [workerPer objectAtIndex:i];
+            
+            for (int j = 0; j < workerArr.count; j++)
+            {
+                NSString *str = [workerArr objectAtIndex:j];
+                
+                if ([str isEqualToString:data.s_name])
+                {
+                    [numArr addObject:data.s_id];
+                }
+                
+            }
+            
+        }
+        
+        //获取工种ID
+        worker_Di = [numArr componentsJoinedByString:@","];
+        
+    }
+
+    
+    
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Users/usersInfoEdit"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *infoData = @{@"u_id": user_ID,
+                               @"u_true_name": name,
+                               @"u_sex": sex,
+                               @"u_idcard": card,
+                               @"uei_info": text,
+                               @"u_phone": iphone,
+                               @"u_skills": worker_Di,
+                               @"uei_address": hukou,
+                               @"uei_province": level1,
+                               @"uei_city": level2,
+                               @"uei_area": level3
+                               };
+    
+    [manager POST:url parameters:infoData success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+
+             
+             [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
+             
+             [self.navigationController popViewControllerAnimated:YES];
+             
+             [self performSelector:@selector(deleteBtn) withObject:self afterDelay:1.5];
+             
+         }
+             
+             
+             
+    } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+        
+    }];
+    
+    
+}
+
+
+- (void)deleteBtn
+{
+    [SVProgressHUD dismiss];
+}
+
+
+
+//没用的代理方法
+- (void)tempCityNum: (NSString *)city_id city_name:(NSString *)name
+{
+    
+}
+
+
+//获取省市区ID 代理
+- (void)post3Level: (NSString *)city_id1 city_name1:(NSString *)name city_id2:(NSString *)city_id city_name2:(NSString *)city_name2 city_id2:(NSString *)city_id2 city_name3:(NSString *)city_name3
+{
+    
+    level1 = city_id1;
+    level2 = city_id;
+    level3 = city_id2;
+    
+    NSString *cityName = [NSString stringWithFormat:@"%@-%@-%@", name, city_name2, city_name3];
+    
+    
+    PersonDataClass *data = [writeArray objectAtIndex:3];
+    
+    data.data = cityName;
+    
+    [self.tableview reloadData];
+    
+}
+
 
 
 @end

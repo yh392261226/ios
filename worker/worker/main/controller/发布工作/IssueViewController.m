@@ -9,7 +9,7 @@
 
 @interface selecdType : NSObject
 
-@property (nonatomic)NSInteger bigType;       //分辨哪个section
+@property (nonatomic, strong)NSString *bigType;       //分辨哪个section
 
 @end
 
@@ -21,11 +21,11 @@
 
 @interface firstModel : selecdType
 
-@property (nonatomic)NSInteger type;             //分辨那个cell
+@property (nonatomic, strong)NSString *type;             //分辨那个cell
 
 @property (nonatomic, strong)NSString *name;
 @property (nonatomic, strong)NSString *data;
-//@property (nonatomic, strong)NSString *bigData;
+@property (nonatomic, strong)NSString *name_id;
 
 @end
 
@@ -38,7 +38,7 @@
 
 @interface elseModel : selecdType
 
-@property (nonatomic)NSInteger workerType;       //分辨那个cell
+@property (nonatomic, strong)NSString *workerType;       //分辨那个cell
 
 @property (nonatomic, strong)NSString *worker;
 @property (nonatomic, strong)NSString *personNum;
@@ -68,6 +68,7 @@
 #import "elsetimeTableViewCell.h"
 #import "elseDelegateTableViewCell.h"
 #import "NormalTableViewCell.h"
+#import "ThreeCityViewController.h"
 
 @interface IssueViewController ()<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 {
@@ -80,6 +81,8 @@
     NSMutableArray *workerArr;  //工种的列表
     NSString *workerStr;    //工种的选择
     
+    NSString *adree;  //所在区域的字段
+    NSString *adree_id;  //所在区域的ID， 传给后台
     
     NSMutableArray *newArr;
 }
@@ -104,6 +107,7 @@
     
     
     [self initData];
+    
     
     [self addhead:@"发布工作"];
     
@@ -172,7 +176,7 @@
     
     selecdType *data = [arr objectAtIndex:indexPath.row];
     
-    if (data.bigType == 1)
+    if ([data.bigType isEqualToString:@"1"])
     {
         firstModel *info = (firstModel *)data;
         
@@ -210,7 +214,7 @@
             
             return cell;
         }
-        else if (info.type == 10)
+        else if ([info.type isEqualToString:@"10"])
         {
             
             NormalTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -221,6 +225,9 @@
                 
                 cell.title.text = info.name;
                 cell.data.text = info.data;
+                
+               
+                
                 
             }
             
@@ -276,7 +283,7 @@
             return cell;
             
         }
-        else if (info.workerType == 1)
+        else if ([info.workerType isEqualToString:@"1"])
         {
             elsepersonTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
@@ -301,7 +308,7 @@
             return cell;
             
         }
-        else if(info.workerType == 2)
+        else if([info.workerType isEqualToString:@"2"])
         {
             
             elsetimeTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -353,11 +360,11 @@
     
     selecdType *data = [arr objectAtIndex:indexPath.row];
     
-    if (data.bigType == 1)
+    if ([data.bigType isEqualToString:@"1"])
     {
         firstModel *info = (firstModel *)data;
         
-        if (info.type == 1)
+        if ([info.type isEqualToString:@"1"])
         {
             return 120;
         }
@@ -406,11 +413,11 @@
     
     selecdType *data = [arr objectAtIndex:indexPath.row];
     
-    if (data.bigType == 1)
+    if ([data.bigType isEqualToString:@"1"])
     {
         firstModel *model = (firstModel *)data;
         
-        if (model.type == 10)
+        if ([model.type isEqualToString:@"10"])
         {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             
@@ -451,6 +458,10 @@
             else
             {
                 //所在区域点击
+                ThreeCityViewController *temp = [[ThreeCityViewController alloc] init];
+                temp.delegate = self;
+                [self presentViewController:temp animated:YES completion:nil];
+                
             }
         }
         
@@ -459,7 +470,7 @@
     {
         elseModel *info = (elseModel *)data;
         
-        if (info.workerType == 3)
+        if ([info.workerType isEqualToString:@"3"])
         {
             //删除工种cell
             
@@ -520,29 +531,29 @@
 //确认提交按钮
 - (void)Escbtn
 {
+    [newArr removeAllObjects];
     
+    for (int i = 0; i < dataArray.count; i++)
+    {
+        NSArray *arr = [dataArray objectAtIndex:i];
+        
+        NSMutableArray *infoArr = [NSMutableArray array];
+        
+        for (int j = 0; j < arr.count; j++)
+        {
+            
+            selecdType *data = [arr objectAtIndex:j];
+            
+            NSDictionary *dic = [myselfway entityToDictionary:data];
+            
+            [infoArr addObject:dic];
+        }
+        
+        [newArr addObject:infoArr];
     
-//    for (int i = 0; i < dataArray.count; i++)
-//    {
-//        NSArray *arr = [dataArray objectAtIndex:i];
-//        
-//        NSMutableArray *infoArr = [NSMutableArray array];
-//        
-//        for (int j = 0; j < arr.count; j++)
-//        {
-//            
-//            selecdType *data = [arr objectAtIndex:j];
-//            
-//            NSDictionary *dic = [myselfway entityToDictionary:data];
-//            
-//            [infoArr addObject:dic];
-//        }
-//        
-//        [newArr addObject:infoArr];
+    }
     
-//    }
-    
-
+    NSLog(@"%@", newArr);
 }
 
 
@@ -602,7 +613,7 @@
     
     data1.bigType = 0;
     
-    data1.workerType = 1;
+    data1.workerType = @"1";
     
     [elseArray addObject:data1];
     
@@ -612,7 +623,7 @@
     
     data2.bigType = 0;
     
-    data2.workerType = 2;
+    data2.workerType = @"2";
     
     [elseArray addObject:data2];
     
@@ -621,7 +632,7 @@
     
     data3.bigType = 0;
     
-    data3.workerType = 3;
+    data3.workerType = @"3";
     
     [elseArray addObject:data3];
     
@@ -661,7 +672,7 @@
     
     info0.type = 0;
     
-    info0.bigType = 1;
+    info0.bigType = @"1";
     
     [first addObject:info0];
     
@@ -670,9 +681,9 @@
     
     info1.name = @"描述:";
     
-    info1.type = 1;
+    info1.type = @"1";
     
-    info1.bigType = 1;
+    info1.bigType = @"1";
     
     [first addObject:info1];
     
@@ -683,9 +694,9 @@
     
     info2.data = @"选择项目类型";
     
-    info2.type = 10;            //type = 10   左右都是label类型的cell
+    info2.type = @"10";            //type = 10   左右都是label类型的cell
     
-    info2.bigType = 1;
+    info2.bigType = @"1";
     
     [first addObject:info2];
     
@@ -696,9 +707,9 @@
     
     info3.data = @"选择工作所在区域";
     
-    info3.type = 10;
+    info3.type = @"10";
     
-    info3.bigType = 1;
+    info3.bigType = @"1";
     
     [first addObject:info3];
     
@@ -713,7 +724,7 @@
     
     info4.type = 0;
     
-    info4.bigType = 1;
+    info4.bigType = @"1";
     
     [first addObject:info4];
     
@@ -741,7 +752,7 @@
     
     data1.bigType = 0;
     
-    data1.workerType = 1;
+    data1.workerType = @"1";
     
     
     
@@ -753,7 +764,7 @@
     
     data2.bigType = 0;
     
-    data2.workerType = 2;
+    data2.workerType = @"2";
     
     [elseArray addObject:data2];
     
@@ -789,7 +800,7 @@
     
     selecdType *data = [arr objectAtIndex:row];
 
-    if (data.bigType == 1)
+    if ([data.bigType isEqualToString:@"1"])
     {
         firstModel *model = (firstModel *)data;
         
@@ -817,42 +828,6 @@
             model.endTime = textfield.text;
         }
     }
-    
-    
-    
-//    NSArray *arr = [dataArray objectAtIndex:0];
-//    
-//    selecdType *data = [arr objectAtIndex:0];
-//    
-//    if (data.bigType == 1)
-//    {
-//        firstModel *info = (firstModel *)data;
-//        
-//        selecdType *data1 = [arr objectAtIndex:4];
-//        
-//        firstModel *info1 = (firstModel *)data1;
-//        
-//        if (textfield.tag == 600)
-//        {
-//            info.bigData = textfield.text;
-//        }
-//        else
-//        {
-//            info1.bigData = textfield.text;
-//        }
-//    }
-//    else
-//    {
-//        NSMutableArray *Array = [dataArray objectAtIndex:textfield.tag - 1000];
-//        
-//        selecdType *data = [Array objectAtIndex:1];
-//        
-//        elseModel *model = (elseModel *)data;
-//        
-//        model.personNum = textfield.text;
-//        
-//    }
-    
 
 }
 
@@ -874,6 +849,7 @@
 //调出工种列表
 - (void)addWorker: (NSIndexPath *)index
 {
+    
     NSArray *arr = [dataArray objectAtIndex:index.section];
     
     selecdType *data = [arr objectAtIndex:0];
@@ -905,6 +881,23 @@
 }
 
 
+//所在区域的代理方法， 获取r_id
+- (void)post3Level: (NSString *)city_id1 city_name1:(NSString *)name city_id2:(NSString *)city_id city_name2:(NSString *)city_name2 city_id2:(NSString *)city_id2 city_name3:(NSString *)city_name3
+{
+    
+    adree = city_name3;
+    adree_id = city_id2;
+    
+    NSArray *arr = [dataArray objectAtIndex:0];
+    selecdType *data = [arr objectAtIndex:3];
+    firstModel *model = (firstModel *)data;
+    
+    model.name_id = adree_id;
+    model.data = adree;
+
+    [self.tableview reloadData];
+    
+}
 
 
 - (void)didReceiveMemoryWarning

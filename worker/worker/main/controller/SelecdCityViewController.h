@@ -10,4 +10,8 @@
 
 @interface SelecdCityViewController : BaseViewController
 
+
+@property (nonatomic, strong)NSMutableArray *dataArray;
+@property (nonatomic, strong)NSMutableArray *EnglishArray;
+
 @end

@@ -62,10 +62,7 @@
         [_tableview registerClass:[OneTableViewCell class] forCellReuseIdentifier:@"cell"];
         
         _tableview.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
-        
-        
-        _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
-        _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
+    
         
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -74,10 +71,10 @@
         
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make)
          {
-             make.top.mas_equalTo(self.view).offset(44 + StatusBarHeigh);
+             make.top.mas_equalTo(self.view).offset(84 + StatusBarHeigh);
              make.left.mas_equalTo(self.view).offset(0);
              make.right.mas_equalTo(self.view).offset(0);
-             make.bottom.mas_equalTo(self.view).offset(SCREEN_HEIGHT - 44 - StatusBarHeigh);
+             make.bottom.mas_equalTo(self.view).offset(SCREEN_HEIGHT - 84 - StatusBarHeigh);
          }];
     }
     
@@ -108,7 +105,7 @@
     
     [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    cell.favoriteBtn.tag = 700 + indexPath.section;
+    cell.favoriteBtn.hidden = YES;
     
     cell.leftBtn.tag = 100 + indexPath.section;
     cell.centerBtn.tag = 200 + indexPath.section;
@@ -137,16 +134,27 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0;
+    return 10;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
     
+    return view;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
     
-    
+    return view;
 }
 
 

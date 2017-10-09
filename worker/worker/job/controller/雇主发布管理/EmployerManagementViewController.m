@@ -93,7 +93,7 @@
     
     [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    cell.favoriteBtn.tag = 700 + indexPath.section;
+    cell.favoriteBtn.hidden = YES;
     
     cell.leftBtn.tag = 100 + indexPath.section;
     cell.centerBtn.tag = 200 + indexPath.section;
@@ -134,6 +134,20 @@
     
 }
 
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
 
 #pragma type的view
 - (void)initTypeView

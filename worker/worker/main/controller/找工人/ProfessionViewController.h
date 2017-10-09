@@ -10,4 +10,9 @@
 
 @interface ProfessionViewController : BaseViewController
 
+@property (nonatomic)CGFloat longitudeWor;
+@property (nonatomic)CGFloat latitudeWor;
+
+@property (nonatomic, strong)NSString *cityID;
+
 @end
