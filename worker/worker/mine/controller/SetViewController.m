@@ -10,6 +10,7 @@
 #import "SetTableViewCell.h"
 #import "MessageViewController.h"
 #import "BoundPhoneViewController.h"
+#import "WeViewController.h"
 
 @interface SetViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -27,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    dataArray = [NSMutableArray arrayWithObjects:@"手机绑定",@"清除缓存", @"消息提示", nil];
+    dataArray = [NSMutableArray arrayWithObjects:@"手机绑定",@"清除缓存", @"消息提示",@"关于我们", nil];
     
     [self addhead:@"设置"];
     
@@ -112,7 +113,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 2)
+    if (section == 3)
     {
         return 70;
     }
@@ -170,6 +171,12 @@
         
         [self.navigationController pushViewController:temp animated:YES];
     }
+    else if (indexPath.section == 3)
+    {
+        WeViewController *temp = [[WeViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
     
 }
 
@@ -179,7 +186,7 @@
 {
     UIView *footview = [[UIView alloc] init];
     
-    if (section == 2)
+    if (section == 3)
     {
         UIButton *save = [UIButton buttonWithType:UIButtonTypeSystem];
         
@@ -209,7 +216,44 @@
 //退出登录
 - (void)Escbtn
 {
-    NSLog(@"退出");
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认安全退出？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
+                      {
+                          
+                      }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                      {
+                          
+                          //多用户登录缓存使用
+                          
+//                          NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//
+//                          [Singleton instance].dataPath = [NSString stringWithFormat:@"%@/User", pathDocuments];
+//
+//                          NSString *path = [[Singleton instance].dataPath stringByAppendingPathComponent:@"userName.plist"];
+//
+//                          NSMutableArray *arr = [NSMutableArray arrayWithContentsOfFile:path];
+//
+//                          NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//
+//                          [dic setValue:@"defaultUser" forKey:@"phone"];
+//
+//                          [arr insertObject:dic atIndex:0];
+//
+//                          [arr writeToFile:path atomically:YES];
+                          
+                          
+                          [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"u_id"];
+                          
+                          [self.delegate Sussecc];
+                          
+                          
+                          [self.navigationController popViewControllerAnimated:YES];
+                          
+                      }]];
+    
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 

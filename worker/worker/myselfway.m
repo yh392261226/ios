@@ -178,4 +178,34 @@
     
 }
 
+
+
++ (NSString *)userPath
+{
+    NSString *user;
+    
+    NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    [Singleton instance].dataPath = [NSString stringWithFormat:@"%@/User", pathDocuments];
+    
+    NSString *path = [[Singleton instance].dataPath stringByAppendingPathComponent:@"userName.plist"];
+    
+    NSMutableArray *userArr = [NSMutableArray arrayWithContentsOfFile:path];
+    
+    NSDictionary *dic = [userArr objectAtIndex:0];
+    
+    if ([[dic objectForKey:@"phone"] isKindOfClass:[NSString class]])
+    {
+        user = [dic objectForKey:@"phone"];
+    }
+    else if ([[dic objectForKey:@"phone"] isKindOfClass:[NSNumber class]])
+    {
+        user = [[dic objectForKey:@"phone"] stringValue];
+    }
+    
+    
+    return user;
+    
+}
+
 @end

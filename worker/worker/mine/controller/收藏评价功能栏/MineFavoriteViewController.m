@@ -53,7 +53,7 @@
     
     NSMutableArray *nameArr;   //类型上的view名字数组,传给自定义view
     
-    NSInteger type;   //判断是收藏工人， 还是收藏工作
+    NSInteger typeOr;   //判断是收藏工人， 还是收藏工作
 }
 
 
@@ -70,9 +70,10 @@
     
     dataArray = [NSMutableArray array];
     workerArray = [NSMutableArray array];
-    type = 0;
     
-    [self getdata];
+    typeOr = 1;
+    
+    [self getWorkerdata];
     
     nameArr = [NSMutableArray arrayWithObjects:@"收藏的工作", @"收藏的工人", nil];
     
@@ -118,7 +119,15 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return dataArray.count;
+    if (typeOr == 0)
+    {
+        return dataArray.count;
+    }
+    else
+    {
+        return workerArray.count;
+    }
+    
 }
 
 
@@ -132,16 +141,61 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    WorkerMessTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (typeOr == 1)
+    {
+        workerFavoData *data = [workerArray objectAtIndex:indexPath.section];
+        
+        
+        WorkerMessTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        
+        cell.state.hidden = YES;
+        
+        cell.distance.hidden = YES;
+        
+        [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteYes"] forState:UIControlStateNormal];
+        
+        cell.favoriteBtn.tag = 300 + indexPath.section;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+        cell.title.text = data.t_title;
+        cell.details.text = [NSString stringWithFormat:@"%@ 元/天", data.t_amount];
+        
+        cell.introduce.text = data.t_duration;
+        
+        return cell;
+    }
+    else
+    {
+        
+        favoriteData *data = [dataArray objectAtIndex:indexPath.section];
+        
+        WorkerMessTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        
+        cell.state.hidden = YES;
+        
+        cell.distance.hidden = YES;
+        
+        [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteYes"] forState:UIControlStateNormal];
+        
+        [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.favoriteBtn.tag = 300 + indexPath.section;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+        
+        
+        
+        
+        return cell;
+    }
     
-    [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    cell.favoriteBtn.tag = 300 + indexPath.section;
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -208,15 +262,20 @@
     
     if (i == 0)
     {
-        type = 0;   //状态
+        typeOr = 1;   //状态
         
-        [self getdata];
+        [self getWorkerdata];
+        
+        
     }
     else
     {
-        type = 1;
         
-        [self getWorkerdata];
+        typeOr = 0;
+        
+        [self getdata];
+        
+        
     }
 }
 
@@ -236,7 +295,8 @@
 //收藏的工人
 - (void)getdata
 {
-    NSString *url = [NSString stringWithFormat:@"%@Users_favorate/tasks?u_id=%@", baseUrl, user_ID];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/favorateUsers?u_id=%@", baseUrl, @"2"];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -270,6 +330,8 @@
                  [dataArray addObject:data];
              }
              
+             
+             
              [self.tableview reloadData];
              
              
@@ -292,7 +354,7 @@
 - (void)getWorkerdata
 {
     
-    NSString *url = [NSString stringWithFormat:@"%@Users/favorateTasks?u_id=%@", baseUrl, user_ID];
+    NSString *url = [NSString stringWithFormat:@"%@Users/favorateTasks?u_id=%@", baseUrl, @"2"];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -324,6 +386,8 @@
                  
                  [workerArray addObject:data];
              }
+             
+             
              
              [self.tableview reloadData];
              

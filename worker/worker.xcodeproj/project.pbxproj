@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7214EA681F7F68FE00ADC7E3 /* packetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7214EA671F7F68FE00ADC7E3 /* packetViewController.m */; };
 		7214EA6B1F7F6A0100ADC7E3 /* packetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7214EA6A1F7F6A0100ADC7E3 /* packetTableViewCell.m */; };
+		722565E61F8CAF0700FFD262 /* WeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722565E51F8CAF0700FFD262 /* WeViewController.m */; };
+		724B48B21F8B1706005DED1C /* discountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B48B11F8B1706005DED1C /* discountViewController.m */; };
 		9034A1169F3D004D73422530 /* libPods-workerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1F10145795CF94D2603748 /* libPods-workerUITests.a */; };
 		9A4E47774D86A37BFCDC317C /* libPods-workerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47CF5FEACEC1393A60B87D /* libPods-workerTests.a */; };
 		AD02FD82877B50F9BA7F2EE9 /* libPods-worker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7643CA759AC79643AC0EEDC /* libPods-worker.a */; };
@@ -218,6 +220,10 @@
 		7214EA671F7F68FE00ADC7E3 /* packetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = packetViewController.m; sourceTree = "<group>"; };
 		7214EA691F7F6A0100ADC7E3 /* packetTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = packetTableViewCell.h; sourceTree = "<group>"; };
 		7214EA6A1F7F6A0100ADC7E3 /* packetTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = packetTableViewCell.m; sourceTree = "<group>"; };
+		722565E41F8CAF0700FFD262 /* WeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeViewController.h; sourceTree = "<group>"; };
+		722565E51F8CAF0700FFD262 /* WeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeViewController.m; sourceTree = "<group>"; };
+		724B48B01F8B1706005DED1C /* discountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = discountViewController.h; sourceTree = "<group>"; };
+		724B48B11F8B1706005DED1C /* discountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = discountViewController.m; sourceTree = "<group>"; };
 		75A1E32B57AD3D54EE9A9353 /* Pods-workerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-workerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-workerUITests/Pods-workerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8B01216A04274A3E9541D2C5 /* Pods-workerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-workerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-workerUITests/Pods-workerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8BE55178E65C1E141E4DE270 /* Pods-workerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-workerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-workerTests/Pods-workerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1136,6 +1142,10 @@
 				FB7FA5B11F32F80C0096F6F2 /* 收藏评价功能栏 */,
 				7214EA661F7F68FE00ADC7E3 /* packetViewController.h */,
 				7214EA671F7F68FE00ADC7E3 /* packetViewController.m */,
+				724B48B01F8B1706005DED1C /* discountViewController.h */,
+				724B48B11F8B1706005DED1C /* discountViewController.m */,
+				722565E41F8CAF0700FFD262 /* WeViewController.h */,
+				722565E51F8CAF0700FFD262 /* WeViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1714,6 +1724,7 @@
 				FB55C7CD1F67DD2E00ED8733 /* WorkerProTableViewCell.m in Sources */,
 				7214EA681F7F68FE00ADC7E3 /* packetViewController.m in Sources */,
 				FB85801B1F4294CA0085BAF1 /* MoneyDetailTableViewCell.m in Sources */,
+				722565E61F8CAF0700FFD262 /* WeViewController.m in Sources */,
 				FB4C33B41F5FC0EB005D0747 /* PartyBdismissViewController.m in Sources */,
 				FB5D87EC1F30227100830F89 /* JobViewController.m in Sources */,
 				FB5DEC631F61290A00008EA5 /* PartyRefuseViewController.m in Sources */,
@@ -1791,6 +1802,7 @@
 				FB3D89F71F581CEA00864E8B /* RemoveCardViewController.m in Sources */,
 				FB7703381F4148F20028EB84 /* EdirAddTableViewCell.m in Sources */,
 				FB64B3391F457E89001418D1 /* listTableView.m in Sources */,
+				724B48B21F8B1706005DED1C /* discountViewController.m in Sources */,
 				FB64B33A1F457E89001418D1 /* mainlistTableViewCell.m in Sources */,
 				FB2581D21F39590200BE510F /* WorkerManagementViewController.m in Sources */,
 				FBBEFA351F4986A200B19C9D /* WorkerViewController.m in Sources */,
@@ -1983,6 +1995,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = worker/worker.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HU35988BP4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/worker/workerobject.pch";
@@ -1991,6 +2005,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gangjian.first.worker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -2000,6 +2015,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = worker/worker.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HU35988BP4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/worker/workerobject.pch";
@@ -2008,6 +2025,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gangjian.first.worker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

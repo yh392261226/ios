@@ -1,15 +1,15 @@
 //
-//  packetViewController.m
+//  discountViewController.m
 //  worker
 //
-//  Created by sd on 2017/9/30.
+//  Created by sd on 2017/10/9.
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
-#import "packetViewController.h"
+#import "discountViewController.h"
 #import "packetTableViewCell.h"
 
-@interface packetViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface discountViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;
 }
@@ -18,12 +18,14 @@
 
 @end
 
-@implementation packetViewController
+@implementation discountViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
-    [self addhead:@"我的红包"];
+    
+    [self addhead:@"我的抵价券"];
     
     dataArray = [NSMutableArray array];
     [dataArray addObject:@"1"];
@@ -32,7 +34,9 @@
     
     [self tableview];
     
+    
 }
+
 
 
 - (UITableView *)tableview
@@ -114,19 +118,13 @@
 }
 
 
-//领取红包的按钮
+//领取抵价券的按钮
 - (void)drawBtn: (id)sender
 {
     UIButton *btn = (UIButton *)sender;
     
     NSLog(@"%ld", btn.tag);
 }
-
-
-
-
-
-
 
 
 

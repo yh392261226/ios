@@ -10,12 +10,10 @@
 
 @interface BFirstAnsViewController ()<BMKMapViewDelegate, BMKLocationServiceDelegate>
 {
+    
     NSMutableArray *dataArray;
     
     UIView *backview;    //页面下方的view
-    
-    
-    
     
     UIButton *icon;   //头像
     UILabel *name;     //名字
@@ -31,6 +29,7 @@
     UILabel *blueLab;  //蓝点右面的文字
     
     UIButton *yes;   //溜达看看按钮
+    
 }
 
 @property (nonatomic, strong)BMKMapView *mapView;

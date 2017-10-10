@@ -22,6 +22,7 @@
 #import "FriendViewController.h"
 #import "SetPasswordViewController.h"
 #import "packetViewController.h"
+#import "discountViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -65,10 +66,7 @@
     if (!_tableview)
     {
         _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 65) style:UITableViewStylePlain];
-        
-//        _tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
-//        _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)];
-        
+    
         [_tableview registerClass:[MineLoginTableViewCell class] forCellReuseIdentifier:@"logincell"];
         [_tableview registerClass:[MineScrTableViewCell class] forCellReuseIdentifier:@"scrcell"];
         [_tableview registerClass:[MineMoneyTableViewCell class] forCellReuseIdentifier:@"moneycell"];
@@ -109,13 +107,81 @@
 
     if (indexPath.section == 0)
     {
+        
         MineLoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"logincell"];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        [cell.loginBtn addTarget:self action:@selector(loginBtn) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.loginBtn.hidden = YES;
+        cell.introduce.hidden = YES;
+        cell.userName.hidden = YES;
+        cell.userImage.hidden = YES;
+        cell.isstate.hidden = YES;
+        cell.typeButton.hidden = YES;
+        cell.textL.hidden = YES;
+        
+        //未登录状态
+        if ([user_ID isEqualToString:@"0"])
+        {
+            [cell.loginBtn addTarget:self action:@selector(loginBtn) forControlEvents:UIControlEventTouchUpInside];
+            
+            cell.IconImage.image = [UIImage imageNamed:@"job_icon"];
+            
+            cell.loginBtn.hidden = NO;
+            cell.introduce.hidden = NO;
+
+            
+            
+        }
+        else
+        {
+            
+            cell.userName.hidden = NO;
+            cell.userImage.hidden = NO;
+            cell.isstate.hidden = NO;
+            cell.typeButton.hidden = NO;
+            cell.textL.hidden = NO;
+            
+            
+            [cell.typeButton addTarget:self action:@selector(swiBtn:) forControlEvents:UIControlEventValueChanged];
+            
+            cell.userName.text = user_name;
+            
+            if ([user_online isEqualToString:@"1"])
+            {
+                cell.typeButton.on = YES;
+            }
+            else
+            {
+                cell.typeButton.on = NO;
+            }
+            
+            
+            
+            
+            NSURL *url = [NSURL URLWithString:user_ima];
+            
+            [cell.IconImage sd_setImageWithURL:url];
+            
+            
+            if ([user_sex isEqualToString:@"1"])
+            {
+                cell.userImage.image = [UIImage imageNamed:@"job_man"];
+            }
+            else
+            {
+                cell.userImage.image = [UIImage imageNamed:@"job_woman"];
+            }
+            
+        }
+        
+        
+        
+        
         
         return cell;
+        
     }
     else if(indexPath.section == 1)
     {
@@ -196,40 +262,56 @@
     
     self.hidesBottomBarWhenPushed = YES;
     
-    if (indexPath.section == 5)
+    if (![user_ID isEqualToString:@"0"])
     {
-        ServiceViewController *temp = [[ServiceViewController alloc] init];
+        if (indexPath.section == 5)
+        {
+            ServiceViewController *temp = [[ServiceViewController alloc] init];
+            
+            [self.navigationController pushViewController:temp animated:YES];
+        }
         
-        [self.navigationController pushViewController:temp animated:YES];
+        else if (indexPath.section == 4)
+        {
+            FriendViewController *temp = [[FriendViewController alloc] init];
+            
+            [self.navigationController pushViewController:temp animated:YES];
+        }
+        else if(indexPath.section == 6)
+        {
+            SetViewController *temp = [[SetViewController alloc] init];
+            
+            temp.delegate = self;
+            
+            [self.navigationController pushViewController:temp animated:YES];
+        }
+        else if(indexPath.section == 7)
+        {
+            
+            NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"15045281940"];
+            
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            
+        }
+        else if(indexPath.section == 3)
+        {
+            SetPasswordViewController *temp = [[SetPasswordViewController alloc] init];
+            
+            [self.navigationController pushViewController:temp animated:YES];
+        }
+    }
+    else
+    {
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        temp.delegate = self;
+        
+        [self presentViewController:temp animated:YES completion:nil];
     }
     
-    else if (indexPath.section == 4)
-    {
-        FriendViewController *temp = [[FriendViewController alloc] init];
-        
-        [self.navigationController pushViewController:temp animated:YES];
-    } 
-    else if(indexPath.section == 6)
-    {
-        SetViewController *temp = [[SetViewController alloc] init];
-        
-        [self.navigationController pushViewController:temp animated:YES];
-    }
-    else if(indexPath.section == 7)
-    {
-        
-        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"15045281940"];
-        
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-       
-    }
-    else if(indexPath.section == 3)
-    {
-        SetPasswordViewController *temp = [[SetPasswordViewController alloc] init]; 
-        
-        [self.navigationController pushViewController:temp animated:YES];
-    }
+    
+    
     
     
     
@@ -329,34 +411,47 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     
-    if (val == 900)
+    if (![user_ID isEqualToString:@"0"])
     {
-        
-        MineFavoriteViewController *temp = [[MineFavoriteViewController alloc] init];
-        
-        [self.navigationController pushViewController:temp animated:YES];
-        
-    }
-    else if (val == 901)
-    {
-        EvaluateViewController *temp = [[EvaluateViewController alloc] init];
-        
-        [self.navigationController pushViewController:temp animated:YES];
-    }
-    else if (val == 902)
-    {
-        MineMoneyViewController *temp = [[MineMoneyViewController alloc] init];
-        
-        [self.navigationController pushViewController:temp animated:YES];
+        if (val == 900)
+        {
+            
+            MineFavoriteViewController *temp = [[MineFavoriteViewController alloc] init];
+            
+            [self.navigationController pushViewController:temp animated:YES];
+            
+        }
+        else if (val == 901)
+        {
+            EvaluateViewController *temp = [[EvaluateViewController alloc] init];
+            
+            [self.navigationController pushViewController:temp animated:YES];
+        }
+        else if (val == 902)
+        {
+            MineMoneyViewController *temp = [[MineMoneyViewController alloc] init];
+            
+            [self.navigationController pushViewController:temp animated:YES];
+        }
+        else
+        {
+            
+            MineMessViewController *temp = [[MineMessViewController alloc] init];
+            
+            [self.navigationController pushViewController:temp animated:YES];
+            
+        }
     }
     else
     {
+        LoginViewController *temp = [[LoginViewController alloc] init];
         
-        MineMessViewController *temp = [[MineMessViewController alloc] init];
+        temp.delegate = self;
         
-        [self.navigationController pushViewController:temp animated:YES];
-    
+        [self presentViewController:temp animated:YES completion:nil];
     }
+    
+    
     
     self.hidesBottomBarWhenPushed = NO;
 }
@@ -366,21 +461,41 @@
 - (void)temMoney: (NSInteger)index
 {
     self.hidesBottomBarWhenPushed = YES;
-    if (index == 800)
+    
+    
+    if (![user_ID isEqualToString:@"0"])
     {
-        packetViewController *temp = [[packetViewController alloc] init];
         
-        [self.navigationController pushViewController:temp animated:YES];
+        if (index == 800)
+        {
+            packetViewController *temp = [[packetViewController alloc] init];
+            
+            [self.navigationController pushViewController:temp animated:YES];
+            
+        }
+        else if (index == 801)
+        {
+            discountViewController *temp = [[discountViewController alloc] init];
+            
+            [self.navigationController pushViewController:temp animated:YES];
+            
+        }
+        else
+        {
+            NSLog(@"3");
+        }
         
-    }
-    else if (index == 801)
-    {
-        NSLog(@"2");
     }
     else
     {
-        NSLog(@"3");
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        temp.delegate = self;
+        
+        [self presentViewController:temp animated:YES completion:nil];
     }
+    
+    
     self.hidesBottomBarWhenPushed = NO;
 }
 
@@ -392,12 +507,32 @@
     
     LoginViewController *temp = [[LoginViewController alloc] init];
     
+    temp.delegate = self;
+    
     [self presentViewController:temp animated:YES completion:nil];
     
     self.hidesBottomBarWhenPushed = NO;
 }
 
 
+//切换状态
+- (void)swiBtn: (UISwitch *)swi
+{
+    if (swi.on == YES)
+    {
+        NSLog(@"开");
+    }
+    else
+    {
+        NSLog(@"关");
+    }
+}
+
+//登录成功的代理方法
+- (void)Sussecc
+{
+    [self.tableview reloadData];
+}
 
 
 

@@ -63,6 +63,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+
     EnglishArray = [NSMutableArray array];
     cityArray = [NSMutableArray array];
     

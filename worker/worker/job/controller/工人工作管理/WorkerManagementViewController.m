@@ -36,7 +36,7 @@
     [dataArray addObject:@"1"];
     [dataArray addObject:@"1"];
     
-    nameArr = [NSMutableArray arrayWithObjects:@"全部", @"洽谈中", @"进行中", @"已结束", nil];
+    nameArr = [NSMutableArray arrayWithObjects:@"全部", @"空闲中", @"洽谈中", @"工作中", nil];
     
     
     [self addhead:@"工人工作管理"];

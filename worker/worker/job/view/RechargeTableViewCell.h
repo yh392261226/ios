@@ -13,7 +13,7 @@
 
 
 @property (nonatomic, strong)UITextField *textfield;
-@property (nonatomic, strong)UIImageView *logoimage;
+@property (nonatomic, strong)UILabel *logoimage;
 @property (nonatomic, strong)UIView *line;
 
 @end
