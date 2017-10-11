@@ -12,6 +12,7 @@ target 'worker' do
     pod 'JPush', '3.0.2'
     pod 'YYKit'
     pod 'FMDB'
+    pod 'WechatOpenSDK'
     
     # U-Share SDK UI模块（分享面板，建议添加）
     pod 'UMengUShare/UI'

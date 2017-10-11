@@ -9,7 +9,20 @@
 #import "BaseViewController.h"
 
 
+@protocol TransmitVal
+
+
+
+
+
+@end
+
+
 @interface DressingWorkerViewController : BaseViewController
+
+
+
+@property (nonatomic, strong) id <TransmitVal> delegate;
 
 
 

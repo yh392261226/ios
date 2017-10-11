@@ -10,10 +10,31 @@
 #import "DressworkerUITableViewCell.h"
 #import "DressTableViewCell.h"
 
+@interface DressWorkerData1 : NSObject
+
+@property (nonatomic, strong)NSString *s_id;
+@property (nonatomic, strong)NSString *s_name;
+@property (nonatomic, strong)NSString *s_info;
+@property (nonatomic, strong)NSString *s_desc;
+@property (nonatomic, strong)NSString *s_status;
+
+
+@property (nonatomic, strong)NSString *s_image;
+
+
+@end
+
+@implementation DressWorkerData1
+
+
+@end
+
 
 @interface DressingWorkerViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
     NSMutableArray *dataArray;
+    
+    NSMutableArray *gongzhongArr;   //传给后台的工种名称数组
     
     NSMutableArray *nameArr;
     
@@ -26,9 +47,17 @@
     NSString *proType;   //项目类型
     NSString *worker;    //选择工种
     
-    NSArray *rangeArray;   //搜索范围的数组
-    NSArray *projectArray;  //选择工期的数组
+    NSMutableArray *rangeArray;   //搜索范围的数组
+    NSMutableArray *projectArray;  //选择工期的数组
+    NSMutableArray *moneyArray;    //工资金额的数组
+    NSMutableArray *timeArray;     //项目开始时间数组
     
+    
+    
+    
+    
+    NSMutableArray *workerArray;   //工种数组
+    NSMutableArray *projectTypeArray;    //项目类型数组
     
 }
 
@@ -42,7 +71,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    rangeArray = [NSArray arrayWithObjects:@"2公里以内", @"5公里以内", @"10公里以内", @"10公里以上", nil];
+    workerArray = [NSMutableArray array];
+    projectArray = [NSMutableArray array];
+    gongzhongArr = [NSMutableArray array];
+    
+    rangeArray = [NSMutableArray arrayWithObjects:@"2公里以内", @"5公里以内", @"10公里以内", @"10公里以上", nil];
+    projectArray = [NSMutableArray arrayWithObjects:@"2日内",@"五日内",@"十日内",@"一个月内",@"一个月以上", nil];
+    moneyArray = [NSMutableArray arrayWithObjects:@"500元以内",@"1000元以内",@"2000元以内",@"2000元以上", nil];
+    timeArray = [NSMutableArray arrayWithObjects:@"1天内",@"3天内",@"一周内",@"两周内",@"两周以上", nil];
+    
     
     dataArray = [NSMutableArray array];
     
@@ -53,11 +90,13 @@
     [dataArray addObject:@"1"];
     [dataArray addObject:@"1"];
     
+    
+    
     [self addhead:@"工作信息筛选"];
     
     [self tableview];
     
-    
+    [self getWorkerdata];
     
     UIButton *Mess = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -272,7 +311,129 @@
     
     if (indexPath.section == 0)
     {
-        [self initAlert:dataArray title:[nameArr objectAtIndex:indexPath.row - 1] type:indexPath.row];
+        if (indexPath.row == 1)
+        {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"搜索范围" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertController addAction:cancelAction];
+            
+            for (int i = 0; i < rangeArray.count; i++)
+            {
+                UIAlertAction *action = [UIAlertAction actionWithTitle:[rangeArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                         {
+                                             range = action.title;
+                                             
+                                             [self.tableview reloadData];
+                                         }];
+                
+                [alertController addAction:action];
+            }
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+        }
+        else if (indexPath.row == 2)
+        {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择工期" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertController addAction:cancelAction];
+            
+            for (int i = 0; i < projectArray.count; i++)
+            {
+                UIAlertAction *action = [UIAlertAction actionWithTitle:[projectArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                         {
+                                             project = action.title;
+                                             
+                                             [self.tableview reloadData];
+                                         }];
+                
+                [alertController addAction:action];
+            }
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        else if (indexPath.row == 3)
+        {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"工资金额" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertController addAction:cancelAction];
+            
+            for (int i = 0; i < moneyArray.count; i++)
+            {
+                UIAlertAction *action = [UIAlertAction actionWithTitle:[moneyArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                         {
+                                             money = action.title;
+                                             
+                                             [self.tableview reloadData];
+                                         }];
+                
+                [alertController addAction:action];
+            }
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        else if (indexPath.row == 4)
+        {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"项目时间" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertController addAction:cancelAction];
+            
+            for (int i = 0; i < timeArray.count; i++)
+            {
+                UIAlertAction *action = [UIAlertAction actionWithTitle:[timeArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                         {
+                                             time = action.title;
+                                             
+                                             [self.tableview reloadData];
+                                         }];
+                
+                [alertController addAction:action];
+            }
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        else if (indexPath.row == 6)
+        {
+            [gongzhongArr removeAllObjects];
+            
+            for (int i = 0; i < workerArray.count; i++)
+            {
+                DressWorkerData1 *data = [workerArray objectAtIndex:i];
+                
+                [gongzhongArr addObject:data.s_name];
+            }
+            
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择工种" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertController addAction:cancelAction];
+            
+            for (int i = 0; i < gongzhongArr.count; i++)
+            {
+                UIAlertAction *action = [UIAlertAction actionWithTitle:[gongzhongArr objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                         {
+                                             worker = action.title;
+                                             
+                                             [self.tableview reloadData];
+                                         }];
+                
+                [alertController addAction:action];
+            }
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+        }
+        
     }
     
     
@@ -381,15 +542,16 @@
 //搜索按钮
 - (void)MessBtn
 {
-    NSLog(@"搜索");
+    
 }
 
 
 
-- (void)getdata
+//获取工种列表网络请求
+- (void)getWorkerdata
 {
     
-    NSString *url = @"";
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Skills/index"];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -399,39 +561,42 @@
      {
          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
          
-         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
+             NSArray *arr = [dictionary objectForKey:@"data"];
              
-             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dic = [arr objectAtIndex:i];
+                 
+                 DressWorkerData1 *data = [[DressWorkerData1 alloc] init];
+                 
+                 data.s_id = [dic objectForKey:@"s_id"];
+                 data.s_desc = [dic objectForKey:@"s_desc"];
+                 data.s_info = [dic objectForKey:@"s_info"];
+                 data.s_name = [dic objectForKey:@"s_name"];
+                 data.s_status = [dic objectForKey:@"s_status"];
+                 
+                 [workerArray addObject:data];
+                 
+                 
+             }
              
-             NSLog(@"%@", dic);
-             
-             NSString *mess = [dic objectForKey:@"msg"];
              
              
-             
-             [SVProgressHUD showInfoWithStatus:mess];
              
          }
-         else
-         {
-             
-             
-             
-         }
          
          
          
-     }
-         failure:^(NSURLSessionDataTask *task, NSError *error)
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
      {
+         
          
      }];
     
     
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

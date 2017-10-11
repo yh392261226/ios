@@ -10,6 +10,7 @@
 #import "WorkerMessTableViewCell.h"
 #import "DressingViewController.h"
 #import "AmapWorkerViewController.h"
+#import "LoginViewController.h"
 
 
 @interface ListWorData : NSObject
@@ -116,7 +117,11 @@
     cell.favoriteBtn.tag = 500 + indexPath.section;
     
     cell.title.text = data.u_true_name;
-    cell.details.text = data.uei_info;
+    cell.introduce.text = data.uei_info;
+    
+    
+    
+    cell.details.hidden = YES;
     
     
     if ([data.u_task_status isEqualToString:@"0"])
@@ -210,7 +215,20 @@
 //cell上收藏按钮的点击
 - (void)favoriteBtn: (UIButton *)btn
 {
-    NSLog(@"%ld", btn.tag);
+    if ([user_ID isEqualToString:@"0"])
+    {
+        self.hidesBottomBarWhenPushed = YES;
+        
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+        
+        self.hidesBottomBarWhenPushed = NO;
+    }
+    else
+    {
+        //收藏接口
+    }
 }
 
 

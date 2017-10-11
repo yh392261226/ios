@@ -862,11 +862,9 @@
     
     PersonDataClass *info99 = [[PersonDataClass alloc] init];
     info99.typeInf = 0;
-    info99.name = @"户口所在地:";
+    info99.name = @"详细地址:";
     info99.data = addmodel.uei_address;
     [dataArray addObject:info99];
-    
-    
     
     
     
@@ -989,7 +987,7 @@
     
     PersonDataClass *info99 = [[PersonDataClass alloc] init];
     info99.typeInf = 0;
-    info99.name = @"户口所在地:";
+    info99.name = @"详细地址:";
     info99.data = addmodel.uei_address;
     [writeArray addObject:info99];
     

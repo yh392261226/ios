@@ -28,6 +28,18 @@
 @property (nonatomic, strong)NSString *t_phone_status;
 @property (nonatomic, strong)NSString *t_desc;
 
+@property (nonatomic, strong)NSString *tew_id;
+@property (nonatomic, strong)NSString *tew_skills;
+@property (nonatomic, strong)NSString *tew_worker_num;
+@property (nonatomic, strong)NSString *tew_price;
+@property (nonatomic, strong)NSString *tew_start_time;
+@property (nonatomic, strong)NSString *tew_end_time;
+@property (nonatomic, strong)NSString *r_province;
+@property (nonatomic, strong)NSString *r_city;
+@property (nonatomic, strong)NSString *r_area;
+@property (nonatomic, strong)NSString *tew_address;
+@property (nonatomic, strong)NSString *tew_lock;
+@property (nonatomic, strong)NSString *favorate;
 
 @property (nonatomic, strong)NSString *t_imageUrl;
 @end

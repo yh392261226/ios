@@ -266,7 +266,6 @@
     
     if (indexPath.section == 0)
     {
-
        
         ProfessionViewController *temp = [[ProfessionViewController alloc] init];
         temp.longitudeWor = longitude;
