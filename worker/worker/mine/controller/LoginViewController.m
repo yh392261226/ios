@@ -20,6 +20,8 @@
     
     NSString *user;   //用户信息， 存到本地
     
+    NSMutableArray *nameArrPlist;     //用户存往plist的数组
+    
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -32,8 +34,7 @@
 {
     [super viewDidLoad];
     
-    [self cacheUser];
-    
+    nameArrPlist = [NSMutableArray array];
     dataArray = [NSMutableArray array];
 
     [self initHeadView];
@@ -540,11 +541,26 @@
             
             NSDictionary *dic = [dictionary objectForKey:@"data"];
             
-            NSLog(@"%@", dic);
+            NSLog(@"%@", [dic objectForKey:@"msg"]);
             
-            user = [dic objectForKey:@"user_ID"];
+            //储存账户
+            [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_id"] forKey:@"u_id"];
+            [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_img"] forKey:@"u_img"];
+            [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_name"] forKey:@"u_name"];
+            [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_online"] forKey:@"u_online"];
+            [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_sex"] forKey:@"u_sex"];
             
-            [self cacheUser];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            
+            [self.delegate Sussecc];
+            
+        //多账号登录用， 做用户信息缓存
+      //  [self cacheUser:dic];
             
             
             
@@ -569,12 +585,84 @@
 
 
 //用户信息缓存
-- (void)cacheUser
+- (void)cacheUser: (NSDictionary *)userDic
 {
-    //储存账户
-    [[NSUserDefaults standardUserDefaults] setObject:@"2" forKey:@"user_ID"];
+
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
     
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    [Singleton instance].dataPath = [NSString stringWithFormat:@"%@/User", pathDocuments];
+    
+    
+    NSString *str = [NSString stringWithFormat:@"%@/%@", [Singleton instance].dataPath, [userDic objectForKey:@"u_id"]];
+    
+    
+     //判断文件夹是否存在，如果不存在，则创建
+    if (![[NSFileManager defaultManager] fileExistsAtPath:str])
+    {
+        [fileManager createDirectoryAtPath:str withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+
+    else
+    {
+
+    }
+    
+    //存储本地用户数据
+    NSString *userInfo = [str stringByAppendingPathComponent:@"Info.plist"];
+    
+    [userDic writeToFile:userInfo atomically:YES];
+    
+    
+    
+    //获取本地的账号路径
+    
+    NSString *filePath = [[Singleton instance].dataPath stringByAppendingPathComponent:@"userName.plist"];
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithContentsOfFile:filePath];
+    
+    
+    
+    if (arr.count == 0)
+    {
+        //记录登录过的账号的数据
+        
+        NSMutableDictionary *dicInfo = [NSMutableDictionary dictionary];
+        
+        [dicInfo setValue:[userDic objectForKey:@"u_id"] forKey:@"phone"];
+        
+        [nameArrPlist insertObject:dicInfo atIndex:0];
+        
+        [nameArrPlist writeToFile:filePath atomically:YES];
+        
+    }
+    else
+    {
+        
+        NSMutableArray *newArr = [NSMutableArray array];
+        
+        for (int i = 0; i < arr.count; i++)
+        {
+            NSDictionary *userdddDic = [arr objectAtIndex:i];
+            
+            [newArr addObject:userdddDic];
+        }
+        
+        NSMutableDictionary *dicInfo = [NSMutableDictionary dictionary];
+        
+        [dicInfo setValue:[userDic objectForKey:@"u_id"] forKey:@"phone"];
+        
+        [newArr insertObject:dicInfo atIndex:0];
+        
+        [newArr writeToFile:filePath atomically:YES];
+        
+    }
+    
+    
+    
+    
+   
     
 }
 

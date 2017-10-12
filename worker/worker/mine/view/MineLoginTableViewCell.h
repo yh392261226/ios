@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong)UIImageView *isstate;    //用户信息状态
 
-@property (nonatomic, strong)UIImageView *typeButton;  //用户状态开关按钮
+@property (nonatomic, strong)UISwitch *typeButton;  //用户状态开关按钮
+
+@property (nonatomic, strong)UILabel *textL;          //公开信息字样
 
 @end

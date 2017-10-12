@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol loginSussecc <NSObject>
+
+- (void)Sussecc;
+
+@end
+
+
 @interface LoginViewController : UIViewController
+
+
+@property (nonatomic, strong)id <loginSussecc> delegate;
 
 @end

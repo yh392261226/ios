@@ -16,8 +16,9 @@
     
     if (self)
     {
-        _logoimage = [[UIImageView alloc] init];
-        _logoimage.backgroundColor = [UIColor orangeColor];
+        _logoimage = [[UILabel alloc] init];
+        _logoimage.text = @"￥";
+        _logoimage.font = [UIFont systemFontOfSize:20];
         [self.contentView addSubview:_logoimage];
         
         
@@ -27,11 +28,7 @@
         _textfield.keyboardType = UIKeyboardTypeNumberPad;
         [_textfield setValue:[UIFont boldSystemFontOfSize:17] forKeyPath:@"_placeholderLabel.font"];
         [self.contentView addSubview:_textfield];
-        
-        _line = [[UIView alloc] init];
-        _line.backgroundColor = [myselfway stringTOColor:@"0x808080"];
-        _line.frame = CGRectMake(20, 39, SCREEN_WIDTH - 40, 1);
-        [self.contentView addSubview:_line];
+    
         
     }
     
@@ -54,7 +51,7 @@
     
     [_textfield mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.left.mas_equalTo(_logoimage).offset(35);
+         make.left.mas_equalTo(_logoimage).offset(25);
          make.top.mas_equalTo(self.contentView).offset(5);
          make.height.mas_equalTo(30);
          make.width.mas_equalTo(200);

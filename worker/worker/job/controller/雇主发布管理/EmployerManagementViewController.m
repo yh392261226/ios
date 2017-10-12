@@ -46,6 +46,13 @@
     [self initTypeView];
     
     [self initDraft];
+    
+    
+    //网络请求
+    [self getdata:@"0"];
+    
+    
+    
 }
 
 
@@ -263,6 +270,41 @@
     
 }
 
+
+
+//任务数据网络请求
+- (void)getdata: (NSString *)t_status
+{
+ //   http://api.gangjianwang.com/Tasks/index?t_status=0
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Regions/index?action=letter"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSDictionary *tem = [dictionary objectForKey:@"data"];
+             
+             
+             
+             
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

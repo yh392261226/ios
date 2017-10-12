@@ -10,6 +10,8 @@
 
 @interface packetTableViewCell : UITableViewCell
 
+
+@property (nonatomic, strong)UIView *backview;
 @property (nonatomic, strong)UILabel *money;
 @property (nonatomic, strong)UILabel *text;
 @property (nonatomic, strong)UILabel *time;

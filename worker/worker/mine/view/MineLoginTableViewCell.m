@@ -54,6 +54,36 @@
         
         
         
+        _userName = [[UILabel alloc] init];
+        
+        _userName.font = [UIFont systemFontOfSize:15];
+        
+        [self.contentView addSubview:_userName];
+        
+        
+        _userImage = [[UIImageView alloc] init];
+        
+        [self.contentView addSubview:_userImage];
+        
+        
+        _typeButton = [[UISwitch alloc] init];
+        
+        
+        [self.contentView addSubview:_typeButton];
+        
+        
+        _isstate = [[UIImageView alloc] init];
+        
+        _isstate.image = [UIImage imageNamed:@"mine_kuangkuang"];
+        
+        [self.contentView addSubview:_isstate];
+        
+        
+        _textL = [[UILabel alloc] init];
+        _textL.textColor = [UIColor grayColor];
+        _textL.font = [UIFont systemFontOfSize:10];
+        _textL.text = @"公开信息";
+        [self.contentView addSubview:_textL];
         
     }
     
@@ -64,6 +94,14 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    [_userName mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.centerY.mas_equalTo(self.contentView);
+        make.left.mas_equalTo(_IconImage).offset(60);
+        make.height.mas_equalTo(30);
+        make.width.mas_equalTo(150);
+    }];
     
     [_loginBtn mas_makeConstraints:^(MASConstraintMaker *make)
     {
@@ -77,9 +115,47 @@
      {
          make.left.mas_equalTo(_loginBtn).offset(105);
          make.centerY.mas_equalTo(self.contentView);
-         make.width.mas_equalTo(100);
+         make.width.mas_equalTo(120);
          make.height.mas_equalTo(25);
      }];
+    
+    
+    [_userImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.mas_equalTo(self.contentView);
+        make.left.mas_equalTo(_userName).offset(135);
+        make.height.mas_equalTo(20);
+        make.width.mas_equalTo(20);
+    }];
+    
+    
+    [_typeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.mas_equalTo(self.contentView);
+        make.right.mas_equalTo(self.contentView).offset(0);
+        make.height.mas_equalTo(28);
+        make.width.mas_equalTo(70);
+    }];
+    
+    
+    [_isstate mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.mas_equalTo(self.contentView);
+        make.right.mas_equalTo(_typeButton).offset(-75);
+        make.height.mas_equalTo(50);
+        make.width.mas_equalTo(55);
+    }];
+    
+    
+    [_textL mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_isstate).offset(10);
+        make.left.mas_equalTo(_isstate).offset(5);
+        make.right.mas_equalTo(_isstate).offset(-5);
+        make.bottom.mas_equalTo(_isstate).offset(-10);
+    }];
+    
+    
+    
 }
 
 

@@ -22,4 +22,7 @@
 //十六进制转二进制
 + (NSString *)getBinaryByhex:(NSString *)hex;
 
+//获取本地用户，判断是否登录
++ (NSString *)userPath;
+
 @end

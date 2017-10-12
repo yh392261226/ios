@@ -39,9 +39,9 @@
     
     dataArray = [NSMutableArray array];
     
-    nameArray = [NSMutableArray arrayWithObjects:@"微信支付",@"支付宝支付", @"银行卡支付",  nil];
+    nameArray = [NSMutableArray arrayWithObjects:@"微信支付",@"支付宝支付",  nil];
     
-    imageArray = [NSMutableArray arrayWithObjects:@"job_wechat", @"job_alipay", @"job_yinhang", nil];
+    imageArray = [NSMutableArray arrayWithObjects:@"job_wechat", @"job_alipay", nil];
     
     [self addhead:@"充值"];
     
@@ -49,20 +49,10 @@
     
     [self tableview];
     
-    [self initOneLine];
+    
 }
 
-//加载一条黑线
-- (void)initOneLine
-{
-    UIView *line = [[UIView alloc] init];
-    
-    line.frame = CGRectMake(0, 64, SCREEN_WIDTH, 1);
-    
-    line.backgroundColor = [myselfway stringTOColor:@"0x808080"];
-    
-    [self.view addSubview:line];
-}
+
 
 #pragma tableview 代理方法
 
@@ -77,7 +67,7 @@
         
         _tableview.separatorStyle = NO;
         
-        _tableview.backgroundColor = [UIColor whiteColor];
+        _tableview.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
         
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -133,11 +123,13 @@
        
        cell.name.text = [nameArray objectAtIndex:indexPath.row];
        
-       cell.selecd.backgroundColor = [UIColor orangeColor];
+       cell.selecd.image = [UIImage imageNamed:@"job_back"];
+       
+       NSLog(@"%ld", indexPath.row);
        
        if (indexPath.row == paySelecd)
        {
-           cell.selecd.backgroundColor = [UIColor greenColor];
+           cell.selecd.image = [UIImage imageNamed:@"job_dd"];
        }
        
        
@@ -182,10 +174,10 @@
     {
         name.text = @"支付方式";
         
-        UIView *line = [[UIView alloc] init];
-        line.frame = CGRectMake(0, 29, SCREEN_WIDTH, 1);
-        line.backgroundColor = [myselfway stringTOColor:@"0x808080"];
-        [view addSubview:line];
+//        UIView *line = [[UIView alloc] init];
+//        line.frame = CGRectMake(0, 29, SCREEN_WIDTH, 1);
+//        line.backgroundColor = [myselfway stringTOColor:@"0x808080"];
+//        [view addSubview:line];
     }
     
     name.textAlignment = NSTextAlignmentLeft;

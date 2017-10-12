@@ -124,6 +124,19 @@
         cell.state.image = [UIImage imageNamed:@"main_state6"];
     }
     
+    
+    
+    if (model.favorate == NULL)
+    {
+        [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteNO"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteYes"] forState:UIControlStateNormal];
+    }
+    
+    
+    
     NSURL *url = [NSURL URLWithString:model.t_imageUrl];
     
     [cell.IconBtn sd_setImageWithURL:url];
@@ -253,6 +266,19 @@
                  data.t_status = [dic objectForKey:@"t_status"];
                  data.t_phone = [dic objectForKey:@"t_phone"];
                  data.t_phone_status = [dic objectForKey:@"t_pho ne_status"];
+                 data.t_desc = [dic objectForKey:@"t_desc"];
+                 data.favorate = [dic objectForKey:@"favorate"];
+                 data.tew_id = [dic objectForKey:@"tew_id"];
+                 data.tew_lock = [dic objectForKey:@"tew_lock"];
+                 data.tew_skills = [dic objectForKey:@"tew_skills"];
+                 data.tew_worker_num = [dic objectForKey:@"tew_worker_num"];
+                 data.tew_price = [dic objectForKey:@"tew_price"];
+                 data.tew_start_time = [dic objectForKey:@"tew_start_time"];
+                 data.tew_end_time = [dic objectForKey:@"tew_end_time"];
+                 data.r_province = [dic objectForKey:@"r_province"];
+                 data.r_city = [dic objectForKey:@"r_city"];
+                 data.r_area = [dic objectForKey:@"r_area"];
+                 data.tew_address = [dic objectForKey:@"tew_address"];
                  
                  [dataArray addObject:data];
                  

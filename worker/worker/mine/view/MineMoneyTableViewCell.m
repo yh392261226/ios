@@ -20,7 +20,7 @@
         
         [self.dataArray addObject:@"mine_redpacket"];
         [self.dataArray addObject:@"mine_ roll"];
-        [self.dataArray addObject:@"mine_ integral"];
+       // [self.dataArray addObject:@"mine_ integral"];
         
         
         for (int i = 0; i < self.dataArray.count; i++)

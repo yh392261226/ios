@@ -11,7 +11,7 @@
 #import "listTableView.h"
 
 
-#define num 3
+#define num 2
 
 
 @interface DressWorkerData : NSObject
@@ -83,9 +83,11 @@
     
     pyte = 0;
     
-    typeArr = [NSMutableArray arrayWithObjects:@"空闲", @"洽谈中", @"工作中", nil];
+    typeArr = [NSMutableArray arrayWithObjects:@"空闲", @"工作中", nil];
+
     
-    [self getdata];
+    //获取工种列表的网络请求
+//    [self getdata];
     
     
     [self addhead:@"工人信息筛选"];
@@ -155,7 +157,7 @@
 {
     if (section == 0)
     {
-        return 4;
+        return 3;
     }
     else
     {
@@ -291,7 +293,7 @@
             
              return cell;
         }
-        else if(indexPath.row == 2)
+        else
         {
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
@@ -323,38 +325,38 @@
             
             return cell;
         }
-        else
-        {
-            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            
-            if (!cell)
-            {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-                
-                UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 80, 30)];
-                
-                name.text = @"选择工种:";
-                
-                name.font = [UIFont systemFontOfSize:16];
-                
-                [cell addSubview:name];
-                
-                UITextField *data = [[UITextField alloc] initWithFrame:CGRectMake(100, 5, 200, 30)];
-                
-                data.font = [UIFont systemFontOfSize:16];
-
-                data.enabled = NO;
-                
-                data.text = worker;
-                
-                data.placeholder = @"点击选择";
-                
-                [cell addSubview:data];
-                
-            }
-            
-            return cell;
-        }
+//        else
+//        {
+//            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//
+//            if (!cell)
+//            {
+//                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+//
+//                UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 80, 30)];
+//
+//                name.text = @"选择工种:";
+//
+//                name.font = [UIFont systemFontOfSize:16];
+//
+//                [cell addSubview:name];
+//
+//                UITextField *data = [[UITextField alloc] initWithFrame:CGRectMake(100, 5, 200, 30)];
+//
+//                data.font = [UIFont systemFontOfSize:16];
+//
+//                data.enabled = NO;
+//
+//                data.text = worker;
+//
+//                data.placeholder = @"点击选择";
+//
+//                [cell addSubview:data];
+//
+//            }
+//
+//            return cell;
+//        }
         
         
     }
@@ -461,40 +463,41 @@
             
             
         }
-        else if (indexPath.row == 3)
-        {
-            
-            [newListArr removeAllObjects];
-            for (int i = 0; i < listArray.count; i++)
-            {
-                DressWorkerData *data = [listArray objectAtIndex:i];
-                
-                [newListArr addObject:data.s_name];
-            }
-            
-            
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择工种" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
-            
-            [alertController addAction:cancelAction];
-            
-            for (int i = 0; i < newListArr.count; i++)
-            {
-                UIAlertAction *action = [UIAlertAction actionWithTitle:[newListArr objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-                                         {
-                                             worker = action.title;
-                                             
-                                             [self.tableview reloadData];
-                                         }];
-                
-                [alertController addAction:action];
-            }
-            
-            [self presentViewController:alertController animated:YES completion:nil];
-            
-        }
+//        else if (indexPath.row == 3)
+//        {
+//
+//            [newListArr removeAllObjects];
         
+//            for (int i = 0; i < listArray.count; i++)
+//            {
+//                DressWorkerData *data = [listArray objectAtIndex:i];
+//
+//                [newListArr addObject:data.s_name];
+//            }
+//
+//
+//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择工种" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//
+//            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+//
+//            [alertController addAction:cancelAction];
+//
+//            for (int i = 0; i < newListArr.count; i++)
+//            {
+//                UIAlertAction *action = [UIAlertAction actionWithTitle:[newListArr objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+//                                         {
+//                                             worker = action.title;
+//
+//                                             [self.tableview reloadData];
+//                                         }];
+//
+//                [alertController addAction:action];
+//            }
+//
+//            [self presentViewController:alertController animated:YES completion:nil];
+//
+//        }
+//
     }
   
     
@@ -587,20 +590,20 @@
 //搜索按钮
 - (void)MessBtn
 {
-   // NSString *url = [NSString stringWithFormat:@"%@Tasks/index?skills=%@", baseUrl]
-    NSString *worker_ID;   //工种ID
-    
-    //获取工种ID
-    for (int i = 0; i < listArray.count; i++)
-    {
-        DressWorkerData *data = [listArray objectAtIndex:i];
-        
-        if ([data.s_name isEqualToString:worker])
-        {
-            worker_ID = data.s_id;
-        }
-        
-    }
+   
+//    NSString *worker_ID;   //工种ID
+//
+//    //获取工种ID
+//    for (int i = 0; i < listArray.count; i++)
+//    {
+//        DressWorkerData *data = [listArray objectAtIndex:i];
+//
+//        if ([data.s_name isEqualToString:worker])
+//        {
+//            worker_ID = data.s_id;
+//        }
+//
+//    }
     
     
     
@@ -623,7 +626,7 @@
 
 
 
-//获取工人列表数据请求
+//获取工人列表数据请求      //需求改动，暂时没用
 - (void)getdata
 {
     
