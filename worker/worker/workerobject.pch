@@ -28,6 +28,10 @@
 #import "MJRefresh.h"
 #import "AFNetworking.h"
 
+#import "WechatAuthSDK.h"
+#import "WXApi.h"
+#import "WXApiObject.h"
+
 #import "AFHTTPSessionManager.h"
 #import "UserInfoModel.h"
 #import "AFHTTPSessionManager.h"

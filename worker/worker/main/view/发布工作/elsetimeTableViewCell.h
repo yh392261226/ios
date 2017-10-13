@@ -16,4 +16,7 @@
 @property (nonatomic, strong)UITextField *startTime;
 @property (nonatomic, strong)UITextField *endTime;
 
+@property (nonatomic, strong)UIButton *start;
+@property (nonatomic, strong)UIButton *end;
+
 @end

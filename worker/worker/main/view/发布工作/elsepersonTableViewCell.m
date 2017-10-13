@@ -78,7 +78,7 @@
     [_moneyfield mas_makeConstraints:^(MASConstraintMaker *make)
     {
         make.right.mas_equalTo(_money).offset(-65);
-        make.top.mas_equalTo(self.contentView).offset(7);
+        make.top.mas_equalTo(self.contentView).offset(6);
         make.width.mas_equalTo(110);
         make.height.mas_equalTo(30);
     }];
@@ -97,7 +97,7 @@
     [_personfield mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.right.mas_equalTo(_person).offset(-25);
-         make.top.mas_equalTo(self.contentView).offset(7);
+         make.top.mas_equalTo(self.contentView).offset(6);
          make.width.mas_equalTo(107);
          make.height.mas_equalTo(30);
      }];

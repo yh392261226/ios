@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		720707F91F8F058800521B26 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 720707F81F8F058800521B26 /* libWeChatSDK.a */; };
+		720708041F8F13F000521B26 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 720708031F8F13F000521B26 /* libc++.tbd */; };
+		720708061F8F141C00521B26 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720708051F8F141C00521B26 /* CoreText.framework */; };
+		720708081F8F144C00521B26 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720708071F8F144C00521B26 /* CoreMotion.framework */; };
 		7214EA681F7F68FE00ADC7E3 /* packetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7214EA671F7F68FE00ADC7E3 /* packetViewController.m */; };
 		7214EA6B1F7F6A0100ADC7E3 /* packetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7214EA6A1F7F6A0100ADC7E3 /* packetTableViewCell.m */; };
 		722565E61F8CAF0700FFD262 /* WeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722565E51F8CAF0700FFD262 /* WeViewController.m */; };
+		723E28691F90539600666BCA /* IndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 723E28681F90539600666BCA /* IndentViewController.m */; };
+		723E286C1F908C1A00666BCA /* indent.m in Sources */ = {isa = PBXBuildFile; fileRef = 723E286B1F908C1A00666BCA /* indent.m */; };
 		724B48B21F8B1706005DED1C /* discountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B48B11F8B1706005DED1C /* discountViewController.m */; };
 		9034A1169F3D004D73422530 /* libPods-workerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1F10145795CF94D2603748 /* libPods-workerUITests.a */; };
 		9A4E47774D86A37BFCDC317C /* libPods-workerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47CF5FEACEC1393A60B87D /* libPods-workerTests.a */; };
@@ -216,12 +222,21 @@
 
 /* Begin PBXFileReference section */
 		5C1F10145795CF94D2603748 /* libPods-workerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-workerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		720707F81F8F058800521B26 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/OpenSDK1.8.0/libWeChatSDK.a; sourceTree = "<group>"; };
+		720708031F8F13F000521B26 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		720708051F8F141C00521B26 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		720708071F8F144C00521B26 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		720708091F8F146A00521B26 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = Pods/AlipaySDK_No_UTDID/IOS/AlipaySDK.framework; sourceTree = "<group>"; };
 		7214EA661F7F68FE00ADC7E3 /* packetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = packetViewController.h; sourceTree = "<group>"; };
 		7214EA671F7F68FE00ADC7E3 /* packetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = packetViewController.m; sourceTree = "<group>"; };
 		7214EA691F7F6A0100ADC7E3 /* packetTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = packetTableViewCell.h; sourceTree = "<group>"; };
 		7214EA6A1F7F6A0100ADC7E3 /* packetTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = packetTableViewCell.m; sourceTree = "<group>"; };
 		722565E41F8CAF0700FFD262 /* WeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeViewController.h; sourceTree = "<group>"; };
 		722565E51F8CAF0700FFD262 /* WeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeViewController.m; sourceTree = "<group>"; };
+		723E28671F90539600666BCA /* IndentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndentViewController.h; sourceTree = "<group>"; };
+		723E28681F90539600666BCA /* IndentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndentViewController.m; sourceTree = "<group>"; };
+		723E286A1F908C1A00666BCA /* indent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = indent.h; sourceTree = "<group>"; };
+		723E286B1F908C1A00666BCA /* indent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = indent.m; sourceTree = "<group>"; };
 		724B48B01F8B1706005DED1C /* discountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = discountViewController.h; sourceTree = "<group>"; };
 		724B48B11F8B1706005DED1C /* discountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = discountViewController.m; sourceTree = "<group>"; };
 		75A1E32B57AD3D54EE9A9353 /* Pods-workerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-workerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-workerUITests/Pods-workerUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -564,6 +579,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				720708081F8F144C00521B26 /* CoreMotion.framework in Frameworks */,
+				720708061F8F141C00521B26 /* CoreText.framework in Frameworks */,
+				720708041F8F13F000521B26 /* libc++.tbd in Frameworks */,
+				FB6F86981F346BA900806108 /* CFNetwork.framework in Frameworks */,
+				720707F91F8F058800521B26 /* libWeChatSDK.a in Frameworks */,
 				FB6F86A61F346C1000806108 /* libresolv.tbd in Frameworks */,
 				FB6F86A41F346C0500806108 /* UserNotifications.framework in Frameworks */,
 				FB6F86A21F346BF900806108 /* AdSupport.framework in Frameworks */,
@@ -574,7 +594,6 @@
 				FB3687891F2B21F9008E8387 /* CoreGraphics.framework in Frameworks */,
 				FB3687871F2B21ED008E8387 /* SystemConfiguration.framework in Frameworks */,
 				FB6F869A1F346BB300806108 /* CoreFoundation.framework in Frameworks */,
-				FB6F86981F346BA900806108 /* CFNetwork.framework in Frameworks */,
 				FB3687911F2B226F008E8387 /* libstdc++.6.0.9.tbd in Frameworks */,
 				FB36878F1F2B2236008E8387 /* CoreTelephony.framework in Frameworks */,
 				FB36878D1F2B2213008E8387 /* libsqlite3.0.tbd in Frameworks */,
@@ -607,6 +626,11 @@
 		50FDCCD7E1B0C0A8FF2BAAC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				720708091F8F146A00521B26 /* AlipaySDK.framework */,
+				720708071F8F144C00521B26 /* CoreMotion.framework */,
+				720708051F8F141C00521B26 /* CoreText.framework */,
+				720708031F8F13F000521B26 /* libc++.tbd */,
+				720707F81F8F058800521B26 /* libWeChatSDK.a */,
 				FB6F86A51F346C1000806108 /* libresolv.tbd */,
 				FB6F86A31F346C0500806108 /* UserNotifications.framework */,
 				FB6F86A11F346BF900806108 /* AdSupport.framework */,
@@ -1027,6 +1051,8 @@
 				FB0C13901F3AB96900A1C463 /* IssueViewController.m */,
 				FB7E59601F78E4F3005F3EB4 /* ThreeCityViewController.h */,
 				FB7E59611F78E4F3005F3EB4 /* ThreeCityViewController.m */,
+				723E28671F90539600666BCA /* IndentViewController.h */,
+				723E28681F90539600666BCA /* IndentViewController.m */,
 			);
 			path = "发布工作";
 			sourceTree = "<group>";
@@ -1060,6 +1086,8 @@
 			children = (
 				FB6F86521F3416C800806108 /* workerModel.h */,
 				FB6F86531F3416C800806108 /* workerModel.m */,
+				723E286A1F908C1A00666BCA /* indent.h */,
+				723E286B1F908C1A00666BCA /* indent.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1750,6 +1778,7 @@
 				FBAB094E1F3D4BFE004CB16D /* workerCollectionViewCell.m in Sources */,
 				FB5DEC6C1F61400900008EA5 /* PartyCommentViewController.m in Sources */,
 				FBA9BF691F662F7E00612B61 /* windowsView.m in Sources */,
+				723E286C1F908C1A00666BCA /* indent.m in Sources */,
 				FB14A15B1F569B5E0028282E /* draftViewController.m in Sources */,
 				FB8580151F42892D0085BAF1 /* MineMoneyViewController.m in Sources */,
 				FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */,
@@ -1784,6 +1813,7 @@
 				FB61EB5D1F6286FD00066A8A /* PartyClauseViewController.m in Sources */,
 				FBD7969E1F28874C00FA50BE /* BaseViewController.m in Sources */,
 				FB4F23121F593DEC00D8D7C6 /* BoundPhoneViewController.m in Sources */,
+				723E28691F90539600666BCA /* IndentViewController.m in Sources */,
 				FB5DEC5F1F60F14B00008EA5 /* ZLShowBigImgViewController.m in Sources */,
 				FB7FA59E1F32F75F0096F6F2 /* WorkerMessTableViewCell.m in Sources */,
 				FB5DEC691F61339C00008EA5 /* PartyBrefuseViewController.m in Sources */,
@@ -1998,11 +2028,19 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HU35988BP4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/AlipaySDK_No_UTDID/IOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/worker/workerobject.pch";
 				INFOPLIST_FILE = worker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/OpenSDK1.8.0",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gangjian.first.worker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2018,11 +2056,19 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HU35988BP4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/AlipaySDK_No_UTDID/IOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/worker/workerobject.pch";
 				INFOPLIST_FILE = worker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/OpenSDK1.8.0",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gangjian.first.worker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

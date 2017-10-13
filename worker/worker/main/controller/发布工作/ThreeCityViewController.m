@@ -154,7 +154,7 @@
     {
         //表示区列表点击
         
-      //  [self.delegate tempCityNum:data.r_id city_name:data.r_name];
+      
         
         [self.delegate post3Level:levelID1 city_name1:levelName1 city_id2:levelID2 city_name2:levelName2 city_id2:data.r_id city_name3:data.r_name];
         

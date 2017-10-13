@@ -289,6 +289,8 @@
     else
     {
         IssueViewController *temp = [[IssueViewController alloc] init];
+        temp.longitudeWor = longitude;
+        temp.latitudeWor = latitude;
         
         [self.navigationController pushViewController:temp animated:YES];
     }

@@ -10,8 +10,6 @@
 
 @protocol cityNumber
 
-//- (void)tempCityNum: (NSString *)city_id city_name:(NSString *)name;
-
 
 //获取省市区ID
 - (void)post3Level: (NSString *)city_id1 city_name1:(NSString *)name city_id2:(NSString *)city_id city_name2:(NSString *)city_name2 city_id2:(NSString *)city_id2 city_name3:(NSString *)city_name3;
