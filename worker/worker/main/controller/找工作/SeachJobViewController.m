@@ -25,6 +25,16 @@
     
     NSMutableArray *newArray;   // 缓存的数组
     
+    
+    
+    NSString *name1;
+    NSString *range1;
+    NSString *time1;
+    NSString *money1;
+    NSString *startTime1;
+    NSString *proType1;
+    NSString *worker1;
+    
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -124,9 +134,9 @@
         cell.state.image = [UIImage imageNamed:@"main_state6"];
     }
     
+    int myInt = [model.favorate intValue];
     
-    
-    if (model.favorate == NULL)
+    if (myInt == 0)
     {
         [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteNO"] forState:UIControlStateNormal];
     }
@@ -211,7 +221,7 @@
     
     DressingWorkerViewController *temp = [[DressingWorkerViewController alloc] init];
 
-    
+    temp.delegate = self;
     [self presentViewController:temp animated:YES completion:nil];
 }
 
@@ -228,7 +238,7 @@
 //网络请求
 - (void)getdata
 {
-    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=list", baseUrl];
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=list&u_id=%@", baseUrl, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -238,9 +248,9 @@
      {
          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
          
-         
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
+             [dataArray removeAllObjects];
              
              NSArray *arr = [dictionary objectForKey:@"data"];
              
@@ -359,11 +369,40 @@
     
     NSString *userInfo = [workerPath stringByAppendingPathComponent:@"listEmployer.plist"];
     
-
     [array writeToFile:userInfo atomically:YES];
     
-    
 }
+
+
+
+
+
+
+
+
+//筛选条件的代理
+- (void)DressWorkerData:(NSString *)name adree:(NSString *)adree proData:(NSString *)proData proMoney:(NSString *)proMoney proTime:(NSString *)proTime proType:(NSString *)proType proWorker:(NSString *)proWorker
+{
+    name1 = name;
+    range1 = adree;
+    time1 = proData;
+    money1 = proMoney;
+    startTime1 = proTime;
+    proType1 = proType;
+    worker1 = proWorker;
+    
+    [self getdata];
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

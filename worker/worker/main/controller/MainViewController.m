@@ -79,8 +79,11 @@
     [self tableview];
     
     [self hotdata];
+
+
     
 }
+
 
 //百度地图
 //- (void)initBaiduMap

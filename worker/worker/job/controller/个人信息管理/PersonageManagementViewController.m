@@ -164,6 +164,10 @@
     
     Hview.delegate = self;
     
+    NSURL *url = [NSURL URLWithString:user_ima];
+    
+    [Hview.Icon sd_setImageWithURL:url];
+    
     Hview.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:Hview];
@@ -824,7 +828,6 @@
 //制作数据类
 - (void)initUiData
 {
-
     PersonDataClass *info0 = [[PersonDataClass alloc] init];
     info0.typeInf = 0;
     info0.name = @"姓名:";
@@ -839,9 +842,13 @@
     {
         info1.data = @"女";
     }
-    else
+    else if([model.u_sex isEqualToString:@"1"])
     {
         info1.data = @"男";
+    }
+    else
+    {
+        info1.data = @"";
     }
     
     [dataArray addObject:info1];
@@ -887,7 +894,9 @@
     info7.typeInf = 0;
     info7.name = @"角色选择:";
     
-    if ([model.u_skills isEqualToString:@",,"] || [model.u_skills isEqualToString:@""])
+    
+    
+    if ([model.u_skills isEqualToString:@",,"] || [model.u_skills isEqualToString:@""] || [model.u_skills isEqualToString:@"0"])
     {
         info7.data = @"我不是工人";
     }
@@ -949,6 +958,13 @@
 //制作编辑信息的数据
 - (void)initEditData
 {
+    
+    level1 = addmodel.uei_province;
+    level2 = addmodel.uei_city;
+    level3 = addmodel.uei_area;
+    
+    
+    
     PersonDataClass *info0 = [[PersonDataClass alloc] init];
     info0.typeInf = 0;
     info0.name = @"姓名:";
@@ -967,6 +983,7 @@
     {
         info1.data = @"男";
     }
+    
     [writeArray addObject:info1];
     
     
@@ -1011,7 +1028,7 @@
     PersonDataClass *info7 = [[PersonDataClass alloc] init];
     info7.typeInf = @"4";
     info7.name = @"角色选择:";
-    if ([model.u_skills isEqualToString:@",,"] || [model.u_skills isEqualToString:@""])
+    if ([model.u_skills isEqualToString:@",,"] || [model.u_skills isEqualToString:@""] || [model.u_skills isEqualToString:@"0"])
     {
         info7.data = @"我不是工人";
         
@@ -1395,6 +1412,21 @@
 
     
     
+    //省市区ID为空的判断
+    if (level1 == nil)
+    {
+        level1 = @"0";
+    }
+    
+    if (level2 == nil)
+    {
+        level2 = @"0";
+    }
+    
+    if (level3 == nil)
+    {
+        level3 = @"0";
+    }
     
     NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Users/usersInfoEdit"];
     

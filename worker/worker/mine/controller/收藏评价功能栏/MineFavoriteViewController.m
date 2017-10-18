@@ -15,10 +15,12 @@
 
 @property (nonatomic, strong)NSString *u_id;
 @property (nonatomic, strong)NSString *u_sex;
-@property (nonatomic, strong)NSString *u_online;
-@property (nonatomic, strong)NSString *u_start;
-@property (nonatomic, strong)NSString *u_worked_num;
-@property (nonatomic, strong)NSString *f_id;
+@property (nonatomic, strong)NSString *uei_info;
+@property (nonatomic, strong)NSString *u_name;
+@property (nonatomic, strong)NSString *u_img;
+@property (nonatomic, strong)NSString *u_task_status;
+@property (nonatomic, strong)NSString *ucp_posit_x;
+@property (nonatomic, strong)NSString *ucp_posit_y;
 
 
 @end
@@ -35,6 +37,7 @@
 @property (nonatomic, strong)NSString *t_duration;
 @property (nonatomic, strong)NSString *t_author;
 @property (nonatomic, strong)NSString *t_status;
+@property (nonatomic, strong)NSString *u_img;
 
 
 @end
@@ -145,26 +148,38 @@
     {
         workerFavoData *data = [workerArray objectAtIndex:indexPath.section];
         
+        WorkerMessTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
-        WorkerMessTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!cell)
+        {
+            cell = [[WorkerMessTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+            
+            cell.state.hidden = YES;
+            
+            cell.distance.hidden = YES;
+            
+            cell.introduce.hidden = YES;
+            
+            [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteYes"] forState:UIControlStateNormal];
+            
+            cell.favoriteBtn.tag = 300 + indexPath.section;
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            
+            NSURL *url = [NSURL URLWithString:data.u_img];
+            
+            [cell.IconBtn sd_setImageWithURL:url];
+            
+            cell.title.text = data.t_title;
+            cell.details.text = [NSString stringWithFormat:@"%@ 元/天", data.t_amount];
+            
+            cell.introduce.text = data.t_duration;
+            
+        }
         
-        cell.state.hidden = YES;
-        
-        cell.distance.hidden = YES;
-        
-        [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteYes"] forState:UIControlStateNormal];
-        
-        cell.favoriteBtn.tag = 300 + indexPath.section;
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
-        cell.title.text = data.t_title;
-        cell.details.text = [NSString stringWithFormat:@"%@ 元/天", data.t_amount];
-        
-        cell.introduce.text = data.t_duration;
         
         return cell;
     }
@@ -173,24 +188,35 @@
         
         favoriteData *data = [dataArray objectAtIndex:indexPath.section];
         
-        WorkerMessTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        WorkerMessTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
-        cell.state.hidden = YES;
-        
-        cell.distance.hidden = YES;
-        
-        [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteYes"] forState:UIControlStateNormal];
-        
-        [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.favoriteBtn.tag = 300 + indexPath.section;
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
-        
-        
-        
+        if (!cell)
+        {
+            cell = [[WorkerMessTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+            
+            cell.state.hidden = YES;
+            
+            cell.distance.hidden = YES;
+            
+            cell.introduce.hidden = YES;
+            
+            [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteYes"] forState:UIControlStateNormal];
+            
+            [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
+            
+            cell.favoriteBtn.tag = 300 + indexPath.section;
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            
+            NSURL *url = [NSURL URLWithString:data.u_img];
+            
+            [cell.IconBtn sd_setImageWithURL:url];
+            
+            cell.title.text = data.u_name;
+            cell.details.text = data.uei_info;
+            
+        }
         
         return cell;
     }
@@ -296,7 +322,7 @@
 - (void)getdata
 {
     
-    NSString *url = [NSString stringWithFormat:@"%@Users/favorateUsers?u_id=%@", baseUrl, @"2"];
+    NSString *url = [NSString stringWithFormat:@"%@Users/favorateUsers?u_id=%@", baseUrl, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -312,20 +338,22 @@
              
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
-             NSArray *arr = [dic objectForKey:@"data"];
+             NSArray *otherArr = [dic objectForKey:@"data"];
              
-             for (int i = 0; i < arr.count; i++)
+             for (int i = 0; i < otherArr.count; i++)
              {
-                 NSDictionary *dic = [arr objectAtIndex:i];
+                 NSDictionary *dic = [otherArr objectAtIndex:i];
                  
                  favoriteData *data = [[favoriteData alloc] init];
                  
                  data.u_id = [dic objectForKey:@"u_id"];
                  data.u_sex = [dic objectForKey:@"u_sex"];
-                 data.u_start = [dic objectForKey:@"u_start"];
-                 data.u_online = [dic objectForKey:@"u_online"];
-                 data.u_worked_num = [dic objectForKey:@"u_worked_num"];
-                 data.f_id = [dic objectForKey:@"f_id"];
+                 data.uei_info = [dic objectForKey:@"uei_info"];
+                 data.u_name = [dic objectForKey:@"u_name"];
+                 data.u_img = [dic objectForKey:@"u_img"];
+                 data.u_task_status = [dic objectForKey:@"u_task_status"];
+                 data.ucp_posit_x = [dic objectForKey:@"ucp_posit_x"];
+                 data.ucp_posit_y = [dic objectForKey:@"ucp_posit_y"];
                  
                  [dataArray addObject:data];
              }
@@ -354,7 +382,7 @@
 - (void)getWorkerdata
 {
     
-    NSString *url = [NSString stringWithFormat:@"%@Users/favorateTasks?u_id=%@", baseUrl, @"2"];
+    NSString *url = [NSString stringWithFormat:@"%@Users/favorateTasks?u_id=%@", baseUrl, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -383,6 +411,7 @@
                  data.t_author = [dic objectForKey:@"t_author"];
                  data.t_status = [dic objectForKey:@"t_status"];
                  data.t_duration = [dic objectForKey:@"t_duration"];
+                 data.u_img = [dic objectForKey:@"u_img"];
                  
                  [workerArray addObject:data];
              }

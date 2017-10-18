@@ -17,7 +17,7 @@
 #import "ThreeCityViewController.h"
 #import "indent.h"
 #import "PreviewTableViewCell.h"
-
+#import "PriceTableview.h"
 
 @interface threModel : selecdType
 
@@ -56,7 +56,13 @@
 @interface IndentViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;
+    
+    UIControl *backControl;
+    
+    UIWindow *window;
 }
+
+@property (nonatomic, strong)PriceTableview *priceTable;
 
 @property (nonatomic, strong)UITableView *tableview;
 
@@ -69,12 +75,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view
     
+    window = [[UIApplication sharedApplication] keyWindow];
+    
     dataArray = [NSMutableArray arrayWithArray:self.modelArray];
     
-   
-    
-    
-    //dataArray = self.modelArray;
+ //   [self initMoney];
     
     
     [self initData];
@@ -82,6 +87,10 @@
     [self addhead:@"任务确认"];
     
     [self tableview];
+    
+    [self initbackCon];
+    
+    [self priceTable];
     
 }
 
@@ -190,6 +199,9 @@
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
+        cell.name.font = [UIFont systemFontOfSize:15];
+        cell.data.font = [UIFont systemFontOfSize:15];
+        
         cell.name.text = info.name;
         
         cell.data.textAlignment = NSTextAlignmentLeft;
@@ -209,6 +221,8 @@
         if (!cell)
         {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"2cell"];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             UILabel *top = [[UILabel alloc] init];
             top.textAlignment = NSTextAlignmentRight;
@@ -321,12 +335,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    selecdType *data = [dataArray objectAtIndex:indexPath.section];
-//
-//    if ([data.bigType isEqualToString:@"10"])
-//    {
-//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    }
+    NSArray *arr = [dataArray objectAtIndex:indexPath.section];
+    
+    selecdType *data = [arr objectAtIndex:indexPath.row];
+
+    if ([data.bigType isEqualToString:@"10"])
+    {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        backControl.hidden = NO;
+        _priceTable.hidden = NO;
+        
+    }
     
     
 }
@@ -454,25 +474,47 @@
 - (void)zhifuBtn
 {
     //支付
-    NSLog(@"支付");
+    
+    NSString *longitudeWor = [NSString stringWithFormat:@"%f", self.longitudeWor];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:longitudeWor forKey:@"longitudeWor"];
+    
+    
+    NSString *latitudeWor = [NSString stringWithFormat:@"%f", self.latitudeWor];
+    
+    NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
+    [dic1 setValue:latitudeWor forKey:@"latitudeWor"];
+    
+    
+    NSMutableDictionary *user = [NSMutableDictionary dictionary];
+    [user setValue:user_ID forKey:@"user_id"];
+    
+    
+    [self.postArray addObject:dic];
+    [self.postArray addObject:dic1];
+    [self.postArray addObject:user];
+    
+    
+    NSLog(@"%@", self.postArray);
 }
 
 
 //制作数据
 - (void)initData
 {
-    NSMutableArray *arr = [NSMutableArray array];
-    
-    threModel *data = [[threModel alloc] init];
-    
-    data.bigType = @"10";
-    
-    data.name = @"优惠券";
-    data.data = @"未使用优惠券";
-    
-    [arr addObject:data];
-    
-    [dataArray addObject:arr];
+//    NSMutableArray *arr = [NSMutableArray array];
+//
+//    threModel *data = [[threModel alloc] init];
+//
+//    data.bigType = @"10";
+//
+//    data.name = @"优惠券:";
+//    data.data = @"未使用优惠券";
+//    
+//    [arr addObject:data];
+//
+//    [dataArray addObject:arr];
     
     
     NSMutableArray *arr1 = [NSMutableArray array];
@@ -492,13 +534,47 @@
     
 }
 
+//背景
+- (void)initbackCon
+{
+    backControl = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT)];
+    backControl.hidden = YES;
+    [backControl addTarget:self action:@selector(deletebtn) forControlEvents:UIControlEventTouchUpInside];
+    backControl.backgroundColor = [UIColor colorWithWhite:0.7 alpha:0.5];
+    [window addSubview:backControl];
+    
+    
+}
+
+
+//背景的点击事件
+- (void)deletebtn
+{
+    backControl.hidden = YES;
+    _priceTable.hidden = YES;
+}
 
 
 
-
-
-
-
+- (PriceTableview *)priceTable
+{
+    if (!_priceTable)
+    {
+        _priceTable = [[PriceTableview alloc] initWithFrame:CGRectMake(0, 150, SCREEN_WIDTH, SCREEN_HEIGHT - 300) style:UITableViewStyleGrouped];
+        
+        _priceTable.hidden = YES;
+        
+        [backControl addSubview:_priceTable];
+        
+        
+        
+    }
+    
+    
+    
+    
+    return _priceTable;
+}
 
 
 
@@ -508,6 +584,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+
+
+
+
+
+
 
 
 

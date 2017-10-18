@@ -25,4 +25,10 @@
 //获取本地用户，判断是否登录
 + (NSString *)userPath;
 
+//输入两个时间戳，获取差值
++ (long long)getDurationStartTime:(NSString *)startTime endTime:(NSString *)endTime;
+
+//时间戳转化时间
++ (NSString *)timeWithTimeIntervalString:(NSString *)timeString;
+
 @end

@@ -139,6 +139,22 @@
 }
 
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    
+    return view;
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
+
 
 
 //收藏按钮
@@ -162,9 +178,24 @@
     
     
     [self dismissViewControllerAnimated:YES completion:nil];
+    
     [self.delegate success];
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

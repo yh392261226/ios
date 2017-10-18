@@ -29,16 +29,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 #import "IssueViewController.h"
 #import "lssueUserTableViewCell.h"
 #import "BriefTableViewCell.h"
@@ -308,6 +298,10 @@
                 
                 [cell.personfield addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
                 [cell.moneyfield addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
+                
+                
+                cell.personfield.keyboardType = UIKeyboardTypeNumberPad;
+                cell.moneyfield.keyboardType = UIKeyboardTypeNumberPad;
                 
                 cell.personfield.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"1"];
                 cell.moneyfield.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"2"];
@@ -929,7 +923,6 @@
 - (void)addWorker: (NSIndexPath *)index
 {
  
-    
     NSArray *arr = [dataArray objectAtIndex:index.section];
     
     selecdType *data = [arr objectAtIndex:0];
@@ -941,7 +934,6 @@
     UIAlertAction *Return = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
     
     [AlertController addAction:Return];
-    
     
     if (oneT == YES)
     {
@@ -1320,7 +1312,7 @@
 
 
 
-
+// http://api.gangjianwang.com/Tools/subTotal     //获取金钱的网络请求
 
 
 @end

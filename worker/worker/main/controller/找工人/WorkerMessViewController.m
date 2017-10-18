@@ -15,13 +15,14 @@
 
 @interface ListWorData : NSObject
 
-@property (nonatomic, strong)NSString *u_id;
 @property (nonatomic, strong)NSString *u_skills;
 @property (nonatomic, strong)NSString *uei_info;
 @property (nonatomic, strong)NSString *u_task_status;
 @property (nonatomic, strong)NSString *u_true_name;
 @property (nonatomic, strong)NSString *u_img;
-@property (nonatomic, strong)NSString *distance;
+@property (nonatomic, strong)NSString *ucp_posit_x;
+@property (nonatomic, strong)NSString *ucp_posit_y;
+@property (nonatomic, strong)NSString *is_fav;
 
 @end
 
@@ -37,6 +38,11 @@
 @interface WorkerMessViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;
+    
+    NSString *name1;     //代理传回来的名称数据
+    NSString *adree1;    //代理传回来的筛选范围数据
+    NSString *type1;     //代理传回来的工人状态数据
+    
 }
 
 
@@ -49,6 +55,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    name1 = @"";
+    adree1 = @"";
+    type1 = @"-1";
+
     
     dataArray = [NSMutableArray array];
     
@@ -59,11 +70,10 @@
     
     [self initScreenBtn];
     
- //   [self slitherBack:self.navigationController];
-    
-    
+//  [self slitherBack:self.navigationController];
     
     [self tableview];
+    
     
 }
 
@@ -128,13 +138,29 @@
     {
         cell.state.image = [UIImage imageNamed:@"main_state1"];
     }
-    else if ([data.u_task_status isEqualToString:@"1"])
-    {
-        cell.state.image = [UIImage imageNamed:@"main_state3"];
-    }
     else
     {
         cell.state.image = [UIImage imageNamed:@"main_state5"];
+    }
+    
+    
+    NSURL *url = [NSURL URLWithString:data.u_img];
+    
+    [cell.IconBtn sd_setImageWithURL:url];
+    
+    
+    
+    
+    
+    int fav = [data.is_fav intValue];
+    
+    if (fav == 0)
+    {
+        [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteNO"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [cell.favoriteBtn setImage:[UIImage imageNamed:@"main_favoriteYes"] forState:UIControlStateNormal];
     }
     
     
@@ -207,6 +233,8 @@
     
     DressingViewController *temp = [[DressingViewController alloc] init];
     
+    temp.delegate = self;
+    
     [self presentViewController:temp animated:YES completion:nil];
     
 }
@@ -234,9 +262,13 @@
 
 - (void)getdata
 {
-    //[SVProgressHUD showWithStatus:@"加载中..."];
+  //正确的，带城市id的
     
-    NSString *url = [NSString stringWithFormat:@"%@Users/getUsersBySkills?s_id=%@&users_posit_x=%f&users_posit_y=%f", baseUrl, self.worker_ID, self.longitude, self.latitude];
+  //  NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_skills=%@&u_name=%@&u_task_status=%@&uei_city=%@", baseUrl, self.worker_ID, name, type, self.city_id];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_skills=%@&u_true_name=%@&u_task_status=%@&fu_id=%@", baseUrl, self.worker_ID, name1, type1, user_ID];
+    
+    NSLog(@"%@", url);
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -248,6 +280,8 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 1)
          {
+             [dataArray removeAllObjects];
+             
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
              NSArray *arr = [dic objectForKey:@"data"];
@@ -257,13 +291,14 @@
                  NSDictionary *dicInfo = [arr objectAtIndex:i];
                  ListWorData *data = [[ListWorData alloc] init];
                  
-                 data.u_id = [dicInfo objectForKey:@"u_id"];
                  data.u_skills = [dicInfo objectForKey:@"u_skills"];
                  data.uei_info = [dicInfo objectForKey:@"uei_info"];
                  data.u_task_status = [dicInfo objectForKey:@"u_task_status"];
                  data.u_true_name = [dicInfo objectForKey:@"u_true_name"];
                  data.u_img = [dicInfo objectForKey:@"u_img"];
-                 data.distance = [dicInfo objectForKey:@"distance"];
+                 data.ucp_posit_x = [dicInfo objectForKey:@"ucp_posit_x"];
+                 data.ucp_posit_y = [dicInfo objectForKey:@"ucp_posit_y"];
+                 data.is_fav = [dicInfo objectForKey:@"is_fav"];
                  
                  [dataArray addObject:data];
              }
@@ -278,6 +313,25 @@
     
     
 }
+
+
+
+//筛选条件的代理方法
+- (void)dreessVal: (NSString *)name nameTy:(NSString *)type adree:(NSString *)adree
+{
+    name1 = name;
+    type1 = type;
+    adree1 = adree;
+    
+    [self getdata];
+}
+
+
+
+
+
+
+
 
 
 

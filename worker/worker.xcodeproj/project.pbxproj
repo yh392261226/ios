@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E6DD1FB1F96F28B00CE32E0 /* ModifyMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6DD1FA1F96F28B00CE32E0 /* ModifyMoneyViewController.m */; };
 		720707F91F8F058800521B26 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 720707F81F8F058800521B26 /* libWeChatSDK.a */; };
 		720708041F8F13F000521B26 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 720708031F8F13F000521B26 /* libc++.tbd */; };
 		720708061F8F141C00521B26 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720708051F8F141C00521B26 /* CoreText.framework */; };
@@ -14,6 +15,8 @@
 		7214EA681F7F68FE00ADC7E3 /* packetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7214EA671F7F68FE00ADC7E3 /* packetViewController.m */; };
 		7214EA6B1F7F6A0100ADC7E3 /* packetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7214EA6A1F7F6A0100ADC7E3 /* packetTableViewCell.m */; };
 		722565E61F8CAF0700FFD262 /* WeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722565E51F8CAF0700FFD262 /* WeViewController.m */; };
+		722E438C1F91ADA300225244 /* PriceTableview.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E438B1F91ADA300225244 /* PriceTableview.m */; };
+		722E438F1F91D88900225244 /* PriceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E438E1F91D88900225244 /* PriceTableViewCell.m */; };
 		723E28691F90539600666BCA /* IndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 723E28681F90539600666BCA /* IndentViewController.m */; };
 		723E286C1F908C1A00666BCA /* indent.m in Sources */ = {isa = PBXBuildFile; fileRef = 723E286B1F908C1A00666BCA /* indent.m */; };
 		724B48B21F8B1706005DED1C /* discountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B48B11F8B1706005DED1C /* discountViewController.m */; };
@@ -222,6 +225,8 @@
 
 /* Begin PBXFileReference section */
 		5C1F10145795CF94D2603748 /* libPods-workerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-workerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E6DD1F91F96F28B00CE32E0 /* ModifyMoneyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyMoneyViewController.h; sourceTree = "<group>"; };
+		6E6DD1FA1F96F28B00CE32E0 /* ModifyMoneyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyMoneyViewController.m; sourceTree = "<group>"; };
 		720707F81F8F058800521B26 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/OpenSDK1.8.0/libWeChatSDK.a; sourceTree = "<group>"; };
 		720708031F8F13F000521B26 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		720708051F8F141C00521B26 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -233,6 +238,10 @@
 		7214EA6A1F7F6A0100ADC7E3 /* packetTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = packetTableViewCell.m; sourceTree = "<group>"; };
 		722565E41F8CAF0700FFD262 /* WeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeViewController.h; sourceTree = "<group>"; };
 		722565E51F8CAF0700FFD262 /* WeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeViewController.m; sourceTree = "<group>"; };
+		722E438A1F91ADA300225244 /* PriceTableview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTableview.h; sourceTree = "<group>"; };
+		722E438B1F91ADA300225244 /* PriceTableview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTableview.m; sourceTree = "<group>"; };
+		722E438D1F91D88900225244 /* PriceTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTableViewCell.h; sourceTree = "<group>"; };
+		722E438E1F91D88900225244 /* PriceTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTableViewCell.m; sourceTree = "<group>"; };
 		723E28671F90539600666BCA /* IndentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndentViewController.h; sourceTree = "<group>"; };
 		723E28681F90539600666BCA /* IndentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndentViewController.m; sourceTree = "<group>"; };
 		723E286A1F908C1A00666BCA /* indent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = indent.h; sourceTree = "<group>"; };
@@ -500,7 +509,7 @@
 		FB7FA5B21F32F81F0096F6F2 /* MineMessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineMessViewController.h; sourceTree = "<group>"; };
 		FB7FA5B31F32F81F0096F6F2 /* MineMessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineMessViewController.m; sourceTree = "<group>"; };
 		FB7FA5B51F32F83F0096F6F2 /* SeachJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeachJobViewController.h; sourceTree = "<group>"; };
-		FB7FA5B61F32F83F0096F6F2 /* SeachJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeachJobViewController.m; sourceTree = "<group>"; };
+		FB7FA5B61F32F83F0096F6F2 /* SeachJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeachJobViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		FB7FA5B81F330EB60096F6F2 /* MessTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessTableViewCell.h; sourceTree = "<group>"; };
 		FB7FA5B91F330EB60096F6F2 /* MessTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessTableViewCell.m; sourceTree = "<group>"; };
 		FB8580131F42892D0085BAF1 /* MineMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineMoneyViewController.h; sourceTree = "<group>"; };
@@ -1053,6 +1062,8 @@
 				FB7E59611F78E4F3005F3EB4 /* ThreeCityViewController.m */,
 				723E28671F90539600666BCA /* IndentViewController.h */,
 				723E28681F90539600666BCA /* IndentViewController.m */,
+				6E6DD1F91F96F28B00CE32E0 /* ModifyMoneyViewController.h */,
+				6E6DD1FA1F96F28B00CE32E0 /* ModifyMoneyViewController.m */,
 			);
 			path = "发布工作";
 			sourceTree = "<group>";
@@ -1117,6 +1128,10 @@
 				FB75E8281F4E67F100140335 /* elseDelegateTableViewCell.m */,
 				FB4F230A1F58F25E00D8D7C6 /* NormalTableViewCell.h */,
 				FB4F230B1F58F25E00D8D7C6 /* NormalTableViewCell.m */,
+				722E438A1F91ADA300225244 /* PriceTableview.h */,
+				722E438B1F91ADA300225244 /* PriceTableview.m */,
+				722E438D1F91D88900225244 /* PriceTableViewCell.h */,
+				722E438E1F91D88900225244 /* PriceTableViewCell.m */,
 			);
 			path = "发布工作";
 			sourceTree = "<group>";
@@ -1739,6 +1754,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB64B3341F456CEF001418D1 /* DressTableViewCell.m in Sources */,
+				722E438F1F91D88900225244 /* PriceTableViewCell.m in Sources */,
 				FB20E6131F6A235E0085C606 /* BYesWorkerViewController.m in Sources */,
 				FB14A1521F56566D0028282E /* PasswordViewController.m in Sources */,
 				FB61EB511F6232EF00066A8A /* PersonTextviewTableViewCell.m in Sources */,
@@ -1782,6 +1798,7 @@
 				FB14A15B1F569B5E0028282E /* draftViewController.m in Sources */,
 				FB8580151F42892D0085BAF1 /* MineMoneyViewController.m in Sources */,
 				FB7FA5981F32F75F0096F6F2 /* MainViewController.m in Sources */,
+				6E6DD1FB1F96F28B00CE32E0 /* ModifyMoneyViewController.m in Sources */,
 				FBD3AA021F6E441C00921A88 /* BFirstAnsViewController.m in Sources */,
 				FBCAB43F1F5E802900921FBE /* DepositViewController.m in Sources */,
 				FB20E6101F6A16800085C606 /* BYesOrNoViewController.m in Sources */,
@@ -1803,6 +1820,7 @@
 				FB7703321F413DF50028EB84 /* EditCraftTableViewCell.m in Sources */,
 				FB14A1551F5660B10028282E /* SYPasswordView.m in Sources */,
 				FB0C138E1F3AA5E300A1C463 /* LoginTableViewCell.m in Sources */,
+				722E438C1F91ADA300225244 /* PriceTableview.m in Sources */,
 				FB2581D81F39594900BE510F /* PersonageManagementViewController.m in Sources */,
 				FB7BFAE11F57B462007BA843 /* RemovePhoneViewController.m in Sources */,
 				FBE30BDC1F4D7847001F5DFB /* elsetimeTableViewCell.m in Sources */,

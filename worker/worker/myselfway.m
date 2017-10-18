@@ -208,4 +208,50 @@
     
 }
 
+
+
++ (long long)getDurationStartTime:(NSString *)startTime endTime:(NSString *)endTime
+{
+    
+    if (startTime && endTime)
+    {
+        NSDateFormatter *strDateStr = [[NSDateFormatter alloc]init];
+        [strDateStr setDateFormat:@"YYYY-MM-dd"];
+        NSDate *startdate = [strDateStr dateFromString:startTime];
+        NSDate *enddate = [strDateStr dateFromString:endTime];
+        
+        //时间转时间戳的方法:
+        NSTimeInterval aTime = [enddate timeIntervalSinceDate:startdate];
+        
+        return (long long)aTime;
+    }
+    else
+    {
+        return -1;
+    }
+    
+}
+
+
++ (NSString *)timeWithTimeIntervalString:(NSString *)timeString
+{
+    //时间戳转化成时间
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setDateFormat:@"YYYY-MM-dd"];
+    
+    NSInteger time = [timeString integerValue];
+    
+    //以 1970/01/01 GMT为基准，然后过了secs秒的时间
+    NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:time];
+    
+    
+    
+    NSLog(@"时间戳转化时间 >>> %@",[stampFormatter stringFromDate:stampDate2]);
+    
+    return [stampFormatter stringFromDate:stampDate2];
+}
+
+
+
+
 @end

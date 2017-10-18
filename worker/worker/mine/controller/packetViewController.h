@@ -9,5 +9,8 @@
 #import "BaseViewController.h"
 
 @interface packetViewController : BaseViewController
+{
+    NSIndexPath *index;
+}
 
 @end
