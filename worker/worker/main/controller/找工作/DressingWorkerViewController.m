@@ -83,7 +83,7 @@
     
     dataArray = [NSMutableArray array];
     
-    nameArr = [NSMutableArray arrayWithObjects:@"搜索范围:",@"选择工期",@"工资金额", @"项目时间", @"项目类型", @"选择工种", nil];
+    nameArr = [NSMutableArray arrayWithObjects:@"搜索范围:",@"选择工期",@"工资金额", @"开始时间", @"项目类型", @"选择工种", nil];
     
     
     [dataArray addObject:@"1"];
@@ -470,78 +470,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-//重写alert
-- (void)initAlert: (NSMutableArray *)dataArrayAlert title: (NSString *)name type:(NSInteger)typpp
-{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:name preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alertController addAction:cancelAction];
-    
-    
-    for (int i = 0; i < dataArrayAlert.count; i++)
-    {
-        UIAlertAction *action = [UIAlertAction actionWithTitle:[dataArrayAlert objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-                                 {
-                                     if (typpp == 1)
-                                     {
-                                         range = action.title;
-                                     }
-                                     else if (typpp == 2)
-                                     {
-                                         project = action.title;
-                                     }
-                                     else if (typpp == 3)
-                                     {
-                                         money = action.title;
-                                     }
-                                     else if (typpp == 4)
-                                     {
-                                         time = action.title;
-                                     }
-                                     else if (typpp == 5)
-                                     {
-                                         proType = action.title;
-                                     }
-                                     else
-                                     {
-                                         worker = action.title;
-                                     }
-                                     
-                                     
-                                     [self.tableview reloadData];
-                                     
-                                 }];
-        
-        [alertController addAction:action];
-    }
-    
-    
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-    
-    
-}
-
-
-
-
-
 //搜索按钮
 - (void)MessBtn
 {
+    [self.delegate DressWorkerData:nameStr adree:range proData:project proMoney:money proTime:time proType:proType proWorker:worker];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 
@@ -567,6 +501,7 @@
              
              for (int i = 0; i < arr.count; i++)
              {
+                 
                  NSDictionary *dic = [arr objectAtIndex:i];
                  
                  DressWorkerData1 *data = [[DressWorkerData1 alloc] init];
@@ -579,11 +514,7 @@
                  
                  [workerArray addObject:data];
                  
-                 
              }
-             
-             
-             
              
          }
          

@@ -39,7 +39,7 @@
 @property (nonatomic, strong)NSString *r_area;
 @property (nonatomic, strong)NSString *tew_address;
 @property (nonatomic, strong)NSString *tew_lock;
-@property (nonatomic, strong)NSString *favorate;
+@property (nonatomic, strong)NSNumber *favorate;
 
 @property (nonatomic, strong)NSString *t_imageUrl;
 @end

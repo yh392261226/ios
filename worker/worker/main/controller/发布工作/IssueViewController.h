@@ -6,9 +6,20 @@
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
+
+
 #import "BaseViewController.h"
 
+
+
 @interface IssueViewController : BaseViewController
+
+
+
+@property (nonatomic)CGFloat longitudeWor;     //经度
+@property (nonatomic)CGFloat latitudeWor;      //维度
+
+
 
 @end
 

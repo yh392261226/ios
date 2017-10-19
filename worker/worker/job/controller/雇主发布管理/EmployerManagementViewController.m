@@ -6,10 +6,46 @@
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
+
+
+
 #import "EmployerManagementViewController.h"
 #import "TypeView.h"
 #import "OneTableViewCell.h"
 #import "draftViewController.h"
+
+@interface EmpDataModel : NSObject
+
+@property (nonatomic, strong)NSString *t_id;
+@property (nonatomic, strong)NSString *t_title;
+@property (nonatomic, strong)NSString *t_info;
+@property (nonatomic, strong)NSString *t_amount;
+@property (nonatomic, strong)NSString *t_duration;
+@property (nonatomic, strong)NSString *t_edit_amount;
+@property (nonatomic, strong)NSString *t_amount_edit_times;
+@property (nonatomic, strong)NSString *t_posit_x;
+@property (nonatomic, strong)NSString *t_posit_y;
+@property (nonatomic, strong)NSString *t_author;
+@property (nonatomic, strong)NSString *t_in_time;
+@property (nonatomic, strong)NSString *t_last_edit_time;
+@property (nonatomic, strong)NSString *t_last_editor;
+@property (nonatomic, strong)NSString *t_status;
+@property (nonatomic, strong)NSString *t_phone;
+@property (nonatomic, strong)NSString *t_phone_status;
+@property (nonatomic, strong)NSString *t_type;
+@property (nonatomic, strong)NSString *t_storage;
+@property (nonatomic, strong)NSString *bd_id;
+
+
+@end
+
+
+@implementation EmpDataModel
+
+
+@end
+
+
 
 @interface EmployerManagementViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -35,9 +71,7 @@
     [self slitherBack:self.navigationController];
     
     dataArray = [NSMutableArray array];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
+    
     
     nameArr = [NSMutableArray arrayWithObjects:@"全部", @"待联系", @"洽谈中", @"进行中", @"已结束", nil];
     
@@ -49,7 +83,7 @@
     
     
     //网络请求
-    [self getdata:@"0"];
+    [self getdata:@"99"];
     
     
     
@@ -96,11 +130,37 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    EmpDataModel *model = [dataArray objectAtIndex:indexPath.section];
+    
+    
     OneTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     [cell.favoriteBtn addTarget:self action:@selector(favoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     cell.favoriteBtn.hidden = YES;
+    cell.details.hidden = YES;
+    
+    cell.title.text = model.t_title;
+    cell.introduce.text = model.t_info;
+    
+
+    if ([model.t_status isEqualToString:@"0"])
+    {
+        cell.state.image = [UIImage imageNamed:@"main_state1"];
+    }
+    else if ([model.t_status isEqualToString:@"1"])
+    {
+        cell.state.image = [UIImage imageNamed:@"main_state3"];
+    }
+    else if ([model.t_status isEqualToString:@"2"])
+    {
+        cell.state.image = [UIImage imageNamed:@"main_state5"];
+    }
+    else
+    {
+        cell.state.image = [UIImage imageNamed:@"main_state6"];
+    }
+    
     
     cell.leftBtn.tag = 100 + indexPath.section;
     cell.centerBtn.tag = 200 + indexPath.section;
@@ -181,23 +241,23 @@
     
     if (i == 0)
     {
-        NSLog(@"0");
+        [self getdata:@"99"];
     }
     else if (i == 1)
     {
-        NSLog(@"1");
+        [self getdata:@"0"];
     }
     else if (i == 2)
     {
-        NSLog(@"2");
+        [self getdata:@"1"];
     }
     else if(i == 3)
     {
-        NSLog(@"3");
+        [self getdata:@"2"];
     }
     else
     {
-        NSLog(@"4");
+        [self getdata:@"3"];
     }
 }
 
@@ -208,6 +268,7 @@
 - (void)leftbtn: (UIButton *)btn
 {
     NSLog(@"1");
+   
 }
 
 
@@ -275,9 +336,18 @@
 //任务数据网络请求
 - (void)getdata: (NSString *)t_status
 {
- //   http://api.gangjianwang.com/Tasks/index?t_status=0
+    NSString *url;
     
-    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Regions/index?action=letter"];
+    //雇主发布管理
+    if ([t_status isEqualToString:@"99"])
+    {
+        url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@", baseUrl, @"2"];
+    }
+    else
+    {
+        url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_status=%@", baseUrl, @"2", t_status];
+    }
+    
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -289,12 +359,41 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
-             NSDictionary *tem = [dictionary objectForKey:@"data"];
+             NSArray *tem = [dictionary objectForKey:@"data"];
+             
+             [dataArray removeAllObjects];
+             
+             for (int i = 0; i < tem.count; i++)
+             {
+                 NSDictionary *dic = [tem objectAtIndex:i];
+                 
+                 EmpDataModel *model = [[EmpDataModel alloc] init];
+                 
+                 model.t_id = [dic objectForKey:@"t_id"];
+                 model.t_title = [dic objectForKey:@"t_title"];
+                 model.t_info = [dic objectForKey:@"t_info"];
+                 model.t_amount = [dic objectForKey:@"t_amount"];
+                 model.t_duration = [dic objectForKey:@"t_duration"];
+                 model.t_edit_amount = [dic objectForKey:@"t_edit_amount"];
+                 model.t_amount_edit_times = [dic objectForKey:@"t_amount_edit_times"];
+                 model.t_posit_x = [dic objectForKey:@"t_posit_x"];
+                 model.t_posit_y = [dic objectForKey:@"t_posit_y"];
+                 model.t_author = [dic objectForKey:@"t_author"];
+                 model.t_in_time = [dic objectForKey:@"t_in_time"];
+                 model.t_last_edit_time = [dic objectForKey:@"t_last_edit_time"];
+                 model.t_last_editor = [dic objectForKey:@"t_last_editor"];
+                 model.t_status = [dic objectForKey:@"t_status"];
+                 model.t_phone = [dic objectForKey:@"t_phone"];
+                 model.t_phone_status = [dic objectForKey:@"t_phone_status"];
+                 model.t_type = [dic objectForKey:@"t_type"];
+                 model.bd_id = [dic objectForKey:@"bd_id"];
+                 
+                 [dataArray addObject:model];
+                 
+             }
              
              
-             
-             
-             
+             [self.tableview reloadData];
          }
          
          

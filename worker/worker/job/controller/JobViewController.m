@@ -205,7 +205,7 @@
     
     headlabel.textAlignment = NSTextAlignmentCenter;
     
-   // headlabel.font = [UIFont systemFontOfSize:17];
+//  headlabel.font = [UIFont systemFontOfSize:17];
     
     headlabel.font = [UIFont boldSystemFontOfSize:17];
     

@@ -79,8 +79,11 @@
     [self tableview];
     
     [self hotdata];
+
+
     
 }
+
 
 //百度地图
 //- (void)initBaiduMap
@@ -289,6 +292,8 @@
     else
     {
         IssueViewController *temp = [[IssueViewController alloc] init];
+        temp.longitudeWor = longitude;
+        temp.latitudeWor = latitude;
         
         [self.navigationController pushViewController:temp animated:YES];
     }

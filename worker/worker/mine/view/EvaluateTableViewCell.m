@@ -20,6 +20,8 @@
         
         _logoimage.backgroundColor = [UIColor orangeColor];
         
+        _logoimage.layer.masksToBounds = YES;
+        
         _logoimage.layer.cornerRadius = 30;
         
         [self.contentView addSubview:_logoimage];

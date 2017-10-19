@@ -99,12 +99,8 @@
     
     name = [backview viewWithTag:1002];
     
-    
-    
     sex = [backview viewWithTag:1003];
     sex.image = [UIImage imageNamed:@"job_woman"];
-    
-    
     
     
     workerType = [backview viewWithTag:1004];

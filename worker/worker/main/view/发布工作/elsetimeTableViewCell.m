@@ -48,6 +48,16 @@
         
         [self.contentView addSubview:_endTime];
         
+        
+        _start = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [self.contentView addSubview:_start];
+        
+        
+        _end = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [self.contentView addSubview:_end];
+        
     }
     
     return self;
@@ -62,7 +72,7 @@
     [_startTime mas_makeConstraints:^(MASConstraintMaker *make)
     {
         make.left.mas_equalTo(_name).offset(50);
-        make.top.mas_equalTo(self.contentView).offset(7);
+        make.top.mas_equalTo(self.contentView).offset(6);
         make.width.mas_equalTo(110);
         make.height.mas_equalTo(30);
     }];
@@ -70,7 +80,7 @@
     
     [_line mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.left.mas_equalTo(_startTime).offset(120);
+        make.left.mas_equalTo(_startTime).offset(107);
         make.top.mas_equalTo(self.contentView).offset(19);
         make.width.mas_equalTo(45);
         make.height.mas_equalTo(1);
@@ -80,6 +90,25 @@
     [_endTime mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.left.mas_equalTo(_line).offset(55);
+         make.top.mas_equalTo(self.contentView).offset(6);
+         make.width.mas_equalTo(110);
+         make.height.mas_equalTo(30);
+     }];
+    
+    
+    [_end mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.left.mas_equalTo(_line).offset(55);
+         make.top.mas_equalTo(self.contentView).offset(7);
+         make.width.mas_equalTo(110);
+         make.height.mas_equalTo(30);
+     }];
+    
+    
+    
+    [_start mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.left.mas_equalTo(_name).offset(50);
          make.top.mas_equalTo(self.contentView).offset(7);
          make.width.mas_equalTo(110);
          make.height.mas_equalTo(30);

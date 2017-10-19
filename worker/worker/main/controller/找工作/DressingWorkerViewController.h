@@ -12,7 +12,7 @@
 @protocol TransmitVal
 
 
-
+- (void)DressWorkerData:(NSString *)name adree:(NSString *)adree proData:(NSString *)proData proMoney:(NSString *)proMoney proTime:(NSString *)proTime proType:(NSString *)proType proWorker:(NSString *)proWorker;
 
 
 @end

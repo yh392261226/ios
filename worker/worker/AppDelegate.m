@@ -62,6 +62,11 @@
     
     [self Ushare];
     
+ //   [WXApi registerApp：@"wxd930ea5d5a258f4f" withDescription：@"demo 2.0"];
+    [WXApi registerApp:@"wx88a7414f850651c8"];    //注册微信， 一定要在友盟的后面
+    
+   
+    
     [self.window makeKeyAndVisible];
     
     return YES;

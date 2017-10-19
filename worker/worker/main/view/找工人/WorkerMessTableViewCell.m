@@ -27,7 +27,8 @@
         _IconBtn = [[UIImageView alloc] init];;
         _IconBtn.frame = CGRectMake(15, 10, 60, 60);
         _IconBtn.layer.cornerRadius = 30;
-        _IconBtn.backgroundColor = [UIColor orangeColor];
+        _IconBtn.layer.masksToBounds = YES;
+       // _IconBtn.backgroundColor = [UIColor orangeColor];
         [_backview addSubview:_IconBtn];
         
         

@@ -4,6 +4,7 @@
 //
 //  Created by 郭健 on 2017/8/1.
 //  Copyright © 2017年 郭健. All rights reserved.
+//  3398937837
 
 
 #import "MineViewController.h"
@@ -55,6 +56,8 @@
     [self initHeadView];
     
     [self tableview];
+    
+    
     
     
 }
@@ -128,6 +131,7 @@
             
             cell.IconImage.image = [UIImage imageNamed:@"job_icon"];
             
+            
             cell.loginBtn.hidden = NO;
             cell.introduce.hidden = NO;
 
@@ -157,9 +161,7 @@
                 cell.typeButton.on = NO;
             }
             
-            
-            
-            
+    
             NSURL *url = [NSURL URLWithString:user_ima];
             
             [cell.IconImage sd_setImageWithURL:url];
@@ -527,6 +529,8 @@
         NSLog(@"关");
     }
 }
+
+
 
 //登录成功的代理方法
 - (void)Sussecc

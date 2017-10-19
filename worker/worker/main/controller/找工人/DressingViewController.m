@@ -526,12 +526,10 @@
     {
         pyte = 1;
     }
-    else
-    {
-        pyte = 2;
-    }
+    
     
     [self.tableview reloadData];
+    
 }
 
 
@@ -544,11 +542,13 @@
 //删除
 - (void)closeBtn: (UIButton *)btn
 {
+    
     NSInteger CellNum = btn.tag - 400;
     
     [dataArray removeObjectAtIndex:CellNum];
     
     [self.tableview reloadData];
+    
 }
 
 
@@ -590,23 +590,11 @@
 //搜索按钮
 - (void)MessBtn
 {
-   
-//    NSString *worker_ID;   //工种ID
-//
-//    //获取工种ID
-//    for (int i = 0; i < listArray.count; i++)
-//    {
-//        DressWorkerData *data = [listArray objectAtIndex:i];
-//
-//        if ([data.s_name isEqualToString:worker])
-//        {
-//            worker_ID = data.s_id;
-//        }
-//
-//    }
+    NSString *pyte1 = [NSString stringWithFormat:@"%ld", pyte];
     
-    
-    
+    [self.delegate dreessVal:nameStr nameTy:pyte1 adree:adree];
+
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

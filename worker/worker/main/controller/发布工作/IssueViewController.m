@@ -7,58 +7,26 @@
 //
 
 
-@interface selecdType : NSObject
+//获取工人列表数据
+@interface workerPeData : NSObject
 
-@property (nonatomic, strong)NSString *bigType;       //分辨哪个section
-
-@end
-
-@implementation selecdType
-
-
-@end
+@property (nonatomic, strong)NSString *s_id;
+@property (nonatomic, strong)NSString *s_name;
+@property (nonatomic, strong)NSString *s_info;
+@property (nonatomic, strong)NSString *s_desc;
+@property (nonatomic, strong)NSString *s_status;
 
 
-@interface firstModel : selecdType
-
-@property (nonatomic, strong)NSString *type;             //分辨那个cell
-
-@property (nonatomic, strong)NSString *name;
-@property (nonatomic, strong)NSString *data;
-@property (nonatomic, strong)NSString *name_id;
-
-@end
-
-
-@implementation firstModel
+@property (nonatomic, strong)NSString *s_image;
 
 
 @end
 
-
-@interface elseModel : selecdType
-
-@property (nonatomic, strong)NSString *workerType;       //分辨那个cell
-
-@property (nonatomic, strong)NSString *worker;
-@property (nonatomic, strong)NSString *personNum;
-@property (nonatomic, strong)NSString *money;
-
-
-@property (nonatomic, strong)NSString *startTime;
-@property (nonatomic, strong)NSString *endTime;
-
-
-@property (nonatomic, strong)NSString *workerName;
-@property (nonatomic, strong)NSString *placeData;
-
-@end
-
-
-@implementation elseModel
+@implementation workerPeData
 
 
 @end
+
 
 
 #import "IssueViewController.h"
@@ -69,8 +37,11 @@
 #import "elseDelegateTableViewCell.h"
 #import "NormalTableViewCell.h"
 #import "ThreeCityViewController.h"
+#import "IndentViewController.h"
+#import "indent.h"
 
-@interface IssueViewController ()<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
+
+@interface IssueViewController ()<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 {
     NSMutableArray *dataArray;        //支撑页面的大数组
     
@@ -82,31 +53,55 @@
     NSString *workerStr;    //工种的选择
     
     NSString *adree;  //所在区域的字段
-    NSString *adree_id;  //所在区域的ID， 传给后台
+  //  NSString *adree_id;  //所在区域的ID， 传给后台
     
     NSMutableArray *newArr;
+    
+    NSMutableArray *infoA;    //更改格式，传给服务器的大数组
+    
+    
+    NSMutableArray *numWorker;    //临时用， 装工种中文字样
+    NSMutableArray *EnglishWor;   //  庄工种ID数组
+    
+    NSString *starttime; //开始时间
+    NSString *endtime;   //结束时间
+    
+    
+    
+    
+    bool oneT;   //判断工种数组只删除一次， 为了防止重复累加
+    
 }
 
 @property (nonatomic, strong)UITableView *tableview;
+
+@property (nonatomic, strong)UIDatePicker *startTime;   //项目开始时间的控件
+@property (nonatomic, strong)UIDatePicker *endTime;     //项目结束时间的控件
 
 @end
 
 @implementation IssueViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    oneT = YES;
+    
     newArr = [NSMutableArray array];
     
     dataArray = [NSMutableArray array];
     
     workerArr = [NSMutableArray array];
-    [workerArr addObject:@"张飞"];
-    [workerArr addObject:@"关羽"];
-    [workerArr addObject:@"李贝"];
     
+    numWorker = [NSMutableArray array];
+    
+    EnglishWor = [NSMutableArray array];
     
     [self initData];
+    
     
     
     [self addhead:@"发布工作"];
@@ -116,6 +111,10 @@
     [self initDraft];
     
     [self tableview];
+    
+     [self workerData];   //获取工种列表
+    
+    
     
 }
 
@@ -262,7 +261,7 @@
     {
         elseModel *info = (elseModel *)data;
         
-        if (info.workerType == 0)
+        if ([info.workerType isEqualToString:@"0"])
         {
             NormalTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
@@ -300,6 +299,10 @@
                 [cell.personfield addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
                 [cell.moneyfield addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
                 
+                
+                cell.personfield.keyboardType = UIKeyboardTypeNumberPad;
+                cell.moneyfield.keyboardType = UIKeyboardTypeNumberPad;
+                
                 cell.personfield.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"1"];
                 cell.moneyfield.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"2"];
                 
@@ -319,14 +322,26 @@
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
+                
+                [cell.start addTarget:self action:@selector(startBtn:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.end addTarget:self action:@selector(endBtn:) forControlEvents:UIControlEventTouchUpInside];
+                
+                
+                
+                cell.start.tag = indexPath.section * 100 + indexPath.row * 10 + 1;
+                cell.end.tag = indexPath.section * 100 + indexPath.row * 10 + 1;
+                
                 cell.startTime.text = info.startTime;
                 cell.endTime.text = info.endTime;
                 
-                [cell.startTime addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
-                [cell.endTime addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
+                cell.startTime.enabled = YES;
+                cell.end.enabled = YES;
                 
-                cell.startTime.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"3"];
-                cell.endTime.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"4"];
+//                [cell.startTime addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
+//                [cell.endTime addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
+//
+//                cell.startTime.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"3"];
+//                cell.endTime.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row, @"4"];
             }
             
             return cell;
@@ -381,15 +396,23 @@
 }
 
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 1 && section == 0)
+    if (section == 0)
     {
         return 15;
     }
     else
     {
-        return 15;
+        return 0.1;
     }
 }
 
@@ -479,7 +502,7 @@
             [self.tableview reloadData];
             
         }
-        else if (info.workerType == 0)
+        else if ([info.workerType isEqualToString:@"0"])
         {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             
@@ -553,7 +576,54 @@
     
     }
     
-    NSLog(@"%@", newArr);
+    
+    
+    //修改数据格式， 上传服务器
+    infoA = [NSMutableArray array];
+
+    NSMutableArray *arra = [NSMutableArray array];
+    
+    for (int i = 0; i < newArr.count; i++)
+    {
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        
+        NSArray *arr = [newArr objectAtIndex:i];
+        
+        if (i == 0)
+        {
+            [dic setValue:arr forKey:@"basic"];
+            
+            [infoA addObject:dic];
+        }
+        else
+        {
+            [arra addObject:arr];
+        }
+    
+    }
+    
+    
+    NSMutableDictionary *workerDic = [NSMutableDictionary dictionary];
+    
+    [workerDic setValue:arra forKey:@"worker"];
+    
+    [infoA addObject:workerDic];
+    
+    
+    self.hidesBottomBarWhenPushed = YES;
+    
+    IndentViewController *temp = [[IndentViewController alloc] init];
+    
+    temp.postArray = infoA;
+    temp.modelArray = dataArray;
+    
+    temp.longitudeWor = self.longitudeWor;
+    temp.latitudeWor = self.latitudeWor;
+    
+    [self.navigationController pushViewController:temp animated:YES];
+    
+    
 }
 
 
@@ -589,6 +659,9 @@
     
 }
 
+
+
+
 //增加工种按钮
 - (void)Draft
 {
@@ -599,7 +672,7 @@
     
     data0.bigType = 0;
     
-    data0.workerType = 0;
+    data0.workerType = @"0";
     
     data0.workerName = @"选择工种";
     
@@ -738,7 +811,7 @@
     
     data0.bigType = 0;
     
-    data0.workerType = 0;
+    data0.workerType = @"0";
     
     data0.workerName = @"选择工种";
     
@@ -819,14 +892,14 @@
         {
             model.money = textfield.text;
         }
-        else if (end == 3)
-        {
-            model.startTime = textfield.text;
-        }
-        else
-        {
-            model.endTime = textfield.text;
-        }
+//        else if (end == 3)
+//        {
+//            model.startTime = textfield.text;
+//        }
+//        else
+//        {
+//            model.endTime = textfield.text;
+//        }
     }
 
 }
@@ -849,7 +922,7 @@
 //调出工种列表
 - (void)addWorker: (NSIndexPath *)index
 {
-    
+ 
     NSArray *arr = [dataArray objectAtIndex:index.section];
     
     selecdType *data = [arr objectAtIndex:0];
@@ -862,12 +935,38 @@
     
     [AlertController addAction:Return];
     
+    if (oneT == YES)
+    {
+        oneT = NO;
+    }
+    else
+    {
+        [workerArr removeAllObjects];
+    }
+    
+    
+    
     for (int i = 0; i < workerArr.count; i++)
     {
-        UIAlertAction *action = [UIAlertAction actionWithTitle:[workerArr objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+        workerPeData *data = [workerArr objectAtIndex:i];
+        
+        [numWorker addObject:data.s_name];
+        
+        [EnglishWor addObject:data.s_id];
+    }
+    
+    
+    
+    
+    
+    for (int i = 0; i < numWorker.count; i++)
+    {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:[numWorker objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
         {
             
             info.placeData = action.title;
+            
+            info.skill = [EnglishWor objectAtIndex:i];
             
             [self.tableview reloadData];
         }];
@@ -884,16 +983,18 @@
 //所在区域的代理方法， 获取r_id
 - (void)post3Level: (NSString *)city_id1 city_name1:(NSString *)name city_id2:(NSString *)city_id city_name2:(NSString *)city_name2 city_id2:(NSString *)city_id2 city_name3:(NSString *)city_name3
 {
-    
+   // NSLog(@"省=%@， 市=%@， 区=%@， 省ID=%@， 市ID=%@， 区ID=%@", name, city_name2, city_name3, city_id1, city_id, city_id2);
     adree = city_name3;
-    adree_id = city_id2;
     
     NSArray *arr = [dataArray objectAtIndex:0];
     selecdType *data = [arr objectAtIndex:3];
     firstModel *model = (firstModel *)data;
     
-    model.name_id = adree_id;
+    
     model.data = adree;
+    model.province_id = city_id1;
+    model.city_id = city_id;
+    model.district_id = city_id2;
 
     [self.tableview reloadData];
     
@@ -910,9 +1011,308 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.view endEditing:YES];
+    _startTime.hidden = YES;
+    _endTime.hidden = YES;
 }
 
 
+
+
+- (void)Postdata
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Index/task"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:url parameters:infoA success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             
+         }
+         else
+         {
+             
+         }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+    
+    
+}
+
+
+
+//项目开始时间调用datapick
+- (void)startBtn: (UIButton *)btn
+{
+    
+    
+    if (_startTime.hidden == YES)
+    {
+        _startTime.hidden = NO;
+    }
+    else
+    {
+        [self startTime];
+    }
+    
+    
+    _startTime.tag = btn.tag;
+    
+}
+
+//项目结束时间调用datapick
+- (void)endBtn: (UIButton *)btn
+{
+    if (_endTime.hidden == YES)
+    {
+        _endTime.hidden = NO;
+    }
+    else
+    {
+        [self endTime];
+    }
+    
+    
+    _endTime.tag = btn.tag;
+}
+
+
+
+
+- (UIDatePicker *)startTime
+{
+    if (!_startTime)
+    {
+        _startTime = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 216, SCREEN_WIDTH, 216)];
+        _startTime.date = [NSDate date]; // 设置初始时间
+        _startTime.timeZone = [NSTimeZone timeZoneWithName:@"GTM+8"];
+        _startTime.datePickerMode = UIDatePickerModeDate;
+        _startTime.backgroundColor = [myselfway stringTOColor:@"0xF3F3F3"];
+        [_startTime addTarget:self action:@selector(seletedBirthyDate:) forControlEvents:UIControlEventValueChanged];
+        
+        [self.view addSubview:_startTime];
+    }
+    
+    return _startTime;
+    
+}
+
+
+
+- (void)seletedBirthyDate: (UIDatePicker *)data
+{
+    
+    NSDate *select = [data date]; // 获取被选中的时间
+    
+    NSDateFormatter *selectDateFormatter = [[NSDateFormatter alloc] init];
+    
+    selectDateFormatter.dateFormat = @"yyyy-MM-dd"; // 设置时间和日期的格式
+    
+//    starttime = [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
+    
+    
+    
+    NSString *str = [NSString stringWithFormat:@"%ld", data.tag];
+    
+    NSString *sectionStr = [str substringToIndex:1];//section
+    
+    NSString *rowStr = [str substringWithRange:NSMakeRange(1, 1)]; //row
+    
+    //  NSString *numStr = [str substringFromIndex:str.length - 1];  //最后一位
+    
+    NSInteger section = [sectionStr integerValue];
+    NSInteger row = [rowStr integerValue];
+    // NSInteger end = [numStr integerValue];
+    
+    NSArray *arr = [dataArray objectAtIndex:section];
+    
+    selecdType *info = [arr objectAtIndex:row];
+    
+    
+    elseModel *model = (elseModel *)info;
+        
+    
+    
+    
+    
+    //比较时间大小
+    if ([model.workerType isEqualToString:@"2"])
+    {
+        NSString *staT = [[selectDateFormatter stringFromDate:select] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        NSString *endT = [model.endTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        
+        if (endT == nil)
+        {
+            endT = @"1111111110";
+        }
+        
+        if ([staT integerValue] > [endT integerValue])
+        {
+            [SVProgressHUD showInfoWithStatus:@"开始时间不应大于结束时间"];
+        }
+        else
+        {
+            model.startTime = [selectDateFormatter stringFromDate:select];
+        
+            [self.tableview reloadData];
+        }
+    }
+    
+    
+    
+    
+    
+    
+   
+    
+}
+
+
+- (UIDatePicker *)endTime
+{
+    if (!_endTime)
+    {
+        _endTime = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 216, SCREEN_WIDTH, 216)];
+        _endTime.date = [NSDate date]; // 设置初始时间
+        _endTime.timeZone = [NSTimeZone timeZoneWithName:@"GTM+8"];
+        _endTime.datePickerMode = UIDatePickerModeDate;
+        _endTime.backgroundColor = [myselfway stringTOColor:@"0xF3F3F3"];
+        [_endTime addTarget:self action:@selector(seletedBirthyDatetO:) forControlEvents:UIControlEventValueChanged];
+        
+        [self.view addSubview:_endTime];
+    }
+    
+    return _endTime;
+    
+}
+
+
+
+- (void)seletedBirthyDatetO: (UIDatePicker *)data
+{
+    
+    NSDate *select = [data date]; // 获取被选中的时间
+    
+    NSDateFormatter *selectDateFormatter = [[NSDateFormatter alloc] init];
+    
+    selectDateFormatter.dateFormat = @"yyyy-MM-dd"; // 设置时间和日期的格式
+    
+ //   starttime = [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
+    
+    
+    NSString *str = [NSString stringWithFormat:@"%ld", data.tag];
+    
+    NSString *sectionStr = [str substringToIndex:1];//section
+    
+    NSString *rowStr = [str substringWithRange:NSMakeRange(1, 1)]; //row
+    
+    //  NSString *numStr = [str substringFromIndex:str.length - 1];  //最后一位
+    
+    NSInteger section = [sectionStr integerValue];
+    NSInteger row = [rowStr integerValue];
+    // NSInteger end = [numStr integerValue];
+    
+    NSArray *arr = [dataArray objectAtIndex:section];
+    
+    selecdType *info = [arr objectAtIndex:row];
+    
+    
+    elseModel *model = (elseModel *)info;
+    
+
+    
+    //比较时间大小
+    if ([model.workerType isEqualToString:@"2"])
+    {
+        NSString *staT = [model.startTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        NSString *endT = [[selectDateFormatter stringFromDate:select] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        
+        if (staT == nil)
+        {
+            staT = @"0";
+        }
+        
+        if ([staT integerValue] > [endT integerValue])
+        {
+            [SVProgressHUD showInfoWithStatus:@"开始时间不应大于结束时间"];
+        }
+        else
+        {
+            model.endTime = [selectDateFormatter stringFromDate:select];
+            
+            [self.tableview reloadData];
+        }
+    }
+    
+    
+}
+
+
+
+
+
+
+
+//获取工种列表数据
+- (void)workerData
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Skills/index"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSArray *arr = [dictionary objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dic = [arr objectAtIndex:i];
+                 
+                 workerPeData *data = [[workerPeData alloc] init];
+                 
+                 data.s_id = [dic objectForKey:@"s_id"];
+                 data.s_desc = [dic objectForKey:@"s_desc"];
+                 data.s_info = [dic objectForKey:@"s_info"];
+                 data.s_name = [dic objectForKey:@"s_name"];
+                 data.s_status = [dic objectForKey:@"s_status"];
+                 
+                 
+                 [workerArr addObject:data];
+                 
+             }
+             
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+
+//省事三级联动返回代理
+
+
+
+
+// http://api.gangjianwang.com/Tools/subTotal     //获取金钱的网络请求
 
 
 @end

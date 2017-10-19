@@ -33,7 +33,7 @@
         }];
         
         
-        _money = [[UILabel alloc] initWithFrame:CGRectMake(25, 10, 100, 30)];
+        _money = [[UILabel alloc] initWithFrame:CGRectMake(25, 10, 250, 30)];
         
         _money.font = [UIFont systemFontOfSize:22];
         

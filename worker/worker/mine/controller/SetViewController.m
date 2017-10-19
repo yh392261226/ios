@@ -177,6 +177,22 @@
         
         [self.navigationController pushViewController:temp animated:YES];
     }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否清空全部缓存?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
+                          {
+                              
+                          }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                          {
+                            
+                              
+                          }]];
+        
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    }
     
 }
 
