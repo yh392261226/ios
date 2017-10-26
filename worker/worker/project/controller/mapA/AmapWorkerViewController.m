@@ -9,20 +9,52 @@
 #import "AmapWorkerViewController.h"
 #import "PartyBinfoViewController.h"
 #import "WorkerProjectViewController.h"
-
+#import "LoginViewController.h"
 
 
 #import "AYesOrNoViewController.h"
+
+
+
+
+
+@implementation missionData
+
+
+@end
+
+
+
+@interface worDetailData : NSObject
+
+@property (nonatomic, strong)NSString *u_id;
+@property (nonatomic, strong)NSString *u_name;
+@property (nonatomic, strong)NSString *u_skills;
+@property (nonatomic, strong)NSString *uei_info;
+@property (nonatomic, strong)NSString *u_task_status;
+@property (nonatomic, strong)NSString *u_true_name;
+@property (nonatomic, strong)NSString *ucp_posit_x;
+@property (nonatomic, strong)NSString *ucp_posit_y;
+@property (nonatomic, strong)NSString *u_img;
+@property (nonatomic, strong)NSString *is_fav;
+
+@property (nonatomic, strong)NSString *u_mobile;
+@property (nonatomic, strong)NSString *u_sex;
+@property (nonatomic, strong)NSString *uei_address;
+@property (nonatomic, strong)NSString *u_idcard;
+@end
+
+@implementation worDetailData
+
+
+@end
 
 @interface AmapWorkerViewController ()<BMKMapViewDelegate, BMKLocationServiceDelegate>
 {
     NSMutableArray *dataArray;
     
     UIView *backview;    //页面下方的view
-    
-    
-    
-    
+
     UIButton *icon;   //头像
     UILabel *name;     //名字
     UIImageView *sex;   //性别
@@ -38,6 +70,16 @@
     
     UIButton *yes;   //我要招工按钮
     
+    
+    NSMutableArray *missArray;    //任务数组
+    
+    
+    NSString *workerID;  //工人id
+    
+    
+    NSString *Xmap;
+    NSString *Ymap;
+    
 }
 
 @property (nonatomic, strong)BMKMapView *mapView;
@@ -52,23 +94,29 @@
 
 @end
 
+
 @implementation AmapWorkerViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
+
+
     dataArray = [NSMutableArray array];
+    missArray = [NSMutableArray array];
     
-    [self addhead:@"工人位置"];
+    [self getdataMiss];
     
     [self initUI];
     
-    [self initMapView];
+
+    [self getdata];
+
+    [self addhead:@"工人位置"];
+
+
     
     
-   
 }
 
 
@@ -80,79 +128,81 @@
     
     backview = [[[NSBundle mainBundle] loadNibNamed:@"Empty" owner:self options:nil] objectAtIndex:0];
     
+    backview.frame = CGRectMake(0, SCREEN_HEIGHT - 267, SCREEN_WIDTH, 267);
+
     [self.view addSubview:backview];
-    
-    [backview mas_makeConstraints:^(MASConstraintMaker *make)
-    {
-        make.bottom.mas_equalTo(self.view).offset(0);
-        make.left.mas_equalTo(self.view).offset(0);
-        make.right.mas_equalTo(self.view).offset(0);
-        make.height.mas_equalTo(267);
-    }];
-    
-    
+
+//    [backview mas_makeConstraints:^(MASConstraintMaker *make)
+//    {
+//        make.bottom.mas_equalTo(self.view).offset(0);
+//        make.left.mas_equalTo(self.view).offset(0);
+//        make.right.mas_equalTo(self.view).offset(0);
+//        make.height.mas_equalTo(267);
+//    }];
+
+
     icon = [backview viewWithTag:1001];
     icon.layer.cornerRadius = 35;
+    icon.layer.masksToBounds = YES;
     icon.backgroundColor = [UIColor orangeColor];
     [icon addTarget:self action:@selector(detailBtn) forControlEvents:UIControlEventTouchUpInside];
-    
-    
+
+
     name = [backview viewWithTag:1002];
-    
+
     sex = [backview viewWithTag:1003];
-    sex.image = [UIImage imageNamed:@"job_woman"];
     
-    
+
+
     workerType = [backview viewWithTag:1004];
-    workerType.text = @"空闲";
+//    workerType.text = @"空闲";
     workerType.layer.masksToBounds = YES;
     workerType.layer.cornerRadius = 5;
     workerType.backgroundColor = [UIColor greenColor];
     workerType.textAlignment = NSTextAlignmentCenter;
     workerType.textColor = [UIColor whiteColor];
     workerType.font = [UIFont systemFontOfSize:14];
-    
-    
+
+
     worker = [backview viewWithTag:1005];
     worker.textColor = [UIColor grayColor];
-    
-    
+
+
     call = [backview viewWithTag:1006];
     [call addTarget:self action:@selector(callBtn) forControlEvents:UIControlEventTouchUpInside];
-    
-    
+
+
     red = [backview viewWithTag:1007];
     red.layer.masksToBounds = YES;
     red.layer.cornerRadius = 7.5;
     red.backgroundColor = [UIColor redColor];
-    
-    
+
+
     redLab = [backview viewWithTag:1008];
-    redLab.text = @"完成过个人家装";
+  //  redLab.text = @"完成过个人家装";
     redLab.textColor = [UIColor grayColor];
     redLab.font = [UIFont systemFontOfSize:15];
-    
-    
+
+
     blue = [backview viewWithTag:1009];
     blue.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
     blue.layer.masksToBounds = YES;
     blue.layer.cornerRadius = 7.5;
-    
-    
+
+
     blueLab = [backview viewWithTag:1010];
-    blueLab.text = @"哈尔滨市第四中学，  开原街，  现据我0.9千米";
+  //  blueLab.text = @"哈尔滨市第四中学，  开原街，  现据我0.9千米";
     blueLab.textColor = [UIColor grayColor];
     blueLab.font = [UIFont systemFontOfSize:15];
-    
-    
+
+
     yes = [backview viewWithTag:1011];
     yes.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
     yes.layer.cornerRadius = 7;
     [yes addTarget:self action:@selector(yesBtn) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-}
 
+
+}
 
 
 
@@ -160,30 +210,31 @@
 //加载百度地图
 - (void)initMapView
 {
-    
+
     self.mapView = [[BMKMapView alloc] init];
-    
+
     self.mapView.delegate = self;
-    
+
     self.mapView.showsUserLocation = YES;
-    
+
     self.mapView.zoomLevel = 15;
-    
-    [self createBtn];
-    
+
     [_mapView setMapType:BMKMapTypeStandard];
-    
+
     //设置地图上是否显示比例尺
-    self.mapView.showMapScaleBar = YES;
-    
+ //   self.mapView.showMapScaleBar = NO;
+
     //设置地图比例尺在地图上的位置
     self.mapView.mapScaleBarPosition = CGPointMake(200, 100);
     
+    //开启路况
+    [_mapView setTrafficEnabled:YES];
+
     //添加到view上
     [self.view addSubview:self.mapView];
-    
-    
-    
+
+
+
     [self.mapView mas_makeConstraints:^(MASConstraintMaker *make)
     {
         make.top.mas_equalTo(self.view).offset(64);
@@ -191,28 +242,45 @@
         make.right.mas_equalTo(self.view).offset(0);
         make.bottom.mas_equalTo(backview).offset(-267);
     }];
-    
-    
-    //定位
-    _locService = [[BMKLocationService alloc] init];
-    _locService.delegate = self;
-    [_locService startUserLocationService];
-    
-    
-    
-    //个人位置蓝色图标设置
-    BMKLocationViewDisplayParam *displayParam = [[BMKLocationViewDisplayParam alloc] init];
-    displayParam.isRotateAngleValid = NO;
-    displayParam.isAccuracyCircleShow = NO;
-    
-    displayParam.locationViewOffsetX = 0;//定位偏移量(经度)
-    displayParam.locationViewOffsetY = 0;//定位偏移量（纬度）
-    [self.mapView updateLocationViewWithParam:displayParam];
 
     
-     [self.mapView setShowsUserLocation:YES];//显示定位的蓝点儿
+
+    
+    
+    BMKPointAnnotation *annotation = [[BMKPointAnnotation alloc] init];
+    
+    // annotationV.image = [UIImage imageNamed:@"5ud.png"];//大头针的显示图片
+    CLLocationCoordinate2D coor;
+    coor.latitude = [Xmap doubleValue];
+    coor.longitude = [Ymap doubleValue];
+    
+    annotation.coordinate = coor;
+    
+    self.mapView.centerCoordinate = annotation.coordinate;
+    
+    [self.mapView addAnnotation:annotation];
+    
+
+
+
+
 }
 
+
+
+
+- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[BMKPointAnnotation class]])
+    {
+        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
+        newAnnotationView.animatesDrop = YES;// 设置该标注点动画显示
+        return newAnnotationView;
+    }
+    return nil;
+
+}
 
 
 - (void)viewWillAppear:(BOOL)animated
@@ -227,103 +295,19 @@
     self.mapView.delegate = nil; // 不用时，置nil
 }
 
-//创建按钮
-- (void)createBtn
-{
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftBtn.frame =CGRectMake(SCREEN_WIDTH*0.6,SCREEN_HEIGHT*0.93,60, 30);
-    leftBtn.backgroundColor = [UIColor orangeColor];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"left_btn"]forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(leftBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.mapView addSubview:leftBtn];
-    
-    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    rightBtn.backgroundColor = [UIColor greenColor];
-    rightBtn.frame =CGRectMake(SCREEN_WIDTH*0.6+61,SCREEN_HEIGHT*0.93,60, 30);
-    [rightBtn setBackgroundImage:[UIImage imageNamed:@"right_btn"]forState:UIControlStateNormal];
-    [rightBtn addTarget:self action:@selector(rightAction:)forControlEvents:UIControlEventTouchUpInside];
-    [self.mapView addSubview:rightBtn];
-}
-
-//实现点击按钮地图放大和缩小，后面的数字表示，点击一次按钮放大或者缩小地图的等级数
-- (void)leftBtnAction:(UIButton *)btn
-{
-    [_mapView setZoomLevel:_mapView.zoomLevel - 3];
-}
-
-- (void)rightAction:(UIButton *)btn
-{
-    [_mapView setZoomLevel:_mapView.zoomLevel + 3];
-}
 
 
-//获取经纬度，城市名称
-- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
-{
-    BMKCoordinateRegion region;
-    
-    region.center.latitude  = userLocation.location.coordinate.latitude;
-    
-    region.center.longitude = userLocation.location.coordinate.longitude;
-    
-    region.span.latitudeDelta = 0;
-    
-    region.span.longitudeDelta = 0;
-    
-    NSLog(@"当前的坐标是:%f,%f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
-    
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-    [geocoder reverseGeocodeLocation: userLocation.location completionHandler:^(NSArray *array, NSError *error) {
-        
-        if (array.count > 0) {
-            
-            CLPlacemark *placemark = [array objectAtIndex:0];
-            
-            if (placemark != nil)
-            {
-                NSString *city = placemark.locality;
-                
-                NSLog(@"当前城市名称------%@",city);
-                
-              
-                
-                //找到了当前位置城市后就关闭服务
-                
-                [_locService stopUserLocationService];
-                
-            }
-            
-        }
-        
-    }];
-    
-    //展示定位
-    self.mapView.showsUserLocation = YES;
-    
-    //更新位置数据
-    [self.mapView updateLocationData:userLocation];
-    
-    
-    self.mapView.zoomLevel = 15;
-    
-    //获取自身的位置
-    CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
-    //将中心点设置为自身位置
-    _mapView.centerCoordinate = coor;
-    BMKPointAnnotation *annotation = [[BMKPointAnnotation alloc] init];
-    annotation.coordinate = coor;
-    [_mapView addAnnotation:annotation];
-    [_mapView updateLocationData:userLocation];
-    
-}
+
+
 
 
 //工人头像按钮， 进入工人详情页面
 - (void)detailBtn
 {
     PartyBinfoViewController *temp = [[PartyBinfoViewController alloc] init];
-    
+
+    temp.u_id = self.worker_id;
+
     [self.navigationController pushViewController:temp animated:YES];
 }
 
@@ -332,11 +316,39 @@
 //我要招工按钮
 - (void)yesBtn
 {
-    WorkerProjectViewController *temp = [[WorkerProjectViewController alloc] init];
+    if ([user_ID isEqualToString:@"0"])
+    {
+        //未登录提示
+        [SVProgressHUD showErrorWithStatus:@"请您先登录"];
+        
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        
+        [self.navigationController pushViewController:temp animated:YES];
+        
+    }
+    else if ([user_u_idcard isEqualToString:@""])
+    {
+        [SVProgressHUD showErrorWithStatus:@"请完善您的个人信息"];
+    }
+    else if (missArray.count == 0)
+    {
+        [SVProgressHUD showErrorWithStatus:@"您暂时没有发布任务"];
+    }
+    else
+    {
+        WorkerProjectViewController *temp = [[WorkerProjectViewController alloc] init];
+        
+        temp.delegate = self;
+        
+        temp.worker_id = workerID;
+        
+        temp.dataArray = missArray;
+        
+        [self presentViewController:temp animated:YES completion:nil];
+    }
     
-    temp.delegate = self;
-    
-    [self presentViewController:temp animated:YES completion:nil];
+  
 }
 
 
@@ -344,7 +356,7 @@
 - (void)callBtn
 {
     AYesOrNoViewController *temp = [[AYesOrNoViewController alloc] init];
-    
+
     [self.navigationController pushViewController:temp animated:YES];
 }
 
@@ -353,11 +365,202 @@
 - (void)success
 {
     [yes setTitle:@"邀约请求以发送" forState:UIControlStateNormal];
-    
+
     yes.userInteractionEnabled = NO;
 }
 
 
+
+
+- (void)getdata
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_id=%@", baseUrl, self.worker_id];
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+
+             NSArray *arr = [dic objectForKey:@"data"];
+
+             for (int i = 0; i < arr.count; i++)
+             {
+
+                 NSDictionary *dicInfo = [arr objectAtIndex:i];
+                 worDetailData *data = [[worDetailData alloc] init];
+
+                 data.u_id = [dicInfo objectForKey:@"u_id"];
+                 data.u_name = [dicInfo objectForKey:@"u_name"];
+                 data.u_skills = [dicInfo objectForKey:@"u_skills"];
+                 data.uei_info = [dicInfo objectForKey:@"uei_info"];
+                 data.u_task_status = [dicInfo objectForKey:@"u_task_status"];
+                 data.u_true_name = [dicInfo objectForKey:@"u_true_name"];
+                 data.ucp_posit_x = [dicInfo objectForKey:@"ucp_posit_x"];
+                 data.ucp_posit_y = [dicInfo objectForKey:@"ucp_posit_y"];
+                 data.u_img = [dicInfo objectForKey:@"u_img"];
+                 data.is_fav = [dicInfo objectForKey:@"is_fav"];
+
+                 data.u_mobile = [dicInfo objectForKey:@"u_mobile"];
+                 data.u_sex = [dicInfo objectForKey:@"u_sex"];
+                 data.uei_address = [dicInfo objectForKey:@"uei_address"];
+                 data.u_idcard = [dicInfo objectForKey:@"u_idcard"];
+                 Xmap = data.ucp_posit_x;
+                 Ymap = data.ucp_posit_y;
+                 
+                 workerID = data.u_id;
+                 
+
+                 NSURL *url = [NSURL URLWithString:data.u_img];
+
+                 [icon sd_setBackgroundImageWithURL:url forState:UIControlStateNormal];
+
+                 name.text = data.u_name;
+
+                 if ([data.u_sex isEqualToString:@"-1"])
+                 {
+                     sex.image = [UIImage imageNamed:@""];
+                 }
+                 else if ([data.u_sex isEqualToString:@"0"])
+                 {
+                     sex.image = [UIImage imageNamed:@"job_woman"];
+                 }
+                 else
+                 {
+                     sex.image = [UIImage imageNamed:@"job_man"];
+                 }
+
+
+
+                 if ([data.u_task_status isEqualToString:@"0"])
+                 {
+                     workerType.text = @"空闲";
+                 }
+                 else
+                 {
+                     workerType.text = @"工作中";
+                     workerType.backgroundColor = [UIColor redColor];
+                 }
+
+                 call.enabled = NO;
+
+
+                 redLab.text = data.uei_info;
+                 blueLab.text = data.uei_address;
+                 
+                 worker.text = self.workerNN;
+                 
+                 
+                 
+                 [self initMapView];
+                 
+             }
+
+
+
+
+         }
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+
+     }];
+
+
+}
+
+
+
+
+
+
+
+
+
+//任务数据网络请求
+- (void)getdataMiss
+{
+    NSString *url;
+    
+    url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_storage=0&t_status=0&skills=%@", baseUrl, @"2", self.skills_id];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSArray *tem = [dictionary objectForKey:@"data"];
+             
+             
+             for (int i = 0; i < tem.count; i++)
+             {
+                 NSDictionary *dic = [tem objectAtIndex:i];
+                 
+                 missionData *model = [[missionData alloc] init];
+                 
+                 model.t_id = [dic objectForKey:@"t_id"];
+                 model.t_title = [dic objectForKey:@"t_title"];
+                 model.t_info = [dic objectForKey:@"t_info"];
+                 model.t_amount = [dic objectForKey:@"t_amount"];
+                 model.t_duration = [dic objectForKey:@"t_duration"];
+                 model.t_edit_amount = [dic objectForKey:@"t_edit_amount"];
+                 model.t_amount_edit_times = [dic objectForKey:@"t_amount_edit_times"];
+                 model.t_posit_x = [dic objectForKey:@"t_posit_x"];
+                 model.t_posit_y = [dic objectForKey:@"t_posit_y"];
+                 model.t_author = [dic objectForKey:@"t_author"];
+                 model.t_in_time = [dic objectForKey:@"t_in_time"];
+                 model.t_last_edit_time = [dic objectForKey:@"t_last_edit_time"];
+                 model.t_last_editor = [dic objectForKey:@"t_last_editor"];
+                 model.t_status = [dic objectForKey:@"t_status"];
+                 model.t_phone = [dic objectForKey:@"t_phone"];
+                 model.t_phone_status = [dic objectForKey:@"t_phone_status"];
+                 model.t_type = [dic objectForKey:@"t_type"];
+                 model.bd_id = [dic objectForKey:@"bd_id"];
+                 model.u_img = [dic objectForKey:@"u_img"];
+     
+                 model.t_storage = [dic objectForKey:@"t_storage"];
+                 model.favorate = [dic objectForKey:@"favorate"];
+                 
+                 
+                 model.tew_id = [dic objectForKey:@"tew_id"];
+                 model.tew_skills = [dic objectForKey:@"tew_skills"];
+                 model.tew_worker_num = [dic objectForKey:@"tew_worker_num"];
+                 model.tew_price = [dic objectForKey:@"tew_price"];
+                 model.tew_start_time = [dic objectForKey:@"tew_start_time"];
+                 model.tew_end_time = [dic objectForKey:@"tew_end_time"];
+                 model.r_province = [dic objectForKey:@"r_province"];
+                 model.r_city = [dic objectForKey:@"r_city"];
+                 
+                 model.tew_address = [dic objectForKey:@"tew_address"];
+                 model.tew_lock = [dic objectForKey:@"tew_lock"];
+                 model.r_city = [dic objectForKey:@"r_city"];
+                 
+                 [missArray addObject:model];
+                 
+             }
+             
+
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+}
 
 
 

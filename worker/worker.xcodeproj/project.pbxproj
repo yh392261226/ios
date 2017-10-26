@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6E6DD1FB1F96F28B00CE32E0 /* ModifyMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6DD1FA1F96F28B00CE32E0 /* ModifyMoneyViewController.m */; };
+		6EE35A251F9F15BA00675B13 /* mapFirstguTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE35A241F9F15BA00675B13 /* mapFirstguTableViewCell.m */; };
+		6EE35A281F9F3DE100675B13 /* mapTwoguTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE35A271F9F3DE100675B13 /* mapTwoguTableViewCell.m */; };
+		6EE35A2B1F9F3EBA00675B13 /* mapWorkerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE35A2A1F9F3EBA00675B13 /* mapWorkerTableViewCell.m */; };
 		720707F91F8F058800521B26 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 720707F81F8F058800521B26 /* libWeChatSDK.a */; };
 		720708041F8F13F000521B26 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 720708031F8F13F000521B26 /* libc++.tbd */; };
 		720708061F8F141C00521B26 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720708051F8F141C00521B26 /* CoreText.framework */; };
@@ -227,6 +230,12 @@
 		5C1F10145795CF94D2603748 /* libPods-workerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-workerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E6DD1F91F96F28B00CE32E0 /* ModifyMoneyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyMoneyViewController.h; sourceTree = "<group>"; };
 		6E6DD1FA1F96F28B00CE32E0 /* ModifyMoneyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyMoneyViewController.m; sourceTree = "<group>"; };
+		6EE35A231F9F15BA00675B13 /* mapFirstguTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mapFirstguTableViewCell.h; sourceTree = "<group>"; };
+		6EE35A241F9F15BA00675B13 /* mapFirstguTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mapFirstguTableViewCell.m; sourceTree = "<group>"; };
+		6EE35A261F9F3DE100675B13 /* mapTwoguTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mapTwoguTableViewCell.h; sourceTree = "<group>"; };
+		6EE35A271F9F3DE100675B13 /* mapTwoguTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mapTwoguTableViewCell.m; sourceTree = "<group>"; };
+		6EE35A291F9F3EBA00675B13 /* mapWorkerTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mapWorkerTableViewCell.h; sourceTree = "<group>"; };
+		6EE35A2A1F9F3EBA00675B13 /* mapWorkerTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mapWorkerTableViewCell.m; sourceTree = "<group>"; };
 		720707F81F8F058800521B26 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/OpenSDK1.8.0/libWeChatSDK.a; sourceTree = "<group>"; };
 		720708031F8F13F000521B26 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		720708051F8F141C00521B26 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -1260,6 +1269,12 @@
 		FBA9BF661F662EDC00612B61 /* mapviewB */ = {
 			isa = PBXGroup;
 			children = (
+				6EE35A231F9F15BA00675B13 /* mapFirstguTableViewCell.h */,
+				6EE35A241F9F15BA00675B13 /* mapFirstguTableViewCell.m */,
+				6EE35A261F9F3DE100675B13 /* mapTwoguTableViewCell.h */,
+				6EE35A271F9F3DE100675B13 /* mapTwoguTableViewCell.m */,
+				6EE35A291F9F3EBA00675B13 /* mapWorkerTableViewCell.h */,
+				6EE35A2A1F9F3EBA00675B13 /* mapWorkerTableViewCell.m */,
 			);
 			path = mapviewB;
 			sourceTree = "<group>";
@@ -1882,6 +1897,7 @@
 				FBDCDFDF1F7B4BF300167A04 /* UserInfoModel.m in Sources */,
 				FB4C33BC1F5FD85E005D0747 /* DomFirstCollectionViewCell.m in Sources */,
 				FB7BFADE1F57A9D7007BA843 /* RemoveFirViewController.m in Sources */,
+				6EE35A281F9F3DE100675B13 /* mapTwoguTableViewCell.m in Sources */,
 				FB4C33AF1F5F8BA1005D0747 /* PartyDismissViewController.m in Sources */,
 				FB4C33BF1F5FDDDD005D0747 /* PartySecondCollectionViewCell.m in Sources */,
 				FB2581DB1F395BA100BE510F /* TypeView.m in Sources */,
@@ -1889,6 +1905,7 @@
 				FB4F230C1F58F25E00D8D7C6 /* NormalTableViewCell.m in Sources */,
 				FB9911391F29757F0017A32B /* TabbarView.m in Sources */,
 				FB4C33B71F5FC6FD005D0747 /* PartyDomplainViewController.m in Sources */,
+				6EE35A251F9F15BA00675B13 /* mapFirstguTableViewCell.m in Sources */,
 				FB4C33C81F5FEA1F005D0747 /* PartyimageCollectionViewCell.m in Sources */,
 				FB339D471F3C3A550086CF2D /* BriefTableViewCell.m in Sources */,
 				FB0C13911F3AB96900A1C463 /* IssueViewController.m in Sources */,
@@ -1897,6 +1914,7 @@
 				FB7FA59B1F32F75F0096F6F2 /* WorkerMessViewController.m in Sources */,
 				FBD796A11F28899700FA50BE /* myselfway.m in Sources */,
 				FB5759B41F4433CF00135B92 /* DressingWorkerViewController.m in Sources */,
+				6EE35A2B1F9F3EBA00675B13 /* mapWorkerTableViewCell.m in Sources */,
 				FB5DEC551F60F14B00008EA5 /* ZLCollectionCell.m in Sources */,
 				FBD3A9FF1F6E440A00921A88 /* AFirstAnsViewController.m in Sources */,
 			);

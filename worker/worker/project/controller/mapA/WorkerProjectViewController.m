@@ -8,10 +8,57 @@
 
 #import "WorkerProjectViewController.h"
 #import "WorkerProTableViewCell.h"
+#import "AmapWorkerViewController.h"
+
+
+@interface jobProjectData : NSObject
+
+@property (nonatomic, strong)NSString *t_id;
+@property (nonatomic, strong)NSString *t_title;
+@property (nonatomic, strong)NSString *t_info;
+@property (nonatomic, strong)NSString *t_amount;
+@property (nonatomic, strong)NSString *t_duration;
+@property (nonatomic, strong)NSString *t_edit_amount;
+@property (nonatomic, strong)NSString *t_amount_edit_times;
+@property (nonatomic, strong)NSString *t_posit_x;
+@property (nonatomic, strong)NSString *t_posit_y;
+@property (nonatomic, strong)NSString *t_author;
+@property (nonatomic, strong)NSString *t_in_time;
+@property (nonatomic, strong)NSString *t_last_edit_time;
+@property (nonatomic, strong)NSString *t_last_editor;
+@property (nonatomic, strong)NSString *t_status;
+@property (nonatomic, strong)NSString *t_phone;
+@property (nonatomic, strong)NSString *t_phone_status;
+@property (nonatomic, strong)NSString *t_desc;
+
+@property (nonatomic, strong)NSString *tew_id;
+@property (nonatomic, strong)NSString *tew_skills;
+@property (nonatomic, strong)NSString *tew_worker_num;
+@property (nonatomic, strong)NSString *tew_price;
+@property (nonatomic, strong)NSString *tew_start_time;
+@property (nonatomic, strong)NSString *tew_end_time;
+@property (nonatomic, strong)NSString *r_province;
+@property (nonatomic, strong)NSString *r_city;
+@property (nonatomic, strong)NSString *r_area;
+@property (nonatomic, strong)NSString *tew_address;
+@property (nonatomic, strong)NSString *tew_lock;
+@property (nonatomic, strong)NSNumber *favorate;
+@property (nonatomic, strong)NSString *u_img;
+
+
+@end
+
+
+
+@implementation jobProjectData
+
+
+@end
+
 
 @interface WorkerProjectViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
-    NSMutableArray *dataArray;
+    
     
     
     
@@ -27,13 +74,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    dataArray = [NSMutableArray array];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
+    
+   
     
     [self addhead:@"选择招工项目"];
     
-    
+    NSLog(@"%@", self.dataArray);
     [self tableview];
 }
 
@@ -69,7 +115,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return dataArray.count;
+    return _dataArray.count;
 }
 
 
@@ -83,6 +129,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    missionData *info = [self.dataArray objectAtIndex:indexPath.section];
+    
     WorkerProTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if (!cell)
@@ -91,6 +139,15 @@
         
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.details.hidden = YES;
+        cell.favoriteBtn.hidden = YES;
+        cell.IconBtn.layer.masksToBounds = YES;
+        
+        NSURL *url = [NSURL URLWithString:info.u_img];
+        [cell.IconBtn sd_setImageWithURL:url];
+        
+        cell.title.text = info.t_title;
+        cell.introduce.text = info.t_info;
         
         
         cell.favoriteBtn.tag = 500 + indexPath.section;
@@ -175,11 +232,11 @@
     
     NSLog(@"%ld", btn.tag);
     
+    NSInteger num = btn.tag - 900;
     
+    missionData *data = [self.dataArray objectAtIndex:num];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    [self.delegate success];
+    [self getdata:data.tew_id t_id:data.t_id];
     
 }
 
@@ -187,13 +244,36 @@
 
 
 
+//邀约请求
+- (void)getdata: (NSString *)tew_id t_id:(NSString *)t_id
+{
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=create&tew_id=%@&t_id=%@&o_worker=%@", baseUrl, tew_id , t_id , self.worker_id];
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             [self dismissViewControllerAnimated:YES completion:nil];
+             
+             [self.delegate success];
+         }
 
 
 
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+
+     }];
 
 
-
-
+}
 
 
 

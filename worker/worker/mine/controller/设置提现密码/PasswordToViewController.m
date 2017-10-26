@@ -6,8 +6,6 @@
 //  Copyright © 2017年 郭健. All rights reserved.
 //
 
-
-
 #import "PasswordToViewController.h"
 #import "SYPasswordView.h"
 #import "SetPasswordViewController.h"
@@ -110,10 +108,29 @@
     
     if ([self.firPass isEqualToString:num])
     {
-        [SVProgressHUD showInfoWithStatus:@"密码设置成功"];
+        if (self.odlpassword.length != 0)
+        {
+            
+            //输入原密码修改密码走的路
+            [self OldpostData:self.odlpassword newPass:num];
+            
+        }
+        else if ([self.wangjimima isEqualToString:@"1"])
+        {
+            //不知道源密码修改密码走的路
+            [self OldpostDataInfo:num];
+        }
+        else
+        {
+            [self postData:num];
+        }
         
         
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        
+        
+        
+        
     }
     else
     {
@@ -126,6 +143,77 @@
 
 
 
+//设置提现密码
+- (void)postData: (NSString *)password
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/setPassword", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic = @{@"u_id" : user_ID,
+                          @"u_pass" : password
+                          };
+    
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
+             
+             
+             [[NSUserDefaults standardUserDefaults] setObject:@"1111111111" forKey:@"u_pass"];
+             
+             [[NSUserDefaults standardUserDefaults] synchronize];
+             
+             
+             
+             NSDictionary *dict = @{@"tongzhi": @"1"};
+             
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"changePassword" object:@"zhangsan" userInfo:dict];
+             
+             //postNotificationName:之后的参数就是这个通知的名字，要和要和接收者中的名字一样，才能让接收者正确接收。
+             //object：接收对象
+             //userInfo: 携带的参数，在例子中我携带了一个字典，因为有时候我们要传递的参数不只是一个，所以把东西全部放在通知里面，在接收者中，根据字典里面的键来取出里面的值。
+             //在字典中传递的color是一个已经实例化后的对象。
+
+             [self.navigationController popToRootViewControllerAnimated:YES];
+             
+         }
+         else
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showErrorWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+}
+
+
+- (void)DatTime
+{
+    [SVProgressHUD dismiss];
+}
 
 
 
@@ -133,15 +221,109 @@
 
 
 
+//输入元密码修改密码
+- (void)OldpostData: (NSString *)password newPass:(NSString *)pass
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/passwordEdit", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic = @{@"u_id" : user_ID,
+                          @"u_pass" : password,
+                          @"new_pass" : pass
+                          };
+    
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
+             
+             [self.navigationController popToRootViewControllerAnimated:YES];
+             
+         }
+         else
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showErrorWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+}
 
 
 
-
-
-
-
-
-
+//不知道源密码修改密码
+- (void)OldpostDataInfo: (NSString *)pass
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/passwordEdit", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic = @{@"u_mobile" : user_phone,
+                          @"verify_code" : self.yanzhengma,
+                          @"new_pass" : pass,
+                          @"u_idcard": self.card_ID
+                          };
+    
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
+             
+             [self.navigationController popToRootViewControllerAnimated:YES];
+             
+         }
+         else
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showErrorWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+}
 
 
 @end

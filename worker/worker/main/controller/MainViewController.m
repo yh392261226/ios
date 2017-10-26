@@ -291,11 +291,21 @@
     }
     else
     {
-        IssueViewController *temp = [[IssueViewController alloc] init];
-        temp.longitudeWor = longitude;
-        temp.latitudeWor = latitude;
+        if ([user_ID isEqualToString:@"0"])
+        {
+            LoginViewController *temp = [[LoginViewController alloc] init];
+            
+            [self presentViewController:temp animated:YES completion:nil];
+        }
+        else
+        {
+            IssueViewController *temp = [[IssueViewController alloc] init];
+            temp.longitudeWor = longitude;
+            temp.latitudeWor = latitude;
+            
+            [self.navigationController pushViewController:temp animated:YES];
+        }
         
-        [self.navigationController pushViewController:temp animated:YES];
     }
     
     self.hidesBottomBarWhenPushed = NO;

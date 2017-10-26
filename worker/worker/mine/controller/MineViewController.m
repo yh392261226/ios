@@ -48,17 +48,17 @@
     
     dataArray = [NSMutableArray array];
     
-    elseIcon = [NSMutableArray arrayWithObjects:@"mine_password", @"mine_wet",@"mine_list",@"mine_set",@"mine_call", nil];
+    elseIcon = [NSMutableArray arrayWithObjects:@"mine_password",@"mine_list",@"mine_set",@"mine_call", nil];
     
-    titleArr = [NSMutableArray arrayWithObjects:@"设置提现密码", @"邀请好友",@"服务条款",@"设置",@"客服", nil];
+    titleArr = [NSMutableArray arrayWithObjects:@"设置提现密码",@"服务条款",@"设置",@"客服", nil];
     
     
     [self initHeadView];
     
     [self tableview];
     
-    
-    
+    //接受通知，   接受设置密码成功后的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changePassword:) name:@"changePassword" object:nil];
     
 }
 
@@ -97,7 +97,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 8;
+    return 7;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -211,6 +211,38 @@
         
         cell.name.text = [titleArr objectAtIndex:indexPath.section - 3];
         
+        //判断是否登录
+        if ([user_ID isEqualToString:@"0"])
+        {
+            if (indexPath.section == 3)
+            {
+                cell.name.text = @"设置支付密码";
+            }
+        }
+        else
+        {
+            //判断是否设置了密码
+            NSString *pass = user_pass;
+            
+            if (pass.length > 0)
+            {
+                if (indexPath.section == 3)
+                {
+                    cell.name.text = @"修改支付密码";
+                }
+            }
+            else
+            {
+                if (indexPath.section == 3)
+                {
+                    cell.name.text = @"设置支付密码";
+                }
+            }
+        }
+        
+        
+        
+        
         return cell;
     }
     
@@ -266,20 +298,20 @@
     
     if (![user_ID isEqualToString:@"0"])
     {
-        if (indexPath.section == 5)
+        if (indexPath.section == 4)
         {
             ServiceViewController *temp = [[ServiceViewController alloc] init];
             
             [self.navigationController pushViewController:temp animated:YES];
         }
         
-        else if (indexPath.section == 4)
-        {
-            FriendViewController *temp = [[FriendViewController alloc] init];
-            
-            [self.navigationController pushViewController:temp animated:YES];
-        }
-        else if(indexPath.section == 6)
+//        else if (indexPath.section == 4)
+//        {
+//            FriendViewController *temp = [[FriendViewController alloc] init];
+//
+//            [self.navigationController pushViewController:temp animated:YES];
+//        }
+        else if(indexPath.section == 5)
         {
             SetViewController *temp = [[SetViewController alloc] init];
             
@@ -287,7 +319,7 @@
             
             [self.navigationController pushViewController:temp animated:YES];
         }
-        else if(indexPath.section == 7)
+        else if(indexPath.section == 6)
         {
             
             NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"15045281940"];
@@ -298,9 +330,36 @@
         }
         else if(indexPath.section == 3)
         {
-            SetPasswordViewController *temp = [[SetPasswordViewController alloc] init];
+           
             
-            [self.navigationController pushViewController:temp animated:YES];
+            NSString *id_card = user_u_idcard;
+            
+            
+            //判断是否填写了身份证号
+            if (id_card.length > 0)
+            {
+                SetPasswordViewController *temp = [[SetPasswordViewController alloc] init];
+                
+                NSString *word = user_pass;
+                
+                if (word.length > 0)
+                {
+                    temp.type = 0;
+                }
+                else
+                {
+                    temp.type = 1;
+                }
+                
+                 [self.navigationController pushViewController:temp animated:YES];
+            }
+            else
+            {
+                [SVProgressHUD showErrorWithStatus:@"请到个人信息处填写身份证号方可设置密码"];
+            }
+            
+            
+           
         }
     }
     else
@@ -446,11 +505,13 @@
     }
     else
     {
+        
         LoginViewController *temp = [[LoginViewController alloc] init];
         
         temp.delegate = self;
         
         [self presentViewController:temp animated:YES completion:nil];
+        
     }
     
     
@@ -538,6 +599,14 @@
     [self.tableview reloadData];
 }
 
+
+
+//接收通知
+- (void)changePassword:(NSNotification *)notification
+{
+    //收到成功设置密码后， 刷新页面显示
+    [self.tableview reloadData];
+}
 
 
 

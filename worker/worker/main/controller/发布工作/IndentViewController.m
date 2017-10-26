@@ -18,6 +18,7 @@
 #import "indent.h"
 #import "PreviewTableViewCell.h"
 #import "PriceTableview.h"
+#import "SYPasswordView.h"
 
 @interface threModel : selecdType
 
@@ -55,16 +56,31 @@
 
 @interface IndentViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
+    NSString *password;    //提现密码
+    
+    UIView *Passwordview;   //支付密码的view
+    UIControl *cor;   //背景
+    
+    
+    
     NSMutableArray *dataArray;
     
     UIControl *backControl;
     
     UIWindow *window;
+    
+    NSMutableArray *new;
+    
+    NSDictionary *dicAll;
 }
 
 @property (nonatomic, strong)PriceTableview *priceTable;
 
 @property (nonatomic, strong)UITableView *tableview;
+
+@property (nonatomic, strong)UIWindow *window;
+
+@property (nonatomic, strong)SYPasswordView *pasView;
 
 @end
 
@@ -80,7 +96,7 @@
     dataArray = [NSMutableArray arrayWithArray:self.modelArray];
     
  //   [self initMoney];
-    
+    [self passworkPost];
     
     [self initData];
     
@@ -91,6 +107,9 @@
     [self initbackCon];
     
     [self priceTable];
+    
+
+    [self postData];
     
 }
 
@@ -136,12 +155,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     NSArray *numCount = [dataArray objectAtIndex:section];
-    
-    
+
     return numCount.count;
-    
 }
 
 
@@ -474,35 +490,24 @@
 - (void)zhifuBtn
 {
     //支付
-    
-    NSString *longitudeWor = [NSString stringWithFormat:@"%f", self.longitudeWor];
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:longitudeWor forKey:@"longitudeWor"];
-    
-    
-    NSString *latitudeWor = [NSString stringWithFormat:@"%f", self.latitudeWor];
-    
-    NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
-    [dic1 setValue:latitudeWor forKey:@"latitudeWor"];
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        
+        Passwordview.frame = CGRectMake(0, SCREEN_HEIGHT - 120 - 216, SCREEN_WIDTH, 120 + 216);
+        cor.hidden = NO;
+    } completion:^(BOOL finished) {
+        [self.pasView.textField becomeFirstResponder];
+    }];
     
     
-    NSMutableDictionary *user = [NSMutableDictionary dictionary];
-    [user setValue:user_ID forKey:@"user_id"];
-    
-    
-    [self.postArray addObject:dic];
-    [self.postArray addObject:dic1];
-    [self.postArray addObject:user];
-    
-    
-    NSLog(@"%@", self.postArray);
+   
 }
 
 
 //制作数据
 - (void)initData
 {
+    
 //    NSMutableArray *arr = [NSMutableArray array];
 //
 //    threModel *data = [[threModel alloc] init];
@@ -570,9 +575,7 @@
         
     }
     
-    
-    
-    
+
     return _priceTable;
 }
 
@@ -588,12 +591,180 @@
 
 
 
+- (void)postData
+{
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=publish", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:url parameters:self.postDic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+          //   NSArray *arr = [dictionary objectForKey:@"data"];
+             
+            
+             
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+- (void)passworkPost
+{
+    _window = [[UIApplication sharedApplication] keyWindow];
+    
+    cor = [[UIControl alloc] init];
+    cor.hidden = YES;
+    
+    cor.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [cor addTarget:self action:@selector(NOBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    cor.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    
+    [_window addSubview:cor];
+    
+    
+    Passwordview = [[UIView alloc] init];
+    
+    Passwordview.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+    Passwordview.backgroundColor = [UIColor whiteColor];
+    
+    [cor addSubview:Passwordview];
+    
+    
+    UILabel *titile = [[UILabel alloc] init];
+    
+    titile.text = @"请输入支付密码";
+    titile.textAlignment = NSTextAlignmentCenter;
+    titile.font = [UIFont systemFontOfSize:16];
+    [Passwordview addSubview:titile];
+    
+    [titile mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(Passwordview).offset(7);
+        make.centerX.mas_equalTo(Passwordview);
+        make.width.mas_equalTo(250);
+        make.height.mas_equalTo(25);
+    }];
+    
+    
+    //    UIView *line = [[UIView alloc] init];
+    //    line.backgroundColor = [myselfway stringTOColor:@"0xF3F3F3"];
+    //    [Passwordview addSubview:line];
+    //
+    //    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+    //
+    //    }];
+    
+    
+    self.pasView = [[SYPasswordView alloc] initWithFrame:CGRectMake(16, SCREEN_HEIGHT - 216 - 80, SCREEN_WIDTH - 32, 45)];
+    
+    self.pasView.delegate = self;
+    
+    [cor addSubview:self.pasView];
+    
+}
 
 
 
 
 
+//关闭支付view
+- (void)NOBtn
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.pasView.textField resignFirstResponder];
+        Passwordview.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+        
+        
+    } completion:^(BOOL finished) {
+        cor.hidden = YES;
+        
+    }];
+}
+
+//获取编辑密码的代理
+- (void)password: (NSString *)num
+{
+    password = num;
+    
+     [self.postDic setValue:password forKey:@"u_pass"];
+    //网络请求
+    NSData *datainfo = [NSJSONSerialization dataWithJSONObject:self.postDic options:NSJSONWritingPrettyPrinted error:nil];
+    
+    
+    NSString *getStr = [datainfo base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    NSDictionary *dicAll = @{@"data" : getStr};
+    
+    NSString *url = [NSString stringWithFormat:@"%@?action=publish", baseUrl];
+    [self postRequestByServiceUrl:url andApi:nil andParams:dicAll andCallBack:^(id obj) {
+        
+        NSLog(@"%@", obj);
+        
+        if ([[obj objectForKey:@"code"] integerValue] == 200)
+        {
+            [SVProgressHUD showInfoWithStatus:[obj objectForKey:@"data"]];
+
+        }
+        
+        
+    }];
+}
 
 
+- (void)postRequestByServiceUrl:(NSString *)service
+                         andApi:(NSString *)api
+                      andParams:(NSDictionary *)params
+                    andCallBack:(void (^)(id obj))callback
+{
+    // NSString *basePath = [service stringByAppendingString:api];
+    
+    NSURL *url = [NSURL URLWithString:service];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    [request setHTTPMethod:@"POST"];
+    NSString *body = [myselfway dealWithParam:params];
+    NSData *bodyData = [body dataUsingEncoding:NSUTF8StringEncoding];
+    
+    // 设置请求体
+    [request setHTTPBody:bodyData];
+    
+    // 设置本次请求的提交数据格式
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    // 设置本次请求请求体的长度(因为服务器会根据你这个设定的长度去解析你的请求体中的参数内容)
+    [request setValue:[NSString stringWithFormat:@"%ld",bodyData.length] forHTTPHeaderField:@"Content-Length"];
+    
+    // 设置本次请求的最长时间
+    request.timeoutInterval = 20;
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        if (dic) {
+            callback(dic);
+        }else
+        {
+            callback(error.description);
+        }
+    }];
+    
+    [task resume];
+}
 
 @end

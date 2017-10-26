@@ -543,12 +543,17 @@
             
             NSLog(@"%@", [dic objectForKey:@"msg"]);
             
+            
             //储存账户
             [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_id"] forKey:@"u_id"];
             [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_img"] forKey:@"u_img"];
             [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_name"] forKey:@"u_name"];
             [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_online"] forKey:@"u_online"];
             [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_sex"] forKey:@"u_sex"];
+            [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_pass"] forKey:@"u_pass"];
+            [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"u_idcard"] forKey:@"u_idcard"];
+            [[NSUserDefaults standardUserDefaults] setObject:userPhone forKey:@"u_phone"];
+            
             
             [[NSUserDefaults standardUserDefaults] synchronize];
             

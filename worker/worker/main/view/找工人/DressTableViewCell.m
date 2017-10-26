@@ -33,7 +33,7 @@
         
         _detail.font = [UIFont systemFontOfSize:15];
         
-        _detail.text = @"阿卡积分厚大司考结果还是考过了fhjk";
+   //     _detail.text = @"阿卡积分厚大司考结果还是考过了fhjk";
     
         [_backview addSubview:_detail];
         

@@ -16,7 +16,7 @@
     NSMutableArray *dataArray;
 }
 
-@property (nonatomic, strong) SYPasswordView *pasView;
+@property (nonatomic, strong)SYPasswordView *pasView;
 
 @end
 
@@ -125,19 +125,76 @@
 //原密码获取的代理方法
 - (void)password: (NSString *)num
 {
-    NSLog(@"1");
+    
+    [self postData:num];
     
     
-    PasswordViewController *temp = [[PasswordViewController alloc] init];
-    
-    [self.navigationController pushViewController:temp animated:YES];
     
 }
 
 
 
+//修改密码
+- (void)postData: (NSString *)password
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/passwordEdit", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic = @{@"u_id" : user_ID,
+                          @"u_pass" : password
+                          };
+
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1];
+             
+             PasswordViewController *temp = [[PasswordViewController alloc] init];
+             
+             temp.oldpassword = password;
+             
+             [self.navigationController pushViewController:temp animated:YES];
+             
+         }
+         else
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1];
+         }
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+          [SVProgressHUD showSuccessWithStatus:@"暂无网络，请检查网络"];
+         
+          [self performSelector:@selector(DatTime) withObject:self afterDelay:1];
+     }];
+    
+}
 
 
+- (void)DatTime
+{
+    [SVProgressHUD dismiss];
+}
 
 
 

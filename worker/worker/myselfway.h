@@ -31,4 +31,15 @@
 //时间戳转化时间
 + (NSString *)timeWithTimeIntervalString:(NSString *)timeString;
 
+//字典转json
++ (NSString *)convertToJsonData:(NSDictionary *)dict;
+
+//数组转json
++ (NSString *)arrayToJSONString:(NSArray *)array;
+
+//字典转成字符串
++ (NSString *)dictionaryToJson:(NSDictionary *)dic;
+
++ (NSString *)dealWithParam:(NSDictionary *)param;
+
 @end

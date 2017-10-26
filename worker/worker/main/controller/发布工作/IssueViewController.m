@@ -7,6 +7,11 @@
 //
 
 
+
+
+
+
+
 //获取工人列表数据
 @interface workerPeData : NSObject
 
@@ -57,8 +62,9 @@
     
     NSMutableArray *newArr;
     
-    NSMutableArray *infoA;    //更改格式，传给服务器的大数组
+    NSMutableArray *proTypeArray;  //工程类型数组
     
+    NSMutableArray *infoA;    //更改格式，传给服务器的大数组
     
     NSMutableArray *numWorker;    //临时用， 装工种中文字样
     NSMutableArray *EnglishWor;   //  庄工种ID数组
@@ -66,10 +72,11 @@
     NSString *starttime; //开始时间
     NSString *endtime;   //结束时间
     
-    
-    
-    
+    NSMutableArray *workerAArry;
+
     bool oneT;   //判断工种数组只删除一次， 为了防止重复累加
+    
+    NSString *allMoney;   //网络请求获取所有金钱
     
 }
 
@@ -87,7 +94,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+   
     oneT = YES;
     
     newArr = [NSMutableArray array];
@@ -99,6 +106,8 @@
     numWorker = [NSMutableArray array];
     
     EnglishWor = [NSMutableArray array];
+    
+   // proTypeArray = [NSMutableArray array];
     
     [self initData];
     
@@ -113,7 +122,7 @@
     [self tableview];
     
      [self workerData];   //获取工种列表
-    
+    [self proTypeData];
     
     
 }
@@ -198,9 +207,7 @@
                    cell.data.placeholder = @"请输入详细地址，不少于5个字";
                 }
                 
-                
                 cell.data.text = info.data;
-                
                 
                 cell.data.restorationIdentifier = [NSString stringWithFormat:@"%ld%ld%@", indexPath.section, indexPath.row , @"0"];
                 
@@ -238,7 +245,6 @@
             
             if (!cell)
             {
-                
                 cell = [[BriefTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"briefcell"];
                 
                 cell.name.font = [UIFont systemFontOfSize:16];
@@ -247,8 +253,7 @@
                 
                 cell.data.text = info.data;
                 cell.data.delegate = self;
-                
-                
+ 
             }
             
             
@@ -298,7 +303,6 @@
                 
                 [cell.personfield addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
                 [cell.moneyfield addTarget:self action:@selector(textFiled:) forControlEvents:UIControlEventEditingChanged];
-                
                 
                 cell.personfield.keyboardType = UIKeyboardTypeNumberPad;
                 cell.moneyfield.keyboardType = UIKeyboardTypeNumberPad;
@@ -459,15 +463,13 @@
                 
                 [AlertController addAction:Return];
                 
-                for (int i = 0; i < workerArr.count; i++)
+                for (int i = 0; i < proTypeArray.count; i++)
                 {
-                    UIAlertAction *action = [UIAlertAction actionWithTitle:[workerArr objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                    UIAlertAction *action = [UIAlertAction actionWithTitle:[proTypeArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                                              {
-                                                 
                                                  model.data = action.title;
-                                                 
+                                                 model.proTypeNum = [NSString stringWithFormat:@"%d", i];
                                                  [self.tableview reloadData];
-                                                 
                                              }];
                     
                     
@@ -554,6 +556,7 @@
 //确认提交按钮
 - (void)Escbtn
 {
+
     [newArr removeAllObjects];
     
     for (int i = 0; i < dataArray.count; i++)
@@ -576,46 +579,156 @@
     
     }
     
+    NSLog(@"%@", newArr);
     
     
+    
+    
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    
+    workerAArry = [NSMutableArray array];
     //修改数据格式， 上传服务器
-    infoA = [NSMutableArray array];
-
-    NSMutableArray *arra = [NSMutableArray array];
-    
-    for (int i = 0; i < newArr.count; i++)
+    for (int q = 0; q < newArr.count; q++)
     {
+        NSArray *arr = [newArr objectAtIndex:q];
         
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        
-        NSArray *arr = [newArr objectAtIndex:i];
-        
-        if (i == 0)
+        if (q == 0)
         {
-            [dic setValue:arr forKey:@"basic"];
-            
-            [infoA addObject:dic];
+            for (int j = 0; j < arr.count; j++)
+            {
+                NSDictionary *dic = [arr objectAtIndex:j];
+                
+                switch (j)
+                {
+                    case 0:
+                        p_Name = [dic objectForKey:@"data"];
+                        [data setValue:p_Name forKey:@"t_title"];
+                        break;
+                    case 1:
+                        p_info = [dic objectForKey:@"data"];
+                        [data setValue:p_info forKey:@"t_info"];
+                        break;
+                    case 2:
+                        p_proType = [dic objectForKey:@"proTypeNum"];
+                        [data setValue:p_proType forKey:@"t_type"];
+                        break;
+                    case 3:
+                        p_province = [dic objectForKey:@"province_id"];
+                        p_city = [dic objectForKey:@"city_id"];
+                        p_area = [dic objectForKey:@"district_id"];
+                        
+                        [data setValue:p_province forKey:@"province"];
+                        [data setValue:p_city forKey:@"city"];
+                        [data setValue:p_area forKey:@"area"];
+                        break;
+                    case 4:
+                        p_adree = [dic objectForKey:@"data"];
+                        [data setValue:p_adree forKey:@"address"];
+                        break;
+                    default:
+                        break;
+                        
+                }
+ 
+            }
+   
         }
         else
         {
-            [arra addObject:arr];
+      
+            NSMutableDictionary *dicInfo = [NSMutableDictionary dictionary];
+            
+            for (int i = 0; i < arr.count; i++)
+            {
+                NSDictionary *dic = [arr objectAtIndex:i];
+                
+                if (i == 0)
+                {
+                    [dicInfo setValue:[dic objectForKey:@"skill"] forKey:@"skill"];
+
+                }
+                else if (i == 1)
+                {
+                    NSMutableDictionary *person = [NSMutableDictionary dictionary];
+
+                    [person setValue:[dic objectForKey:@"personNum"] forKey:@"personNum"];
+
+                    NSMutableDictionary *money = [NSMutableDictionary dictionary];
+
+                    [money setValue:[dic objectForKey:@"money"] forKey:@"money"];
+                   
+                    
+                    [dicInfo setValue:[dic objectForKey:@"personNum"] forKey:@"personNum"];
+                    [dicInfo setValue:[dic objectForKey:@"money"] forKey:@"money"];
+                    
+                }
+                else if(i == 2)
+                {
+                    NSMutableDictionary *startTimeNum = [NSMutableDictionary dictionary];
+                    
+                    [startTimeNum setValue:[dic objectForKey:@"startTime"] forKey:@"startTime"];
+                    
+                    NSMutableDictionary *endTimeNum = [NSMutableDictionary dictionary];
+                    
+                    [endTimeNum setValue:[dic objectForKey:@"endTime"] forKey:@"endTime"];
+                    
+                    [dicInfo setValue:[dic objectForKey:@"startTime"] forKey:@"startTime"];
+                    [dicInfo setValue:[dic objectForKey:@"endTime"] forKey:@"endTime"];
+
+                }
+                
+                
+                
+            }
+  
+            
+            [workerAArry addObject:dicInfo];
+           
         }
-    
+        
+        
+        [data setValue:workerAArry forKey:@"worker"];
+        
     }
     
+    NSString *str_X = [NSString stringWithFormat:@"%f", self.longitudeWor];
+    NSString *str_Y = [NSString stringWithFormat:@"%f", self.latitudeWor];
     
-    NSMutableDictionary *workerDic = [NSMutableDictionary dictionary];
+    [data setValue:str_X  forKey:@"t_posit_x"];
+    [data setValue:str_Y forKey:@"t_posit_y"];
+    [data setValue:user_ID forKey:@"t_author"];
+    [data setValue:@"0" forKey:@"t_storage"];
     
-    [workerDic setValue:arra forKey:@"worker"];
-    
-    [infoA addObject:workerDic];
+    NSData *datainfo = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
     
     
+    NSString *getStr = [datainfo base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+
+    NSDictionary *dicAll = @{@"data" : getStr};
+    
+    NSString *url = [NSString stringWithFormat:@"%@Tools/subTotal", baseUrl];
+    [self postRequestByServiceUrl:url andApi:nil andParams:dicAll andCallBack:^(id obj) {
+
+        NSLog(@"%@", obj);
+        
+        if ([[obj objectForKey:@"code"] integerValue] == 200)
+        {
+            //[SVProgressHUD showInfoWithStatus:[obj objectForKey:@"data"]];
+
+            allMoney = [obj objectForKey:@"data"];
+            
+            NSLog(@"%@", allMoney);
+        }
+       
+        
+    }];
+    
+
     self.hidesBottomBarWhenPushed = YES;
     
     IndentViewController *temp = [[IndentViewController alloc] init];
     
-    temp.postArray = infoA;
+    temp.postDic = data;
     temp.modelArray = dataArray;
     
     temp.longitudeWor = self.longitudeWor;
@@ -624,11 +737,8 @@
     [self.navigationController pushViewController:temp animated:YES];
     
     
+    
 }
-
-
-
-
 
 
 //加载增加工种按钮
@@ -1206,7 +1316,6 @@
     
  //   starttime = [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
     
-    
     NSString *str = [NSString stringWithFormat:@"%ld", data.tag];
     
     NSString *sectionStr = [str substringToIndex:1];//section
@@ -1306,13 +1415,116 @@
 }
 
 
+//获取工程类型数据
+- (void)proTypeData
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Tools/taskType"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             proTypeArray = [dictionary objectForKey:@"data"];
+             
+            
+            
+             
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
-//省事三级联动返回代理
+
+
+//计算金额
+//- (void)postData : (NSMutableDictionary *)data
+//{
+//    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=publish", baseUrl];
+//
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//
+//    NSDictionary *dic = @{@"data" : data};
+//
+//    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+//     {
+//         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//
+//         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+//         {
+//             //   NSArray *arr = [dictionary objectForKey:@"data"];
+//
+//
+//         }
+//
+//     } failure:^(NSURLSessionDataTask *task, NSError *error)
+//     {
+//
+//     }];
+//
+//
+//}
 
 
 
+// 自带原生post请求
+- (void)postRequestByServiceUrl:(NSString *)service
+                         andApi:(NSString *)api
+                      andParams:(NSDictionary *)params
+                    andCallBack:(void (^)(id obj))callback
+{
+   // NSString *basePath = [service stringByAppendingString:api];
+    
+    NSURL *url = [NSURL URLWithString:service];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    [request setHTTPMethod:@"POST"];
+    NSString *body = [myselfway dealWithParam:params];
+    NSData *bodyData = [body dataUsingEncoding:NSUTF8StringEncoding];
+    
+    // 设置请求体
+    [request setHTTPBody:bodyData];
+    
+    // 设置本次请求的提交数据格式
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    // 设置本次请求请求体的长度(因为服务器会根据你这个设定的长度去解析你的请求体中的参数内容)
+    [request setValue:[NSString stringWithFormat:@"%ld",bodyData.length] forHTTPHeaderField:@"Content-Length"];
+    
+    // 设置本次请求的最长时间
+    request.timeoutInterval = 20;
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        if (dic) {
+            callback(dic);
+        }else
+        {
+            callback(error.description);
+        }
+    }];
+    
+    [task resume];
+}
 
-// http://api.gangjianwang.com/Tools/subTotal     //获取金钱的网络请求
+
 
 
 @end

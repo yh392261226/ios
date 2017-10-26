@@ -147,7 +147,7 @@
     
     
     
-    NSURL *url = [NSURL URLWithString:model.t_imageUrl];
+    NSURL *url = [NSURL URLWithString:model.u_img];
     
     [cell.IconBtn sd_setImageWithURL:url];
     
@@ -188,6 +188,8 @@
     self.hidesBottomBarWhenPushed = YES;
     
     BmapWorkerViewController *temp = [[BmapWorkerViewController alloc] init];
+    
+    temp.t_id = data.t_id;
     
     temp.info = data;
     
@@ -289,6 +291,7 @@
                  data.r_city = [dic objectForKey:@"r_city"];
                  data.r_area = [dic objectForKey:@"r_area"];
                  data.tew_address = [dic objectForKey:@"tew_address"];
+                 data.u_img = [dic objectForKey:@"u_img"];
                  
                  [dataArray addObject:data];
                  

@@ -17,6 +17,9 @@
 #define user_name [[NSUserDefaults standardUserDefaults] objectForKey:@"u_name"]
 #define user_online [[NSUserDefaults standardUserDefaults] objectForKey:@"u_online"]
 #define user_sex [[NSUserDefaults standardUserDefaults] objectForKey:@"u_sex"]
+#define user_pass [[NSUserDefaults standardUserDefaults] objectForKey:@"u_pass"]
+#define user_phone [[NSUserDefaults standardUserDefaults] objectForKey:@"u_phone"]
+#define user_u_idcard [[NSUserDefaults standardUserDefaults] objectForKey:@"u_idcard"]
 
 
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)

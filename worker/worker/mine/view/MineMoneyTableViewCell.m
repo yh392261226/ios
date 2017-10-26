@@ -19,7 +19,7 @@
         self.dataArray = [NSMutableArray array];
         
         [self.dataArray addObject:@"mine_redpacket"];
-        [self.dataArray addObject:@"mine_ roll"];
+       // [self.dataArray addObject:@"mine_ roll"];
        // [self.dataArray addObject:@"mine_ integral"];
         
         

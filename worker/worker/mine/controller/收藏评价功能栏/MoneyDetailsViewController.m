@@ -9,6 +9,22 @@
 #import "MoneyDetailsViewController.h"
 #import "MoneyDetailTableViewCell.h"
 
+@interface MoneyDataModel : NSObject
+
+@property (nonatomic, strong)NSString *amount;
+@property (nonatomic, strong)NSString *mongey_id;
+@property (nonatomic, strong)NSString *time;
+@property (nonatomic, strong)NSNumber *balances;
+@property (nonatomic, strong)NSString *type;
+
+@end
+
+
+@implementation MoneyDataModel
+
+
+@end
+
 @interface MoneyDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;
@@ -41,10 +57,7 @@
     window = [[UIApplication sharedApplication] keyWindow];
     
     dataArray = [NSMutableArray array];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
+    
     
     toostArray = [NSMutableArray arrayWithObjects:@"全部", @"支出", @"收入", nil];
 
@@ -57,6 +70,8 @@
     [self tableview];
     
     [self initRightView];
+    
+    [self getdata:@"all"];
     
 }
 
@@ -89,17 +104,42 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([tableView isKindOfClass:[self.tableview class]])
-    {
-        
-    }
     
     return dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MoneyDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    MoneyDataModel *model = [dataArray objectAtIndex:indexPath.row];
+    
+    MoneyDetailTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if (!cell)
+    {
+        cell = [[MoneyDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+        
+        if ([model.type isEqualToString:@"withdraw"])
+        {
+            cell.title.text = @"提现";
+            
+            cell.money.text = [NSString stringWithFormat:@"-%@元", model.amount];
+        }
+        else
+        {
+            cell.title.text = @"充值";
+            
+            cell.money.text = [NSString stringWithFormat:@"+%@元", model.amount];
+        }
+        
+        NSString *time = [myselfway timeWithTimeIntervalString:model.time];
+        
+        cell.time.text = time;
+        cell.balance.text = [NSString stringWithFormat:@"余额:%@", [model.balances stringValue]];
+       
+        
+        
+    }
     
     
     
@@ -129,11 +169,21 @@
 }
 
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
 
 
 
-
-
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
 
 
 
@@ -308,14 +358,21 @@
     if (btn.tag == 800)
     {
         [button setTitle:@"全部" forState:0];
+        
+        
+        [self getdata:@"all"];
     }
     else if (btn.tag == 801)
     {
         [button setTitle:@"支出" forState:0];
+        
+        [self getdata:@"withdraw"];
     }
     else
     {
         [button setTitle:@"收入" forState:0];
+        
+        [self getdata:@"recharge"];
     }
 }
 
@@ -342,7 +399,61 @@
 
 
 
-
+- (void)getdata: (NSString *)type
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/getUsersFundsLog?u_id=%@&category=%@", baseUrl, user_ID, type];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             [dataArray removeAllObjects];
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSArray *arr = [dic objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 MoneyDataModel *model = [[MoneyDataModel alloc] init];
+                 
+                 NSDictionary *dicInfo = [arr objectAtIndex:i];
+                 
+                 model.mongey_id = [dicInfo objectForKey:@"id"];
+                 model.amount = [dicInfo objectForKey:@"amount"];
+                 model.time = [dicInfo objectForKey:@"time"];
+                 model.balances = [dicInfo objectForKey:@"balances"];
+                 model.type = [dicInfo objectForKey:@"type"];
+                 
+                 [dataArray addObject:model];
+             }
+             
+             [self.tableview reloadData];
+             
+         }
+         else
+         {
+             
+             
+             
+         }
+         
+         
+         
+     }
+         failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

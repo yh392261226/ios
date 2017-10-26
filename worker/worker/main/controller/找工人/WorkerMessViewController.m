@@ -15,13 +15,15 @@
 
 @interface ListWorData : NSObject
 
+@property (nonatomic, strong)NSString *u_id;
+@property (nonatomic, strong)NSString *u_name;
 @property (nonatomic, strong)NSString *u_skills;
 @property (nonatomic, strong)NSString *uei_info;
 @property (nonatomic, strong)NSString *u_task_status;
 @property (nonatomic, strong)NSString *u_true_name;
-@property (nonatomic, strong)NSString *u_img;
 @property (nonatomic, strong)NSString *ucp_posit_x;
 @property (nonatomic, strong)NSString *ucp_posit_y;
+@property (nonatomic, strong)NSString *u_img;
 @property (nonatomic, strong)NSString *is_fav;
 
 @end
@@ -197,13 +199,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     self.hidesBottomBarWhenPushed = YES;
+    
+    ListWorData *data = [dataArray objectAtIndex:indexPath.section];
     
     AmapWorkerViewController *temp = [[AmapWorkerViewController alloc] init];
     
-    [self.navigationController pushViewController:temp animated:YES];
+    temp.worker_id = data.u_id;
+    temp.workerNN = self.workerName;
+    temp.skills_id = self.worker_ID;
     
+    [self.navigationController pushViewController:temp animated:YES];
     
 }
 
@@ -266,6 +272,12 @@
     
   //  NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_skills=%@&u_name=%@&u_task_status=%@&uei_city=%@", baseUrl, self.worker_ID, name, type, self.city_id];
     
+    if(name1 == NULL)
+    {
+        name1 = @"";
+    }
+    
+    
     NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_skills=%@&u_true_name=%@&u_task_status=%@&fu_id=%@", baseUrl, self.worker_ID, name1, type1, user_ID];
     
     NSLog(@"%@", url);
@@ -291,13 +303,15 @@
                  NSDictionary *dicInfo = [arr objectAtIndex:i];
                  ListWorData *data = [[ListWorData alloc] init];
                  
+                 data.u_id = [dicInfo objectForKey:@"u_id"];
+                 data.u_name = [dicInfo objectForKey:@"u_name"];
                  data.u_skills = [dicInfo objectForKey:@"u_skills"];
                  data.uei_info = [dicInfo objectForKey:@"uei_info"];
                  data.u_task_status = [dicInfo objectForKey:@"u_task_status"];
                  data.u_true_name = [dicInfo objectForKey:@"u_true_name"];
-                 data.u_img = [dicInfo objectForKey:@"u_img"];
                  data.ucp_posit_x = [dicInfo objectForKey:@"ucp_posit_x"];
                  data.ucp_posit_y = [dicInfo objectForKey:@"ucp_posit_y"];
+                 data.u_img = [dicInfo objectForKey:@"u_img"];
                  data.is_fav = [dicInfo objectForKey:@"is_fav"];
                  
                  [dataArray addObject:data];
