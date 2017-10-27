@@ -13,7 +13,7 @@
 @property (nonatomic)CGFloat longitudeWor;     //经度
 @property (nonatomic)CGFloat latitudeWor;      //维度
 
-@property (nonatomic, strong)NSMutableArray *postArray;   //上传服务器的数据
+@property (nonatomic, strong)NSMutableDictionary *postDic;   //上传服务器的数据
 @property (nonatomic, strong)NSMutableArray *modelArray;   //支撑页面数据的数组
 
 

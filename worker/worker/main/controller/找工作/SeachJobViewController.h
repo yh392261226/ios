@@ -40,6 +40,7 @@
 @property (nonatomic, strong)NSString *tew_address;
 @property (nonatomic, strong)NSString *tew_lock;
 @property (nonatomic, strong)NSNumber *favorate;
+@property (nonatomic, strong)NSString *u_img;
 
 @property (nonatomic, strong)NSString *t_imageUrl;
 @end

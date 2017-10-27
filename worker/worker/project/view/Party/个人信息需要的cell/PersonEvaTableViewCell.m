@@ -18,7 +18,7 @@
     {
         self = [[[NSBundle mainBundle] loadNibNamed:@"worker" owner:self options:nil] objectAtIndex:2];
         
-        _icon.backgroundColor = [UIColor redColor];
+       // _icon.backgroundColor = [UIColor redColor];
         
         _icon.layer.masksToBounds = YES;
         

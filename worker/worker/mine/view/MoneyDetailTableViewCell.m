@@ -52,8 +52,8 @@
     
     [_title mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.left.mas_equalTo(self.contentView).offset(20);
-        make.top.mas_equalTo(self.contentView).offset(5);
+        make.left.mas_equalTo(self.contentView).offset(25);
+        make.top.mas_equalTo(self.contentView).offset(7);
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(150);
         
@@ -61,7 +61,7 @@
     
     [_balance mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.left.mas_equalTo(self.contentView).offset(20);
+         make.left.mas_equalTo(self.contentView).offset(25);
          make.bottom.mas_equalTo(self.contentView).offset(-5);
          make.height.mas_equalTo(20);
          make.width.mas_equalTo(150);
@@ -71,7 +71,7 @@
     
     [_money mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.right.mas_equalTo(self.contentView).offset(-20);
+         make.right.mas_equalTo(self.contentView).offset(-25);
          make.bottom.mas_equalTo(self.contentView).offset(-3);
          make.height.mas_equalTo(30);
          make.width.mas_equalTo(150);
@@ -80,8 +80,8 @@
     
     [_time mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.right.mas_equalTo(self.contentView).offset(-20);
-         make.top.mas_equalTo(self.contentView).offset(5);
+         make.right.mas_equalTo(self.contentView).offset(-25);
+         make.top.mas_equalTo(self.contentView).offset(7);
          make.height.mas_equalTo(20);
          make.width.mas_equalTo(150);
          

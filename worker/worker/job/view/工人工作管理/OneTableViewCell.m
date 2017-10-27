@@ -27,7 +27,8 @@
         _IconBtn = [[UIImageView alloc] init];;
         _IconBtn.frame = CGRectMake(15, 10, 60, 60);
         _IconBtn.layer.cornerRadius = 30;
-        _IconBtn.backgroundColor = [UIColor orangeColor];
+        _IconBtn.layer.masksToBounds = YES;
+    //    _IconBtn.backgroundColor = [UIColor orangeColor];
         [_backview addSubview:_IconBtn];
         
         
@@ -76,7 +77,7 @@
         
         _line = [[UIView alloc] initWithFrame:CGRectMake(0, 79, SCREEN_WIDTH - 20, 1)];
         
-        _line.backgroundColor = [myselfway stringTOColor:@"0x808080"];
+        _line.backgroundColor = [myselfway stringTOColor:@"0xC6C6C6"];
         
         [_backview addSubview:_line];
         
@@ -85,7 +86,7 @@
         
         _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_leftBtn.layer setCornerRadius:5];
-        [_leftBtn setTitle:@"不接此单" forState:UIControlStateNormal];
+   //     [_leftBtn setTitle:@"不接此单" forState:UIControlStateNormal];
         _leftBtn.titleLabel.font = [UIFont systemFontOfSize:14];
 
         [_leftBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -99,7 +100,7 @@
         
         _centerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_centerBtn.layer setCornerRadius:5];
-        [_centerBtn setTitle:@"我要辞职" forState:UIControlStateNormal];
+   //     [_centerBtn setTitle:@"我要辞职" forState:UIControlStateNormal];
         _centerBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         [_centerBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -115,7 +116,7 @@
         
         _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_rightBtn.layer setCornerRadius:5];
-        [_rightBtn setTitle:@"追加评价" forState:UIControlStateNormal];
+   //     [_rightBtn setTitle:@"追加评价" forState:UIControlStateNormal];
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         [_rightBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

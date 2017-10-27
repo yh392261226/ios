@@ -24,6 +24,8 @@
     UILabel *time;     //倒计数秒的label
     
     UIButton *again;   //重新获取的按钮
+    
+    NSString *yanzhengma;   //验证码
 }
 
 
@@ -41,11 +43,9 @@
     
     [self addhead:@"重置提现密码"];
     
+    [self postData];
     
-    [self initUI];
     
-    
-    [self initPhoneView];
     
 }
 
@@ -73,7 +73,7 @@
          make.height.mas_equalTo(30);
      }];
     
-    NSString *phoneStr = @"15840344241";
+    NSString *phoneStr = user_phone;
     
     UILabel *phone = [[UILabel alloc] init];
     
@@ -126,9 +126,9 @@
     [self.view addSubview:passwordNum];
     
     
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 6; i++)
     {
-        UILabel *num = [[UILabel alloc] initWithFrame:CGRectMake(40 + i * ((SCREEN_WIDTH - 80) / 4), 180, (SCREEN_WIDTH - 80) / 4, 45)];
+        UILabel *num = [[UILabel alloc] initWithFrame:CGRectMake(40 + i * ((SCREEN_WIDTH - 80) / 6), 180, (SCREEN_WIDTH - 80) / 6, 45)];
         
         num.textAlignment = NSTextAlignmentCenter;
         
@@ -201,11 +201,46 @@
     [again mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.top.mas_equalTo(self.view).offset(250);
-         make.left.mas_equalTo(self.view).offset(50);
-         make.right.mas_equalTo(self.view).offset(-50);
+         make.left.mas_equalTo(self.view).offset(80);
+         make.right.mas_equalTo(self.view).offset(-80);
          make.height.mas_equalTo(35);
      }];
     
+    
+    UIButton *buYes = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    buYes.layer.cornerRadius = 5;
+    
+    buYes.backgroundColor = [myselfway stringTOColor:@"0x2E84F8"];
+    
+    [buYes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    [buYes setTitle:@"下一步" forState:UIControlStateNormal];
+    
+    [buYes addTarget:self action:@selector(YesBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:buYes];
+    
+    [buYes mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(again).offset(70);
+        make.left.mas_equalTo(self.view).offset(40);
+        make.right.mas_equalTo(self.view).offset(-40);
+        make.height.mas_equalTo(35);
+    }];
+    
+    
+    
+}
+
+
+//下一步按钮 ，网络请求
+- (void)YesBtn
+{
+    NSLog(@"%@",yanzhengma);
+    
+    
+    //编辑成功，  校验，然后网络请求， 跳转页面
+    [self yanzhengmaData:yanzhengma];
 }
 
 
@@ -246,11 +281,9 @@
 //获取编辑框字符串
 - (void)textFieldDidChange:(UITextField *)textField
 {
-    NSLog(@"%@", textField.text);
+    yanzhengma = textField.text;
     
     NSString *place = [textField.text substringWithRange:NSMakeRange(textField.text.length - 1, 1)];
-    
-    NSLog(@"%@", place);
     
     
 }
@@ -283,13 +316,24 @@
         
         label.text = string;
     }
-    else
+    else if(range.location == 3)
     {
         UILabel *label = [self.view viewWithTag:903];
         
         label.text = string;
     }
-    
+    else if(range.location == 4)
+    {
+        UILabel *label = [self.view viewWithTag:904];
+        
+        label.text = string;
+    }
+    else
+    {
+        UILabel *label = [self.view viewWithTag:905];
+        
+        label.text = string;
+    }
     
     
     
@@ -301,17 +345,17 @@
     NSInteger selectedLength = range.length;
     NSInteger replaceLength = string.length;
     
-    if (existedLength - selectedLength + replaceLength > 3)
+    if (existedLength - selectedLength + replaceLength > 5)
     {
-        //编辑成功，  校验，然后跳转页面
-        RemoveCardViewController *temp = [[RemoveCardViewController alloc] init];
         
-        [self.navigationController pushViewController:temp animated:YES];
+        
     }
     
     
-    if (existedLength - selectedLength + replaceLength > 4)
+    if (existedLength - selectedLength + replaceLength > 6)
     {
+        
+        
         return NO;
     }
     
@@ -325,9 +369,123 @@
 
 
 
+//发送验证码接口
+- (void)postData
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/passwordEdit?u_mobile=%@", baseUrl, user_phone];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             [self initUI];
+             
+             [self initPhoneView];
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1];
+             
+         }
+         else
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1];
+         }
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         [SVProgressHUD showSuccessWithStatus:@"暂无网络，请检查您的网络"];
+         
+         [self performSelector:@selector(DatTime) withObject:self afterDelay:2];
+     }];
+    
+}
+
+
+- (void)DatTime
+{
+    [SVProgressHUD dismiss];
+}
 
 
 
+
+
+
+
+//判断验证码是否正确的校验
+- (void)yanzhengmaData: (NSString *)yanzhengma
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/passwordEdit", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic = @{@"u_mobile": user_phone,
+                          @"verify_code": yanzhengma
+                          };
+    
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
+             
+             RemoveCardViewController *temp = [[RemoveCardViewController alloc] init];
+             
+             temp.yanzhengmaNum = yanzhengma;
+             
+             [self.navigationController pushViewController:temp animated:YES];
+             
+         }
+         else
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1];
+         }
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         [SVProgressHUD showSuccessWithStatus:@"暂无网络，请检查您的网络"];
+         
+         [self performSelector:@selector(DatTime) withObject:self afterDelay:2];
+     }];
+    
+}
 
 
 

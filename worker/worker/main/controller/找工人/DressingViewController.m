@@ -54,6 +54,13 @@
     
     NSString *adree;     //位置信息的字段
     NSString *worker;    //工种的字段
+    
+    
+    NSMutableArray *xianshiArr;   //显示历史记录的数组
+    
+    NSMutableArray *hitory;   //存入本地的数组
+    
+    NSMutableArray *cyun;   //存入
 }
 
 
@@ -67,14 +74,15 @@
 {
     [super viewDidLoad];
     
+    hitory = [NSMutableArray array];
+    xianshiArr = [NSMutableArray array];
+    
     self.window = [[UIApplication sharedApplication] keyWindow];
     
     listTab = [[listTableView alloc] init];
 
-    dataArray = [NSMutableArray array];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
+  //  dataArray = [NSMutableArray array];
+  
     
     aaaaaaaaaa = [NSMutableArray arrayWithObjects:@"2公里以内",@"5公里以内", @"10公里以内", @"10公里以上", nil];
     
@@ -111,6 +119,37 @@
          make.height.mas_equalTo(22);
          make.width.mas_equalTo(22);
      }];
+    
+    
+    
+    
+    
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"lishi"];
+    
+    dataArray = [dic objectForKey:@"history"];
+    
+    
+    if (dataArray.count > 3)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            NSString *data = [dataArray objectAtIndex:i];
+            
+            [xianshiArr addObject:data];
+        }
+        
+    }
+    else
+    {
+        for (int i = 0; i < dataArray.count; i++)
+        {
+            NSString *data = [dataArray objectAtIndex:i];
+            
+            [xianshiArr addObject:data];
+        }
+    }
+    
+    
     
     
 }
@@ -161,7 +200,8 @@
     }
     else
     {
-        return dataArray.count;
+        return xianshiArr.count;
+        
     }
 }
 
@@ -368,7 +408,7 @@
         {
             cell = [[DressTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"historycell"];
             
-            
+            cell.detail.text = [xianshiArr objectAtIndex:indexPath.row];
             cell.close.tag = indexPath.row + 400;
             [cell.close addTarget:self action:@selector(closeBtn:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -411,7 +451,7 @@
     {
         UILabel *title = [[UILabel alloc] init];
         
-        if (dataArray.count == 0)
+        if (xianshiArr.count == 0)
         {
             title.text = nil;
         }
@@ -542,10 +582,29 @@
 //删除
 - (void)closeBtn: (UIButton *)btn
 {
-    
     NSInteger CellNum = btn.tag - 400;
     
-    [dataArray removeObjectAtIndex:CellNum];
+    [xianshiArr removeObjectAtIndex:CellNum];
+    
+    [hitory removeAllObjects];
+
+    for (int i = 0; i < xianshiArr.count; i++)
+    {
+        NSString *data = [xianshiArr objectAtIndex:i];
+        
+        [hitory addObject:data];
+        
+    }
+    
+    
+    NSDictionary *dic = @{@"history": hitory};
+    
+    [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"lishi"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+    
     
     [self.tableview reloadData];
     
@@ -595,6 +654,54 @@
     [self.delegate dreessVal:nameStr nameTy:pyte1 adree:adree];
 
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+    
+    if (nameStr == NULL && adree == NULL)
+    {
+        
+    }
+    else
+    {
+        [hitory removeAllObjects];
+        
+        
+        for (int i = 0; i < dataArray.count; i++)
+        {
+            NSString *data = [dataArray objectAtIndex:i];
+            
+            [hitory addObject:data];
+            
+        }
+        
+        NSString *info;
+        
+        if (nameStr == NULL)
+        {
+            info = [NSString stringWithFormat:@"%@", adree];
+        }
+        else if (adree == NULL)
+        {
+            info = [NSString stringWithFormat:@"%@", nameStr];
+        }
+        else
+        {
+            info = [NSString stringWithFormat:@"%@ + %@", nameStr, adree];
+        }
+        
+        [hitory insertObject:info atIndex:0];
+        
+        
+        NSDictionary *dic = @{@"history": hitory};
+        
+        [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"lishi"];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }
+    
+    
+    
 }
 
 

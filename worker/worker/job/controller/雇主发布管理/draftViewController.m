@@ -31,6 +31,7 @@
 @property (nonatomic, strong)NSString *t_type;
 @property (nonatomic, strong)NSString *t_storage;
 @property (nonatomic, strong)NSString *bd_id;
+@property (nonatomic, strong)NSString *u_img;
 
 
 @end
@@ -40,6 +41,10 @@
 
 
 @end
+
+
+
+
 
 @interface draftViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
@@ -58,6 +63,8 @@
     // Do any additional setup after loading the view.
     
     dataArray = [NSMutableArray array];
+    
+    
     
     [self getdata];
     
@@ -129,14 +136,18 @@
         cell.introduce.text = model.t_info;
         
         
+        NSURL *url = [NSURL URLWithString:model.u_img];
+        [cell.IconBtn sd_setImageWithURL:url];
+        
+        
         [cell.centerBtn setTitle:@"删除信息" forState:UIControlStateNormal];
         [cell.rightBtn setTitle:@"编辑" forState:UIControlStateNormal];
         
         [cell.centerBtn addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
         [cell.rightBtn addTarget:self action:@selector(write:) forControlEvents:UIControlEventTouchUpInside];
         
-        UILabel *state = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, 7.5, 50, 20)];
         
+        UILabel *state = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, 7.5, 50, 20)];
         state.text = @"未支付";
         state.textColor = [UIColor whiteColor];
         state.backgroundColor = [UIColor grayColor];
@@ -148,11 +159,11 @@
         [cell addSubview:state];
         
     }
-    
-    
-    
+
     return cell;
+    
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -168,7 +179,6 @@
 {
     return 10;
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -208,10 +218,12 @@
 
 
 
+
+
 //草稿箱数据网络请求
 - (void)getdata
 {
-    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?t_storage=1&t_author=%@", baseUrl, @"1"];
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?t_storage=1&t_author=%@", baseUrl, @"2"];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -251,6 +263,7 @@
                  model.t_phone_status = [dic objectForKey:@"t_phone_status"];
                  model.t_type = [dic objectForKey:@"t_type"];
                  model.bd_id = [dic objectForKey:@"bd_id"];
+                 model.u_img = [dic objectForKey:@"u_img"];
                  
                  [dataArray addObject:model];
                  

@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong) id <Invitesuccess> delegate;
 
-
+@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong)NSString *worker_id;   //工人ID
 
 @end

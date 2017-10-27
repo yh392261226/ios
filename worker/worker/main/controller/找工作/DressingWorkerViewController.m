@@ -54,7 +54,8 @@
     
     
     
-    
+    NSMutableArray *hitory;
+    NSMutableArray *xianshiArr;
     
     NSMutableArray *workerArray;   //工种数组
     NSMutableArray *projectTypeArray;    //项目类型数组
@@ -71,6 +72,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    hitory = [NSMutableArray array];
+    xianshiArr = [NSMutableArray array];
+    
     workerArray = [NSMutableArray array];
     projectArray = [NSMutableArray array];
     gongzhongArr = [NSMutableArray array];
@@ -86,9 +90,7 @@
     nameArr = [NSMutableArray arrayWithObjects:@"搜索范围:",@"选择工期",@"工资金额", @"开始时间", @"项目类型", @"选择工种", nil];
     
     
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
-    [dataArray addObject:@"1"];
+    
     
     
     
@@ -113,6 +115,34 @@
          make.height.mas_equalTo(22);
          make.width.mas_equalTo(22);
      }];
+    
+    
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"lishi1"];
+    
+    dataArray = [dic objectForKey:@"history"];
+    
+    
+    if (dataArray.count > 3)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            NSString *data = [dataArray objectAtIndex:i];
+            
+            [xianshiArr addObject:data];
+        }
+        
+    }
+    else
+    {
+        for (int i = 0; i < dataArray.count; i++)
+        {
+            NSString *data = [dataArray objectAtIndex:i];
+            
+            [xianshiArr addObject:data];
+        }
+    }
+    
+    
 }
 
 
@@ -164,7 +194,7 @@
     }
     else
     {
-        return dataArray.count;
+        return xianshiArr.count;
     }
 }
 
@@ -239,7 +269,7 @@
         {
             cell = [[DressTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"historycell"];
             
-            
+            cell.detail.text = [xianshiArr objectAtIndex:indexPath.row];
             cell.close.tag = indexPath.row + 400;
             
             [cell.close addTarget:self action:@selector(closeBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -283,7 +313,7 @@
     {
         UILabel *title = [[UILabel alloc] init];
         
-        if (dataArray.count == 0)
+        if (xianshiArr.count == 0)
         {
             title.text = nil;
         }
@@ -447,7 +477,24 @@
 {
     NSInteger CellNum = btn.tag - 400;
     
-    [dataArray removeObjectAtIndex:CellNum];
+    [xianshiArr removeObjectAtIndex:CellNum];
+    
+    [hitory removeAllObjects];
+    
+    for (int i = 0; i < xianshiArr.count; i++)
+    {
+        NSString *data = [xianshiArr objectAtIndex:i];
+        
+        [hitory addObject:data];
+        
+    }
+    
+    
+    NSDictionary *dic = @{@"history": hitory};
+    
+    [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"lishi1"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self.tableview reloadData];
 }
@@ -476,6 +523,68 @@
     [self.delegate DressWorkerData:nameStr adree:range proData:project proMoney:money proTime:time proType:proType proWorker:worker];
     
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+    
+    if (range == NULL && project == NULL && money == NULL)
+    {
+        
+    }
+    else
+    {
+        [hitory removeAllObjects];
+        
+        
+        for (int i = 0; i < dataArray.count; i++)
+        {
+            NSString *data = [dataArray objectAtIndex:i];
+            
+            [hitory addObject:data];
+            
+        }
+        
+        NSString *info;
+        
+        
+        if(range == NULL && project == NULL)
+        {
+            info = [NSString stringWithFormat:@"%@", money];
+        }
+        else if(money == NULL && project == NULL)
+        {
+            info = [NSString stringWithFormat:@"%@", range];
+        }
+        else if(money == NULL && range == NULL)
+        {
+            info = [NSString stringWithFormat:@"%@", project];
+        }
+        else if (money == NULL)
+        {
+            info = [NSString stringWithFormat:@"%@ + %@", range, project];
+        }
+        else if (project == NULL)
+        {
+            info = [NSString stringWithFormat:@"%@ + %@", range, money];
+        }
+        else if (range == NULL)
+        {
+            info = [NSString stringWithFormat:@"%@ + %@", project, money];
+        }
+        else
+        {
+            info = [NSString stringWithFormat:@"%@ + %@ + %@", range, project, money];
+        }
+        
+        [hitory insertObject:info atIndex:0];
+        
+        
+        NSDictionary *dic = @{@"history": hitory};
+        
+        [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"lishi1"];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }
     
 }
 

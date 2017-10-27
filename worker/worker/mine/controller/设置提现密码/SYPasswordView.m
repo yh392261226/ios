@@ -80,8 +80,6 @@
     {
         //输入的字符个数大于6，则无法继续输入，返回NO表示禁止输入
         
-        
-        
         return NO;
     }
     else
@@ -130,7 +128,8 @@
 
 - (UITextField *)textField
 {
-    if (!_textField) {
+    if (!_textField)
+    {
         _textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, K_Field_Height)];
         _textField.backgroundColor = [UIColor whiteColor];
         //输入的文字颜色为白色

@@ -22,7 +22,7 @@
 @property (nonatomic, strong)NSString *name;
 @property (nonatomic, strong)NSString *data;
 @property (nonatomic, strong)NSString *name_id;
-
+@property (nonatomic, strong)NSString *proTypeNum;   //工程类型的代号  1.2.3
 
 @property (nonatomic, strong)NSString *province_id;   //省市区ID
 @property (nonatomic, strong)NSString *city_id;

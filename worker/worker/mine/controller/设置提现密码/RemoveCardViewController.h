@@ -14,4 +14,10 @@
 @property (nonatomic, strong)NSString *name;
 @property (nonatomic, strong)NSString *card;
 
+
+
+
+
+@property (nonatomic, strong)NSString *yanzhengmaNum;   //验证码，用于后面网络请求
+
 @end

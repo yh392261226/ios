@@ -164,6 +164,7 @@
     temp.latitude = self.latitudeWor;
     temp.city_id = self.cityID;
     temp.worker_ID = data.s_id;
+    temp.workerName = data.s_name;
     
     [self.navigationController pushViewController:temp animated:YES];
     

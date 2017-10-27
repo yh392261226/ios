@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>YES</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>YES</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>YES</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -154,10 +160,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>亲，想访问您的摄像头可以吗？</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDeion</key>
-	<string>YES</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>YES</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>亲，想访问您的相册可以吗？</string>
 	<key>UILaunchStoryboardName</key>

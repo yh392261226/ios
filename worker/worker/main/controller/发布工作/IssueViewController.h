@@ -13,6 +13,15 @@
 
 
 @interface IssueViewController : BaseViewController
+{
+    NSString *p_Name;
+    NSString *p_info;
+    NSString *p_proType;
+    NSString *p_province;
+    NSString *p_city;
+    NSString *p_area;
+    NSString *p_adree;
+}
 
 
 

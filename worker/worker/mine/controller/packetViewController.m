@@ -122,8 +122,6 @@
         [cell.drawMoney setTitle:@"已领取" forState:0];
     }
     
-    
-    
     cell.money.text = data.b_info;
     cell.text.text = data.bt_info;
     cell.time.text = [NSString stringWithFormat:@"最终使用日期截止 %@", data.b_end_time];
@@ -196,12 +194,7 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
-             
-             
-             
              [self.tableview reloadData];
-             
-             
          }
          
      } failure:^(NSURLSessionDataTask *task, NSError *error)

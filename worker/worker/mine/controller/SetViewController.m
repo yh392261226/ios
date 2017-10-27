@@ -28,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    dataArray = [NSMutableArray arrayWithObjects:@"手机绑定",@"清除缓存", @"消息提示",@"关于我们", nil];
+    dataArray = [NSMutableArray arrayWithObjects:@"清除缓存", @"消息提示",@"关于我们", nil];
     
     [self addhead:@"设置"];
     
@@ -86,12 +86,12 @@
     
     SetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
-    if (indexPath.section == 0)
-    {
-        NSString *str = @"15840344241";
-        
-        cell.data.text = [str stringByReplacingCharactersInRange:NSMakeRange(3, 4)  withString:@"****"];
-    }
+//    if (indexPath.section == 0)
+//    {
+//        NSString *str = @"15840344241";
+//
+//        cell.data.text = [str stringByReplacingCharactersInRange:NSMakeRange(3, 4)  withString:@"****"];
+//    }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
@@ -113,7 +113,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 3)
+    if (section == 2)
     {
         return 70;
     }
@@ -130,7 +130,7 @@
     
     self.hidesBottomBarWhenPushed = YES;
 
-    if (indexPath.section == 2)
+    if (indexPath.section == 1)
     {
         if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0f)
         {
@@ -165,13 +165,13 @@
             }
         }
     }
-    else if (indexPath.section == 0)
-    {
-        BoundPhoneViewController *temp = [[BoundPhoneViewController alloc] init];
-        
-        [self.navigationController pushViewController:temp animated:YES];
-    }
-    else if (indexPath.section == 3)
+//    else if (indexPath.section == 0)
+//    {
+//        BoundPhoneViewController *temp = [[BoundPhoneViewController alloc] init];
+//
+//        [self.navigationController pushViewController:temp animated:YES];
+//    }
+    else if (indexPath.section == 2)
     {
         WeViewController *temp = [[WeViewController alloc] init];
         
@@ -202,7 +202,7 @@
 {
     UIView *footview = [[UIView alloc] init];
     
-    if (section == 3)
+    if (section == 2)
     {
         UIButton *save = [UIButton buttonWithType:UIButtonTypeSystem];
         
@@ -226,6 +226,14 @@
    
 }
 
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    
+    return view;
+}
 
 #pragma 自己定义的方法
 

@@ -91,6 +91,19 @@
     
     temp.firPass = num;
     
+    
+    //知道源密码修改密码走的路
+    temp.odlpassword = self.oldpassword;
+    
+    
+    
+    
+    //忘记密码走的路
+    temp.card_ID = self.shenfenzhenghao;
+    temp.wangjimima = self.wangjimima;
+    temp.yanzhengma = self.yanzhengmaNu;
+    
+    
     [self.navigationController pushViewController:temp animated:NO];
    
 }

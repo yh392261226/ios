@@ -15,6 +15,7 @@
 #import "PersonageManagementViewController.h"
 #import "IssueViewController.h"
 #import "MineMoneyViewController.h"
+#import "LoginViewController.h"
 
 @interface JobViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -155,32 +156,43 @@
     
     self.hidesBottomBarWhenPushed = YES;
     
-    if (indexPath.section == 1)
+    if ([user_ID isEqualToString:@"0"])
     {
+        LoginViewController *temp = [[LoginViewController alloc] init];
         
-        WorkerManagementViewController *temp = [[WorkerManagementViewController alloc] init];
-        [self.navigationController pushViewController:temp animated:YES];
-        
-        
-        
-    }
-    else if (indexPath.section == 2)
-    {
-        EmployerManagementViewController *temp = [[EmployerManagementViewController alloc] init];
-        [self.navigationController pushViewController:temp animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
-    }
-    else if(indexPath.section == 3)
-    {
-        
-        PersonageManagementViewController *temp = [[PersonageManagementViewController alloc] init];
-        [self.navigationController pushViewController:temp animated:YES];
-        
+        [self presentViewController:temp animated:YES completion:nil];
     }
     else
     {
-      
+        if (indexPath.section == 1)
+        {
+            
+            WorkerManagementViewController *temp = [[WorkerManagementViewController alloc] init];
+            [self.navigationController pushViewController:temp animated:YES];
+            
+            
+            
+        }
+        else if (indexPath.section == 2)
+        {
+            EmployerManagementViewController *temp = [[EmployerManagementViewController alloc] init];
+            [self.navigationController pushViewController:temp animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+        else if(indexPath.section == 3)
+        {
+            
+            PersonageManagementViewController *temp = [[PersonageManagementViewController alloc] init];
+            [self.navigationController pushViewController:temp animated:YES];
+            
+        }
+        else
+        {
+            
+        }
     }
+    
+    
     
     self.hidesBottomBarWhenPushed = NO;
 }
@@ -226,9 +238,18 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     
-    MineMoneyViewController *temp = [[MineMoneyViewController alloc] init];
-    
-    [self.navigationController pushViewController:temp animated:YES];
+    if ([user_ID isEqualToString:@"0"])
+    {
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        [self presentViewController:temp animated:YES completion:nil];
+    }
+    else
+    {
+        MineMoneyViewController *temp = [[MineMoneyViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
     
     self.hidesBottomBarWhenPushed = NO;
 }
@@ -238,9 +259,20 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     
-    IssueViewController *temp = [[IssueViewController alloc] init];
+    if ([user_ID isEqualToString:@"0"])
+    {
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        [self presentViewController:temp animated:YES completion:nil];
+    }
+    else
+    {
+        IssueViewController *temp = [[IssueViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
     
-    [self.navigationController pushViewController:temp animated:YES];
+    
     
     self.hidesBottomBarWhenPushed = NO;
 }

@@ -261,7 +261,7 @@
 - (void)getdata
 {
     
-    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Users/usersFunds?u_id=1"];
+    NSString *url = [NSString stringWithFormat:@"%@Users/usersFunds?u_id=%@", baseUrl, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     

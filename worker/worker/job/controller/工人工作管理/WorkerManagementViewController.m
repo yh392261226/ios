@@ -31,6 +31,21 @@
 @property (nonatomic, strong)NSString *t_type;
 @property (nonatomic, strong)NSString *t_storage;
 @property (nonatomic, strong)NSString *bd_id;
+@property (nonatomic, strong)NSString *u_img;
+@property (nonatomic, strong)NSString *unbind_time;
+
+@property (nonatomic, strong)NSString *o_confirm;
+@property (nonatomic, strong)NSString *s_id;
+@property (nonatomic, strong)NSString *tew_id;
+@property (nonatomic, strong)NSString *o_status;
+@property (nonatomic, strong)NSString *o_last_edit_time;
+@property (nonatomic, strong)NSString *o_in_time;
+@property (nonatomic, strong)NSString *o_amount;
+@property (nonatomic, strong)NSString *o_worker;
+@property (nonatomic, strong)NSString *u_id;
+@property (nonatomic, strong)NSString *o_id;
+
+
 
 
 @end
@@ -63,9 +78,7 @@
     
     dataArray = [NSMutableArray array];
     
-    
-    nameArr = [NSMutableArray arrayWithObjects:@"全部", @"进行中", @"已结束", nil];
-    
+    nameArr = [NSMutableArray arrayWithObjects:@"全部",@"洽谈中", @"进行中", @"已结束", nil];
     
     [self addhead:@"工人工作管理"];
     
@@ -75,7 +88,7 @@
     
     [self initTypeView];
     
-    
+    [self getdata:@"0"];
 }
 
 
@@ -138,9 +151,50 @@
     cell.favoriteBtn.hidden = YES;
     
     cell.details.hidden = YES;
+    cell.leftBtn.hidden = YES;
+    cell.centerBtn.hidden = YES;
+    cell.rightBtn.hidden = NO;
     
     cell.title.text = model.t_title;
     cell.introduce.text = model.t_info;
+    
+    
+    NSURL *url = [NSURL URLWithString:model.u_img];
+    
+    [cell.IconBtn sd_setImageWithURL:url];
+    
+    
+    
+    if ([model.o_status isEqualToString:@"0"])
+    {
+        if ([model.o_confirm isEqualToString:@"0"] || [model.o_confirm isEqualToString:@"2"])
+        {
+            //洽谈
+            cell.state.image = [UIImage imageNamed:@"main_state3"];
+        }
+        else
+        {
+            //工作
+            cell.state.image = [UIImage imageNamed:@"main_state5"];
+        }
+        
+        cell.rightBtn.hidden = YES;
+        
+    }
+    else
+    {
+        //完成
+        cell.state.image = [UIImage imageNamed:@"main_state6"];
+        
+        [cell.rightBtn setTitle:@"删除信息" forState:0];
+        
+    }
+    
+    
+    
+    
+    
+    
     
     
     cell.leftBtn.tag = 100 + indexPath.section;
@@ -176,6 +230,33 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    WorPerDataModel *model = [dataArray objectAtIndex:indexPath.section];
+    
+  
+        if ([model.o_status isEqualToString:@"0"])
+        {
+            if ([model.o_confirm isEqualToString:@"0"] || [model.o_confirm isEqualToString:@"2"])
+            {
+                //洽谈
+                
+            }
+            else
+            {
+                //工作
+                
+            }
+            
+      
+            
+        }
+        else
+        {
+            //完成
+         
+            
+        }
+        
+        
     
 }
 
@@ -219,19 +300,19 @@
     
     if (i == 0)
     {
-        NSLog(@"0");
+        [self getdata:@"0"];
     }
     else if (i == 1)
     {
-        NSLog(@"1");
+        [self getdata:@"1"];
     }
     else if (i == 2)
     {
-        NSLog(@"2");
+        [self getdata:@"2"];
     }
     else
     {
-        NSLog(@"3");
+        [self getdata:@"3"];
     }
 }
 
@@ -254,7 +335,17 @@
 
 - (void)rightbtn: (UIButton *)btn
 {
-    NSLog(@"3");
+    NSInteger num = btn.tag - 300;
+    
+    WorPerDataModel *model = [dataArray objectAtIndex:num];
+    
+    if ([model.o_status isEqualToString:@"1"])
+    {
+        //删除信息
+        [self getdata:model.t_id];
+        
+    }
+    
 }
 
 
@@ -277,8 +368,24 @@
     
     //工人工作管理
     
-    url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_status=%@", baseUrl, @"2", t_status];
+    if ([t_status isEqualToString:@"0"])
+    {
+        url = [NSString stringWithFormat:@"%@Tasks/index?action=worked&o_worker=%@", baseUrl, user_ID];
+    }
+    else if ([t_status isEqualToString:@"1"])
+    {
+        url = [NSString stringWithFormat:@"%@Tasks/index?action=worked&o_worker=%@&o_status=0&o_confirm=0,2", baseUrl,user_ID];
+    }
+    else if ([t_status isEqualToString:@"2"])
+    {
+        url = [NSString stringWithFormat:@"%@Tasks/index?action=worked&o_worker=%@&o_status=0&o_confirm=1", baseUrl,user_ID];
+    }
+    else
+    {
+        url = [NSString stringWithFormat:@"%@Tasks/index?action=worked&o_worker=%@&o_status=1", baseUrl,user_ID];
+    }
     
+    NSLog(@"%@", url);
     
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -319,6 +426,21 @@
                  model.t_phone_status = [dic objectForKey:@"t_phone_status"];
                  model.t_type = [dic objectForKey:@"t_type"];
                  model.bd_id = [dic objectForKey:@"bd_id"];
+                 model.u_img = [dic objectForKey:@"u_img"];
+                 
+                 model.unbind_time = [dic objectForKey:@"unbind_time"];
+                 model.o_confirm = [dic objectForKey:@"o_confirm"];
+                 model.s_id = [dic objectForKey:@"s_id"];
+                 model.tew_id = [dic objectForKey:@"tew_id"];
+                 model.o_status = [dic objectForKey:@"o_status"];
+                 model.o_last_edit_time = [dic objectForKey:@"o_last_edit_time"];
+                 model.o_in_time = [dic objectForKey:@"o_in_time"];
+                 model.o_amount = [dic objectForKey:@"o_amount"];
+                 model.o_worker = [dic objectForKey:@"o_worker"];
+                 model.u_id = [dic objectForKey:@"u_id"];
+                 model.o_id = [dic objectForKey:@"o_id"];
+                 
+                 
                  
                  [dataArray addObject:model];
                  
@@ -336,6 +458,54 @@
      }];
     
 }
+
+
+
+
+
+
+
+
+//删除订单， 假删
+- (void)DDDDDdeldata: (NSString *)t_id
+{
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=del2&t_id=%@&t_author=2", baseUrl, t_id];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSString *msg = [dictionary objectForKey:@"data"];
+             
+             [SVProgressHUD showInfoWithStatus:msg];
+             
+             [self performSelector:@selector(deleBtn) withObject:self afterDelay:1];
+             
+             [self.tableview reloadData];
+         }
+         
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+- (void)deleBtn
+{
+    [SVProgressHUD dismiss];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

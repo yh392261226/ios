@@ -7,6 +7,7 @@
 //
 
 #import "RemoveCardViewController.h"
+#import "PasswordViewController.h"
 
 @interface RemoveCardViewController ()<UITextFieldDelegate>
 {
@@ -15,6 +16,10 @@
     
     
     UILabel *showLabel;     // 显示的label
+    
+    
+    
+    NSString *card_ID;        //身份证号
     
 }
 
@@ -115,17 +120,84 @@
 //下一步按钮
 - (void)againBtn
 {
-    [SVProgressHUD showInfoWithStatus:@"密码设置成功"];
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self yanzhengmaData];
 }
 
 
-//获取编辑框编辑内容
+
 - (void)textFieldDidChange:(UITextField *)textField
 {
-    NSLog(@"%@", textField.text);
+    card_ID = textField.text;
 }
+
+
+
+//判断身份证号是否正确网络请求
+- (void)yanzhengmaData
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/passwordEdit", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic = @{@"u_mobile": user_phone,
+                          @"u_idcard": card_ID
+                          };
+    
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
+             
+             PasswordViewController *temp = [[PasswordViewController alloc] init];
+             
+             temp.yanzhengmaNu = self.yanzhengmaNum;
+             temp.wangjimima = @"1";
+             temp.shenfenzhenghao = card_ID;
+             
+             [self.navigationController pushViewController:temp animated:YES];
+             
+         }
+         else
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD showSuccessWithStatus:msg];
+             
+             [self performSelector:@selector(DatTime) withObject:self afterDelay:1];
+         }
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         [SVProgressHUD showSuccessWithStatus:@"暂无网络，请检查您的网络"];
+         
+         [self performSelector:@selector(DatTime) withObject:self afterDelay:2];
+     }];
+    
+}
+
+
+
+
+- (void)DatTime
+{
+    [SVProgressHUD dismiss];
+}
+
 
 
 //消键盘

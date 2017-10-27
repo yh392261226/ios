@@ -16,4 +16,7 @@
 @property (nonatomic, strong)NSString *city_id;  //城市ID
 @property (nonatomic, strong)NSString *worker_ID;  //工种ID
 
+
+@property (nonatomic, strong)NSString *workerName;   //工种名， 传给下一页详情里面显示
+
 @end

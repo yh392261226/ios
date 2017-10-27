@@ -33,7 +33,26 @@
     [dataArray addObject:@"1"];
     
     [self initHeadView];
-    [self tableview];
+    //[self tableview];
+    
+    UILabel *msg = [[UILabel alloc] init];
+    
+    msg.text = @"此功能正在开发,敬请期待!";
+    
+    msg.textAlignment = NSTextAlignmentCenter;
+    
+    msg.font = [UIFont systemFontOfSize:16];
+    
+    msg.textColor = [myselfway stringTOColor:@"0x2E84F8"];
+    
+    [self.view addSubview:msg];
+    
+    [msg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.view);
+        make.left.mas_equalTo(self.view).offset(40);
+        make.right.mas_equalTo(self.view).offset(-40);
+        make.height.mas_equalTo(30);
+    }];
     
 }
 
@@ -162,6 +181,8 @@
 //加载头部view
 - (void)initHeadView
 {
+    self.view.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
+    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     
     view.backgroundColor = [UIColor whiteColor];
