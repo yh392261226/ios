@@ -16,4 +16,20 @@
 
 @interface PartyBdismissViewController : BaseViewController
 
+
+@property (nonatomic, strong)NSString *tew_id;
+@property (nonatomic, strong)NSString *t_id;
+@property (nonatomic, strong)NSString *u_id;
+@property (nonatomic, strong)NSString *s_id;
+
+
+@property (nonatomic, strong)NSString *icon;
+@property (nonatomic, strong)NSString *name;
+@property (nonatomic, strong)NSString *sex;
+@property (nonatomic, strong)NSString *haoping;
+
+
+@property (nonatomic, strong)NSString *workerName;  //工种的中文名字
+
+
 @end

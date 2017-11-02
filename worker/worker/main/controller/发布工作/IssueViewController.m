@@ -709,6 +709,8 @@
     NSString *url = [NSString stringWithFormat:@"%@Tools/subTotal", baseUrl];
     [self postRequestByServiceUrl:url andApi:nil andParams:dicAll andCallBack:^(id obj) {
 
+        
+        
         NSLog(@"%@", obj);
         
         if ([[obj objectForKey:@"code"] integerValue] == 200)
@@ -718,23 +720,26 @@
             allMoney = [obj objectForKey:@"data"];
             
             NSLog(@"%@", allMoney);
+            
+            self.hidesBottomBarWhenPushed = YES;
+            
+            
         }
        
         
     }];
     
-
-    self.hidesBottomBarWhenPushed = YES;
-    
     IndentViewController *temp = [[IndentViewController alloc] init];
     
     temp.postDic = data;
     temp.modelArray = dataArray;
+    temp.allMoney = allMoney;
     
     temp.longitudeWor = self.longitudeWor;
     temp.latitudeWor = self.latitudeWor;
     
     [self.navigationController pushViewController:temp animated:YES];
+    
     
     
     
@@ -1515,6 +1520,8 @@
         
         if (dic) {
             callback(dic);
+            
+            
         }else
         {
             callback(error.description);

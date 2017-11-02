@@ -10,4 +10,16 @@
 
 @interface ModifyMoneyViewController : BaseViewController
 
+@property (nonatomic, strong)NSString *worName;
+@property (nonatomic, strong)NSString *person;
+@property (nonatomic, strong)NSString *money;
+@property (nonatomic, strong)NSString *startTime;
+@property (nonatomic, strong)NSString *endTime;
+@property (nonatomic, strong)NSString *skill;
+
+
+@property (nonatomic, strong)NSString *tew_id;
+@property (nonatomic, strong)NSString *t_id;
+@property (nonatomic, strong)NSString *o_worker;
+
 @end

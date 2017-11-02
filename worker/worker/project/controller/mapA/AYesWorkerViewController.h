@@ -10,4 +10,19 @@
 
 @interface AYesWorkerViewController : BaseViewController
 
+@property (nonatomic, strong)NSString *o_id;
+@property (nonatomic, strong)NSString *t_id;
+
+@property (nonatomic, strong)NSString *worU_id;   //工人ID
+@property (nonatomic, strong)NSString *worName;   
+
+@property (nonatomic, strong)NSString *tew_id;
+@property (nonatomic, strong)NSString *o_worker;
+@property (nonatomic, strong)NSString *s_id;
+@property (nonatomic, strong)NSString *o_confirm;
+@property (nonatomic, strong)NSString *o_status;
+
+
+
+
 @end

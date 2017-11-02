@@ -18,7 +18,7 @@
     {
         _name = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 50, 30)];
         
-        _name.font = [UIFont systemFontOfSize:17];
+        _name.font = [UIFont systemFontOfSize:15];
         
         _name.text = @"工期:";
         

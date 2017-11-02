@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E2A93E71FAAE47500C07B47 /* endDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2A93E61FAAE47400C07B47 /* endDetailViewController.m */; };
+		6E3F299E1FA6B4F900327E8C /* worInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F299D1FA6B4F900327E8C /* worInfoTableViewCell.m */; };
 		6E6DD1FB1F96F28B00CE32E0 /* ModifyMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6DD1FA1F96F28B00CE32E0 /* ModifyMoneyViewController.m */; };
+		6E6F9A781FA41F4E00D33E6B /* ProDetailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6F9A771FA41F4E00D33E6B /* ProDetailListViewController.m */; };
 		6EE35A251F9F15BA00675B13 /* mapFirstguTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE35A241F9F15BA00675B13 /* mapFirstguTableViewCell.m */; };
 		6EE35A281F9F3DE100675B13 /* mapTwoguTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE35A271F9F3DE100675B13 /* mapTwoguTableViewCell.m */; };
 		6EE35A2B1F9F3EBA00675B13 /* mapWorkerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE35A2A1F9F3EBA00675B13 /* mapWorkerTableViewCell.m */; };
@@ -228,8 +231,14 @@
 
 /* Begin PBXFileReference section */
 		5C1F10145795CF94D2603748 /* libPods-workerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-workerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E2A93E51FAAE47400C07B47 /* endDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = endDetailViewController.h; sourceTree = "<group>"; };
+		6E2A93E61FAAE47400C07B47 /* endDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = endDetailViewController.m; sourceTree = "<group>"; };
+		6E3F299C1FA6B4F900327E8C /* worInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = worInfoTableViewCell.h; sourceTree = "<group>"; };
+		6E3F299D1FA6B4F900327E8C /* worInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = worInfoTableViewCell.m; sourceTree = "<group>"; };
 		6E6DD1F91F96F28B00CE32E0 /* ModifyMoneyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyMoneyViewController.h; sourceTree = "<group>"; };
 		6E6DD1FA1F96F28B00CE32E0 /* ModifyMoneyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyMoneyViewController.m; sourceTree = "<group>"; };
+		6E6F9A761FA41F4E00D33E6B /* ProDetailListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProDetailListViewController.h; sourceTree = "<group>"; };
+		6E6F9A771FA41F4E00D33E6B /* ProDetailListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProDetailListViewController.m; sourceTree = "<group>"; };
 		6EE35A231F9F15BA00675B13 /* mapFirstguTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mapFirstguTableViewCell.h; sourceTree = "<group>"; };
 		6EE35A241F9F15BA00675B13 /* mapFirstguTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mapFirstguTableViewCell.m; sourceTree = "<group>"; };
 		6EE35A261F9F3DE100675B13 /* mapTwoguTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mapTwoguTableViewCell.h; sourceTree = "<group>"; };
@@ -721,6 +730,8 @@
 			children = (
 				FB2581D01F39590200BE510F /* WorkerManagementViewController.h */,
 				FB2581D11F39590200BE510F /* WorkerManagementViewController.m */,
+				6E2A93E51FAAE47400C07B47 /* endDetailViewController.h */,
+				6E2A93E61FAAE47400C07B47 /* endDetailViewController.m */,
 			);
 			path = "工人工作管理";
 			sourceTree = "<group>";
@@ -854,6 +865,8 @@
 		FB4C33A71F5F8B90005D0747 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				6E6F9A761FA41F4E00D33E6B /* ProDetailListViewController.h */,
+				6E6F9A771FA41F4E00D33E6B /* ProDetailListViewController.m */,
 				FBD3A9FB1F6E43AA00921A88 /* answerA */,
 				FBD3A9FC1F6E43AA00921A88 /* answerB */,
 				FBF7AE851F64D4A7005AB36E /* mapA */,
@@ -913,6 +926,8 @@
 		FB4C33AB1F5F8B90005D0747 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				6E3F299C1FA6B4F900327E8C /* worInfoTableViewCell.h */,
+				6E3F299D1FA6B4F900327E8C /* worInfoTableViewCell.m */,
 				FBA9BF651F662EDC00612B61 /* mapviewA */,
 				FBA9BF661F662EDC00612B61 /* mapviewB */,
 				FB4C33B81F5FD767005D0747 /* Party */,
@@ -1817,6 +1832,7 @@
 				FBD3AA021F6E441C00921A88 /* BFirstAnsViewController.m in Sources */,
 				FBCAB43F1F5E802900921FBE /* DepositViewController.m in Sources */,
 				FB20E6101F6A16800085C606 /* BYesOrNoViewController.m in Sources */,
+				6E6F9A781FA41F4E00D33E6B /* ProDetailListViewController.m in Sources */,
 				FBD3A54B1F67BB3900A2EF23 /* BmapWorkerViewController.m in Sources */,
 				FB556BB51F711A7D00C2702A /* ProtocolViewController.m in Sources */,
 				FB4C33C21F5FDF3C005D0747 /* PartyThreeCollectionViewCell.m in Sources */,
@@ -1852,6 +1868,7 @@
 				FB5DEC691F61339C00008EA5 /* PartyBrefuseViewController.m in Sources */,
 				FBD796651F286B3700FA50BE /* main.m in Sources */,
 				FB61EB571F62450500066A8A /* PartyBinfoViewController.m in Sources */,
+				6E2A93E71FAAE47500C07B47 /* endDetailViewController.m in Sources */,
 				FB7E59621F78E4F3005F3EB4 /* ThreeCityViewController.m in Sources */,
 				FB77033E1F4182000028EB84 /* SetViewController.m in Sources */,
 				FB7FA5B71F32F83F0096F6F2 /* SeachJobViewController.m in Sources */,
@@ -1881,6 +1898,7 @@
 				FB5759B11F4430E100135B92 /* DressingViewController.m in Sources */,
 				FBFD602F1F3BFF870061DB20 /* PreviewTableViewCell.m in Sources */,
 				FB004CBA1F6928380035B417 /* AYesWorkerViewController.m in Sources */,
+				6E3F299E1FA6B4F900327E8C /* worInfoTableViewCell.m in Sources */,
 				FBE421731F3D8B8800336990 /* EditSelecedTableViewCell.m in Sources */,
 				FB7FA5B01F32F7670096F6F2 /* MineScrTableViewCell.m in Sources */,
 				FB4F230F1F59378300D8D7C6 /* MessageViewController.m in Sources */,

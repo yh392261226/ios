@@ -21,7 +21,7 @@
 @property (nonatomic, strong)NSString *u_task_status;
 @property (nonatomic, strong)NSString *ucp_posit_x;
 @property (nonatomic, strong)NSString *ucp_posit_y;
-
+@property (nonatomic, strong)NSString *f_id;
 
 @end
 
@@ -38,7 +38,7 @@
 @property (nonatomic, strong)NSString *t_author;
 @property (nonatomic, strong)NSString *t_status;
 @property (nonatomic, strong)NSString *u_img;
-
+@property (nonatomic, strong)NSString *f_id;
 
 @end
 
@@ -313,7 +313,27 @@
 //收藏按钮点击
 - (void)favoriteBtn: (UIButton *)btn
 {
-    NSLog(@"%ld", btn.tag);
+    NSInteger num = btn.tag - 300;
+    
+    
+    
+    if (typeOr == 1)
+    {
+        //收藏的工作
+        workerFavoData *data = [workerArray objectAtIndex:num];
+        
+        [self NoFavoriteData:data.f_id];
+        
+    }
+    else
+    {
+        //收藏的工人
+        favoriteData *info = [dataArray objectAtIndex:num];
+        
+        [self NoFavoriteData:info.f_id];
+    }
+    
+    
 }
 
 
@@ -354,6 +374,7 @@
                  data.u_task_status = [dic objectForKey:@"u_task_status"];
                  data.ucp_posit_x = [dic objectForKey:@"ucp_posit_x"];
                  data.ucp_posit_y = [dic objectForKey:@"ucp_posit_y"];
+                 data.f_id = [dic objectForKey:@"f_id"];
                  
                  [dataArray addObject:data];
              }
@@ -412,6 +433,7 @@
                  data.t_status = [dic objectForKey:@"t_status"];
                  data.t_duration = [dic objectForKey:@"t_duration"];
                  data.u_img = [dic objectForKey:@"u_img"];
+                 data.f_id = [dic objectForKey:@"f_id"];
                  
                  [workerArray addObject:data];
              }
@@ -434,6 +456,50 @@
     
 }
 
+
+
+//取消收藏
+- (void)NoFavoriteData: (NSString *)f_id
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/favorateDel?f_id=%@", baseUrl, f_id];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             [SVProgressHUD showSuccessWithStatus:[dic objectForKey:@"msg"]];
+             
+             
+             if (typeOr == 1)
+             {
+                 [self getWorkerdata];
+             }
+             else
+             {
+                 [self getdata];
+             }
+             
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

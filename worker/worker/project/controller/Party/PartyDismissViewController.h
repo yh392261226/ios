@@ -12,4 +12,10 @@
 
 @interface PartyDismissViewController : BaseViewController
 
+@property (nonatomic, strong)NSString *o_worker;
+@property (nonatomic, strong)NSString *tew_id;
+@property (nonatomic, strong)NSString *wornAME;
+@property (nonatomic, strong)NSString *s_id;
+@property (nonatomic, strong)NSString *t_id;
+
 @end

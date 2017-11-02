@@ -13,6 +13,9 @@
 #import "TypeView.h"
 #import "OneTableViewCell.h"
 #import "draftViewController.h"
+#import "AYesOrNoViewController.h"
+#import "ProDetailListViewController.h"
+#import "ProfessionViewController.h"
 
 @interface EmpDataModel : NSObject
 
@@ -68,7 +71,7 @@
     
     [self addhead:@"雇主发布管理"];
     
-    [self slitherBack:self.navigationController];
+//    [self slitherBack:self.navigationController];
     
     dataArray = [NSMutableArray array];
     
@@ -127,6 +130,7 @@
     return 1;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EmpDataModel *model = [dataArray objectAtIndex:indexPath.section];
@@ -160,7 +164,7 @@
         cell.centerBtn.hidden = YES;
     
     }
-    else if ([model.t_status isEqualToString:@"2"])
+    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"])
     {
         cell.state.image = [UIImage imageNamed:@"main_state5"];
         
@@ -170,8 +174,11 @@
     }
     else if([model.t_status isEqualToString:@"3"])
     {
+        
         cell.state.image = [UIImage imageNamed:@"main_state6"];
-        [cell.rightBtn setTitle:@"追加评价" forState:0];
+        cell.centerBtn.hidden = YES;
+        [cell.rightBtn setTitle:@"删除信息" forState:0];
+        
     }
     
     
@@ -218,7 +225,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  //  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     EmpDataModel *model = [dataArray objectAtIndex:indexPath.section];
     
@@ -232,7 +239,11 @@
                           }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"去邀约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                           {
-                             
+                              self.hidesBottomBarWhenPushed = YES;
+                              
+                              ProfessionViewController *temp = [[ProfessionViewController alloc] init];
+                              
+                              [self.navigationController pushViewController:temp animated:YES];
                            
                           }]];
         
@@ -245,30 +256,44 @@
     else if ([model.t_status isEqualToString:@"1"])
     {
         //洽谈
+        self.hidesBottomBarWhenPushed = YES;
+        
+        ProDetailListViewController *temp = [[ProDetailListViewController alloc] init];
+        
+        temp.type = @"0";
+        
+        temp.t_id = model.t_id;
+        
+        [self.navigationController pushViewController:temp animated:YES];
         
     }
-    else if ([model.t_status isEqualToString:@"2"])
+    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"])
     {
         //工作中
+        self.hidesBottomBarWhenPushed = YES;
+        
+        ProDetailListViewController *temp = [[ProDetailListViewController alloc] init];
+        
+        temp.t_id = model.t_id;
+        
+        temp.type = @"1";
+        
+        [self.navigationController pushViewController:temp animated:YES];
         
     }
     else if([model.t_status isEqualToString:@"3"])
     {
         //完成
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"工程已结束，是否查看工人信息?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
-                          {
-                              
-                          }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"去查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-                          {
-                              
-                              
-                          }]];
+        self.hidesBottomBarWhenPushed = YES;
         
+        ProDetailListViewController *temp = [[ProDetailListViewController alloc] init];
         
-        [self presentViewController:alert animated:YES completion:nil];
+        temp.t_id = model.t_id;
+        
+        temp.type = @"2";
+        
+        [self.navigationController pushViewController:temp animated:YES];
     }
     
 }
@@ -331,6 +356,7 @@
     {
         [self getdata:@"3"];
     }
+    
 }
 
 
@@ -353,7 +379,6 @@
     if ([model.t_status isEqualToString:@"0"])
     {
         //空闲
-        
         [self deldata:model.t_id];
         
     }
@@ -363,15 +388,14 @@
         [self deldata:model.t_id];
         
     }
-    else if ([model.t_status isEqualToString:@"2"])
+    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"])
     {
         //进行
         
     }
     else if([model.t_status isEqualToString:@"3"])
     {
-        //结束
-        
+     
         
     }
     
@@ -379,10 +403,24 @@
 
 
 
+
 - (void)rightbtn: (UIButton *)btn
 {
-    NSLog(@"3");
+    
+    NSInteger index = btn.tag - 300;
+    
+    EmpDataModel *model = [dataArray objectAtIndex:index];
+    
+    if([model.t_status isEqualToString:@"3"])
+    {
+        //结束
+        [self DDDDDdeldata:model.t_id];
+    }
+    
+ 
 }
+
+
 
 
 
@@ -391,6 +429,9 @@
 {
     NSLog(@"%ld", btn.tag);
 }
+
+
+
 
 
 //加载草稿箱
@@ -420,6 +461,7 @@
 }
 
 
+
 //草稿箱点击事件
 - (void)Draft
 {
@@ -430,6 +472,9 @@
     [self.navigationController pushViewController:temp animated:YES];
     
 }
+
+
+
 
 
 
@@ -445,7 +490,15 @@
     }
     else
     {
-        url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_status=%@", baseUrl, user_ID, t_status];
+        if ([t_status isEqualToString:@"2"] || [t_status isEqualToString:@"5"])
+        {
+            url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_status=%@", baseUrl, user_ID, @"2,5"];
+        }
+        else
+        {
+            url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_status=%@", baseUrl, user_ID, t_status];
+        }
+        
     }
     
     
@@ -466,7 +519,7 @@
              for (int i = 0; i < tem.count; i++)
              {
                  NSDictionary *dic = [tem objectAtIndex:i];
-                 
+             
                  EmpDataModel *model = [[EmpDataModel alloc] init];
                  
                  model.t_id = [dic objectForKey:@"t_id"];
@@ -495,6 +548,7 @@
              
              
              [self.tableview reloadData];
+             
          }
          
          
@@ -551,7 +605,7 @@
 //删除订单， 假删
 - (void)DDDDDdeldata: (NSString *)t_id
 {
-    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=del2&t_id=%@&t_author=%@", baseUrl, t_id, user_ID];
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=del2&t_id=%@&t_author=%@&", baseUrl, t_id, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -589,6 +643,21 @@
 }
 
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    //获取缓存图片的大小(字节)
+    NSUInteger bytesCache = [[SDImageCache sharedImageCache] getSize];
+    
+    //换算成 MB (注意iOS中的字节之间的换算是1000不是1024)
+    float MBCache = bytesCache/1000/1000;
+    
+    //异步清除图片缓存 （磁盘中的）
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        [[SDImageCache sharedImageCache] clearDisk];
+    });
+}
 
 
 - (void)didReceiveMemoryWarning {

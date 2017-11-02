@@ -12,11 +12,26 @@
 #import "PartyThreeCollectionViewCell.h"
 #import "headCollectionReusableView.h"
 #import "PartyimageCollectionViewCell.h"
-
 #import "PartyRefuseViewController.h"
-
 #import "ZLPhotoActionSheet.h"
 #import "ZLDefine.h"
+
+
+
+
+
+@interface DomData : NSObject
+
+@property (nonatomic, strong)NSString *ct_id;
+@property (nonatomic, strong)NSString *ct_name;
+
+
+@end
+
+@implementation DomData
+
+
+@end
 
 @interface PartyDomplainViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextViewDelegate>
 {
@@ -29,6 +44,10 @@
     NSString *name;   //投诉原因的字段
     
     NSString *textDetail;    //投诉原因详情的数据
+    
+    NSString *ct_iddddd;   //上传图片需要
+    
+    NSString *ct_id;
 }
 
 
@@ -59,12 +78,9 @@
     
     
     nameArray = [NSMutableArray array];
-    [nameArray addObject:@"暗示健康的哈数据的卡萨丁"];
-    [nameArray addObject:@"暗示健康萨丁"];
-    [nameArray addObject:@"暗示健康的哈数据丁"];
-    [nameArray addObject:@"暗示ad"];
-    [nameArray addObject:@"暗示健康的"];
-    [nameArray addObject:@"暗示健康的哈数据的卡萨丁aas"];
+ 
+    
+    [self getdata];
     
     
     [self collection];
@@ -126,10 +142,31 @@
 {
     if (indexPath.section == 0)
     {
+        
         DomFirstCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"firstcell" forIndexPath:indexPath];
+        
+        NSURL *url = [NSURL URLWithString:self.icon];
+        
+        [cell.icon sd_setImageWithURL:url];
+        
+        cell.name.text = self.name;
+        
+        
+        cell.comment.text = [NSString stringWithFormat:@"好评%@次", self.number];
+        cell.worker.text = self.workerName;
+        
+        if ([self.sex isEqualToString:@"0"])
+        {
+            cell.sex.image = [UIImage imageNamed:@"job_woman"];
+        }
+        else if ([self.sex isEqualToString:@"1"])
+        {
+            cell.sex.image = [UIImage imageNamed:@"job_man"];
+        }
         
    
         return cell;
+        
     }
     else if (indexPath.section == 1)
     {
@@ -230,9 +267,13 @@
         
         for (int i = 0; i < nameArray.count; i++)
         {
-            UIAlertAction *action = [UIAlertAction actionWithTitle:[nameArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+            DomData *model = [nameArray objectAtIndex:i];
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:model.ct_name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
             {
                 name = action.title;
+                
+                ct_id = model.ct_id;
                 
                 [self.collection reloadData];
             }];
@@ -247,6 +288,7 @@
     }
     else if (indexPath.section == 3)
     {
+        
         if (indexPath.item == 0)
         {
             if (imageArray.count >= 5)
@@ -398,10 +440,13 @@
     }
     else
     {
-        [SVProgressHUD showInfoWithStatus:@"投诉成功"];
-        [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
         
-        [self.navigationController popViewControllerAnimated:YES];
+        [imageArray removeObjectAtIndex:0];
+        
+
+        [self imageData:[imageArray objectAtIndex:0]];
+        
+
     }
     
     
@@ -430,6 +475,190 @@
 }
 
 
+
+
+
+- (void)getdata
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/complaintsType?ct_type=%@", baseUrl, self.type];
+
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSArray *arr = [dictionary objectForKey:@"data"];
+             
+             NSDictionary *dic = [arr objectAtIndex:0];
+             
+             NSArray *data = [dic objectForKey:@"data"];
+             
+             for (int i = 0; i < data.count; i++)
+             {
+                 NSDictionary *dic = [data objectAtIndex:i];
+                 
+                 DomData *data = [[DomData alloc] init];
+                 
+                 data.ct_id = [dic objectForKey:@"ct_id"];
+                 data.ct_name = [dic objectForKey:@"ct_name"];
+                 
+                 [nameArray addObject:data];
+                 
+             }
+             
+
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+      
+     }];
+    
+    
+}
+
+
+
+
+
+- (void)imageData:(UIImage *)ima
+{
+    NSData *data = UIImageJPEGRepresentation(ima, 1.0);
+    
+    NSString *pictureDataString = [data base64EncodedStringWithOptions:0];   //data转base64
+
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/complaintsAdd", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic;
+
+
+                       dic = @{@"c_img": pictureDataString
+                              ,@"c_author" : user_ID,
+                              @"c_against" : self.worker,
+                              @"c_desc" : textDetail,
+                              @"ct_id" : ct_id
+                              };
+
+    
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             
+             ct_iddddd = [dic objectForKey:@"c_id"];
+           
+             [imageArray removeObjectAtIndex:0];
+             
+             
+             
+             for (int i = 0; i < imageArray.count; i++)
+             {
+                 [self imageData1:[imageArray objectAtIndex:i]];
+             
+                 [SVProgressHUD showInfoWithStatus:@"投诉成功"];
+                 [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
+                 
+                 [self.navigationController popToRootViewControllerAnimated:YES];
+             }
+             
+         }
+         else
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
+             
+             [self.navigationController popToRootViewControllerAnimated:YES];
+         }
+         
+     }
+          failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         [SVProgressHUD showInfoWithStatus:@"头像上传失败，请检查网络"];
+     }];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+
+
+- (void)imageData1:(UIImage *)ima
+{
+    NSData *data = UIImageJPEGRepresentation(ima, 1.0);
+    
+    NSString *pictureDataString = [data base64EncodedStringWithOptions:0];   //data转base64
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/complaintsAdd", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic;
+    
+
+    dic = @{@"c_img": pictureDataString
+            ,@"c_author" : user_ID,
+            @"c_against" : self.worker,
+            @"c_desc" : textDetail,
+            @"ct_id" : ct_id,
+            @"c_id" : ct_iddddd
+            };
+  
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             
+             [SVProgressHUD showInfoWithStatus:@"投诉成功"];
+             [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
+             
+             [self.navigationController popToRootViewControllerAnimated:YES];
+             
+         }
+         else
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
+         }
+         
+     }
+          failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         [SVProgressHUD showInfoWithStatus:@"头像上传失败，请检查网络"];
+     }];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

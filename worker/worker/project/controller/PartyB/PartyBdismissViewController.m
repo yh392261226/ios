@@ -9,6 +9,7 @@
 #import "PartyBdismissViewController.h"
 #import "MoneyDetailsViewController.h"
 #import "PartyBdomplainViewController.h"
+#import "PartyDomplainViewController.h"
 
 @interface PartyBdismissViewController ()<UITextViewDelegate>
 {
@@ -80,13 +81,16 @@
     icon = [backview viewWithTag:1001];
     icon.layer.masksToBounds = YES;
     icon.layer.cornerRadius = 35;
-    icon.backgroundColor = [UIColor orangeColor];
+    NSURL *url = [NSURL URLWithString:self.icon];
+    [icon sd_setImageWithURL:url];
+   
+    
     
     name = [backview viewWithTag:1002];
-    name.text = @"赵本山";
+    name.text = self.name;
     
     worker = [backview viewWithTag:1003];
-    worker.text = @"老板";
+    worker.text = @"雇主";
     
     
     evaluate = [backview viewWithTag:1004];
@@ -159,6 +163,22 @@
     sex = [backview viewWithTag:1100];
     
     
+    
+    
+    
+     
+     
+    
+    if ([self.sex isEqualToString:@"0"])
+    {
+        sex.image = [UIImage imageNamed:@"job_woman"];
+    }
+    else if ([self.sex isEqualToString:@"1"])
+    {
+        sex.image = [UIImage imageNamed:@"job_man"];
+    }
+    
+    
     [self.view addSubview:backview];
 }
 
@@ -176,7 +196,19 @@
 //投诉雇主按钮
 - (void)compBtn
 {
-    PartyBdomplainViewController *temp = [[PartyBdomplainViewController alloc] init];
+    PartyDomplainViewController *temp = [[PartyDomplainViewController alloc] init];
+    
+    
+    temp.worker = self.u_id;
+   
+    temp.name = self.name;
+    temp.sex = self.sex;
+    temp.icon = self.icon;
+    temp.workerName = self.workerName;
+    temp.number = self.haoping;
+    
+    
+    temp.type = @"1";
     
     [self.navigationController pushViewController:temp animated:YES];
 }
@@ -192,13 +224,7 @@
     }
     else
     {
-        [SVProgressHUD showInfoWithStatus:@"投诉成功"];
-        
-        [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
-        
-        self.hidesBottomBarWhenPushed = NO;
-        self.tabBarController.selectedIndex = 1;
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self workerNO];
     }
 }
 
@@ -266,6 +292,47 @@
 
 
 
+
+//工人辞职
+
+- (void)workerNO
+{
+    NSString *eva = [NSString stringWithFormat:@"%ld", evaluation];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=unbind&tew_id=%@&t_id=%@&type=resign&o_worker=%@&u_id=%@&s_id=%@&start=%@&appraisal=%@", baseUrl, self.tew_id , self.t_id , user_ID, self.u_id, self.s_id, eva, qustion];
+    
+    NSLog(@"%@", url);
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             
+             [SVProgressHUD showInfoWithStatus:@"投诉成功"];
+             
+             [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
+             
+             self.hidesBottomBarWhenPushed = NO;
+             self.tabBarController.selectedIndex = 1;
+             [self.navigationController popToRootViewControllerAnimated:YES];
+             
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+         
+         
+     }];
+    
+    
+}
 
 
 

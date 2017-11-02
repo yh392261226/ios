@@ -42,6 +42,10 @@
 @property (nonatomic, strong)NSString *u_sex;
 @property (nonatomic, strong)NSString *uei_address;
 @property (nonatomic, strong)NSString *u_idcard;
+
+@property (nonatomic, strong)NSString *relation;    //     雇主与工人是否存在关系:1存在0不存在
+@property (nonatomic, strong)NSString *relation_type;     //     存在关系状态码:1是工作中 0是洽谈
+
 @end
 
 @implementation worDetailData
@@ -80,6 +84,7 @@
     NSString *Xmap;
     NSString *Ymap;
     
+    NSString *phone;
 }
 
 @property (nonatomic, strong)BMKMapView *mapView;
@@ -200,6 +205,8 @@
     yes.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
     yes.layer.cornerRadius = 7;
     [yes addTarget:self action:@selector(yesBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    
 
 
 }
@@ -289,7 +296,7 @@
     self.mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [self.mapView viewWillDisappear];
     self.mapView.delegate = nil; // 不用时，置nil
@@ -355,18 +362,22 @@
 //拨打电话按钮
 - (void)callBtn
 {
-    AYesOrNoViewController *temp = [[AYesOrNoViewController alloc] init];
-
-    [self.navigationController pushViewController:temp animated:YES];
+    
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    
 }
 
 
 //邀请成功的代理方法
 - (void)success
 {
+    
     [yes setTitle:@"邀约请求以发送" forState:UIControlStateNormal];
 
     yes.userInteractionEnabled = NO;
+    
 }
 
 
@@ -374,7 +385,7 @@
 
 - (void)getdata
 {
-    NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_id=%@", baseUrl, self.worker_id];
+    NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_id=%@&fu_id=%@&o_status=0,-3", baseUrl, self.worker_id, user_ID];
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
 
@@ -393,10 +404,9 @@
 
              for (int i = 0; i < arr.count; i++)
              {
-
                  NSDictionary *dicInfo = [arr objectAtIndex:i];
                  worDetailData *data = [[worDetailData alloc] init];
-
+                 
                  data.u_id = [dicInfo objectForKey:@"u_id"];
                  data.u_name = [dicInfo objectForKey:@"u_name"];
                  data.u_skills = [dicInfo objectForKey:@"u_skills"];
@@ -412,9 +422,11 @@
                  data.u_sex = [dicInfo objectForKey:@"u_sex"];
                  data.uei_address = [dicInfo objectForKey:@"uei_address"];
                  data.u_idcard = [dicInfo objectForKey:@"u_idcard"];
+                 data.relation = [dicInfo objectForKey:@"relation"];
+                 data.relation_type = [dicInfo objectForKey:@"relation_type"];
                  Xmap = data.ucp_posit_x;
                  Ymap = data.ucp_posit_y;
-                 
+                 phone = data.u_mobile;
                  workerID = data.u_id;
                  
 
@@ -437,8 +449,8 @@
                      sex.image = [UIImage imageNamed:@"job_man"];
                  }
 
-
-
+                 
+                 
                  if ([data.u_task_status isEqualToString:@"0"])
                  {
                      workerType.text = @"空闲";
@@ -447,9 +459,15 @@
                  {
                      workerType.text = @"工作中";
                      workerType.backgroundColor = [UIColor redColor];
+                     
+                     [yes setTitle:@"此工人正在工作中" forState:UIControlStateNormal];
+                     
+                     yes.userInteractionEnabled = NO;
+                     
+                     yes.backgroundColor = [UIColor redColor];
                  }
 
-                 call.enabled = NO;
+            
 
 
                  redLab.text = data.uei_info;
@@ -457,6 +475,47 @@
                  
                  worker.text = self.workerNN;
                  
+
+                 if ([data.u_id isEqualToString:user_ID])
+                 {
+                     [yes setTitle:@"您不能招工自己" forState:UIControlStateNormal];
+
+                     yes.userInteractionEnabled = NO;
+                     
+                     yes.backgroundColor = [UIColor redColor];
+                 }
+                 else
+                 {
+                     if ([data.relation intValue] == 1)
+                     {
+                         if ([data.relation_type intValue] == 1)
+                         {
+                             [yes setTitle:@"此工人正在您的任务中工作" forState:UIControlStateNormal];
+                             
+                             yes.userInteractionEnabled = NO;
+                             
+                             yes.backgroundColor = [UIColor redColor];
+                         }
+                         else if([data.relation_type intValue] == 0)
+                         {
+                             
+                             [yes setTitle:@"此工人正在与您洽谈" forState:UIControlStateNormal];
+                             
+                             yes.userInteractionEnabled = NO;
+                             
+                             yes.backgroundColor = [UIColor redColor];
+                             
+                         }
+                     }
+                     else
+                     {
+                         
+                     }
+                     
+                 }
+                 
+                 
+                
                  
                  
                  [self initMapView];
@@ -488,7 +547,7 @@
 {
     NSString *url;
     
-    url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_storage=0&t_status=0&skills=%@", baseUrl, @"2", self.skills_id];
+    url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_storage=0&t_status=0&skills=%@", baseUrl, user_ID, self.skills_id];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -532,7 +591,6 @@
                  model.t_storage = [dic objectForKey:@"t_storage"];
                  model.favorate = [dic objectForKey:@"favorate"];
                  
-                 
                  model.tew_id = [dic objectForKey:@"tew_id"];
                  model.tew_skills = [dic objectForKey:@"tew_skills"];
                  model.tew_worker_num = [dic objectForKey:@"tew_worker_num"];
@@ -567,8 +625,10 @@
 
 - (void)didReceiveMemoryWarning
 {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
 }
 
 

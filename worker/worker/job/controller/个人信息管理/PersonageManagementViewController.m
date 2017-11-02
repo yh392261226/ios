@@ -1129,7 +1129,6 @@
 
 - (void)imageData:(UIImage *)ima
 {
-    
     NSData *data = UIImageJPEGRepresentation(ima, 1.0);
     
     NSString *pictureDataString = [data base64EncodedStringWithOptions:0];   //data转base64
@@ -1509,6 +1508,21 @@
     
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    //获取缓存图片的大小(字节)
+    NSUInteger bytesCache = [[SDImageCache sharedImageCache] getSize];
+    
+    //换算成 MB (注意iOS中的字节之间的换算是1000不是1024)
+    float MBCache = bytesCache/1000/1000;
+    
+    //异步清除图片缓存 （磁盘中的）
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        [[SDImageCache sharedImageCache] clearDisk];
+    });
+}
 
 
 @end

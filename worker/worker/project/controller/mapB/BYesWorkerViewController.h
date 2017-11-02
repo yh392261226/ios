@@ -10,4 +10,12 @@
 
 @interface BYesWorkerViewController : BaseViewController
 
+@property (nonatomic, strong)NSString *redText;
+@property (nonatomic, strong)NSString *orangeText;
+@property (nonatomic, strong)NSString *blueText;
+@property (nonatomic, strong)NSString *greenText;
+
+
+@property (nonatomic, strong)NSString *t_id;
+
 @end

@@ -27,6 +27,8 @@
     UIButton *left;
     
     UIButton *right;
+    
+     UILabel *tiaokuan;  //条款
 }
 
 @end
@@ -84,23 +86,27 @@
     
     left = [backview viewWithTag:1999];
     
-    left.layer.cornerRadius = 6.0;//2.0是圆角的弧度，根据需求自己更改
+    left.layer.cornerRadius = 6.0; //2.0是圆角的弧度，根据需求自己更改
     left.layer.borderColor = [UIColor blackColor].CGColor;//设置边框颜色
-    left.layer.borderWidth = 1.0f;//设置边框颜色
+    left.layer.borderWidth = 1.0f; //设置边框颜色
     [left addTarget:self action:@selector(leftBtn) forControlEvents:UIControlEventTouchUpInside];
     
     
+    tiaokuan = [backview viewWithTag:9888];
+    tiaokuan.text = [NSString stringWithFormat:@"%@   %@", self.orangeText, self.greenText];
     
     
     
     right = [backview viewWithTag:2999];
     
-    right.layer.cornerRadius = 6.0;//2.0是圆角的弧度，根据需求自己更改
+    right.layer.cornerRadius = 6.0; //2.0是圆角的弧度，根据需求自己更改
     right.layer.borderColor = [UIColor blackColor].CGColor;//设置边框颜色
-    right.layer.borderWidth = 1.0f;//设置边框颜色
+    right.layer.borderWidth = 1.0f; //设置边框颜色
     [right addTarget:self action:@selector(rightBtn) forControlEvents:UIControlEventTouchUpInside];
     
+    
 }
+
 
 //工资不对按钮
 - (void)leftBtn
@@ -115,13 +121,59 @@
 //开始干活按钮
 - (void)rightBtn
 {
-    BYesWorkerViewController *temp = [[BYesWorkerViewController alloc] init];
-    
-    [self.navigationController pushViewController:temp animated:YES];
+    [self worKerYes];
 }
 
 
-
+//工人确认
+- (void)worKerYes
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=workerConfirm&o_id=%@&t_id=%@&o_worker=%@", baseUrl, self.o_id, self.t_id, user_ID];
+    
+    NSLog(@"%@", url);
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             
+             NSString *dic = [dictionary objectForKey:@"data"];
+             
+             NSLog(@"%@", dic);
+             
+             [SVProgressHUD showInfoWithStatus:dic];
+             
+             BYesWorkerViewController *temp = [[BYesWorkerViewController alloc] init];
+             
+             temp.redText = self.redText;
+             temp.orangeText = self.orangeText;
+             temp.greenText = self.greenText;
+             temp.blueText = self.blueText;
+             
+             
+             temp.t_id = self.t_id;
+             
+             [self.navigationController pushViewController:temp animated:YES];
+             
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

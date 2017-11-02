@@ -528,9 +528,9 @@
     
     model.bigType = @"11";
     
-    model.name = @"工程总价: 180";
+    model.name = [NSString stringWithFormat:@"工程总价: %@元", self.allMoney];
     
-    model.mongey = @"小计: 180";
+    model.mongey = [NSString stringWithFormat:@"小计: %@元", self.allMoney];
     
     [arr1 addObject:model];
     
@@ -693,6 +693,8 @@
     }];
 }
 
+
+
 //获取编辑密码的代理
 - (void)password: (NSString *)num
 {
@@ -707,15 +709,15 @@
     
     NSDictionary *dicAll = @{@"data" : getStr};
     
-    NSString *url = [NSString stringWithFormat:@"%@?action=publish", baseUrl];
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=publish", baseUrl];
     [self postRequestByServiceUrl:url andApi:nil andParams:dicAll andCallBack:^(id obj) {
         
         NSLog(@"%@", obj);
         
         if ([[obj objectForKey:@"code"] integerValue] == 200)
         {
-            [SVProgressHUD showInfoWithStatus:[obj objectForKey:@"data"]];
-
+          //  [SVProgressHUD showInfoWithStatus:[obj objectForKey:@"data"]];
+            [SVProgressHUD showSuccessWithStatus:@"发布成功"];
         }
         
         

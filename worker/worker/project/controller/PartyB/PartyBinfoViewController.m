@@ -114,6 +114,8 @@
     
     NSMutableArray *pingjiaArr;  //评价的数组
     
+    NSString *name;
+    
 }
 
 
@@ -138,6 +140,8 @@
     [self getinfoData];
     
   //  worArr = [NSMutableArray array];
+    
+    
     
     
     [self slitherBack:self.navigationController];
@@ -536,18 +540,14 @@
     
     info8.bigType = 0;
     info8.type = 3;
-//    info8.workerArray = worArr;
+//  info8.workerArray = worArr;
     
     [firstArray addObject:info8];
 
     
-    
-    
     [dataArray addObject:firstArray];
     
-    
 
-    
     [self.tableview reloadData];
 }
 
@@ -610,7 +610,7 @@
              model.uei_area = [dicData objectForKey:@"uei_area"];
              model.uei_address = [dicData objectForKey:@"uei_address"];
              
-             
+             [self addhead:model.u_true_name];
              
              model.area = [dicData objectForKey:@"area"];
              
@@ -625,7 +625,7 @@
              
              
              
-             [self addhead:model.u_true_name];
+             
              
              
              
@@ -759,7 +759,7 @@
 //别人给我的评价
 - (void)getMydata
 {
-    NSString *url = [NSString stringWithFormat:@"%@Users/otherCommentUser?tc_u_id=%@", baseUrl, @"2"];
+    NSString *url = [NSString stringWithFormat:@"%@Users/otherCommentUser?tc_u_id=%@", baseUrl, self.u_id];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     

@@ -134,13 +134,12 @@
     
     plans = [backview viewWithTag:1555];
     
-    
-    
-    
+
     sex = [backview viewWithTag:1100];
     
     
     [self.view addSubview:backview];
+    
 }
 
 
