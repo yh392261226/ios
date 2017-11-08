@@ -247,7 +247,7 @@
 //邀约请求
 - (void)getdata: (NSString *)tew_id t_id:(NSString *)t_id
 {
-    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=create&tew_id=%@&t_id=%@&o_worker=%@", baseUrl, tew_id , t_id , self.worker_id];
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=create&tew_id=%@&t_id=%@&o_worker=%@&o_sponsor=%@", baseUrl, tew_id , t_id , self.worker_id, user_ID];
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
 
@@ -255,23 +255,31 @@
 
     [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
      {
+         
          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
-             [self dismissViewControllerAnimated:YES completion:nil];
+             NSString *info = [dictionary objectForKey:@"data"];
              
-             [self.delegate success];
+             if ([info isEqualToString:@"success"])
+             {
+                 [self dismissViewControllerAnimated:YES completion:nil];
+                 
+                 [self.delegate success];
+             }
+             else
+             {
+                 [SVProgressHUD showErrorWithStatus:@"您以邀约过此工人,或曾与此工人有过任务关系"];
+             }
+             
          }
-
-
-
+         
          
      } failure:^(NSURLSessionDataTask *task, NSError *error)
      {
 
      }];
-
 
 }
 

@@ -135,7 +135,7 @@
         NSString *time = [myselfway timeWithTimeIntervalString:model.time];
         
         cell.time.text = time;
-        cell.balance.text = [NSString stringWithFormat:@"余额:%@", [model.balances stringValue]];
+        cell.balance.text = [NSString stringWithFormat:@"余额:%@", model.balances];
        
         
         

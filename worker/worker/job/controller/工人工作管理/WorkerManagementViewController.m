@@ -9,6 +9,9 @@
 #import "WorkerManagementViewController.h"
 #import "TypeView.h"
 #import "OneTableViewCell.h"
+#import "BYesOrNoViewController.h"
+#import "BYesWorkerViewController.h"
+#import "endDetailViewController.h"
 
 @interface WorPerDataModel : NSObject
 
@@ -82,7 +85,7 @@
     
     [self addhead:@"工人工作管理"];
     
-    [self slitherBack:self.navigationController];
+  //  [self slitherBack:self.navigationController];
     
     [self tableview];
     
@@ -230,8 +233,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     WorPerDataModel *model = [dataArray objectAtIndex:indexPath.section];
     
+    self.hidesBottomBarWhenPushed = YES;
   
         if ([model.o_status isEqualToString:@"0"])
         {
@@ -239,10 +245,23 @@
             {
                 //洽谈
                 
+                BYesOrNoViewController *temp = [[BYesOrNoViewController alloc] init];
+                
+                temp.t_id = model.t_id;
+                
+                [self.navigationController pushViewController:temp animated:YES];
+                
+
             }
             else
             {
                 //工作
+                
+                BYesWorkerViewController *temp = [[BYesWorkerViewController alloc] init];
+                
+                temp.t_id = model.t_id;
+                
+                [self.navigationController pushViewController:temp animated:YES];
                 
             }
             
@@ -252,7 +271,11 @@
         else
         {
             //完成
-         
+            endDetailViewController *temp = [[endDetailViewController alloc] init];
+            
+            temp.t_id = model.t_id;
+            
+            [self.navigationController pushViewController:temp animated:YES];
             
         }
         
@@ -339,12 +362,9 @@
     
     WorPerDataModel *model = [dataArray objectAtIndex:num];
     
-    if ([model.o_status isEqualToString:@"1"])
-    {
+    
         //删除信息
-        [self getdata:model.t_id];
-        
-    }
+    [self DDDDDdeldata:model.o_id];
     
 }
 
@@ -467,9 +487,9 @@
 
 
 //删除订单， 假删
-- (void)DDDDDdeldata: (NSString *)t_id
+- (void)DDDDDdeldata: (NSString *)o_id
 {
-    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=del2&t_id=%@&t_author=2", baseUrl, t_id];
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=del2&o_worker=%@&o_id=%@", baseUrl, user_ID, o_id];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     

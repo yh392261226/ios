@@ -47,6 +47,8 @@
 {
     [super viewDidLoad];
     
+
+    
     dataArray = [NSMutableArray array];
     
     newArray = [NSMutableArray array];
@@ -64,6 +66,22 @@
     
 }
 
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    //获取缓存图片的大小(字节)
+    NSUInteger bytesCache = [[SDImageCache sharedImageCache] getSize];
+    
+    //换算成 MB (注意iOS中的字节之间的换算是1000不是1024)
+    float MBCache = bytesCache/1000/1000;
+    
+    //异步清除图片缓存 （磁盘中的）
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        [[SDImageCache sharedImageCache] clearDisk];
+    });
+}
 
 
 
@@ -232,7 +250,35 @@
 //cell上收藏按钮的点击
 - (void)favoriteBtn: (UIButton *)btn
 {
-    NSLog(@"%ld", btn.tag);
+    NSInteger num = btn.tag - 500;
+    
+    jobListData *model = [dataArray objectAtIndex:num];
+    
+    if ([user_ID isEqualToString:@"0"])
+    {
+        self.hidesBottomBarWhenPushed = YES;
+        
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
+        
+        self.hidesBottomBarWhenPushed = NO;
+    }
+    else
+    {
+        //收藏接口
+        if ([user_ID isEqualToString:model.t_author])
+        {
+            [SVProgressHUD showErrorWithStatus:@"您不能收藏自己发布的任务"];
+        }
+        else
+        {
+            [self Favoritedata:model.t_id];
+        }
+        
+        
+        
+    }
 }
 
 
@@ -240,7 +286,7 @@
 //网络请求
 - (void)getdata
 {
-    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=list&u_id=%@", baseUrl, user_ID];
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=list", baseUrl];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -402,7 +448,38 @@
 
 
 
-
+//收藏
+- (void)Favoritedata: (NSString *)t_id;
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/favorateAdd?u_id=%@&f_type_id=%@&f_type=0", baseUrl, user_ID, t_id];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *f_id = [dic objectForKey:@"f_id"];
+             
+             [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
+             
+             
+             [self getdata];
+         }
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

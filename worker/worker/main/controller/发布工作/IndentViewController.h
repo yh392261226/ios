@@ -15,6 +15,6 @@
 
 @property (nonatomic, strong)NSMutableDictionary *postDic;   //上传服务器的数据
 @property (nonatomic, strong)NSMutableArray *modelArray;   //支撑页面数据的数组
-
+@property (nonatomic, strong)NSString *allMoney;  //总价
 
 @end

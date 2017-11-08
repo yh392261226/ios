@@ -10,6 +10,36 @@
 #import "MoneyDetailsViewController.h"
 #import "PartyDomplainViewController.h"
 
+@interface XDworDetailData : NSObject
+
+@property (nonatomic, strong)NSString *u_id;
+@property (nonatomic, strong)NSString *u_mobile;
+@property (nonatomic, strong)NSString *u_idcard;
+@property (nonatomic, strong)NSString *u_sex;
+@property (nonatomic, strong)NSString *u_name;
+@property (nonatomic, strong)NSString *u_skills;
+@property (nonatomic, strong)NSString *uei_info;
+@property (nonatomic, strong)NSString *u_task_status;
+@property (nonatomic, strong)NSString *u_true_name;
+@property (nonatomic, strong)NSString *ucp_posit_x;
+
+@property (nonatomic, strong)NSString *ucp_posit_y;
+@property (nonatomic, strong)NSString *uei_address;
+@property (nonatomic, strong)NSString *u_img;
+
+
+@property (nonatomic, strong)NSString *u_high_opinions;
+
+
+
+
+@end
+
+@implementation XDworDetailData
+
+
+@end
+
 @interface PartyCommentViewController ()<UITextViewDelegate>
 {
     UIImageView *icon;    //头像
@@ -38,6 +68,13 @@
     UILabel *plans;   //水印字样
     
     NSString *question;    //问题原因
+    
+    
+    NSString *nameData;
+    NSString *sexData;
+    NSString *imageIcon;
+    NSString *numData;
+    NSString *workerDATA;   //传给下一页
 }
 
 @end
@@ -48,7 +85,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self getData];
+    
     [self initUI];
+    
+    evaluation = 0;
     
     
     self.view.backgroundColor = [myselfway stringTOColor:@"0xF1F1F1"];
@@ -95,8 +136,8 @@
     money = [backview viewWithTag:1006];
     
     
-    deail = [backview viewWithTag:1007];
-    [deail addTarget:self action:@selector(deailaaBtn) forControlEvents:UIControlEventTouchUpInside];
+//    deail = [backview viewWithTag:1007];
+//    [deail addTarget:self action:@selector(deailaaBtn) forControlEvents:UIControlEventTouchUpInside];
     
     
     text = [backview viewWithTag:1008];
@@ -143,27 +184,40 @@
     
     
     [self.view addSubview:backview];
+    
 }
 
 
 //查看明细按钮
-- (void)deailaaBtn
-{
-    self.hidesBottomBarWhenPushed = YES;
-    MoneyDetailsViewController *temp = [[MoneyDetailsViewController alloc] init];
-    [self.navigationController pushViewController:temp animated:YES];
-}
+//- (void)deailaaBtn
+//{
+//
+//    self.hidesBottomBarWhenPushed = YES;
+//    MoneyDetailsViewController *temp = [[MoneyDetailsViewController alloc] init];
+//    [self.navigationController pushViewController:temp animated:YES];
+//
+//}
 
 
 
 //投诉工人按钮
 - (void)compBtn
 {
+    
     self.hidesBottomBarWhenPushed = YES;
     
     PartyDomplainViewController *temp = [[PartyDomplainViewController alloc] init];
     
+    temp.name = nameData;
+    temp.icon = imageIcon;
+    temp.worker = workerDATA;
+    temp.sex = sexData;
+    temp.number = numData;
+    temp.worker = self.o_worker;
+    temp.workerName = self.worName;
+    
     [self.navigationController pushViewController:temp animated:YES];
+    
 }
 
 
@@ -177,12 +231,9 @@
     }
     else
     {
-        [SVProgressHUD showInfoWithStatus:@"评价成功"];
-        [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
-        self.hidesBottomBarWhenPushed = NO;
         
-        self.navigationController.tabBarController.selectedIndex = 1;
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self employerEva];
+        
     }
     
     
@@ -196,6 +247,7 @@
 //改变好评1
 - (void)goodBtn1
 {
+    
     [good1 setBackgroundImage:[UIImage imageNamed:@"job_ok"] forState:UIControlStateNormal];
     [good2 setBackgroundImage:[UIImage imageNamed:@"job_no"] forState:UIControlStateNormal];
     [good3 setBackgroundImage:[UIImage imageNamed:@"job_no"] forState:UIControlStateNormal];
@@ -256,6 +308,149 @@
     [self.view endEditing:YES];
 }
 
+
+//获取数据
+- (void)getData
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_id=%@", baseUrl, self.o_worker];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSArray *arr = [dic objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dicInfo = [arr objectAtIndex:i];
+                 
+                 XDworDetailData *data = [[XDworDetailData alloc] init];
+                 
+                 data.u_id = [dicInfo objectForKey:@"u_id"];
+                 data.u_mobile = [dicInfo objectForKey:@"u_mobile"];
+                 data.u_idcard = [dicInfo objectForKey:@"u_idcard"];
+                 data.u_sex = [dicInfo objectForKey:@"u_sex"];
+                 data.u_name = [dicInfo objectForKey:@"u_name"];
+                 data.u_skills = [dicInfo objectForKey:@"u_skills"];
+                 data.uei_info = [dicInfo objectForKey:@"uei_info"];
+                 data.u_task_status = [dicInfo objectForKey:@"u_task_status"];
+                 data.u_true_name = [dicInfo objectForKey:@"u_true_name"];
+                 data.ucp_posit_x = [dicInfo objectForKey:@"ucp_posit_x"];
+                 
+                 data.ucp_posit_y = [dicInfo objectForKey:@"ucp_posit_y"];
+                 data.uei_address = [dicInfo objectForKey:@"uei_address"];
+                 data.u_img = [dicInfo objectForKey:@"u_img"];
+                 data.u_high_opinions = [dicInfo objectForKey:@"u_high_opinions"];
+                 
+                 
+                 imageIcon = data.u_img;
+                 nameData = data.u_true_name;
+                 numData = data.u_high_opinions;
+                 workerDATA = self.worName;
+                 sexData = data.u_sex;
+                 
+                 
+                 
+                 NSURL *url = [NSURL URLWithString:data.u_img];
+                 
+                 [icon sd_setImageWithURL:url];
+                 
+                 name.text = data.u_true_name;
+                 
+                 
+                 evaluate.text = [NSString stringWithFormat:@"好评%@次", data.u_high_opinions];
+                 worker.text = self.worName;
+                 
+                 if ([data.u_sex isEqualToString:@"0"])
+                 {
+                     sex.image = [UIImage imageNamed:@"job_woman"];
+                 }
+                 else if ([data.u_sex isEqualToString:@"1"])
+                 {
+                     sex.image = [UIImage imageNamed:@"job_man"];
+                 }
+                 
+             }
+             
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+
+//评价
+- (void)employerEva
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/commentAdd", baseUrl];
+    
+    NSLog(@"%@", url);
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSString *eva = [NSString stringWithFormat:@"%ld", evaluation];
+    
+    NSDictionary *dic = @{@"u_id" : user_ID,
+                          @"t_id" : self.t_id,
+                          @"tc_u_id" : self.o_worker,
+                          @"tce_desc" : question,
+                          @"tc_start" : eva
+                          };
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *msg = [dic objectForKey:@"data"];
+             
+             if (msg)
+             {
+                 [SVProgressHUD showInfoWithStatus:@"评价成功"];
+                 [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
+                 self.hidesBottomBarWhenPushed = NO;
+                 
+                 self.navigationController.tabBarController.selectedIndex = 1;
+                 [self.navigationController popToRootViewControllerAnimated:YES];
+             }
+             else
+             {
+                 [SVProgressHUD showErrorWithStatus:@"评论失败"];
+                 [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
+             }
+             
+             
+             
+             
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+         
+         
+     }];
+    
+    
+}
 
 
 

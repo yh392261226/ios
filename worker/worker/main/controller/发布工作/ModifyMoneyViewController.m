@@ -34,7 +34,7 @@
 {
     NSMutableArray *dataArray;
     
-    
+    NSString *valMoney;  //修改后的价格
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -49,6 +49,12 @@
     
     dataArray = [NSMutableArray array];
     
+    [self addhead:@"修改工资"];
+    
+    [self initUIdata];
+    
+    [self tableview];
+    
 }
 
 
@@ -61,7 +67,7 @@
     
     model.type = @"1";
     
-    model.worker = @"瓦工";
+    model.worker = self.worName;
     
     [arr addObject:model];
     
@@ -70,12 +76,18 @@
     
     model1.type = @"2";
     
+    model1.person = self.person;
+    model1.money = self.money;
+    
     [arr addObject:model1];
     
     
     ModifyModel *model2 = [[ModifyModel alloc] init];
     
     model2.type = @"3";
+    
+    model2.startTime = self.startTime;
+    model2.endTime = self.endTime;
     
     [arr addObject:model2];
     
@@ -136,24 +148,42 @@
     {
         PreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"1111cell"];
         
+        cell.name.text = @"工种:";
+        cell.data.text = model.worker;
         
+        cell.name.font = [UIFont systemFontOfSize:15];
         
         return cell;
     }
     else if ([model.type isEqualToString:@"2"])
     {
+        
         elsepersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"personcell"];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        cell.personfield.text = model.person;
+        cell.moneyfield.text = model.money;
+        
+        
+        [cell.moneyfield addTarget:self action:@selector(MoMoney:) forControlEvents:UIControlEventEditingChanged];
+        
+        cell.personfield.enabled = NO;
+        
         
         return cell;
+        
     }
     else
     {
         elsetimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSString *sta = [myselfway timeWithTimeIntervalString:self.startTime];
+        NSString *end = [myselfway timeWithTimeIntervalString:self.endTime];
+        
+        cell.startTime.text = sta;
+        cell.endTime.text = end;
         
         return cell;
     }
@@ -162,20 +192,64 @@
 }
 
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] init];
     
+    UIButton *save = [UIButton buttonWithType:UIButtonTypeSystem];
     
+    [save setTitle:@"确认提交" forState:UIControlStateNormal];
+    
+    [save addTarget:self action:@selector(Escbtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    save.backgroundColor = [myselfway stringTOColor:@"0x2E84F8"];
+    
+    save.layer.cornerRadius = 5;
+    
+    save.frame = CGRectMake(15, 20, SCREEN_WIDTH - 30, 40);
+    
+    save.tintColor = [UIColor whiteColor];
+    
+    [view addSubview:save];
     
     
     return view;
 }
 
+
+
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] init];
     
+    UILabel *title = [[UILabel alloc] init];
+    
+    title.numberOfLines = 2;
+    
+    title.text = @"请于工人确认好工资、工期再进行修改\n以免对您造成不便";
+    
+    title.textAlignment = NSTextAlignmentCenter;
+    
+    title.font = [UIFont systemFontOfSize:15];
+    
+    [view addSubview:title];
+    
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(view).offset(0);
+        make.left.mas_equalTo(view).offset(50);
+        make.right.mas_equalTo(view).offset(-50);
+        make.height.mas_equalTo(60);
+        
+    }];
     
     return view;
 }
@@ -184,14 +258,77 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 100;
+    return 70;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 200;
+    return 60;
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40;
+}
+
+
+
+
+//确认提交按钮
+- (void)Escbtn
+{
+    [self Nomoney];
+}
+
+
+- (void)MoMoney: (UITextField *)textfield
+{
+    valMoney = textfield.text;
+}
+
+
+
+
+
+//修改价格
+- (void)Nomoney
+{
+    NSString *sta = [myselfway timeWithTimeIntervalString:self.startTime];
+    NSString *end = [myselfway timeWithTimeIntervalString:self.endTime];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=price&tew_id=%@&t_id=%@&t_author=%@&amount=%@&worker_num=%@&start_time=%@&end_time=%@&o_worker=%@", baseUrl, self.tew_id, self.t_id, user_ID, valMoney, self.person, sta, end, self.o_worker];
+
+    NSLog(@"%@", url);
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSLog(@"%@", dic);
+             
+             [self.navigationController popViewControllerAnimated:NO];
+  
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

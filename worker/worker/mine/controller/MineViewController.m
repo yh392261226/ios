@@ -575,6 +575,7 @@
     [self presentViewController:temp animated:YES completion:nil];
     
     self.hidesBottomBarWhenPushed = NO;
+    
 }
 
 

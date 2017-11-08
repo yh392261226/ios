@@ -14,6 +14,40 @@
 
 #import "AYesWorkerViewController.h"
 
+
+
+@interface AworDetailData : NSObject
+
+@property (nonatomic, strong)NSString *u_id;
+@property (nonatomic, strong)NSString *u_mobile;
+@property (nonatomic, strong)NSString *u_idcard;
+@property (nonatomic, strong)NSString *u_sex;
+@property (nonatomic, strong)NSString *u_name;
+@property (nonatomic, strong)NSString *u_skills;
+@property (nonatomic, strong)NSString *uei_info;
+@property (nonatomic, strong)NSString *u_task_status;
+@property (nonatomic, strong)NSString *u_true_name;
+@property (nonatomic, strong)NSString *ucp_posit_x;
+
+@property (nonatomic, strong)NSString *ucp_posit_y;
+@property (nonatomic, strong)NSString *uei_address;
+@property (nonatomic, strong)NSString *u_img;
+
+
+
+
+@end
+
+@implementation AworDetailData
+
+
+@end
+
+
+
+
+
+
 @interface AYesOrNoViewController ()<BMKMapViewDelegate, BMKLocationServiceDelegate>
 {
     NSMutableArray *dataArray;
@@ -42,6 +76,13 @@
     UILabel *yesLab;   //
     UIButton *yesBtn;   //确认开工按钮
     
+    NSString *Xmap;
+    NSString *Ymap;
+    
+    NSString *worU_id;   //当前工人ID， 传给详情页面
+    
+    NSString *phone;
+    
 }
 
 
@@ -59,24 +100,23 @@
     
     dataArray = [NSMutableArray array];
     
+    self.mapView = [[BMKMapView alloc] init];
     
     [self addhead:@"待工人就位"];
-    
+
     [self initUI];
     
     [self initMapView];
     
+    [self getdata];
     
-    
-    
-    
+  //  [self answer];
     
 }
 
 
 - (void)initUI
 {
-    
     backview = [[[NSBundle mainBundle] loadNibNamed:@"Empty" owner:self options:nil] objectAtIndex:2];
     
     [self.view addSubview:backview];
@@ -92,6 +132,7 @@
     
     icon = [backview viewWithTag:1001];
     icon.layer.cornerRadius = 35;
+    icon.layer.masksToBounds = YES;
     icon.backgroundColor = [UIColor orangeColor];
     [icon addTarget:self action:@selector(detailBtn) forControlEvents:UIControlEventTouchUpInside];
     
@@ -103,11 +144,9 @@
     sex = [backview viewWithTag:1003];
     sex.image = [UIImage imageNamed:@"job_woman"];
     
-    
-    
-    
+
     workerType = [backview viewWithTag:1004];
-    workerType.text = @"洽谈中";
+    
     workerType.layer.masksToBounds = YES;
     workerType.layer.cornerRadius = 5;
     workerType.backgroundColor = [UIColor orangeColor];
@@ -119,8 +158,9 @@
     worker = [backview viewWithTag:1005];
     worker.textColor = [UIColor grayColor];
     
-    
     call = [backview viewWithTag:1006];
+    
+    [call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
     [call addTarget:self action:@selector(callBtn) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -131,7 +171,7 @@
     
     
     redLab = [backview viewWithTag:1008];
-    redLab.text = @"完成过个人家装";
+  
     redLab.textColor = [UIColor grayColor];
     redLab.font = [UIFont systemFontOfSize:15];
     
@@ -143,14 +183,14 @@
     
     
     blueLab = [backview viewWithTag:1010];
-    blueLab.text = @"哈尔滨市第四中学";
+   
     blueLab.textColor = [UIColor grayColor];
     blueLab.font = [UIFont systemFontOfSize:15];
     
-    bluelLabTo = [backview viewWithTag:1011];
-    bluelLabTo.text = @"开原街  距离我0.9钱蜜蜜";
-    bluelLabTo.textColor = [UIColor grayColor];
-    bluelLabTo.font = [UIFont systemFontOfSize:15];
+//    bluelLabTo = [backview viewWithTag:1011];
+//
+//    bluelLabTo.textColor = [UIColor grayColor];
+//    bluelLabTo.font = [UIFont systemFontOfSize:15];
     
     
     noLab = [backview viewWithTag:1012];
@@ -164,9 +204,7 @@
     noBtn.layer.cornerRadius = 6;
     noBtn.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
     
-    
-    
-    
+
     yesLab = [backview viewWithTag:1014];
     
     
@@ -176,7 +214,29 @@
     [yesBtn addTarget:self action:@selector(yesbtn) forControlEvents:UIControlEventTouchUpInside];
     yesBtn.backgroundColor = [myselfway stringTOColor:@"0xFC4154"];
     yesBtn.layer.cornerRadius = 6;
-    [yesBtn setTitle:@"确认开工" forState:UIControlStateNormal];
+    
+    
+    if ([self.o_status isEqualToString:@"0"])
+    {
+        if ([self.o_confirm isEqualToString:@"0"])
+        {
+            [yesBtn setTitle:@"确认工资" forState:UIControlStateNormal];
+        }
+        else
+        {
+            
+            [yesBtn setTitle:@"等待工人确认开工" forState:UIControlStateNormal];
+            
+            yesBtn.backgroundColor = [UIColor grayColor];
+            
+            yesBtn.titleLabel.font = [UIFont systemFontOfSize:11];
+            
+            yesBtn.userInteractionEnabled = NO;
+            
+        }
+    }
+    
+    
     
     
 }
@@ -188,18 +248,26 @@
 //加载百度地图
 - (void)initMapView
 {
-    
-    self.mapView = [[BMKMapView alloc] init];
-    
     self.mapView.delegate = self;
     
     self.mapView.showsUserLocation = YES;
     
-    self.mapView.zoomLevel = 10;
+    self.mapView.zoomLevel = 15;
     
+    [_mapView setMapType:BMKMapTypeStandard];
+    
+    //设置地图上是否显示比例尺
+    //   self.mapView.showMapScaleBar = NO;
+    
+    //设置地图比例尺在地图上的位置
+    self.mapView.mapScaleBarPosition = CGPointMake(200, 100);
+    
+    //开启路况
+    [_mapView setTrafficEnabled:YES];
     
     //添加到view上
     [self.view addSubview:self.mapView];
+    
     
     
     [self.mapView mas_makeConstraints:^(MASConstraintMaker *make)
@@ -210,27 +278,35 @@
          make.bottom.mas_equalTo(backview).offset(-292);
      }];
     
+
+    BMKPointAnnotation *annotation = [[BMKPointAnnotation alloc] init];
     
+    // annotationV.image = [UIImage imageNamed:@"5ud.png"];//大头针的显示图片
+    CLLocationCoordinate2D coor;
+    coor.latitude = [Xmap doubleValue];
+    coor.longitude = [Ymap doubleValue];
     
+    annotation.coordinate = coor;
     
+    self.mapView.centerCoordinate = annotation.coordinate;
     
-    
-    
-    //定位
-    _locService = [[BMKLocationService alloc]init];
-    _locService.delegate = self;
-    [_locService startUserLocationService];
-    
-    
-    
-    //个人位置蓝色图标设置
-    BMKLocationViewDisplayParam *displayParam = [[BMKLocationViewDisplayParam alloc] init];
-    displayParam.isRotateAngleValid = NO;
-    displayParam.isAccuracyCircleShow = NO;
-    displayParam.locationViewOffsetX = 0;//定位偏移量(经度)
-    displayParam.locationViewOffsetY = 0;//定位偏移量（纬度）
-    [self.mapView updateLocationViewWithParam:displayParam];
-    
+    [self.mapView addAnnotation:annotation];
+
+}
+
+
+
+
+- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[BMKPointAnnotation class]])
+    {
+        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
+        newAnnotationView.animatesDrop = YES;// 设置该标注点动画显示
+        return newAnnotationView;
+    }
+    return nil;
     
 }
 
@@ -242,6 +318,7 @@
     self.mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
 }
 
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self.mapView viewWillDisappear];
@@ -250,56 +327,12 @@
 
 
 
-
-//获取经纬度，城市名称
-- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
-{
-    BMKCoordinateRegion region;
-    
-    region.center.latitude  = userLocation.location.coordinate.latitude;
-    
-    region.center.longitude = userLocation.location.coordinate.longitude;
-    
-    region.span.latitudeDelta = 0;
-    
-    region.span.longitudeDelta = 0;
-    
-    NSLog(@"当前的坐标是:%f,%f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
-    
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-    [geocoder reverseGeocodeLocation: userLocation.location completionHandler:^(NSArray *array, NSError *error) {
-        
-        if (array.count > 0) {
-            
-            CLPlacemark *placemark = [array objectAtIndex:0];
-            
-            if (placemark != nil)
-            {
-                NSString *city = placemark.locality;
-                
-                NSLog(@"当前城市名称------%@",city);
-                
-                
-                //找到了当前位置城市后就关闭服务
-                
-                [_locService stopUserLocationService];
-                
-            }
-            
-        }
-        
-    }];
-    
-    
-    
-}
-
-
 //头像按钮， 进入工人详情
 - (void)detailBtn
 {
     PartyBinfoViewController *temp = [[PartyBinfoViewController alloc] init];
+    
+    temp.u_id = self.o_worker;
     
     [self.navigationController pushViewController:temp animated:YES];
 }
@@ -310,9 +343,9 @@
 //拨打电话按钮
 - (void)callBtn
 {
-    AYesWorkerViewController *temp = [[AYesWorkerViewController alloc] init];
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
     
-    [self.navigationController pushViewController:temp animated:YES];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 
 
@@ -321,6 +354,7 @@
 //取消工人按钮
 - (void)nobtn
 {
+    
     UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认不想用该工人？\n确认之后您将无法与Ta取得联系" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"在考虑考虑" style:UIAlertActionStyleCancel handler:nil];
@@ -328,15 +362,15 @@
     UIAlertAction *yAction = [UIAlertAction actionWithTitle:@"不想用Ta" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         
-        PartyRefuseViewController *temp = [[PartyRefuseViewController alloc] init];
-        
-        [self.navigationController pushViewController:temp animated:YES];
+        [self Noworker];
         
     }];
     
     
+    
     [alertcontroller addAction:action];
     [alertcontroller addAction:yAction];
+    
     
     [self presentViewController:alertcontroller animated:YES completion:nil];
     
@@ -351,8 +385,23 @@
     
     temp.delegate = self;
     
+    temp.o_id = self.o_id;
+    temp.t_id = self.t_id;
+    
+    temp.o_worker = self.o_worker;
+    temp.tew_id = self.tew_id;
+    temp.worName = self.worNameMM;
+    temp.person = self.person;
+    temp.money = self.money;
+    temp.startTime = self.startTime;
+    temp.endTime = self.endTime;
+    temp.skill = self.skill;
+    
     [self.navigationController pushViewController:temp animated:YES];
+    
 }
+
+
 
 
 //代理发放， 传回确认开工信息
@@ -362,6 +411,197 @@
     yesBtn.userInteractionEnabled = NO;
     yesBtn.backgroundColor = [UIColor grayColor];
 }
+
+
+
+
+
+
+
+
+
+
+
+
+- (void)getdata
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_id=%@", baseUrl, self.worU_id];
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+
+             NSArray *arr = [dic objectForKey:@"data"];
+
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dicInfo = [arr objectAtIndex:i];
+                 AworDetailData *data = [[AworDetailData alloc] init];
+
+                 data.u_id = [dicInfo objectForKey:@"u_id"];
+                 data.u_mobile = [dicInfo objectForKey:@"u_mobile"];
+                 data.u_idcard = [dicInfo objectForKey:@"u_idcard"];
+                 data.u_sex = [dicInfo objectForKey:@"u_sex"];
+                 data.u_name = [dicInfo objectForKey:@"u_name"];
+                 data.u_skills = [dicInfo objectForKey:@"u_skills"];
+                 data.uei_info = [dicInfo objectForKey:@"uei_info"];
+                 data.u_task_status = [dicInfo objectForKey:@"u_task_status"];
+                 data.u_true_name = [dicInfo objectForKey:@"u_true_name"];
+                 data.ucp_posit_x = [dicInfo objectForKey:@"ucp_posit_x"];
+
+                 data.ucp_posit_y = [dicInfo objectForKey:@"ucp_posit_y"];
+                 data.uei_address = [dicInfo objectForKey:@"uei_address"];
+                 data.u_img = [dicInfo objectForKey:@"u_img"];
+                 
+                 phone = data.u_mobile;
+               
+                 Xmap = data.ucp_posit_x;
+                 Ymap = data.ucp_posit_y;
+
+                 worU_id = data.u_id;
+                 
+                 name.text = data.u_true_name;
+                 worker.text = self.worName;
+                 
+                 if ([data.u_sex isEqualToString:@"0"])
+                 {
+                     sex.image = [UIImage imageNamed:@"job_woman"];
+                 }
+                 else if ([data.u_sex isEqualToString:@"1"])
+                 {
+                     sex.image = [UIImage imageNamed:@"job_man"];
+                 }
+                 
+                 
+                 
+                 if ([data.u_task_status isEqualToString:@"0"])
+                 {
+                     workerType.text = @"洽谈中";
+                 }
+
+                 
+                 
+                 [call setBackgroundImage:[UIImage imageNamed:@"mine_nocall"] forState:UIControlStateNormal];
+                 
+                 
+                 redLab.text = data.uei_info;
+                 
+                 blueLab.text = data.uei_address;
+                 
+
+                 NSURL *url = [NSURL URLWithString:data.u_img];
+
+                 [icon sd_setBackgroundImageWithURL:url forState:UIControlStateNormal];
+
+
+                 
+
+             }
+
+
+
+
+         }
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+
+     }];
+
+
+}
+
+
+
+//取消工人
+- (void)Noworker
+{
+  //  NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=cancel&o_id=%@&tew_id=%@&t_id=%@&o_worker=%@&u_id=%@&s_id=%@&o_confirm=%@&o_status=%@", baseUrl, self.o_id,self.tew_id, self.t_id,self.o_worker, user_ID, self.s_id, self.o_confirm, self.o_status];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=cancel&o_id=%@", baseUrl, self.o_id];
+    
+    NSLog(@"%@", url);
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSLog(@"%@", dic);
+             self.hidesBottomBarWhenPushed = YES;
+             
+             PartyRefuseViewController *temp = [[PartyRefuseViewController alloc] init];
+             
+             [self.navigationController pushViewController:temp animated:YES];
+             
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+
+
+
+
+//获取应答接口
+//- (void)answer
+//{
+//    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=react&tew_id=%@&t_id=%@&o_worker=%@&u_id=%@&o_id=%@", baseUrl, self.tew_id, self.t_id, self.o_worker, user_ID, self.o_id];
+//
+//    NSLog(@"%@", url);
+//
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//
+//    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+//     {
+//         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//
+//         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+//         {
+//             NSString *msg = [dictionary objectForKey:@"data"];
+//
+//             if ([msg isEqualToString:@"success"])
+//             {
+//
+//             }
+//
+//         }
+//
+//     } failure:^(NSURLSessionDataTask *task, NSError *error)
+//     {
+//
+//     }];
+//
+//
+//}
+
 
 
 

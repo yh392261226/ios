@@ -79,7 +79,20 @@
     
 }
 
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    //获取缓存图片的大小(字节)
+    NSUInteger bytesCache = [[SDImageCache sharedImageCache] getSize];
+    
+    //换算成 MB (注意iOS中的字节之间的换算是1000不是1024)
+    float MBCache = bytesCache/1000/1000;
+    
+    //异步清除图片缓存 （磁盘中的）
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        [[SDImageCache sharedImageCache] clearDisk];
+    });
+}
 
 
 #pragma Tableview
@@ -190,15 +203,18 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
     UIView *view = [[UIView alloc] init];
     
     return view;
+    
 }
 
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     self.hidesBottomBarWhenPushed = YES;
     
     ListWorData *data = [dataArray objectAtIndex:indexPath.section];
@@ -249,6 +265,10 @@
 //cell上收藏按钮的点击
 - (void)favoriteBtn: (UIButton *)btn
 {
+    NSInteger num = btn.tag - 500;
+    
+    ListWorData *data = [dataArray objectAtIndex:num];
+    
     if ([user_ID isEqualToString:@"0"])
     {
         self.hidesBottomBarWhenPushed = YES;
@@ -262,6 +282,17 @@
     else
     {
         //收藏接口
+        if ([user_ID isEqualToString:data.u_id])
+        {
+            [SVProgressHUD showErrorWithStatus:@"您不能收藏自己"];
+        }
+        else
+        {
+            [self Favoritedata:data.u_id];
+        }
+    
+        
+        
     }
 }
 
@@ -277,8 +308,18 @@
         name1 = @"";
     }
     
+    NSString *url;
     
-    NSString *url = [NSString stringWithFormat:@"%@Users/getUsers?u_skills=%@&u_true_name=%@&u_task_status=%@&fu_id=%@", baseUrl, self.worker_ID, name1, type1, user_ID];
+    if ([user_ID isEqualToString:@"0"])
+    {
+        url = [NSString stringWithFormat:@"%@Users/getUsers?u_skills=%@&u_true_name=%@&u_task_status=%@", baseUrl, self.worker_ID, name1, type1];
+    }
+    else
+    {
+        url = [NSString stringWithFormat:@"%@Users/getUsers?u_skills=%@&u_true_name=%@&u_task_status=%@&fu_id=%@", baseUrl, self.worker_ID, name1, type1, user_ID];
+    }
+    
+    
     
     NSLog(@"%@", url);
     
@@ -345,8 +386,38 @@
 
 
 
-
-
+//收藏
+- (void)Favoritedata: (NSString *)u_id;
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/favorateAdd?u_id=%@&f_type_id=%@&f_type=1", baseUrl, user_ID, u_id];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSString *f_id = [dic objectForKey:@"f_id"];
+             
+             [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
+             
+            
+             [self getdata];
+         }
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

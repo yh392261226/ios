@@ -91,6 +91,8 @@
     
     NSString *mapX;
     NSString *mapy;
+    
+    NSString *phone;  //电话
 }
 
 
@@ -299,6 +301,8 @@
         
         NSURL *url = [NSURL URLWithString:model.icon];
         
+        [cell.call addTarget:self action:@selector(callBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.icon sd_setBackgroundImageWithURL:url forState:UIControlStateNormal];
         [cell.icon addTarget:self action:@selector(iconBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -306,9 +310,11 @@
         cell.name.text = model.name;
         
         return cell;
+        
     }
     else if ([model.type isEqualToString:@"2"])
     {
+        
         mapTwoguTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         if (!cell)
@@ -464,6 +470,13 @@
 }
 
 
+- (void)callBtn
+{
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+}
+
 
 
 - (void)getdata
@@ -516,6 +529,9 @@
              data.relation_type = [dic objectForKey:@"relation_type"];
              
              
+             phone = data.t_phone;
+             
+             
              for (int i = 0; i < data.t_workers.count; i++)
              {
                  guzhuDetaillimian *info = [[guzhuDetaillimian alloc] init];
@@ -558,7 +574,9 @@
          failure:^(NSURLSessionDataTask *task, NSError *error)
      {
          
-     }];
+         
+
+         }];
     
     
 }
@@ -695,12 +713,16 @@
 
 
 //拨打电话按钮
-//- (void)callBtn
-//{
-//    BYesOrNoViewController *temp = [[BYesOrNoViewController alloc] init];
-//
-//    [self.navigationController pushViewController:temp animated:YES];
-//}
+- (void)callBtn: (UIButton *)btn
+{
+    
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    
+}
+
+
 
 
 //我要接活按钮
@@ -726,7 +748,7 @@
 //成单接口
 - (void)getdata: (NSString *)tew_id
 {
-    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=create&tew_id=%@&t_id=%@&o_worker=%@", baseUrl, tew_id , data.t_id , user_ID];
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=create&tew_id=%@&t_id=%@&o_worker=%@o_sponsor=%@", baseUrl, tew_id , data.t_id , user_ID, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     

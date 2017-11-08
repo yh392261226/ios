@@ -18,4 +18,10 @@
 
 @interface PartyCommentViewController : BaseViewController
 
+
+@property (nonatomic, strong)NSString *t_id;
+@property (nonatomic, strong)NSString *o_worker;
+@property (nonatomic, strong)NSString *worName;
+
+
 @end
