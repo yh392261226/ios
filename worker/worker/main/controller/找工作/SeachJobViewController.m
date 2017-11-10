@@ -25,7 +25,7 @@
     
     NSMutableArray *newArray;   // 缓存的数组
     
-    
+    NSInteger postType;  //判断是列表正常请求还是筛选之后的数据请求
     
     NSString *name1;
     NSString *range1;
@@ -47,7 +47,7 @@
 {
     [super viewDidLoad];
     
-
+    postType = 0;
     
     dataArray = [NSMutableArray array];
     
@@ -58,10 +58,8 @@
     
     [self addhead:@"工作信息"];
     
-    [self initScreenBtn];
-    
-   // [self slitherBack:self.navigationController];
-    
+//  [self initScreenBtn];     //筛选功能，暂时隐藏， 已做完
+
     [self tableview];
     
 }
@@ -135,6 +133,8 @@
     cell.title.text = model.t_title;
     cell.introduce.text = model.t_info;
     
+    cell.distance.text = model.range;
+    
     if ([model.t_status isEqualToString:@"0"])
     {
         cell.state.image = [UIImage imageNamed:@"main_state1"];
@@ -143,14 +143,15 @@
     {
         cell.state.image = [UIImage imageNamed:@"main_state3"];
     }
-    else if ([model.t_status isEqualToString:@"2"])
+    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"] || [model.t_status isEqualToString:@"-3"])
     {
         cell.state.image = [UIImage imageNamed:@"main_state5"];
     }
-    else
+    else if([model.t_status isEqualToString:@"3"] || [model.t_status isEqualToString:@"4"])
     {
         cell.state.image = [UIImage imageNamed:@"main_state6"];
     }
+    
     
     int myInt = [model.favorate intValue];
     
@@ -283,10 +284,26 @@
 
 
 
+
+
 //网络请求
 - (void)getdata
 {
-    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=list", baseUrl];
+    NSString *url;
+    
+    if (postType == 0)
+    {
+        //正常获取列表url
+        
+        url = [NSString stringWithFormat:@"%@Tasks/index?action=list&u_id=%@", baseUrl, user_ID];
+    }
+    else
+    {
+        //筛选获取列表
+        
+        url = [NSString stringWithFormat:@"%@Tasks/index?action=list&u_id=%@", baseUrl, user_ID];
+    }
+    
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -339,6 +356,30 @@
                  data.tew_address = [dic objectForKey:@"tew_address"];
                  data.u_img = [dic objectForKey:@"u_img"];
                  
+
+                 if ([data.t_posit_x isEqualToString:@"0.00000000"] || [data.t_posit_y isEqualToString:@"0.00000000"] || self.longitudeWor == 0 || self.latitudeWor == 0)
+                 {
+                     data.range = @"无法获取距离";
+                 }
+                 else
+                 {
+                     
+                     BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(self.latitudeWor ,self.longitudeWor));
+                     
+                     BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([data.t_posit_y doubleValue], [data.t_posit_x doubleValue]));
+                     
+                     
+                     
+                     CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
+                     
+                     double Distance = distance / 1000;
+                     
+                     data.range = [NSString stringWithFormat:@"距离%.2f公里", Distance];
+                     
+                     
+                 }
+                 
+                 
                  [dataArray addObject:data];
                  
              }
@@ -351,6 +392,8 @@
                  
                  data.t_imageUrl = [NSString stringWithFormat:@"http://static.gangjianwang.com/images/skills/%@.png", IDwor];
              }
+             
+             
              
              [self.tableview reloadData];
              
@@ -440,7 +483,11 @@
     proType1 = proType;
     worker1 = proWorker;
     
+    
+    postType = 1;
+    
     [self getdata];
+    
 }
 
 
@@ -468,6 +515,8 @@
              
              NSString *f_id = [dic objectForKey:@"f_id"];
              
+             
+             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
              [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
              
              

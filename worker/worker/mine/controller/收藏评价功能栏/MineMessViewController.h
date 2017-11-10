@@ -10,4 +10,8 @@
 
 @interface MineMessViewController : BaseViewController
 
+
+
+
+
 @end

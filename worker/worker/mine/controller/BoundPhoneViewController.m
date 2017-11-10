@@ -236,6 +236,8 @@
     
     if (field.text.length == 0)
     {
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+        [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
         [SVProgressHUD showInfoWithStatus:@"手机号为空"];
     }
     else
@@ -251,6 +253,8 @@
 {
     UITextField *field = [self.view viewWithTag:10001];
     UITextField *fielf1 = [self.view viewWithTag:10002];
+    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+    [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
     
     if (field.text.length == 0)
     {

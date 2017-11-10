@@ -288,11 +288,13 @@
     }
     else if (indexPath.section == 3)
     {
-        
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+        [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
         if (indexPath.item == 0)
         {
             if (imageArray.count >= 5)
             {
+                
                 [SVProgressHUD showInfoWithStatus:@"图片已够5张"];
             }
             else

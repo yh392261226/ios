@@ -47,7 +47,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSArray *arr = [_dataArray objectAtIndex:indexPath.section];
+    
+    cityData *data = [arr objectAtIndex:indexPath.row];
+    
+    [self.delegate cityNameT:data.r_name];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
     
 }
 
@@ -208,7 +217,16 @@
         
         UILabel *label = [[UILabel alloc] init];
         label.frame = CGRectMake(23, 10, 200, 30);
-        label.text = @"当前定位城市:   哈尔滨市";
+        
+        if (self.cityN == NULL)
+        {
+            label.text = [NSString stringWithFormat:@"当前定位城市: %@", @"未打开定位服务"];
+        }
+        else
+        {
+            label.text = [NSString stringWithFormat:@"当前定位城市: %@", self.cityN];
+        }
+        
         label.font = [UIFont systemFontOfSize:15];
         
         [button addSubview:label];
@@ -261,7 +279,9 @@
 //当前位置按钮的点击
 - (void)currentAdree
 {
-    NSLog(@"当前");
+    [self.delegate cityNameT:self.cityN];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 

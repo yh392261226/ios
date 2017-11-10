@@ -184,6 +184,7 @@
 //提交按钮
 - (void)yesBtn
 {
+    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
     if (type == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"请点击选择原因"];

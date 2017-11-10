@@ -10,6 +10,7 @@
 #import "WorkerProTableViewCell.h"
 #import "AmapWorkerViewController.h"
 
+#import "BYesOrNoViewController.h"
 
 @interface jobProjectData : NSObject
 
@@ -60,7 +61,7 @@
 {
     
     
-    
+    NSMutableArray *renwuArray;
     
 }
 
@@ -74,7 +75,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
+    renwuArray = [NSMutableArray array];
    
     
     [self addhead:@"选择招工项目"];
@@ -236,8 +237,10 @@
     
     missionData *data = [self.dataArray objectAtIndex:num];
     
-    [self getdata:data.tew_id t_id:data.t_id];
     
+    [self getdataRenwu:data.t_id tew:self.gongzhongID];
+    
+  
 }
 
 
@@ -247,6 +250,7 @@
 //邀约请求
 - (void)getdata: (NSString *)tew_id t_id:(NSString *)t_id
 {
+    
     NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=create&tew_id=%@&t_id=%@&o_worker=%@&o_sponsor=%@", baseUrl, tew_id , t_id , self.worker_id, user_ID];
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -262,16 +266,13 @@
          {
              NSString *info = [dictionary objectForKey:@"data"];
              
-             if ([info isEqualToString:@"success"])
-             {
+            
                  [self dismissViewControllerAnimated:YES completion:nil];
                  
                  [self.delegate success];
-             }
-             else
-             {
-                 [SVProgressHUD showErrorWithStatus:@"您以邀约过此工人,或曾与此工人有过任务关系"];
-             }
+            
+                 //[SVProgressHUD showErrorWithStatus:@"您以邀约过此工人,或曾与此工人有过任务关系"];
+             
              
          }
          
@@ -284,6 +285,116 @@
 }
 
 
+
+
+
+
+
+//获取当前任务下，当前工种下的详情
+- (void)getdataRenwu: (NSString *)t_id tew:(NSString *)skills
+{
+    //t_id   传过来的   self.t_id
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=info&t_id=%@&skills=%@", baseUrl, t_id, skills];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             ABigDataModel *data = [[ABigDataModel alloc] init];
+             
+             data.t_id = [dic objectForKey:@"t_id"];
+             data.t_title = [dic objectForKey:@"t_title"];
+             data.t_info = [dic objectForKey:@"t_info"];
+             data.t_amount = [dic objectForKey:@"t_amount"];
+             data.t_duration = [dic objectForKey:@"t_duration"];
+             data.t_edit_amount = [dic objectForKey:@"t_edit_amount"];
+             data.t_amount_edit_times = [dic objectForKey:@"t_amount_edit_times"];
+             data.t_posit_x = [dic objectForKey:@"t_posit_x"];
+             data.t_posit_y = [dic objectForKey:@"t_posit_y"];
+             data.t_author = [dic objectForKey:@"t_author"];
+             data.t_in_time = [dic objectForKey:@"t_in_time"];
+             data.t_last_edit_time = [dic objectForKey:@"t_last_edit_time"];
+             data.t_last_editor = [dic objectForKey:@"t_last_editor"];
+             data.t_status = [dic objectForKey:@"t_status"];
+             data.t_phone = [dic objectForKey:@"t_phone"];
+             data.t_phone_status = [dic objectForKey:@"t_phone_status"];
+             data.t_type = [dic objectForKey:@"t_type"];
+             data.t_storage = [dic objectForKey:@"t_storage"];
+             data.bd_id = [dic objectForKey:@"bd_id"];
+             data.t_desc = [dic objectForKey:@"t_desc"];
+             data.t_workers = [dic objectForKey:@"t_workers"];
+             data.t_adree = [dic objectForKey:@"tew_address"];
+             data.u_mobile = [dic objectForKey:@"u_mobile"];
+             data.u_img = [dic objectForKey:@"u_img"];
+             data.u_sex = [dic objectForKey:@"u_sex"];
+             data.u_true_name = [dic objectForKey:@"u_true_name"];
+             data.relation = [dic objectForKey:@"relation"];
+             data.relation_type = [dic objectForKey:@"relation_type"];
+             
+             for (int i = 0; i < data.t_workers.count; i++)
+             {
+                 
+                 AWorKeDataModel *info = [[AWorKeDataModel alloc] init];
+                 
+                 NSDictionary *dic1 = [data.t_workers objectAtIndex:i];
+                 
+                 info.tew_id = [dic1 objectForKey:@"tew_id"];
+                 info.t_id = [dic1 objectForKey:@"t_id"];
+                 info.tew_skills = [dic1 objectForKey:@"tew_skills"];
+                 info.tew_worker_num = [dic1 objectForKey:@"tew_worker_num"];
+                 info.tew_price = [dic1 objectForKey:@"tew_price"];
+                 info.tew_start_time = [dic1 objectForKey:@"tew_start_time"];
+                 info.tew_end_time = [dic1 objectForKey:@"tew_end_time"];
+                 info.r_province = [dic1 objectForKey:@"r_province"];
+                 info.r_city = [dic1 objectForKey:@"r_city"];
+                 info.r_area = [dic1 objectForKey:@"r_area"];
+                 info.tew_address = [dic1 objectForKey:@"tew_address"];
+                 info.tew_lock = [dic1 objectForKey:@"tew_lock"];
+                 info.remaining = [dic1 objectForKey:@"remaining"];
+                 info.orders = [dic1 objectForKey:@"orders"];
+
+                 
+                 [renwuArray addObject:info];
+                 
+             }
+             
+             
+             
+             
+             for (int q = 0; q < renwuArray.count; q++)
+             {
+                 AWorKeDataModel *info = [renwuArray objectAtIndex:q];
+                 
+                 if ([info.remaining intValue] > 0)
+                 {
+                     [self getdata:info.tew_id t_id:info.t_id];
+                     
+                     break;
+                 }
+ 
+             }
+             
+             
+             
+             
+         }
+         
+     }
+         failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 
 

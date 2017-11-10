@@ -26,6 +26,8 @@
 @property (nonatomic, strong)NSString *u_img;
 @property (nonatomic, strong)NSString *is_fav;
 
+@property (nonatomic, strong)NSString *range;    //根据经纬度计算的亮点之间距离
+
 @end
 
 @implementation ListWorData
@@ -70,9 +72,9 @@
     
     [self addhead:@"工人信息"];
     
-    [self initScreenBtn];
+ //   [self initScreenBtn];          //筛选功能， 暂时隐藏， 已做完
     
-//  [self slitherBack:self.navigationController];
+
     
     [self tableview];
     
@@ -81,6 +83,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
     //获取缓存图片的大小(字节)
     NSUInteger bytesCache = [[SDImageCache sharedImageCache] getSize];
     
@@ -92,6 +95,8 @@
         
         [[SDImageCache sharedImageCache] clearDisk];
     });
+    
+    
 }
 
 
@@ -143,7 +148,7 @@
     
     cell.title.text = data.u_true_name;
     cell.introduce.text = data.uei_info;
-    
+    cell.distance.text = data.range;
     
     
     cell.details.hidden = YES;
@@ -341,6 +346,7 @@
              
              for (int i = 0; i < arr.count; i++)
              {
+                 
                  NSDictionary *dicInfo = [arr objectAtIndex:i];
                  ListWorData *data = [[ListWorData alloc] init];
                  
@@ -355,7 +361,30 @@
                  data.u_img = [dicInfo objectForKey:@"u_img"];
                  data.is_fav = [dicInfo objectForKey:@"is_fav"];
                  
+                 
+                 
+                 if ([data.ucp_posit_y isEqualToString:@"0.00000000"] || [data.ucp_posit_x isEqualToString:@"0.00000000"] || self.longitude == 0 || self.latitude == 0)
+                 {
+                     data.range = @"无法获取距离";
+                 }
+                 else
+                 {
+                     BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(self.latitude ,self.longitude));
+                     
+                     BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([data.ucp_posit_y doubleValue], [data.ucp_posit_x doubleValue]));
+                  
+                     CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
+                     
+                     double Distance = distance / 1000;
+                     
+                     data.range = [NSString stringWithFormat:@"距离%.2f公里", Distance];
+
+                 }
+
+                 
+                 
                  [dataArray addObject:data];
+                 
              }
              
              [self.tableview reloadData];

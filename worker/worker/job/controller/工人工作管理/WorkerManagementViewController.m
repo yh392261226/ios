@@ -160,7 +160,7 @@
     
     cell.title.text = model.t_title;
     cell.introduce.text = model.t_info;
-    
+    cell.distance.hidden = YES;
     
     NSURL *url = [NSURL URLWithString:model.u_img];
     

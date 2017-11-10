@@ -14,6 +14,7 @@
 		6EE35A251F9F15BA00675B13 /* mapFirstguTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE35A241F9F15BA00675B13 /* mapFirstguTableViewCell.m */; };
 		6EE35A281F9F3DE100675B13 /* mapTwoguTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE35A271F9F3DE100675B13 /* mapTwoguTableViewCell.m */; };
 		6EE35A2B1F9F3EBA00675B13 /* mapWorkerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE35A2A1F9F3EBA00675B13 /* mapWorkerTableViewCell.m */; };
+		6EF836D21FB5521D005F0E97 /* winView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EF836D11FB5521D005F0E97 /* winView.m */; };
 		720707F91F8F058800521B26 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 720707F81F8F058800521B26 /* libWeChatSDK.a */; };
 		720708041F8F13F000521B26 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 720708031F8F13F000521B26 /* libc++.tbd */; };
 		720708061F8F141C00521B26 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720708051F8F141C00521B26 /* CoreText.framework */; };
@@ -245,6 +246,8 @@
 		6EE35A271F9F3DE100675B13 /* mapTwoguTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mapTwoguTableViewCell.m; sourceTree = "<group>"; };
 		6EE35A291F9F3EBA00675B13 /* mapWorkerTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mapWorkerTableViewCell.h; sourceTree = "<group>"; };
 		6EE35A2A1F9F3EBA00675B13 /* mapWorkerTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mapWorkerTableViewCell.m; sourceTree = "<group>"; };
+		6EF836D01FB5521D005F0E97 /* winView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = winView.h; sourceTree = "<group>"; };
+		6EF836D11FB5521D005F0E97 /* winView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = winView.m; sourceTree = "<group>"; };
 		720707F81F8F058800521B26 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/OpenSDK1.8.0/libWeChatSDK.a; sourceTree = "<group>"; };
 		720708031F8F13F000521B26 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		720708051F8F141C00521B26 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -1266,6 +1269,8 @@
 				FB8580141F42892D0085BAF1 /* MineMoneyViewController.m */,
 				FB8580161F4290190085BAF1 /* MoneyDetailsViewController.h */,
 				FB8580171F4290190085BAF1 /* MoneyDetailsViewController.m */,
+				6EF836D01FB5521D005F0E97 /* winView.h */,
+				6EF836D11FB5521D005F0E97 /* winView.m */,
 			);
 			path = "收藏评价功能栏";
 			sourceTree = "<group>";
@@ -1868,6 +1873,7 @@
 				FB5DEC691F61339C00008EA5 /* PartyBrefuseViewController.m in Sources */,
 				FBD796651F286B3700FA50BE /* main.m in Sources */,
 				FB61EB571F62450500066A8A /* PartyBinfoViewController.m in Sources */,
+				6EF836D21FB5521D005F0E97 /* winView.m in Sources */,
 				6E2A93E71FAAE47500C07B47 /* endDetailViewController.m in Sources */,
 				FB7E59621F78E4F3005F3EB4 /* ThreeCityViewController.m in Sources */,
 				FB77033E1F4182000028EB84 /* SetViewController.m in Sources */,

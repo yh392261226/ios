@@ -13,6 +13,7 @@
 
 
 #import "AYesWorkerViewController.h"
+#import "PartyDomplainViewController.h"
 
 
 
@@ -106,13 +107,61 @@
 
     [self initUI];
     
-    [self initMapView];
+    
     
     [self getdata];
     
   //  [self answer];
+    [self initDraft];
     
 }
+
+
+//加载投诉按钮
+- (void)initDraft
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    [button setTitle:@"投诉" forState:0];
+    
+    [button addTarget:self action:@selector(Draft) forControlEvents:UIControlEventTouchUpInside];
+    
+    button.titleLabel.font = [UIFont systemFontOfSize:16];
+    
+    [button setTitleColor:[myselfway stringTOColor:@"0x2E84F8"] forState:UIControlStateNormal];
+    
+    [self.view addSubview:button];
+    
+    
+    [button mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.top.mas_equalTo(self.view).offset(28.5);
+         make.right.mas_equalTo(self.view).offset(-15);
+         make.height.mas_equalTo(30);
+         make.width.mas_equalTo(60);
+     }];
+    
+    
+}
+
+
+
+
+//投诉按钮点击事件
+- (void)Draft
+{
+    self.hidesBottomBarWhenPushed = YES;
+    
+    PartyDomplainViewController *temp = [[PartyDomplainViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
+    
+    
+}
+
+
+
+
 
 
 - (void)initUI
@@ -133,14 +182,13 @@
     icon = [backview viewWithTag:1001];
     icon.layer.cornerRadius = 35;
     icon.layer.masksToBounds = YES;
-    icon.backgroundColor = [UIColor orangeColor];
+  //  icon.backgroundColor = [UIColor orangeColor];
     [icon addTarget:self action:@selector(detailBtn) forControlEvents:UIControlEventTouchUpInside];
     
     
     name = [backview viewWithTag:1002];
     
-    
-    
+
     sex = [backview viewWithTag:1003];
     sex.image = [UIImage imageNamed:@"job_woman"];
     
@@ -218,6 +266,7 @@
     
     if ([self.o_status isEqualToString:@"0"])
     {
+        
         if ([self.o_confirm isEqualToString:@"0"])
         {
             [yesBtn setTitle:@"确认工资" forState:UIControlStateNormal];
@@ -234,6 +283,7 @@
             yesBtn.userInteractionEnabled = NO;
             
         }
+        
     }
     
     
@@ -283,8 +333,8 @@
     
     // annotationV.image = [UIImage imageNamed:@"5ud.png"];//大头针的显示图片
     CLLocationCoordinate2D coor;
-    coor.latitude = [Xmap doubleValue];
-    coor.longitude = [Ymap doubleValue];
+    coor.latitude = [Ymap doubleValue];
+    coor.longitude = [Xmap doubleValue];
     
     annotation.coordinate = coor;
     
@@ -299,6 +349,7 @@
 
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
 {
+    
     if ([annotation isKindOfClass:[BMKPointAnnotation class]])
     {
         BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
@@ -306,6 +357,7 @@
         newAnnotationView.animatesDrop = YES;// 设置该标注点动画显示
         return newAnnotationView;
     }
+    
     return nil;
     
 }
@@ -330,11 +382,13 @@
 //头像按钮， 进入工人详情
 - (void)detailBtn
 {
+    
     PartyBinfoViewController *temp = [[PartyBinfoViewController alloc] init];
     
     temp.u_id = self.o_worker;
     
     [self.navigationController pushViewController:temp animated:YES];
+    
 }
 
 
@@ -343,9 +397,11 @@
 //拨打电话按钮
 - (void)callBtn
 {
+    
     NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    
 }
 
 
@@ -399,6 +455,7 @@
     
     [self.navigationController pushViewController:temp animated:YES];
     
+    
 }
 
 
@@ -411,13 +468,6 @@
     yesBtn.userInteractionEnabled = NO;
     yesBtn.backgroundColor = [UIColor grayColor];
 }
-
-
-
-
-
-
-
 
 
 
@@ -504,7 +554,7 @@
 
 
                  
-
+                  [self initMapView];
              }
 
 
@@ -526,7 +576,7 @@
 {
   //  NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=cancel&o_id=%@&tew_id=%@&t_id=%@&o_worker=%@&u_id=%@&s_id=%@&o_confirm=%@&o_status=%@", baseUrl, self.o_id,self.tew_id, self.t_id,self.o_worker, user_ID, self.s_id, self.o_confirm, self.o_status];
     
-    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=cancel&o_id=%@", baseUrl, self.o_id];
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=cancel&o_id=%@&sponsor=%@", baseUrl, self.o_id, user_ID];
     
     NSLog(@"%@", url);
     
@@ -543,14 +593,10 @@
              
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
-             NSLog(@"%@", dic);
              self.hidesBottomBarWhenPushed = YES;
              
-             PartyRefuseViewController *temp = [[PartyRefuseViewController alloc] init];
-             
-             [self.navigationController pushViewController:temp animated:YES];
-             
-             
+             [self.navigationController popToRootViewControllerAnimated:YES];
+
          }
          
          
@@ -601,10 +647,6 @@
 //
 //
 //}
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning {

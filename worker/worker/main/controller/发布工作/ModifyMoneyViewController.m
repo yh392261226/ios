@@ -312,11 +312,21 @@
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
              
-             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             NSString *dic = [dictionary objectForKey:@"data"];
              
              NSLog(@"%@", dic);
              
-             [self.navigationController popViewControllerAnimated:NO];
+             if ([dic isEqualToString:@"success"])
+             {
+                 [self.delegate tempMoney:valMoney];
+                 
+                 [self.navigationController popViewControllerAnimated:NO];
+             }
+             else
+             {
+                 //修改失败
+             }
+             
   
          }
          

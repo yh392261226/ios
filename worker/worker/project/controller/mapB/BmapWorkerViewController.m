@@ -12,7 +12,7 @@
 #import "mapFirstguTableViewCell.h"
 #import "mapTwoguTableViewCell.h"
 #import "mapWorkerTableViewCell.h"
-
+#import "PartyBinfoViewController.h"
 
 @interface uiDataModel : NSObject
 
@@ -93,6 +93,8 @@
     NSString *mapy;
     
     NSString *phone;  //电话
+    
+    NSString *guzhuID;  //雇主ID
 }
 
 
@@ -101,6 +103,8 @@
 @property (nonatomic, strong)BMKMapView *mapView;
 @property (nonatomic, strong)BMKLocationService *locService;
 
+
+@property (nonatomic, strong)BMKMapManager *mapManager;
 
 @end
 
@@ -260,11 +264,66 @@
 
 
 
+//百度地图
+- (void)initMap
+{
+    self.mapView.delegate = self;
+    
+    self.mapView.showsUserLocation = YES;
+    
+    self.mapView.zoomLevel = 15;
+    
+    
+    //添加到view上
+    [self.view addSubview:self.mapView];
+    
+    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view).offset(64);
+        make.height.mas_equalTo(300);
+        make.left.mas_equalTo(self.view).offset(0);
+        make.right.mas_equalTo(self.view).offset(0);
+    }];
+    
+    
+    // 添加一个PointAnnotation
+    BMKPointAnnotation *annotation = [[BMKPointAnnotation alloc] init];
+    CLLocationCoordinate2D coor;
+
+    
+    coor.latitude = [data.t_posit_y doubleValue];
+    coor.longitude = [data.t_posit_x doubleValue];
+
+    annotation.coordinate = coor;
+    self.mapView.centerCoordinate = annotation.coordinate;
+
+    [_mapView addAnnotation:annotation];
+    
+
+    
+}
+
+
+
+- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[BMKPointAnnotation class]])
+    {
+        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
+        newAnnotationView.animatesDrop = YES;// 设置该标注点动画显示
+        return newAnnotationView;
+    }
+    return nil;
+    
+}
+
+
+
 - (UITableView *)tableview
 {
     if (!_tableview)
     {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 100) style:UITableViewStyleGrouped];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 364, SCREEN_WIDTH, SCREEN_HEIGHT - 415) style:UITableViewStyleGrouped];
         
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -369,14 +428,9 @@
             
         }
         
-        
-        
-        
-        
-        
-        
-        
+
         return cell;
+        
     }
     
  
@@ -408,38 +462,7 @@
 {
     UIView *view = [[UIView alloc] init];
     
-    self.mapView.delegate = self;
     
-    self.mapView.showsUserLocation = YES;
-    
-    self.mapView.zoomLevel = 15;
-    
-    
-    //添加到view上
-    [view addSubview:self.mapView];
-    
-    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(view).offset(0);
-         make.bottom.mas_equalTo(view).offset(0);
-         make.left.mas_equalTo(view).offset(0);
-         make.right.mas_equalTo(view).offset(0);
-    }];
-    
-    
-    // 添加一个PointAnnotation
-    BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc] init];
-    CLLocationCoordinate2D coor;
-    coor.latitude = [data.t_posit_x doubleValue];
-    coor.longitude = [data.t_posit_y doubleValue];
-    annotation.coordinate = coor;
-    self.mapView.centerCoordinate = annotation.coordinate;
-    annotation.title = @"这里是北京";
-    [_mapView addAnnotation:annotation];
-
-    //定位
-    _locService = [[BMKLocationService alloc]init];
-    _locService.delegate = self;
-    [_locService startUserLocationService];
 
     
     
@@ -449,7 +472,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 300;
+    return 0.1;
 }
 
 
@@ -530,7 +553,7 @@
              
              
              phone = data.t_phone;
-             
+             guzhuID = data.t_id;
              
              for (int i = 0; i < data.t_workers.count; i++)
              {
@@ -567,6 +590,8 @@
              }
 
              [self getdataWor];
+             
+             [self initMap];
 
          }
          
@@ -622,7 +647,7 @@
              }
              
              
-            [self initUiData];
+              [self initUiData];
              
 
               [self.tableview reloadData];
@@ -658,55 +683,12 @@
 
 
 
-
-//获取经纬度，城市名称
-- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
-{
-    BMKCoordinateRegion region;
-    
-    region.center.latitude  = userLocation.location.coordinate.latitude;
-    
-    region.center.longitude = userLocation.location.coordinate.longitude;
-    
-    region.span.latitudeDelta = 0;
-    
-    region.span.longitudeDelta = 0;
-    
-    NSLog(@"当前的坐标是:%f,%f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
-    
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-    [geocoder reverseGeocodeLocation: userLocation.location completionHandler:^(NSArray *array, NSError *error) {
-        
-        if (array.count > 0) {
-            
-            CLPlacemark *placemark = [array objectAtIndex:0];
-            
-            if (placemark != nil)
-            {
-                NSString *city = placemark.locality;
-                
-                NSLog(@"当前城市名称------%@",city);
-                
-                
-                //找到了当前位置城市后就关闭服务
-                
-                [_locService stopUserLocationService];
-                
-            }
-            
-        }
-        
-    }];
-    
-    
-    
-}
-
 //雇主详情   头像按钮
 - (void)iconBtn
 {
-    PartyInfoViewController *temp = [[PartyInfoViewController alloc] init];
+    PartyBinfoViewController *temp = [[PartyBinfoViewController alloc] init];
+    
+    temp.u_id = guzhuID;
     
     [self.navigationController pushViewController:temp animated:YES];
 }
@@ -731,12 +713,23 @@
     
     NSInteger num = index.row - 2;
     
-    guzhuDetaillimian *info = [workerArray objectAtIndex:num];
     
-    NSLog(@"%@", info.tew_id);
+    if (workerArray.count > 0)
+    {
+        guzhuDetaillimian *info = [workerArray objectAtIndex:num];
+        
+        NSLog(@"%@", info.tew_id);
+        
+        
+        [self getdata:info.tew_id];
+    }
+    else
+    {
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+        [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+        [SVProgressHUD showErrorWithStatus:@"该任务已结束或暂无工作可接"];
+    }
     
-    
-    [self getdata:info.tew_id];
 
 }
 
@@ -748,7 +741,7 @@
 //成单接口
 - (void)getdata: (NSString *)tew_id
 {
-    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=create&tew_id=%@&t_id=%@&o_worker=%@o_sponsor=%@", baseUrl, tew_id , data.t_id , user_ID, user_ID];
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=create&tew_id=%@&t_id=%@&o_worker=%@&o_sponsor=%@", baseUrl, tew_id , data.t_id , user_ID, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -760,6 +753,8 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
+             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+             [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
              [SVProgressHUD showSuccessWithStatus:@"求职邀约以发送 \n 等待雇主同意可进行电话沟通"];
              
              [self performSelector:@selector(Invitation) withObject:nil afterDelay:1.5];

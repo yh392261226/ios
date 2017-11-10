@@ -14,7 +14,7 @@
 
 #import "AYesOrNoViewController.h"
 
-
+#import "BYesOrNoViewController.h"
 
 
 
@@ -85,6 +85,9 @@
     NSString *Ymap;
     
     NSString *phone;
+    
+    
+    
 }
 
 @property (nonatomic, strong)BMKMapView *mapView;
@@ -252,14 +255,12 @@
 
     
 
-    
-    
     BMKPointAnnotation *annotation = [[BMKPointAnnotation alloc] init];
     
     // annotationV.image = [UIImage imageNamed:@"5ud.png"];//大头针的显示图片
     CLLocationCoordinate2D coor;
-    coor.latitude = [Xmap doubleValue];
-    coor.longitude = [Ymap doubleValue];
+    coor.latitude = [Ymap doubleValue];
+    coor.longitude = [Xmap doubleValue];
     
     annotation.coordinate = coor;
     
@@ -323,24 +324,30 @@
 //我要招工按钮
 - (void)yesBtn
 {
+    [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
     if ([user_ID isEqualToString:@"0"])
     {
         //未登录提示
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+     
         [SVProgressHUD showErrorWithStatus:@"请您先登录"];
+        
         
         LoginViewController *temp = [[LoginViewController alloc] init];
         
         
-        [self.navigationController pushViewController:temp animated:YES];
+        [self presentViewController:temp animated:yes completion:nil];
         
     }
-    else if ([user_u_idcard isEqualToString:@""])
+    else if ([user_u_idcard isEqualToString:@""] || user_u_idcard == NULL)
     {
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
         [SVProgressHUD showErrorWithStatus:@"请完善您的个人信息"];
     }
     else if (missArray.count == 0)
     {
-        [SVProgressHUD showErrorWithStatus:@"您暂时没有发布任务"];
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+        [SVProgressHUD showErrorWithStatus:@"您暂时没有发布与该工种相关任务"];
     }
     else
     {
@@ -351,6 +358,8 @@
         temp.worker_id = workerID;
         
         temp.dataArray = missArray;
+        
+        temp.gongzhongID = self.skills_id;
         
         [self presentViewController:temp animated:YES completion:nil];
     }
@@ -545,9 +554,7 @@
 //任务数据网络请求
 - (void)getdataMiss
 {
-    NSString *url;
-    
-    url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_storage=0&t_status=0&skills=%@", baseUrl, user_ID, self.skills_id];
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?t_author=%@&t_storage=0&t_status=0,1,5&skills=%@", baseUrl, user_ID, self.skills_id];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -560,7 +567,6 @@
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
              NSArray *tem = [dictionary objectForKey:@"data"];
-             
              
              for (int i = 0; i < tem.count; i++)
              {
@@ -604,10 +610,13 @@
                  model.tew_lock = [dic objectForKey:@"tew_lock"];
                  model.r_city = [dic objectForKey:@"r_city"];
                  
+                 
                  [missArray addObject:model];
                  
              }
              
+             
+           
 
          }
          
@@ -619,6 +628,41 @@
      }];
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

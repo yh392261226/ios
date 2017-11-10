@@ -112,7 +112,7 @@
          make.bottom.mas_equalTo(_backview).offset(-5);
          make.right.mas_equalTo(_backview).offset(-15);
          make.height.mas_equalTo(20);
-         make.width.mas_equalTo(80);
+         make.width.mas_equalTo(200);
      }];
     
     

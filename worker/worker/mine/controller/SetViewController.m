@@ -135,16 +135,16 @@
         if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0f)
         {
             UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
-            
+
             if (UIUserNotificationTypeNone == setting.types)
             {
                 NSLog(@"推送关闭");
-                
+
                 MessageViewController *temp = [[MessageViewController alloc] init];
-                
+
                 [self.navigationController pushViewController:temp animated:YES];
-                
-                
+
+
             }
             else
             {
@@ -154,7 +154,7 @@
         else
         {
             UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-            
+
             if(UIRemoteNotificationTypeNone == type)
             {
                 NSLog(@"推送关闭");
@@ -165,6 +165,13 @@
             }
         }
     }
+    
+    
+    
+    
+    
+    
+    
 //    else if (indexPath.section == 0)
 //    {
 //        BoundPhoneViewController *temp = [[BoundPhoneViewController alloc] init];

@@ -16,4 +16,7 @@
 
 @property (nonatomic, strong)UILabel *look;
 
+
+@property (nonatomic, strong)UIImageView *svp;   //红点
+
 @end

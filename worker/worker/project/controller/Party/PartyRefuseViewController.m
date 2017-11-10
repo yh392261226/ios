@@ -165,6 +165,7 @@
                                      type = 1;
                                      
                                      [seleced setTitle:data forState:UIControlStateNormal];
+                                     
                                  }];
         
         

@@ -9,6 +9,22 @@
 #import <UIKit/UIKit.h>
 
 
+@interface MessDataDetail : NSObject
+
+@property (nonatomic, strong)NSString *wm_title;
+@property (nonatomic, strong)NSString *um_in_time;
+@property (nonatomic, strong)NSString *wm_type;
+@property (nonatomic, strong)NSString *wm_id;
+@property (nonatomic, strong)NSString *um_id;
+@property (nonatomic, strong)NSString *wm_desc;
+@property (nonatomic, strong)NSString *um_status;    //状态， 判断已读未读
+
+@end
+
+
+
+
+
 @interface cityData : NSObject
 
 @property (nonatomic, strong)NSString *r_id;

@@ -286,6 +286,7 @@
 
     if (userPhone.length == 0)
     {
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
         [SVProgressHUD showInfoWithStatus:@"手机号为空"];
     }
     else
@@ -303,10 +304,12 @@
         //登录
     if (userPhone.length == 0)
     {
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
         [SVProgressHUD showInfoWithStatus:@"手机号为空"];
     }
     else if (password.length == 0)
     {
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
         [SVProgressHUD showInfoWithStatus:@"验证码为空"];
     }
     else
@@ -499,7 +502,7 @@
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
              NSString *mess = [dic objectForKey:@"msg"];
-             
+             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
              [SVProgressHUD showInfoWithStatus:mess];
              
              [self time:btn];

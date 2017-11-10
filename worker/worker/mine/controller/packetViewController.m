@@ -101,6 +101,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     AllRedPrice *data = [dataArray objectAtIndex:indexPath.section];
     
     packetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -113,12 +114,14 @@
     cell.drawMoney.tag = indexPath.section + 900;
     [cell.drawMoney addTarget:self action:@selector(drawBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    
-    [cell.drawMoney setTitle:@"点击领取" forState:0];
-    
-    if ([data.b_status isEqualToString:@"0"])
+ 
+    if ([data.bd_use_time isEqualToString:@"0"])
     {
+        [cell.drawMoney setTitle:@"点击领取" forState:0];
+    }
+    else
+    {
+        cell.drawMoney.userInteractionEnabled = NO;
         [cell.drawMoney setTitle:@"已领取" forState:0];
     }
     
@@ -178,12 +181,17 @@
 }
 
 
+
+
+
 //使用红包
 - (void)UserData: (NSString *)bd_id
 {
-    NSString *url = [NSString stringWithFormat:@"%@Bouns/index?bd_id=%@&uid=%@", baseUrl, bd_id, user_ID];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Bouns/index?action=using&bd_id=%@&uid=%@", baseUrl, bd_id, user_ID];
     
     NSLog(@"%@", url);
+    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -194,7 +202,9 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
-             [self.tableview reloadData];
+             
+             [self getData];
+
          }
          
      } failure:^(NSURLSessionDataTask *task, NSError *error)
@@ -207,20 +217,14 @@
 
 
 
-
-
-
-
-
-
-
-
 //获取红包列表
 - (void)getData
 {
-    NSString *url = [NSString stringWithFormat:@"%@Bouns/index?bt_withdraw=1", baseUrl];
+   
+    NSString *url = [NSString stringWithFormat:@"%@Bouns/index?action=list&uid=%@&bt_withdraw=1", baseUrl, user_ID];
     
     NSLog(@"%@", url);
+    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -231,6 +235,8 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
+             [dataArray removeAllObjects];
+             
              NSArray *arrData = [dictionary objectForKey:@"data"];
              
              for (int i = 0; i < arrData.count; i++)

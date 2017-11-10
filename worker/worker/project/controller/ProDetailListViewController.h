@@ -109,6 +109,10 @@
 @property (nonatomic, strong)NSNumber *remaining;     //nsnumber
 
 
+@property (nonatomic, strong)NSString *tew_status;      //0 是未完工       1是已完工
+@property (nonatomic, strong)NSString *tew_type;           // 工种状态    0 是未开工，  1 是开工     
+
+
 @property (nonatomic, strong)NSMutableArray *orders;
 @property (nonatomic, strong)NSMutableArray *ordersArray;
 

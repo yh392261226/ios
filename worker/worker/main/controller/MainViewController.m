@@ -22,6 +22,13 @@
 
 @end
 
+
+@implementation MessDataDetail
+
+
+@end
+
+
 @interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate, CLLocationManagerDelegate>
 {
     TabbarView *tabbar;
@@ -50,6 +57,11 @@
     CGFloat longitude;   //经度
     CGFloat latitude;     //纬度
     
+    
+    
+    NSMutableArray *MessArrayWor;   //消息的数组
+    NSMutableArray *MessArraySys;   //消息的数组
+    
 }
 
 @property (strong, nonatomic) CLLocationManager *locationManager;  //系统定位
@@ -63,6 +75,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    MessArrayWor = [NSMutableArray array];
+    MessArraySys = [NSMutableArray array];
+    
+    if ([user_ID integerValue] > 0)
+    {
+        [self getMessSys];
+//        [self getMessWor];
+    }
+    
+    
+   // [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"u_id"];
     
 
     EnglishArray = [NSMutableArray array];
@@ -80,7 +104,10 @@
     
     [self hotdata];
 
-
+    
+    
+    
+    
     
 }
 
@@ -138,6 +165,34 @@
     
     longitude = newLocation.coordinate.longitude;
     latitude = newLocation.coordinate.latitude;
+    
+    
+    //位置信息上传服务器
+    [self PostAdree];
+    
+    
+    //十分钟请求一次， 上传位置
+//    UILocalNotification *_localNotification = [[UILocalNotification alloc] init];
+//
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
+//
+//        while (TRUE)
+//        {
+//            [NSThread sleepForTimeInterval:600];
+//
+//            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+//
+//
+//            [self PostAdree];
+//            //网络请求
+//
+//            //其他处理
+//
+//            [[UIApplication sharedApplication] scheduleLocalNotification:_localNotification];
+//        };
+//
+//    });
+
     
     
     // 停止位置更新
@@ -284,6 +339,9 @@
         
         SeachJobViewController *temp = [[SeachJobViewController alloc] init];
         
+        temp.longitudeWor = longitude;
+        temp.latitudeWor = latitude;
+        
         [self.navigationController pushViewController:temp animated:YES];
         
         
@@ -291,7 +349,7 @@
     }
     else
     {
-        if ([user_ID isEqualToString:@"0"])
+        if ([user_ID isEqualToString:@"0"] || user_ID == nil)
         {
             LoginViewController *temp = [[LoginViewController alloc] init];
             
@@ -337,8 +395,10 @@
     
     SelecdCityViewController *temp = [[SelecdCityViewController alloc] init];
     
+    temp.delegate = self;
     temp.EnglishArray = EnglishArray;
     temp.dataArray = cityArray;
+    temp.cityN = cityName;
     
     [self.navigationController pushViewController:temp animated:YES];
     
@@ -377,6 +437,7 @@
     
     [view addSubview:headlabel];
     
+    
     [headlabel mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.centerX.equalTo(view);
@@ -384,6 +445,7 @@
          make.height.mas_equalTo(30);
          make.width.mas_equalTo(200);
      }];
+    
     
     adreeLab = [[UILabel alloc] init];
     
@@ -457,7 +519,7 @@
     num = [[UILabel alloc] init];
     num.textColor = [UIColor whiteColor];
     num.font = [UIFont systemFontOfSize:12];
-    num.text = @"5";
+    num.text = @"0";
     num.textAlignment = NSTextAlignmentCenter;
     [numback addSubview:num];
     
@@ -474,17 +536,32 @@
 
 
 
-
 //消息的点击事件
 - (void)MessBtn
 {
     self.hidesBottomBarWhenPushed = YES;
-    
-    MineMessViewController *temp = [[MineMessViewController alloc] init];
-    
-    [self.navigationController pushViewController:temp animated:YES];
+    if([user_ID isEqualToString:@"0"] || user_ID == nil)
+    {
+        
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        [self presentViewController:temp animated:YES completion:nil];
+        
+        
+        
+    }
+    else
+    {
+        
+        
+        MineMessViewController *temp = [[MineMessViewController alloc] init];
+        
+        
+        [self.navigationController pushViewController:temp animated:YES];
+    }
     
     self.hidesBottomBarWhenPushed = NO;
+    
 }
 
 
@@ -536,6 +613,7 @@
              [cityArray addObject:cityHot];
              
              [self getdata];
+             
          }
      } failure:^(NSURLSessionDataTask *task, NSError *error)
      {
@@ -677,10 +755,186 @@
 
 
 
+
+- (void)PostAdree
+{
+    
+    NSString *x = [NSString stringWithFormat:@"%f", longitude];
+    NSString *y = [NSString stringWithFormat:@"%f", latitude];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/updatePosition?u_id=%@&ucp_posit_x=%@&ucp_posit_y=%@", baseUrl, user_ID, x, y];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+//选择城市的回传代理
+- (void)cityNameT: (NSString *)city
+{
+    adreeLab.text = city;
+}
+
+
+
+
+
+
+
+
+
+
+//获取消息数据的网络请求   系统
+- (void)getMessSys
+{
+    NSString *url = [NSString stringWithFormat:@"%@Users/msgList?u_id=%@&wm_type=0", baseUrl, @"198"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSArray *arr = [dic objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 
+                 NSDictionary *dic = [arr objectAtIndex:i];
+                 
+                 MessDataDetail *data = [[MessDataDetail alloc] init];
+                 
+                 data.wm_title = [dic objectForKey:@"wm_title"];
+                 data.um_in_time = [dic objectForKey:@"um_in_time"];
+                 data.wm_type = [dic objectForKey:@"wm_type"];
+                 data.wm_id = [dic objectForKey:@"wm_id"];
+                 data.um_id = [dic objectForKey:@"um_id"];
+                 data.wm_desc = [dic objectForKey:@"wm_desc"];
+                 data.um_status = [dic objectForKey:@"um_status"];
+                 
+                 if ([data.um_status isEqualToString:@"0"])
+                 {
+                     [MessArraySys addObject:data];
+                 }
+                 
+                 
+                 
+
+             }
+             
+             
+             [self getMessWor];
+             
+             
+         }
+         
+
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+
+
+//获取消息数据的网络请求   工作
+- (void)getMessWor
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/msgList?u_id=%@&wm_type=1", baseUrl, @"198"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSArray *arr = [dic objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dic = [arr objectAtIndex:i];
+                 
+                 MessDataDetail *data = [[MessDataDetail alloc] init];
+                 
+                 data.wm_title = [dic objectForKey:@"wm_title"];
+                 data.um_in_time = [dic objectForKey:@"um_in_time"];
+                 data.wm_type = [dic objectForKey:@"wm_type"];
+                 data.wm_id = [dic objectForKey:@"wm_id"];
+                 data.um_id = [dic objectForKey:@"um_id"];
+                 data.wm_desc = [dic objectForKey:@"wm_desc"];
+                 data.um_status = [dic objectForKey:@"um_status"];
+                 
+                 
+                 if ([data.um_status isEqualToString:@"0"])
+                 {
+                     [MessArraySys addObject:data];
+                 }
+                 
+                 NSInteger price = MessArrayWor.count + MessArraySys.count;
+                 
+                 num.text = [NSString stringWithFormat:@"%ld", price];
+                 
+             }
+             
+             
+         }
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+
+
+
+
+
+
 
 
 

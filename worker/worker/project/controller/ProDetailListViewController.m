@@ -97,27 +97,6 @@
 
 
 
-//制作数据类
-- (void)initUI
-{
-    WorKeDataModel *model = [dataArray objectAtIndex:0];
-    
-    for (int i = 0; i < worArray.count; i++)
-    {
-        prooListData *info = [worArray objectAtIndex:i];
-        
-        if ([info.s_id isEqualToString:model.tew_skills])
-        {
-            worName = info.s_name;
-        }
-    }
-    
-
-    
-    [self.tableview reloadData];
-
-}
-
 
 - (UITableView *)tableview
 {
@@ -162,6 +141,16 @@
 
     ListDataModel *info = [model.ordersArray objectAtIndex:indexPath.row];
     
+    for (int i = 0; i < worArray.count; i++)
+    {
+        prooListData *info1 = [worArray objectAtIndex:i];
+        
+        if ([info1.s_id isEqualToString:model.tew_skills])
+        {
+            worName = info1.s_name;
+        }
+    }
+    
     worInfoTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if (!cell)
@@ -174,52 +163,63 @@
 
         cell.name.text = info.u_true_name;
         
-//        if ([s_sta isEqualToString:@"1"])
-//        {
-//            cell.state.text = @"洽谈中";
-//            [cell.call setImage:[UIImage imageNamed:@"mine_nocall"] forState:UIControlStateNormal];
-//
-//            cell.state.backgroundColor = [UIColor orangeColor];
-//        }
-//        else if ([s_sta isEqualToString:@"2"])
-//        {
-//            cell.state.text = @"工作中";
-//            [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
-//
-//            cell.state.backgroundColor = [UIColor redColor];
-//        }
-//        else
-//        {
-//
-//        }
-        
         NSString *tag = [NSString stringWithFormat:@"%ld%ld", indexPath.section, indexPath.row];
         
         cell.call.tag = [tag integerValue];
         [cell.call addTarget:self action:@selector(callPhone:) forControlEvents:UIControlEventTouchUpInside];
         
-        if ([self.type isEqualToString:@"0"])
+        
+        
+        
+        cell.state.hidden = YES;
+        cell.call.hidden = YES;
+        
+        
+        
+        
+        if ([info.o_pay isEqualToString:@"0"])
         {
-            //洽谈
+            cell.state.hidden = NO;
+            cell.call.hidden = NO;
             
-        //    cell.state.text = @"洽谈中";
-            [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
+            //未结束的
+            if ([info.u_task_status isEqualToString:@"0"])
+            {
+                //洽谈
+                
+                cell.workerType.text = worName;
+                
+                [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
+                
+                cell.state.backgroundColor = [UIColor orangeColor];
+                
+                cell.state.text = @"洽谈中";
+             
+                [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
+                
+            }
+            else
+            {
+                //工作中
+                
+                cell.workerType.text = worName;
+                
+                cell.state.text = @"工作中";
+                
+                [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
+                
+                cell.state.backgroundColor = [UIColor redColor];
+ 
             
-            cell.state.backgroundColor = [UIColor orangeColor];
-        }
-        else if ([self.type isEqualToString:@"1"])
-        {
-            //工作中
+            }
+ 
             
-        //    cell.state.text = @"工作中";
-            [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
-            
-            cell.state.backgroundColor = [UIColor redColor];
         }
         else
         {
-            //结束
-            
+            //结束的
+
+            cell.workerType.text = worName;
             cell.call.hidden = YES;
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -242,34 +242,54 @@
             
             [evaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.mas_equalTo(cell);
-                make.right.mas_equalTo(cell).offset(-25);
-                make.height.mas_equalTo(25);
-                make.width.mas_equalTo(40);
+                make.right.mas_equalTo(cell).offset(-15);
+                make.height.mas_equalTo(30);
+                make.width.mas_equalTo(80);
             }];
             
-            
-            
-            
         }
-        
-        if ([info.u_task_status isEqualToString:@"0"])
-        {
-            cell.state.text = @"洽谈中";
-            cell.state.backgroundColor = [UIColor orangeColor];
-            [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
-        }
-        else
-        {
-            cell.state.text = @"工作中";
-            [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
-            
-            cell.state.backgroundColor = [UIColor redColor];
-        }
-        
- 
-            cell.workerType.text = worName;
-        
 
+        
+        
+        //逻辑判断，  可能会有问题
+        if ([info.o_status isEqualToString:@"-1"])
+        {
+            //工人辞职
+            
+            cell.workerType.text = worName;
+            
+            cell.state.text = @"已辞职";
+            
+         //   [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
+            cell.call.hidden = YES;
+            cell.state.hidden = NO;
+            
+            cell.state.backgroundColor = [UIColor grayColor];
+            
+        }
+        else if([info.o_status isEqualToString:@"-2"])
+        {
+            //雇主解雇
+            
+            cell.workerType.text = worName;
+            
+            cell.state.text = @"已解雇";
+            
+            cell.state.hidden = NO;
+            
+            cell.call.hidden = YES;
+            
+        //    [cell.call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
+            
+            cell.state.backgroundColor = [UIColor grayColor];
+            
+        }
+        
+        
+        
+        
+        
+        
             if ([info.u_sex isEqualToString:@"1"])
             {
                 cell.sex.image = [UIImage imageNamed:@"job_man"];
@@ -279,13 +299,9 @@
                 cell.sex.image = [UIImage imageNamed:@"job_woman"];
             }
         
+
     }
-    
 
-
-    
-    
-    
     
     return cell;
 }
@@ -307,6 +323,7 @@
     NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", info.u_mobile];
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    
 }
 
 
@@ -324,56 +341,80 @@
     
     self.hidesBottomBarWhenPushed = YES;
     
-    if ([self.type isEqualToString:@"0"])
+    if ([info.o_pay isEqualToString:@"0"])
     {
-        AYesOrNoViewController *temp = [[AYesOrNoViewController alloc] init];
+        //洽谈和工作
         
-        // temp.worS_id = model.tew_skills;
+        if ([info.o_status isEqualToString:@"-1"] || [info.o_status isEqualToString:@"-2"])
+        {
+            
+        }
+        else
+        {
+            if ([info.u_task_status isEqualToString:@"0"])    //洽谈
+            {
+                AYesOrNoViewController *temp = [[AYesOrNoViewController alloc] init];
+                
+                temp.worName = worName;
+                
+                temp.worU_id = info.o_worker;
+                
+                temp.o_id = info.o_id;
+                temp.t_id = info.t_id;
+                temp.tew_id = info.tew_id;
+                temp.o_worker = info.o_worker;
+                temp.o_confirm = info.o_confirm;
+                temp.o_status = info.o_status;
+                temp.s_id = info.s_id;
+                
+                temp.worNameMM = worName;
+                temp.person = model.tew_worker_num;
+                temp.money = info.o_amount;
+                temp.startTime = model.tew_start_time;
+                temp.endTime = model.tew_end_time;
+                temp.skill = model.tew_skills;
+                
+                [self.navigationController pushViewController:temp animated:YES];
+                
+            }
+            else if ([info.u_task_status isEqualToString:@"1"])
+            {
+                
+                AYesWorkerViewController *temp = [[AYesWorkerViewController alloc] init];
+                
+                temp.worName = worName;
+                
+                temp.worU_id = info.o_worker;
+                
+                temp.o_id = info.o_id;
+                temp.t_id = info.t_id;
+                temp.tew_id = info.tew_id;
+                temp.o_worker = info.o_worker;
+                temp.o_confirm = info.o_confirm;
+                temp.o_status = info.o_status;
+                temp.s_id = info.s_id;
+                
+                [self.navigationController pushViewController:temp animated:YES];
+                
+            }
+        }
         
-        temp.worName = worName;
-        
-        temp.worU_id = info.o_worker;
-        
-        temp.o_id = info.o_id;
-        temp.t_id = info.t_id;
-        temp.tew_id = info.tew_id;
-        temp.o_worker = info.o_worker;
-        temp.o_confirm = info.o_confirm;
-        temp.o_status = info.o_status;
-        temp.s_id = info.s_id;
-
-        temp.worNameMM = worName;
-        temp.person = model.tew_worker_num;
-        temp.money = model.tew_price;
-        temp.startTime = model.tew_start_time;
-        temp.endTime = model.tew_end_time;
-        temp.skill = model.tew_skills;
-        
-        [self.navigationController pushViewController:temp animated:YES];
         
         
     }
-    else if ([self.type isEqualToString:@"1"])
+    else
     {
+        //结束
         
-        AYesWorkerViewController *temp = [[AYesWorkerViewController alloc] init];
-        
-        temp.worName = worName;
-        
-        temp.worU_id = info.o_worker;
-        
-        temp.o_id = info.o_id;
-        temp.t_id = info.t_id;
-        temp.tew_id = info.tew_id;
-        temp.o_worker = info.o_worker;
-        temp.o_confirm = info.o_confirm;
-        temp.o_status = info.o_status;
-        temp.s_id = info.s_id;
-        
-        [self.navigationController pushViewController:temp animated:YES];
-        
+      
     }
     
+    
+    
+    
+    
+    
+
     
 
     
@@ -383,19 +424,41 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
     WorKeDataModel *model = [dataArray objectAtIndex:section];
+    
+    for (int i = 0; i < worArray.count; i++)
+    {
+        prooListData *info = [worArray objectAtIndex:i];
+        
+        if ([info.s_id isEqualToString:model.tew_skills])
+        {
+            worName = info.s_name;
+        }
+    }
+    
     
     UIView *view = [[UIView alloc] init];
     
+    
+    UIView *back = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
+    
+    back.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
+    
+    [view addSubview:back];
+    
+    
+    
     view.backgroundColor = [UIColor whiteColor];
 
-    UILabel *wor = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 30)];
+    UILabel *wor = [[UILabel alloc] initWithFrame:CGRectMake(15, 25, 150, 30)];
     
     wor.font = [UIFont systemFontOfSize:15];
     
     wor.text = worName;
     
     [view addSubview:wor];
+    
     
     
     NSString *start = [myselfway timeWithTimeIntervalString:model.tew_start_time];
@@ -414,7 +477,7 @@
     [view addSubview:time];
     
     [time mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(view).offset(5);
+        make.top.mas_equalTo(view).offset(25);
         make.centerX.mas_equalTo(view);
         make.height.mas_equalTo(30);
         make.width.mas_equalTo(200);
@@ -426,24 +489,27 @@
 
 
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 60;
+}
+
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
 
     WorKeDataModel *model = [dataArray objectAtIndex:section];
     
+    ListDataModel *info = [model.ordersArray objectAtIndex:0];
     
-    
+
     
     UIView *view = [[UIView alloc] init];
     
     view.backgroundColor = [UIColor whiteColor];
     
-    if ([self.type isEqualToString:@"0"])
-    {
 
-    }
-    else
-    {
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 250, 40)];
         
@@ -461,54 +527,34 @@
         button.layer.masksToBounds = YES;
         button.layer.cornerRadius = 8;
         
-        
-        if ([self.type isEqualToString:@"1"])
+
+        if ([info.o_pay isEqualToString:@"1"])
         {
-            [button setTitle:@"确认完工" forState:UIControlStateNormal];
-        }
-        else
-        {
+            //说明已经付过款了
             
             [button setTitle:@"已完工" forState:UIControlStateNormal];
             
             button.userInteractionEnabled = NO;
             
-            
-            for (int i = 0; i < model.ordersArray.count; i++)
-            {
-                ListDataModel *info = [model.ordersArray objectAtIndex:i];
-                
-                if ([info.o_pay isEqualToString:@"0"])
-                {
-                    [button setTitle:@"确认完工" forState:UIControlStateNormal];
-                    button.userInteractionEnabled = YES;
-                }
-                
-                
-            }
-
-
         }
-        
+        else
+        {
+            
+            [button setTitle:@"确认完工" forState:UIControlStateNormal];
+            button.userInteractionEnabled = YES;
+            
+        }
+   
 
         button.backgroundColor = [UIColor grayColor];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         button.tag = 700 + section;
         [button addTarget:self action:@selector(wangongBtn:) forControlEvents:UIControlEventTouchUpInside];
+        button.frame = CGRectMake(SCREEN_WIDTH - 95, 10, 80, 30);
         [view addSubview:button];
-        
-        
-        [button mas_makeConstraints:^(MASConstraintMaker *make)
-        {
-            make.centerY.mas_equalTo(view);
-            make.right.mas_equalTo(view).offset(-20);
-            make.width.mas_equalTo(80);
-            make.height.mas_equalTo(30);
-        }];
-        
-    }
-
+  
+   
     return view;
 }
 
@@ -520,15 +566,46 @@
     
     WorKeDataModel *model = [dataArray objectAtIndex:num];
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认完工后，您将付给未产生纠纷的工人相应的工资\n是否确认已经完工？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请确认所有工人都在工作状态后再确认完工\n确认完工后，您将付给工作中并未产生纠纷的工人相应的工资\n是否确认已经完工？" message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"还未完工" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
                       {
                           
                       }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"确认完工" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                       {
+                          BOOL zhifu = YES;
                           
-                          [self jiesuan:model.tew_id t_id:model.t_id];
+                          for (int i = 0; i < model.ordersArray.count; i++)
+                          {
+                              ListDataModel *info = [model.ordersArray objectAtIndex:i];
+                              
+                              if ([info.u_task_status isEqualToString:@"0"])
+                              {
+                                  //说明工种下有工人为洽谈
+
+                                  zhifu = NO;
+                              }
+                              
+                              //判断当前工种下，是否有辞职解雇的订单，如果有，则可以结账
+                              if ([info.o_status isEqualToString:@"-1"] || [info.o_status isEqualToString:@"-2"])
+                              {
+                                  zhifu = YES;
+                              }
+                              
+                          }
+                          
+                          
+                          if (zhifu == YES)
+                          {
+                              
+                              [self jiesuan:model.tew_id t_id:model.t_id];
+                              
+                          }
+                          else
+                          {
+                              [SVProgressHUD showErrorWithStatus:@"您有工人为洽谈状态，请先取消后在进行结算!"];
+                          }
+                          
                           
                           
                       }]];
@@ -539,24 +616,12 @@
 
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 40;
-}
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if ([self.type isEqualToString:@"0"])
-    {
-        return 0.1;
-    }
-    else
-    {
-        return 50;
-    }
-    
-    
+
+    return 50;
+ 
 }
 
 
@@ -618,7 +683,7 @@
              data.relation = [dic objectForKey:@"relation"];
              data.relation_type = [dic objectForKey:@"relation_type"];
              
-        //     s_sta = data.t_status;
+        
              
              for (int i = 0; i < data.t_workers.count; i++)
              {
@@ -641,6 +706,8 @@
                  info.tew_lock = [dic1 objectForKey:@"tew_lock"];
                  info.remaining = [dic1 objectForKey:@"remaining"];
                  info.orders = [dic1 objectForKey:@"orders"];
+                 info.tew_type = [dic1 objectForKey:@"tew_type"];
+                 info.tew_status = [dic1 objectForKey:@"tew_status"];
                  info.ordersArray = [NSMutableArray array];
                                               
                  for (int q = 0; q < info.orders.count; q++)
@@ -684,33 +751,8 @@
                      listModel.u_true_name = [ListDic objectForKey:@"u_true_name"];
                      listModel.u_img = [ListDic objectForKey:@"u_img"];
                      
-                     
-                     if ([self.type isEqualToString:@"0"])
-                     {
 
-                         if ([listModel.u_task_status isEqualToString:@"0"])
-                         {
-                             [info.ordersArray addObject:listModel];
-                         }
-                         
-                     }
-                     else if ([self.type isEqualToString:@"1"])
-                     {
-                         [info.ordersArray addObject:listModel];
-                         
-                     }
-                     else if ([self.type isEqualToString:@"2"])
-                     {
-                         
-                         if ([listModel.o_status isEqualToString:@"1"])
-                         {
-                             [info.ordersArray addObject:listModel];
-                         }
-                         
-                     }
-                     
-                    
-
+                     [info.ordersArray addObject:listModel];
 
                  }
                  
@@ -719,17 +761,13 @@
                  {
                      [dataArray addObject:info];
                  }
-                 
-
-                 
-             
 
              }
              
              
              if (dataArray.count != 0)
              {
-                 [self initUI];
+                 [self.tableview reloadData];
              }
              
             
@@ -744,6 +782,7 @@
     
     
 }
+
 
 //获取工种
 - (void)getdataW
@@ -778,11 +817,7 @@
                  
                  
              }
-             
-             
-           
-            
-           
+
          }
          
          
@@ -798,13 +833,10 @@
 
 
 
-
-
-
-
 //结算接口
 - (void)jiesuan: (NSString *)tew_id t_id:(NSString *)t_id
 {
+    
     NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=payout&tew_id=%@&t_id=%@&t_author=%@", baseUrl, tew_id, t_id, user_ID];
     
     NSLog(@"%@", url);
@@ -821,12 +853,16 @@
          {
              NSString *msg = [dictionary objectForKey:@"data"];
              
-             if ([msg isEqualToString:@"success"])
-             {
-                 [SVProgressHUD showInfoWithStatus:@"已确认完工"];
+             
+                 [SVProgressHUD showInfoWithStatus:msg];
                  
-                 [self.navigationController popViewControllerAnimated:YES];
-             }
+                 [self.navigationController popToRootViewControllerAnimated:YES];
+             
+//                 [SVProgressHUD showInfoWithStatus:@"结算失败, 请检查网络!"];
+//
+//                 [self.navigationController popToRootViewControllerAnimated:YES];
+             
+             
          }
 
      } failure:^(NSURLSessionDataTask *task, NSError *error)
@@ -844,6 +880,7 @@
 //评价的点击事件
 - (void)evaBtn: (UIButton *)btn
 {
+    
     NSString *tag = [NSString stringWithFormat:@"%ld", btn.tag];
     
     NSString *first = [tag substringToIndex:1];//section
