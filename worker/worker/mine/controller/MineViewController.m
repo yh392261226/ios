@@ -32,6 +32,9 @@
     NSMutableArray *elseIcon;    //图标数组
     NSMutableArray *titleArr;    //名称数组
     
+    
+    NSString *phone;  //客服电话号， 网络获取
+    
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -52,6 +55,7 @@
     
     titleArr = [NSMutableArray arrayWithObjects:@"设置提现密码",@"服务条款",@"设置",@"客服", nil];
     
+    [self infoData];
     
     [self initHeadView];
     
@@ -68,7 +72,7 @@
 {
     if (!_tableview)
     {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 65) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 114) style:UITableViewStylePlain];
     
         [_tableview registerClass:[MineLoginTableViewCell class] forCellReuseIdentifier:@"logincell"];
         [_tableview registerClass:[MineScrTableViewCell class] forCellReuseIdentifier:@"scrcell"];
@@ -124,8 +128,10 @@
         cell.typeButton.hidden = YES;
         cell.textL.hidden = YES;
         
+        
+        
         //未登录状态
-        if ([user_ID isEqualToString:@"0"])
+        if ([user_ID isEqualToString:@"0"] || user_ID == nil)
         {
             [cell.loginBtn addTarget:self action:@selector(loginBtn) forControlEvents:UIControlEventTouchUpInside];
             
@@ -152,7 +158,7 @@
             
             cell.userName.text = user_name;
             
-            if ([user_online isEqualToString:@"1"])
+            if ([user_online isEqualToString:@"1"] || [user_online isEqualToString:@"0"])
             {
                 cell.typeButton.on = YES;
             }
@@ -171,9 +177,13 @@
             {
                 cell.userImage.image = [UIImage imageNamed:@"job_man"];
             }
-            else
+            else if([user_sex isEqualToString:@"0"])
             {
                 cell.userImage.image = [UIImage imageNamed:@"job_woman"];
+            }
+            else
+            {
+                cell.userImage.hidden = YES;
             }
             
         }
@@ -212,7 +222,7 @@
         cell.name.text = [titleArr objectAtIndex:indexPath.section - 3];
         
         //判断是否登录
-        if ([user_ID isEqualToString:@"0"])
+        if ([user_ID isEqualToString:@"0"] || user_ID == nil)
         {
             if (indexPath.section == 3)
             {
@@ -272,7 +282,7 @@
 {
     if (section == 0)
     {
-        return 1;
+        return 10;
     }
     else if(section == 2)
     {
@@ -296,7 +306,7 @@
     
     self.hidesBottomBarWhenPushed = YES;
     
-    if (![user_ID isEqualToString:@"0"])
+    if (![user_ID isEqualToString:@"0"] || user_ID == nil)
     {
         if (indexPath.section == 4)
         {
@@ -322,7 +332,7 @@
         else if(indexPath.section == 6)
         {
             
-            NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"15045281940"];
+            NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
             
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
@@ -355,6 +365,7 @@
             }
             else
             {
+                [SVProgressHUD setForegroundColor:[UIColor blackColor]];
                 [SVProgressHUD showErrorWithStatus:@"请到个人信息处填写身份证号方可设置密码"];
             }
             
@@ -472,7 +483,7 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     
-    if (![user_ID isEqualToString:@"0"])
+    if (![user_ID isEqualToString:@"0"] || user_ID == nil)
     {
         if (val == 900)
         {
@@ -526,7 +537,7 @@
     self.hidesBottomBarWhenPushed = YES;
     
     
-    if (![user_ID isEqualToString:@"0"])
+    if (![user_ID isEqualToString:@"0"] || user_ID == nil)
     {
         
         if (index == 800)
@@ -584,13 +595,80 @@
 {
     if (swi.on == YES)
     {
-        NSLog(@"开");
+        [self logindata:@"1"];
     }
     else
     {
-        NSLog(@"关");
+        [self logindata:@"-1"];
     }
 }
+
+
+
+
+
+
+//在线隐身开关按钮
+- (void)logindata : (NSString *)status
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/usersInfoEdit", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic1 = @{@"u_id" : user_ID,
+                          @"u_online" : status
+                          };
+    
+    [manager POST:url parameters:dic1 success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+             if ([status isEqualToString:@"-1"])
+             {
+                 [SVProgressHUD showSuccessWithStatus:@"您的离线状态已开启"];
+             }
+             else
+             {
+                 [SVProgressHUD showSuccessWithStatus:@"您的在线状态已开启"];
+             }
+             
+             [self performSelector:@selector(dicNO) withObject:self afterDelay:1.5];
+             
+         }
+         else
+         {
+             
+             
+             
+         }
+         
+         
+         
+     }
+         failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+- (void)dicNO
+{
+    [SVProgressHUD dismiss];
+}
+
+
+
 
 
 
@@ -610,5 +688,49 @@
 }
 
 
+
+
+
+//获取客服电话接口
+- (void)infoData
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@ApplicationConfig/getAppConfig", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+          
+             NSDictionary *info = [dic objectForKey:@"data"];
+             
+             phone = [info objectForKey:@"service_telephone"];
+             
+         }
+         else
+         {
+             
+             
+             
+         }
+         
+         
+         
+     }
+         failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 @end

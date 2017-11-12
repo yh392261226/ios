@@ -8,6 +8,15 @@
 
 #import "BaseViewController.h"
 
+@protocol modifyMoney
+
+
+//   修改金钱回调
+- (void)tempMoney: (NSString *)money;
+
+@end
+
+
 @interface ModifyMoneyViewController : BaseViewController
 
 @property (nonatomic, strong)NSString *worName;
@@ -21,5 +30,9 @@
 @property (nonatomic, strong)NSString *tew_id;
 @property (nonatomic, strong)NSString *t_id;
 @property (nonatomic, strong)NSString *o_worker;
+
+
+
+@property (nonatomic, strong) id <modifyMoney> delegate;
 
 @end

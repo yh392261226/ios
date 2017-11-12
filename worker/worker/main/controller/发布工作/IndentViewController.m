@@ -716,8 +716,24 @@
         
         if ([[obj objectForKey:@"code"] integerValue] == 200)
         {
-          //  [SVProgressHUD showInfoWithStatus:[obj objectForKey:@"data"]];
-            [SVProgressHUD showSuccessWithStatus:@"发布成功"];
+            NSDictionary *dic = [obj objectForKey:@"data"];
+            
+            NSString *msg = [dic objectForKey:@"msg"];
+            
+            if ([msg isEqualToString:@"发布成功"])
+            {
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            else
+            {
+                
+            }
+            
+            [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+            [SVProgressHUD showErrorWithStatus:msg];
+            
+            
         }
         
         

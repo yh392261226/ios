@@ -78,6 +78,8 @@
     
     NSString *allMoney;   //网络请求获取所有金钱
     
+    NSString *jingduTime;   //网络获取的北京时间
+    
 }
 
 @property (nonatomic, strong)UITableView *tableview;
@@ -96,6 +98,8 @@
     // Do any additional setup after loading the view.
    
     oneT = YES;
+    
+    [self getTime];
     
     newArr = [NSMutableArray array];
     
@@ -125,7 +129,13 @@
     [self proTypeData];
     
     
+    
+    
+    
 }
+
+
+
 
 
 #pragma tableview代理
@@ -250,10 +260,9 @@
                 cell.name.font = [UIFont systemFontOfSize:16];
                 cell.name.text = @"描述:";
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                
+
                 cell.data.text = info.data;
                 cell.data.delegate = self;
- 
             }
             
             
@@ -543,6 +552,7 @@
         
         [footview addSubview:save];
         
+        
     }
     
     
@@ -567,7 +577,6 @@
         
         for (int j = 0; j < arr.count; j++)
         {
-            
             selecdType *data = [arr objectAtIndex:j];
             
             NSDictionary *dic = [myselfway entityToDictionary:data];
@@ -579,170 +588,341 @@
     
     }
     
-    NSLog(@"%@", newArr);
     
     
-    
-    
-    NSMutableDictionary *data = [NSMutableDictionary dictionary];
-    
-    workerAArry = [NSMutableArray array];
-    //修改数据格式， 上传服务器
-    for (int q = 0; q < newArr.count; q++)
-    {
-        NSArray *arr = [newArr objectAtIndex:q];
-        
-        if (q == 0)
-        {
-            for (int j = 0; j < arr.count; j++)
-            {
-                NSDictionary *dic = [arr objectAtIndex:j];
-                
-                switch (j)
-                {
-                    case 0:
-                        p_Name = [dic objectForKey:@"data"];
-                        [data setValue:p_Name forKey:@"t_title"];
-                        break;
-                    case 1:
-                        p_info = [dic objectForKey:@"data"];
-                        [data setValue:p_info forKey:@"t_info"];
-                        break;
-                    case 2:
-                        p_proType = [dic objectForKey:@"proTypeNum"];
-                        [data setValue:p_proType forKey:@"t_type"];
-                        break;
-                    case 3:
-                        p_province = [dic objectForKey:@"province_id"];
-                        p_city = [dic objectForKey:@"city_id"];
-                        p_area = [dic objectForKey:@"district_id"];
-                        
-                        [data setValue:p_province forKey:@"province"];
-                        [data setValue:p_city forKey:@"city"];
-                        [data setValue:p_area forKey:@"area"];
-                        break;
-                    case 4:
-                        p_adree = [dic objectForKey:@"data"];
-                        [data setValue:p_adree forKey:@"address"];
-                        break;
-                    default:
-                        break;
-                        
-                }
- 
-            }
    
-        }
-        else
-        {
-      
-            NSMutableDictionary *dicInfo = [NSMutableDictionary dictionary];
+    
+    
+    
+    //加上编辑逻辑校验
+    
+    BOOL yanzheng = NO;   //判断校验是否通过
+    
+    
+    
+   
+            NSArray *arr = [newArr objectAtIndex:0];
+ 
+            //工程名称
+            NSDictionary *dic = [arr objectAtIndex:0];
             
-            for (int i = 0; i < arr.count; i++)
-            {
-                NSDictionary *dic = [arr objectAtIndex:i];
-                
-                if (i == 0)
-                {
-                    [dicInfo setValue:[dic objectForKey:@"skill"] forKey:@"skill"];
-
-                }
-                else if (i == 1)
-                {
-                    NSMutableDictionary *person = [NSMutableDictionary dictionary];
-
-                    [person setValue:[dic objectForKey:@"personNum"] forKey:@"personNum"];
-
-                    NSMutableDictionary *money = [NSMutableDictionary dictionary];
-
-                    [money setValue:[dic objectForKey:@"money"] forKey:@"money"];
-                   
-                    
-                    [dicInfo setValue:[dic objectForKey:@"personNum"] forKey:@"personNum"];
-                    [dicInfo setValue:[dic objectForKey:@"money"] forKey:@"money"];
-                    
-                }
-                else if(i == 2)
-                {
-                    NSMutableDictionary *startTimeNum = [NSMutableDictionary dictionary];
-                    
-                    [startTimeNum setValue:[dic objectForKey:@"startTime"] forKey:@"startTime"];
-                    
-                    NSMutableDictionary *endTimeNum = [NSMutableDictionary dictionary];
-                    
-                    [endTimeNum setValue:[dic objectForKey:@"endTime"] forKey:@"endTime"];
-                    
-                    [dicInfo setValue:[dic objectForKey:@"startTime"] forKey:@"startTime"];
-                    [dicInfo setValue:[dic objectForKey:@"endTime"] forKey:@"endTime"];
-
-                }
-                
-                
-                
-            }
+            NSString *data0 = [dic objectForKey:@"data"];
   
             
-            [workerAArry addObject:dicInfo];
-           
+            //描述
+            NSDictionary *dic1 = [arr objectAtIndex:1];
+            
+            NSString *data1 = [dic1 objectForKey:@"data"];
+            
+            
+            //工程类型
+            NSDictionary *dic2 = [arr objectAtIndex:2];
+            
+            NSString *data2 = [dic2 objectForKey:@"proTypeNum"];
+            
+            
+            //所在区域
+            NSDictionary *dic3 = [arr objectAtIndex:3];
+            
+            NSString *data3 = [dic3 objectForKey:@"city_id"];
+            
+            
+            
+            //详细地址
+            NSDictionary *dic4 = [arr objectAtIndex:4];
+            
+            NSString *data4 = [dic4 objectForKey:@"data"];
+            
+            [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+            [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+            
+            if (data0.length == 0 || data0 == NULL)
+            {
+                [SVProgressHUD showErrorWithStatus:@"请输入工程名称"];
+                yanzheng = NO;
+            }
+            else if (data1.length == 0 || data1 == NULL)
+            {
+                [SVProgressHUD showErrorWithStatus:@"请输入工程描述"];
+                yanzheng = NO;
+            }
+            else if (data2.length == 0 || data2 == NULL)
+            {
+                [SVProgressHUD showErrorWithStatus:@"请选择工程类型"];
+                yanzheng = NO;
+            }
+            else if (data3.length == 0 || data3 == NULL)
+            {
+                [SVProgressHUD showErrorWithStatus:@"请选择所在区域"];
+                yanzheng = NO;
+            }
+            else if (data4.length == 0 || data4 == NULL)
+            {
+                [SVProgressHUD showErrorWithStatus:@"请输入详细地址"];
+                yanzheng = NO;
+            }
+            else
+            {
+                for (int i = 1; i < newArr.count; i++)
+                {
+                    NSArray *arr = [newArr objectAtIndex:i];
+                    
+                    NSDictionary *dic = [arr objectAtIndex:0];
+                    
+                    NSString *data0 = [dic objectForKey:@"skill"];
+ 
+                    NSDictionary *dic1 = [arr objectAtIndex:1];
+                    
+                    NSString *data1 = [dic1 objectForKey:@"personNum"];
+                    NSString *data2 = [dic1 objectForKey:@"money"];
+                    
+                    
+                    NSDictionary *dic2 = [arr objectAtIndex:2];
+                    
+                    NSString *data3 = [dic2 objectForKey:@"startTime"];
+                    NSString *data4 = [dic2 objectForKey:@"endTime"];
+                    
+                    
+                    NSString *timeS = [data3 stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                    NSString *timeE = [data4 stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                    NSString *beijing = [jingduTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                    
+                    if (data0.length == 0 || data0 == NULL)
+                    {
+                        [SVProgressHUD showErrorWithStatus:@"请选择工种"];
+                        yanzheng = NO;
+                    }
+                    else if (data1.length == 0 || data1 == NULL)
+                    {
+                        [SVProgressHUD showErrorWithStatus:@"请输入招工人数"];
+                        yanzheng = NO;
+                    }
+                    else if (data2.length == 0 || data2 == NULL)
+                    {
+                        [SVProgressHUD showErrorWithStatus:@"请输入工人工资"];
+                        yanzheng = NO;
+                    }
+                    else if (data3.length == 0 || data3 == NULL)
+                    {
+                        [SVProgressHUD showErrorWithStatus:@"请选择项目开始时间"];
+                        yanzheng = NO;
+                    }
+                    else if ([timeS integerValue] < [beijing integerValue])
+                    {
+                        [SVProgressHUD showErrorWithStatus:@"项目开始时间不应小于当前时间"];
+                        yanzheng = NO;
+                    }
+                    else if (data4.length == 0 || data4 == NULL)
+                    {
+                        [SVProgressHUD showErrorWithStatus:@"请选择项目结束时间"];
+                        yanzheng = NO;
+                    }
+                    else if ([timeE integerValue] < [beijing integerValue])
+                    {
+                        [SVProgressHUD showErrorWithStatus:@"项目结束时间不应小于当前时间"];
+                        yanzheng = NO;
+                    }
+                    else
+                    {
+                        yanzheng = YES;
+                    }
+
+                }
+            }
+            
+            
+    
+    [self performSelector:@selector(DisSVP) withObject:self afterDelay:1.5];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //校验通过，下一页传数据， 网络请求
+    if (yanzheng == YES)
+    {
+        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+        
+        workerAArry = [NSMutableArray array];
+        
+        //修改数据格式， 上传服务器
+        for (int q = 0; q < newArr.count; q++)
+        {
+            NSArray *arr = [newArr objectAtIndex:q];
+            
+            if (q == 0)
+            {
+                for (int j = 0; j < arr.count; j++)
+                {
+                    NSDictionary *dic = [arr objectAtIndex:j];
+                    
+                    switch (j)
+                    {
+                        case 0:
+                            p_Name = [dic objectForKey:@"data"];
+                            [data setValue:p_Name forKey:@"t_title"];
+                            break;
+                        case 1:
+                            p_info = [dic objectForKey:@"data"];
+                            [data setValue:p_info forKey:@"t_info"];
+                            break;
+                        case 2:
+                            p_proType = [dic objectForKey:@"proTypeNum"];
+                            [data setValue:p_proType forKey:@"t_type"];
+                            break;
+                        case 3:
+                            p_province = [dic objectForKey:@"province_id"];
+                            p_city = [dic objectForKey:@"city_id"];
+                            p_area = [dic objectForKey:@"district_id"];
+                            
+                            [data setValue:p_province forKey:@"province"];
+                            [data setValue:p_city forKey:@"city"];
+                            [data setValue:p_area forKey:@"area"];
+                            break;
+                        case 4:
+                            p_adree = [dic objectForKey:@"data"];
+                            [data setValue:p_adree forKey:@"address"];
+                            break;
+                        default:
+                            break;
+                            
+                    }
+                    
+                }
+                
+            }
+            else
+            {
+                
+                NSMutableDictionary *dicInfo = [NSMutableDictionary dictionary];
+                
+                for (int i = 0; i < arr.count; i++)
+                {
+                    NSDictionary *dic = [arr objectAtIndex:i];
+                    
+                    if (i == 0)
+                    {
+                        [dicInfo setValue:[dic objectForKey:@"skill"] forKey:@"skill"];
+                        
+                    }
+                    else if (i == 1)
+                    {
+                        NSMutableDictionary *person = [NSMutableDictionary dictionary];
+                        
+                        [person setValue:[dic objectForKey:@"personNum"] forKey:@"personNum"];
+                        
+                        NSMutableDictionary *money = [NSMutableDictionary dictionary];
+                        
+                        [money setValue:[dic objectForKey:@"money"] forKey:@"money"];
+                        
+                        
+                        [dicInfo setValue:[dic objectForKey:@"personNum"] forKey:@"personNum"];
+                        [dicInfo setValue:[dic objectForKey:@"money"] forKey:@"money"];
+                        
+                    }
+                    else if(i == 2)
+                    {
+                        NSMutableDictionary *startTimeNum = [NSMutableDictionary dictionary];
+                        
+                        [startTimeNum setValue:[dic objectForKey:@"startTime"] forKey:@"startTime"];
+                        
+                        NSMutableDictionary *endTimeNum = [NSMutableDictionary dictionary];
+                        
+                        [endTimeNum setValue:[dic objectForKey:@"endTime"] forKey:@"endTime"];
+                        
+                        [dicInfo setValue:[dic objectForKey:@"startTime"] forKey:@"startTime"];
+                        [dicInfo setValue:[dic objectForKey:@"endTime"] forKey:@"endTime"];
+                        
+                    }
+                    
+                    
+                    
+                }
+                
+                
+                [workerAArry addObject:dicInfo];
+                
+            }
+            
+            
+            [data setValue:workerAArry forKey:@"worker"];
+            
         }
         
+        NSString *str_X = [NSString stringWithFormat:@"%f", self.longitudeWor];
+        NSString *str_Y = [NSString stringWithFormat:@"%f", self.latitudeWor];
         
-        [data setValue:workerAArry forKey:@"worker"];
+        [data setValue:str_X  forKey:@"t_posit_x"];
+        [data setValue:str_Y forKey:@"t_posit_y"];
+        [data setValue:user_ID forKey:@"t_author"];
+        [data setValue:@"0" forKey:@"t_storage"];
         
+        NSData *datainfo = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
+        
+        
+        NSString *getStr = [datainfo base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        
+        NSDictionary *dicAll = @{@"data" : getStr};
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@Tools/subTotal", baseUrl];
+        [self postRequestByServiceUrl:url andApi:nil andParams:dicAll andCallBack:^(id obj)
+         {
+             
+             
+             
+             NSLog(@"%@", obj);
+             
+             if ([[obj objectForKey:@"code"] integerValue] == 200)
+             {
+                 //[SVProgressHUD showInfoWithStatus:[obj objectForKey:@"data"]];
+                 
+                 allMoney = [obj objectForKey:@"data"];
+                 
+                 NSLog(@"%@", allMoney);
+                 
+                 
+                 
+             }
+             
+             
+         }];
+        
+        self.hidesBottomBarWhenPushed = YES;
+        
+        IndentViewController *temp = [[IndentViewController alloc] init];
+        
+        temp.postDic = data;
+        temp.modelArray = dataArray;
+        temp.allMoney = allMoney;
+        
+        temp.longitudeWor = self.longitudeWor;
+        temp.latitudeWor = self.latitudeWor;
+        
+        [self.navigationController pushViewController:temp animated:YES];
+
     }
     
-    NSString *str_X = [NSString stringWithFormat:@"%f", self.longitudeWor];
-    NSString *str_Y = [NSString stringWithFormat:@"%f", self.latitudeWor];
-    
-    [data setValue:str_X  forKey:@"t_posit_x"];
-    [data setValue:str_Y forKey:@"t_posit_y"];
-    [data setValue:user_ID forKey:@"t_author"];
-    [data setValue:@"0" forKey:@"t_storage"];
-    
-    NSData *datainfo = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
+            
     
     
-    NSString *getStr = [datainfo base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+                
 
-    NSDictionary *dicAll = @{@"data" : getStr};
-    
-    NSString *url = [NSString stringWithFormat:@"%@Tools/subTotal", baseUrl];
-    [self postRequestByServiceUrl:url andApi:nil andParams:dicAll andCallBack:^(id obj) {
 
-        
-        
-        NSLog(@"%@", obj);
-        
-        if ([[obj objectForKey:@"code"] integerValue] == 200)
-        {
-            //[SVProgressHUD showInfoWithStatus:[obj objectForKey:@"data"]];
+}
 
-            allMoney = [obj objectForKey:@"data"];
-            
-            NSLog(@"%@", allMoney);
-            
-            self.hidesBottomBarWhenPushed = YES;
-            
-            
-        }
-       
-        
-    }];
-    
-    IndentViewController *temp = [[IndentViewController alloc] init];
-    
-    temp.postDic = data;
-    temp.modelArray = dataArray;
-    temp.allMoney = allMoney;
-    
-    temp.longitudeWor = self.longitudeWor;
-    temp.latitudeWor = self.latitudeWor;
-    
-    [self.navigationController pushViewController:temp animated:YES];
-    
-    
-    
-    
+
+
+- (void)DisSVP
+{
+    [SVProgressHUD dismiss];
 }
 
 
@@ -1212,6 +1392,11 @@
         _startTime.backgroundColor = [myselfway stringTOColor:@"0xF3F3F3"];
         [_startTime addTarget:self action:@selector(seletedBirthyDate:) forControlEvents:UIControlEventValueChanged];
         
+        
+        
+        
+        
+        
         [self.view addSubview:_startTime];
     }
     
@@ -1530,6 +1715,87 @@
     
     [task resume];
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//网络获取北京时间
+- (void)getTime
+{
+  
+    
+    NSString *url = [NSString stringWithFormat:@"%@Tools/index", baseUrl];
+    
+    NSLog(@"%@", url);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             NSDictionary *time = [dic objectForKey:@"datetime"];
+             
+             jingduTime = [time objectForKey:@"date"];
+           
+             
+         }
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         [SVProgressHUD dismiss];
+     }];
+    
+    
+}
+
+
+
+
+
+
+
+
 
 
 

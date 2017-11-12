@@ -147,20 +147,27 @@
              NSString *dic = [dictionary objectForKey:@"data"];
              
              NSLog(@"%@", dic);
+ 
+                 BYesWorkerViewController *temp = [[BYesWorkerViewController alloc] init];
+                 
+                 temp.redText = self.redText;
+                 temp.orangeText = self.orangeText;
+                 temp.greenText = self.greenText;
+                 temp.blueText = self.blueText;
+                 
+                 
+                 temp.t_id = self.t_id;
+                 
+                 [self.navigationController pushViewController:temp animated:YES];
+                 [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                 [SVProgressHUD showInfoWithStatus:dic];
+//             }
+//             else
+//             {
+//                 [SVProgressHUD showInfoWithStatus:@"开工失败，请检查网络!"];
+//             }
              
-             [SVProgressHUD showInfoWithStatus:dic];
              
-             BYesWorkerViewController *temp = [[BYesWorkerViewController alloc] init];
-             
-             temp.redText = self.redText;
-             temp.orangeText = self.orangeText;
-             temp.greenText = self.greenText;
-             temp.blueText = self.blueText;
-             
-             
-             temp.t_id = self.t_id;
-             
-             [self.navigationController pushViewController:temp animated:YES];
              
              
          }

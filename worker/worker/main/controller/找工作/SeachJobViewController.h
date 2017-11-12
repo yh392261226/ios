@@ -41,11 +41,15 @@
 @property (nonatomic, strong)NSString *tew_lock;
 @property (nonatomic, strong)NSNumber *favorate;
 @property (nonatomic, strong)NSString *u_img;
+@property (nonatomic, strong)NSString *range;
 
 @property (nonatomic, strong)NSString *t_imageUrl;
 @end
 
 
 @interface SeachJobViewController : BaseViewController
+
+@property (nonatomic)CGFloat longitudeWor;    //经度
+@property (nonatomic)CGFloat latitudeWor;     //纬度
 
 @end

@@ -141,7 +141,7 @@
     
     cell.favoriteBtn.hidden = YES;
     cell.details.hidden = YES;
-    
+    cell.distance.hidden = YES;
     
     cell.centerBtn.hidden = NO;
     cell.rightBtn.hidden = NO;
@@ -153,8 +153,9 @@
     if ([model.t_status isEqualToString:@"0"])
     {
         cell.state.image = [UIImage imageNamed:@"main_state1"];
-        [cell.centerBtn setTitle:@"取消发布" forState:0];
-        [cell.rightBtn setTitle:@"修改信息" forState:0];
+       // [cell.centerBtn setTitle:@"" forState:0];
+        cell.centerBtn.hidden = YES;
+        [cell.rightBtn setTitle:@"取消发布" forState:0];
     }
     else if ([model.t_status isEqualToString:@"1"])
     {
@@ -164,7 +165,7 @@
         cell.centerBtn.hidden = YES;
     
     }
-    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"])
+    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"] || [model.t_status isEqualToString:@"-3"])
     {
         cell.state.image = [UIImage imageNamed:@"main_state5"];
         
@@ -172,7 +173,7 @@
         cell.rightBtn.hidden = YES;
         
     }
-    else if([model.t_status isEqualToString:@"3"])
+    else if([model.t_status isEqualToString:@"3"] || [model.t_status isEqualToString:@"4"])
     {
         
         cell.state.image = [UIImage imageNamed:@"main_state6"];
@@ -267,7 +268,7 @@
         [self.navigationController pushViewController:temp animated:YES];
         
     }
-    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"])
+    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"] || [model.t_status isEqualToString:@"-3"])
     {
         //工作中
         self.hidesBottomBarWhenPushed = YES;
@@ -281,7 +282,7 @@
         [self.navigationController pushViewController:temp animated:YES];
         
     }
-    else if([model.t_status isEqualToString:@"3"])
+    else if([model.t_status isEqualToString:@"4"] || [model.t_status isEqualToString:@"3"])
     {
         //完成
         
@@ -378,22 +379,20 @@
     
     if ([model.t_status isEqualToString:@"0"])
     {
-        //空闲
-        [self deldata:model.t_id];
+        
         
     }
     else if ([model.t_status isEqualToString:@"1"])
     {
-        //洽谈
-        [self deldata:model.t_id];
+        
         
     }
-    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"])
+    else if ([model.t_status isEqualToString:@"2"] || [model.t_status isEqualToString:@"5"] || [model.t_status isEqualToString:@"-3"])
     {
         //进行
         
     }
-    else if([model.t_status isEqualToString:@"3"])
+    else if([model.t_status isEqualToString:@"3"] || [model.t_status isEqualToString:@"4"])
     {
      
         
@@ -409,14 +408,26 @@
     
     NSInteger index = btn.tag - 300;
     
+    NSString *inde = [NSString stringWithFormat:@"%ld", index];
+    
     EmpDataModel *model = [dataArray objectAtIndex:index];
     
-    if([model.t_status isEqualToString:@"3"])
+    if([model.t_status isEqualToString:@"3"] || [model.t_status isEqualToString:@"4"])
     {
         //结束
         [self DDDDDdeldata:model.t_id];
     }
-    
+    else if ([model.t_status isEqualToString:@"0"])
+    {
+        //空闲
+        [self deldata:model.t_id index:inde];
+    }
+    else if ([model.t_status isEqualToString:@"1"])
+    {
+        //洽谈
+        [self deldata:model.t_id index:inde];
+  
+    }
  
 }
 
@@ -472,8 +483,6 @@
     [self.navigationController pushViewController:temp animated:YES];
     
 }
-
-
 
 
 
@@ -561,8 +570,9 @@
 }
 
 
+
 //删除订单， 真删
-- (void)deldata: (NSString *)t_id
+- (void)deldata: (NSString *)t_id index:(NSString *)index
 {
     NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=del&t_id=%@&t_author=%@", baseUrl, t_id, user_ID];
 
@@ -576,13 +586,23 @@
 
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
+             
              NSString *msg = [dictionary objectForKey:@"data"];
+             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
              
-             [SVProgressHUD showInfoWithStatus:msg];
-             
+             if ([msg isEqualToString:@"success"])
+             {
+                 [SVProgressHUD showInfoWithStatus:@"取消成功"];
+                 
+                 
+             }
+             else
+             {
+                 [SVProgressHUD showInfoWithStatus:@"取消失败，请检查网络"];
+             }
+
              [self performSelector:@selector(deleBtn) withObject:self afterDelay:1];
-             
-             [self.tableview reloadData];
+
          }
 
 
@@ -605,7 +625,7 @@
 //删除订单， 假删
 - (void)DDDDDdeldata: (NSString *)t_id
 {
-    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=del2&t_id=%@&t_author=%@&", baseUrl, t_id, user_ID];
+    NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=del2&t_id=%@&t_author=%@", baseUrl, t_id, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -619,11 +639,26 @@
          {
              NSString *msg = [dictionary objectForKey:@"data"];
              
-             [SVProgressHUD showInfoWithStatus:msg];
+             if ([msg isEqualToString:@"success"])
+             {
+                 [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                 [SVProgressHUD showInfoWithStatus:@"取消成功"];
+                 
+                 [self getdata:@"99"];
+             }
+             else
+             {
+                 [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                 [SVProgressHUD showInfoWithStatus:@"取消失败，请检查网络"];
+             }
+             
+             
              
              [self performSelector:@selector(deleBtn) withObject:self afterDelay:1];
              
-             [self.tableview reloadData];
+             
+            
+
          }
          
          

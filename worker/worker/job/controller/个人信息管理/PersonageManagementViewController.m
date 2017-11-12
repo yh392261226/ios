@@ -100,7 +100,7 @@
     NSString *level2;  //市ID
     NSString *level3;  //区ID
     
-    
+    BOOL yeOrno;   //判断校验是否通过
     
 }
 
@@ -115,6 +115,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    yeOrno = NO;
     
     Warr = [NSMutableArray array];
 
@@ -282,6 +284,11 @@
             
             cell.name.text = data.name;
             cell.field.text = data.data;
+            
+            if (indexPath.row == 6)
+            {
+                cell.field.userInteractionEnabled = NO;
+            }
             
             
             cell.field.tag = indexPath.row + 700;
@@ -728,6 +735,116 @@
 //提交信息按钮
 - (void)savebtn
 {
+    
+    PersonDataClass *infn0 = [writeArray objectAtIndex:0];
+ //   PersonDataClass *infn1 = [writeArray objectAtIndex:1];
+    PersonDataClass *infn2 = [writeArray objectAtIndex:2];
+    PersonDataClass *infn3 = [writeArray objectAtIndex:3];
+    PersonDataClass *infn4 = [writeArray objectAtIndex:4];
+    PersonDataClass *infn5 = [writeArray objectAtIndex:5];
+    PersonDataClass *infn6 = [writeArray objectAtIndex:6];
+ //   PersonDataClass *infn7 = [writeArray objectAtIndex:7];
+
+    if (writeArray.count == 10)
+    {
+        PersonDataClass *infn8 = [writeArray objectAtIndex:8];
+        
+        if (infn8.workerArray.count == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请添加工种"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn0.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入姓名"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn2.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入身份证号"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn3.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请选择先居住地"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn4.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请编辑详细地址"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn5.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入个人简介"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn5.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入个人简介"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn6.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"后台未传手机号"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else
+        {
+            //我是工人校验判断
+            [self postUrl];
+        }
+    }
+    else
+    {
+        if (infn0.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入姓名"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn2.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入身份证号"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn3.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请选择先居住地"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn4.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请编辑详细地址"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn5.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入个人简介"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn5.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入个人简介"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else if (infn6.data.length == 0)
+        {
+            [SVProgressHUD showErrorWithStatus:@"后台未传手机号"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
+        else
+        {
+            //我不是工人编辑校验
+            [self postUrl];
+        }
+    }
+
+}
+
+
+//网络请求
+- (void)postUrl
+{
     NSMutableArray *postArray = [NSMutableArray array];
     
     for (int i = 0; i < writeArray.count; i++)
@@ -746,8 +863,18 @@
         [postArray addObject:dic];
     }
     
+    
     [self postInfoData];
     
+}
+
+
+
+
+
+- (void)NoDiss
+{
+    [SVProgressHUD dismiss];
 }
 
 //更换头像的点击事件
@@ -886,7 +1013,7 @@
     PersonDataClass *info6 = [[PersonDataClass alloc] init];
     info6.typeInf = 0;
     info6.name = @"电话号:";
-    info6.data = model.u_phone;
+    info6.data = model.u_mobile;
     [dataArray addObject:info6];
     
     
@@ -1020,7 +1147,7 @@
     PersonDataClass *info6 = [[PersonDataClass alloc] init];
     info6.typeInf = 0;
     info6.name = @"电话号:";
-    info6.data = model.u_phone;
+    info6.data = model.u_mobile;
     info6.placehold = @"请填写绑定手机号";
     [writeArray addObject:info6];
     
@@ -1454,7 +1581,10 @@
          {
              
              NSDictionary *dic = [dictionary objectForKey:@"data"];
-
+             
+         
+             [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"u_name"];
+             [[NSUserDefaults standardUserDefaults] setObject:sex forKey:@"u_sex"];
              
              [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
              

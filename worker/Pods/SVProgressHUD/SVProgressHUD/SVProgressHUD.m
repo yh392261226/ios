@@ -256,6 +256,7 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
 #pragma mark - Show, then automatically dismiss methods
 
 + (void)showInfoWithStatus:(NSString*)status {
+ 
     [self showImage:[self sharedView].infoImage status:status];
 }
 

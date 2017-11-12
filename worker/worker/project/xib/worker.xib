@@ -53,7 +53,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" tag="1100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="job_man" translatesAutoresizingMaskIntoConstraints="NO" id="PZV-Qm-aa2">
-                    <rect key="frame" x="186" y="15" width="20" height="20"/>
+                    <rect key="frame" x="213" y="15" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="bIK-Eb-Q1L"/>
                         <constraint firstAttribute="height" constant="20" id="mRq-lz-kpS"/>
@@ -67,7 +67,7 @@
                         <constraint firstAttribute="width" constant="49" id="nTt-Jc-eFY"/>
                     </constraints>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" tag="5555" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投诉工人" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnQ-0J-47P">
+                <label opaque="NO" userInteractionEnabled="NO" tag="5555" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投诉对方" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnQ-0J-47P">
                     <rect key="frame" x="307" y="44" width="38" height="38"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="38" id="82R-8J-P1A"/>
@@ -148,7 +148,7 @@
                 <constraint firstItem="zEb-9R-kVv" firstAttribute="top" secondItem="Jkb-lV-HaA" secondAttribute="top" constant="40" id="fge-d7-6t8"/>
                 <constraint firstItem="PZV-Qm-aa2" firstAttribute="top" secondItem="Jkb-lV-HaA" secondAttribute="top" constant="15" id="gFF-lD-peq"/>
                 <constraint firstItem="KZj-8h-SDA" firstAttribute="leading" secondItem="Jkb-lV-HaA" secondAttribute="leading" constant="20" id="mKi-Wu-N1O"/>
-                <constraint firstItem="PZV-Qm-aa2" firstAttribute="leading" secondItem="KZj-8h-SDA" secondAttribute="trailing" constant="96" id="ng9-cQ-REZ"/>
+                <constraint firstItem="PZV-Qm-aa2" firstAttribute="leading" secondItem="KZj-8h-SDA" secondAttribute="trailing" constant="123" id="ng9-cQ-REZ"/>
                 <constraint firstAttribute="trailing" secondItem="F1a-Bq-cVu" secondAttribute="trailing" constant="31" id="vRm-Ve-hVC"/>
                 <constraint firstItem="iOq-cQ-pzP" firstAttribute="leading" secondItem="KZj-8h-SDA" secondAttribute="trailing" constant="25" id="w7W-Hk-wZa"/>
             </constraints>
@@ -200,7 +200,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" tag="2000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="job_man" translatesAutoresizingMaskIntoConstraints="NO" id="e4Q-ER-UQE">
-                    <rect key="frame" x="186" y="15" width="20" height="20"/>
+                    <rect key="frame" x="210" y="15" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="Mjw-Wj-AyU"/>
                         <constraint firstAttribute="height" constant="20" id="hk4-sm-Xy5"/>
@@ -260,7 +260,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="ghT-iS-tox" firstAttribute="top" secondItem="vxt-sb-arM" secondAttribute="bottom" constant="15" id="3lL-IA-8WQ"/>
-                <constraint firstItem="e4Q-ER-UQE" firstAttribute="leading" secondItem="zic-Gp-vi9" secondAttribute="trailing" constant="96" id="6jt-CR-k1x"/>
+                <constraint firstItem="e4Q-ER-UQE" firstAttribute="leading" secondItem="zic-Gp-vi9" secondAttribute="trailing" constant="120" id="6jt-CR-k1x"/>
                 <constraint firstAttribute="trailing" secondItem="lbp-9O-f1b" secondAttribute="trailing" constant="30" id="Eqj-gn-oqP"/>
                 <constraint firstAttribute="trailing" secondItem="glE-eJ-kPi" secondAttribute="trailing" constant="31" id="Fpa-6Q-6Ax"/>
                 <constraint firstItem="ajL-zQ-EyE" firstAttribute="top" secondItem="J76-vR-f1K" secondAttribute="top" constant="15" id="Kp6-wE-rQi"/>

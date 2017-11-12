@@ -359,6 +359,9 @@
 //下一步按钮
 - (void)Escbtn
 {
+    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+    [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+    
     for (int j = 0; j < bankArray.count; j++)
     {
         DepositModel *model = [bankArray objectAtIndex:j];

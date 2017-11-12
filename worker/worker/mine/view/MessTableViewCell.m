@@ -69,6 +69,17 @@
         
         
         
+        _svp = [[UIImageView alloc] init];
+        
+        _svp.layer.masksToBounds = YES;
+        
+        _svp.layer.cornerRadius = 7.5;
+        
+        _svp.backgroundColor = [UIColor redColor];
+        
+        [self.contentView addSubview:_svp];
+        
+        
     }
     
     return self;
@@ -81,8 +92,8 @@
     
     [_title mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.top.mas_equalTo(self.contentView).offset(10);
-        make.left.mas_equalTo(self.contentView).offset(15);
+        make.top.mas_equalTo(self.contentView).offset(7);
+        make.left.mas_equalTo(self.contentView).offset(20);
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(200);
         
@@ -101,7 +112,7 @@
     [_detail mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.top.mas_equalTo(_title).offset(25);
-         make.left.mas_equalTo(self.contentView).offset(15);
+         make.left.mas_equalTo(self.contentView).offset(25);
          make.height.mas_equalTo(20);
          make.width.mas_equalTo(SCREEN_WIDTH - 100);
          
@@ -115,6 +126,19 @@
          make.width.mas_equalTo(80);
          
      }];
+    
+    
+    
+    [_svp mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.top.mas_equalTo(self.contentView).offset(10);
+         make.left.mas_equalTo(self.contentView).offset(5);
+         make.height.mas_equalTo(15);
+         make.width.mas_equalTo(15);
+         
+     }];
+    
+    
 }
 
 

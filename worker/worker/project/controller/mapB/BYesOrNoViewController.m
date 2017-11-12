@@ -12,6 +12,7 @@
 #import "PartyBclauseViewController.h"
 #import "BYesWorkerViewController.h"
 #import "PartyBinfoViewController.h"
+#import "PartyDomplainViewController.h"
 
 @interface BYesOrNoViewController ()<BMKLocationServiceDelegate, BMKMapViewDelegate>
 {
@@ -114,7 +115,47 @@
     
     [self initUI];
     
+    [self initDraft];
     
+    
+}
+
+//加载投诉按钮
+- (void)initDraft
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    [button setTitle:@"投诉" forState:0];
+    
+    [button addTarget:self action:@selector(Draft) forControlEvents:UIControlEventTouchUpInside];
+    
+    button.titleLabel.font = [UIFont systemFontOfSize:16];
+    
+    [button setTitleColor:[myselfway stringTOColor:@"0x2E84F8"] forState:UIControlStateNormal];
+    
+    [self.view addSubview:button];
+    
+    
+    [button mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.top.mas_equalTo(self.view).offset(28.5);
+         make.right.mas_equalTo(self.view).offset(-15);
+         make.height.mas_equalTo(30);
+         make.width.mas_equalTo(60);
+     }];
+    
+}
+
+
+
+
+//投诉按钮点击事件
+- (void)Draft
+{
+    self.hidesBottomBarWhenPushed = YES;
+    PartyDomplainViewController *temp = [[PartyDomplainViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
     
     
 }
@@ -312,8 +353,8 @@
     
     // annotationV.image = [UIImage imageNamed:@"5ud.png"];//大头针的显示图片
     CLLocationCoordinate2D coor;
-    coor.latitude = [Xmap doubleValue];
-    coor.longitude = [Ymap doubleValue];
+    coor.latitude = [Ymap doubleValue];
+    coor.longitude = [Xmap doubleValue];
     
     annotation.coordinate = coor;
     
@@ -533,7 +574,7 @@
                  info.orders = [dic1 objectForKey:@"orders"];
                  info.ordersArray = [NSMutableArray array];
                  
-                 info.ordersArray = [NSMutableArray array];
+             //    info.ordersArray = [NSMutableArray array];
                  
                  for (int q = 0; q < info.orders.count; q++)
                  {
@@ -582,6 +623,8 @@
                      if ([listModel.o_worker isEqualToString:user_ID])
                      {
                          [info.ordersArray addObject:listModel];
+                         
+                         [dataArray addObject:info];
                      }
                      
 
@@ -589,11 +632,20 @@
                  
                  
                  
-                 [dataArray addObject:info];
                  
-                 [self initDataUi];
+                 
+                 
                  
              }
+             
+             
+             //防止程序崩溃
+             if (dataArray.count > 0)
+             {
+                 [self initDataUi];
+             }
+             
+             
          }
 
      }
@@ -620,7 +672,7 @@
     
     greenLab.text = [NSString stringWithFormat:@"工期:%@ 一 %@", start, end];
     
-    organerLab.text = [NSString stringWithFormat:@"%@元/天", model.tew_price];
+    organerLab.text = [NSString stringWithFormat:@"%@元/天", info.o_amount];
     
     
     for (int j = 0; j < skillsArr.count; j++)
@@ -650,7 +702,9 @@
         }
         else
         {
-            [yesBtn setTitle:@"等待工人确认开工" forState:UIControlStateNormal];
+            [yesBtn setTitle:@"等待雇主确认开工" forState:UIControlStateNormal];
+            
+            yesBtn.titleLabel.font = [UIFont systemFontOfSize:11];
             
             yesBtn.userInteractionEnabled = NO;
         }
@@ -722,7 +776,7 @@
 {
     //  NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=cancel&o_id=%@&tew_id=%@&t_id=%@&o_worker=%@&u_id=%@&s_id=%@&o_confirm=%@&o_status=%@", baseUrl, self.o_id,self.tew_id, self.t_id,self.o_worker, user_ID, self.s_id, self.o_confirm, self.o_status];
     
-    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=cancel&o_id=%@", baseUrl, o_id];
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=cancel&o_id=%@&sponsor=%@", baseUrl, o_id, user_ID];
     
     NSLog(@"%@", url);
     
@@ -737,9 +791,25 @@
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
              
-             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             NSString *dic = [dictionary objectForKey:@"data"];
              
              NSLog(@"%@", dic);
+             [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+             
+             if ([dic isEqualToString:@"success"])
+             {
+                 [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                 [SVProgressHUD showSuccessWithStatus:@"取消成功"];
+                 
+                 [self performSelector:@selector(disNo) withObject:self afterDelay:1.5];
+                 
+                 [self.navigationController popToRootViewControllerAnimated:YES];
+             }
+             else
+             {
+                 [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                 [SVProgressHUD showSuccessWithStatus:@"取消失败，网络错误"];
+             }
 
          }
          
@@ -753,6 +823,10 @@
     
 }
 
+- (void)disNo
+{
+    [SVProgressHUD dismiss];
+}
 
 
 - (void)didReceiveMemoryWarning {

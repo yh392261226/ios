@@ -125,6 +125,9 @@
 {
     ModifyMoneyViewController *temp = [[ModifyMoneyViewController alloc] init];
     
+    
+    temp.delegate = self;
+    
     temp.worName = self.worName;
     temp.person = self.person;
     temp.money = self.money;
@@ -137,6 +140,15 @@
     
     [self.navigationController pushViewController:temp animated:YES];
     
+}
+
+
+//   修改金钱回调
+- (void)tempMoney: (NSString *)money
+{
+    NSString *sta = [myselfway timeWithTimeIntervalString:self.startTime];
+    NSString *end = [myselfway timeWithTimeIntervalString:self.endTime];
+    qian.text = [NSString stringWithFormat:@"%@元/人/天, 工期%@ 一 %@", money, sta, end];
 }
 
 
@@ -171,7 +183,7 @@
              NSString *dic = [dictionary objectForKey:@"data"];
              
              NSLog(@"%@", dic);
-             
+             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
              [SVProgressHUD showInfoWithStatus:dic];
              
              [self.delegate secuuss];

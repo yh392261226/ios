@@ -29,4 +29,7 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong)NSString *worker_id;   //工人ID
 
+
+@property (nonatomic, strong)NSString *gongzhongID;  // gongzhong 
+
 @end

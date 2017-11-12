@@ -4,7 +4,7 @@
 //
 //  Created by 郭健 on 2017/9/13.
 //  Copyright © 2017年 郭健. All rights reserved.
-//
+
 
 #import "AYesWorkerViewController.h"
 #import "PartyBinfoViewController.h"
@@ -92,7 +92,7 @@
      [self getdata];
     [self addhead:@"已开工"];
     
-    [self initUI];
+    
     
     [self initMapView];
     
@@ -258,8 +258,8 @@
     
     // annotationV.image = [UIImage imageNamed:@"5ud.png"];//大头针的显示图片
     CLLocationCoordinate2D coor;
-    coor.latitude = [Xmap doubleValue];
-    coor.longitude = [Ymap doubleValue];
+    coor.latitude = [Ymap doubleValue];
+    coor.longitude = [Xmap doubleValue];
     
     annotation.coordinate = coor;
     
@@ -338,6 +338,7 @@
 //解雇工人按钮
 - (void)nobtn
 {
+    
     UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"请与工人先进行沟通再进行此项操作" message:@"当日解雇工人需支付工人当日工资 \n建议今日工作完毕后再解雇工人" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"再考虑考虑" style:UIAlertActionStyleCancel handler:nil];
@@ -471,6 +472,10 @@
                  
                  [icon sd_setBackgroundImageWithURL:url forState:UIControlStateNormal];
                  
+                 
+                 
+
+                 [self initUI];
                  
                  
                  

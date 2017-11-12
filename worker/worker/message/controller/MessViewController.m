@@ -37,7 +37,7 @@
     
     UILabel *msg = [[UILabel alloc] init];
     
-    msg.text = @"此功能正在开发,敬请期待!";
+    msg.text = @"此功能正在开发, 敬请期待!";
     
     msg.textAlignment = NSTextAlignmentCenter;
     

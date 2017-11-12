@@ -101,6 +101,11 @@
     
 }
 
+- (void)temp
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 
 - (void)initUI
 {
@@ -215,9 +220,7 @@
     noBtn.layer.cornerRadius = 6;
     noBtn.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
     
-    
-    
-   
+
     
     
     time = [backview viewWithTag:2000];
@@ -277,14 +280,16 @@
     
     // annotationV.image = [UIImage imageNamed:@"5ud.png"];//大头针的显示图片
     CLLocationCoordinate2D coor;
-    coor.latitude = [Xmap doubleValue];
-    coor.longitude = [Ymap doubleValue];
+    coor.latitude = [Ymap doubleValue];
+    coor.longitude = [Xmap doubleValue];
     
     annotation.coordinate = coor;
     
     self.mapView.centerCoordinate = annotation.coordinate;
     
     [self.mapView addAnnotation:annotation];
+    
+    
     
     
 }
@@ -327,6 +332,7 @@
 //头像按钮， 进入工人详情
 - (void)detailBtn
 {
+    
     PartyBinfoViewController *temp = [[PartyBinfoViewController alloc] init];
     
     temp.u_id = guzhuID;
@@ -564,6 +570,7 @@
                      if ([listModel.o_worker isEqualToString:user_ID])
                      {
                          [info.ordersArray addObject:listModel];
+                         [dataArray addObject:info];
                      }
                      
                      
@@ -571,11 +578,20 @@
                  
                  
                  
-                 [dataArray addObject:info];
                  
-                 [self initDataUi];
+                 
+                 
                  
              }
+             
+             
+             // 防止崩溃
+             if (dataArray.count > 0)
+             {
+                 [self initDataUi];
+             }
+             
+             
          }
          
      }
@@ -594,7 +610,7 @@
 {
     AWorKeDataModel *model = [dataArray objectAtIndex:0];
     
-    // AListDataModel *info = [model.ordersArray objectAtIndex:0];
+    AListDataModel *info = [model.ordersArray objectAtIndex:0];
     
     blueLab.text = model.tew_address;
     
@@ -603,7 +619,7 @@
     
     greenLab.text = [NSString stringWithFormat:@"工期:%@ 一 %@", start, end];
     
-    organerLab.text = [NSString stringWithFormat:@"%@元/天", model.tew_price];
+    organerLab.text = [NSString stringWithFormat:@"%@元/天", info.o_amount];
     
     
     for (int j = 0; j < skillsArr.count; j++)

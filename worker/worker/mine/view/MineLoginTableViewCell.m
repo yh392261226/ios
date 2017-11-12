@@ -98,7 +98,7 @@
     [_userName mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.centerY.mas_equalTo(self.contentView);
-        make.left.mas_equalTo(_IconImage).offset(60);
+        make.left.mas_equalTo(_IconImage).offset(70);
         make.height.mas_equalTo(30);
         make.width.mas_equalTo(150);
     }];
@@ -123,7 +123,7 @@
     [_userImage mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.mas_equalTo(self.contentView);
-        make.left.mas_equalTo(_userName).offset(135);
+        make.left.mas_equalTo(_userName).offset(110);
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(20);
     }];

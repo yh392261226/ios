@@ -8,6 +8,19 @@
 
 #import "BaseViewController.h"
 
+@interface wechatGet : NSObject
+
+@property (nonatomic, strong)NSString *appId;
+@property (nonatomic, strong)NSString *timeStamp;
+@property (nonatomic, strong)NSString *nonceStr;
+@property (nonatomic, strong)NSString *package;
+@property (nonatomic, strong)NSString *prepay_id;
+@property (nonatomic, strong)NSString *paySign;
+@property (nonatomic, strong)NSString *signType;
+
+
+@end
+
 @interface RechargeViewController : BaseViewController
 
 @end

@@ -94,7 +94,7 @@
     
     
     evaluate = [backview viewWithTag:1004];
-    evaluate.text = @"好评10000次";
+    evaluate.text = self.haoping;
     
     
     Complaints = [backview viewWithTag:1005];
@@ -218,6 +218,7 @@
 //提交按钮
 - (void)yesBtn
 {
+    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
     if (qustion.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"请填写辞退原因"];

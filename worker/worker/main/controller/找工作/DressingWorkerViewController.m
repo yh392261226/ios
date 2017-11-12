@@ -47,7 +47,7 @@
     NSString *proType;   //项目类型
     NSString *worker;    //选择工种
     
-    NSMutableArray *rangeArray;   //搜索范围的数组
+  //  NSMutableArray *rangeArray;   //搜索范围的数组
     NSMutableArray *projectArray;  //选择工期的数组
     NSMutableArray *moneyArray;    //工资金额的数组
     NSMutableArray *timeArray;     //项目开始时间数组
@@ -79,7 +79,7 @@
     projectArray = [NSMutableArray array];
     gongzhongArr = [NSMutableArray array];
     
-    rangeArray = [NSMutableArray arrayWithObjects:@"2公里以内", @"5公里以内", @"10公里以内", @"10公里以上", nil];
+ //   rangeArray = [NSMutableArray arrayWithObjects:@"2公里以内", @"5公里以内", @"10公里以内", @"10公里以上", nil];
     projectArray = [NSMutableArray arrayWithObjects:@"2日内",@"五日内",@"十日内",@"一个月内",@"一个月以上", nil];
     moneyArray = [NSMutableArray arrayWithObjects:@"500元以内",@"1000元以内",@"2000元以内",@"2000元以上", nil];
     timeArray = [NSMutableArray arrayWithObjects:@"1天内",@"3天内",@"一周内",@"两周内",@"两周以上", nil];
@@ -87,18 +87,16 @@
     
     dataArray = [NSMutableArray array];
     
-    nameArr = [NSMutableArray arrayWithObjects:@"搜索范围:",@"选择工期",@"工资金额", @"开始时间", @"项目类型", @"选择工种", nil];
+    nameArr = [NSMutableArray arrayWithObjects:@"选择工期",@"工资金额", @"开始时间", @"项目类型", @"选择工种", nil];
     
     
-    
-    
-    
-    
+  
     [self addhead:@"工作信息筛选"];
     
     [self tableview];
     
     [self getWorkerdata];
+    [self proTypeData];
     
     UIButton *Mess = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -190,7 +188,7 @@
 {
     if (section == 0)
     {
-        return 7;
+        return 6;
     }
     else
     {
@@ -233,28 +231,25 @@
         
             if (indexPath.row == 1)
             {
-                cell.data.text = range;
+                cell.data.text = project;
             }
             else if (indexPath.row == 2)
             {
-                cell.data.text = project;
+                cell.data.text = money;
             }
             else if (indexPath.row == 3)
             {
-                cell.data.text = money;
+                cell.data.text = time;
             }
             else if (indexPath.row == 4)
             {
-                cell.data.text = time;
+                cell.data.text = proType;
             }
             else if (indexPath.row == 5)
             {
-                cell.data.text = proType;
-            }
-            else
-            {
                 cell.data.text = worker;
             }
+            
             
             return cell;
         }
@@ -341,30 +336,30 @@
     
     if (indexPath.section == 0)
     {
+//        if (indexPath.row == 1)
+//        {
+//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"搜索范围" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//
+//            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+//
+//            [alertController addAction:cancelAction];
+//
+//            for (int i = 0; i < rangeArray.count; i++)
+//            {
+//                UIAlertAction *action = [UIAlertAction actionWithTitle:[rangeArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+//                                         {
+//                                             range = action.title;
+//
+//                                             [self.tableview reloadData];
+//                                         }];
+//
+//                [alertController addAction:action];
+//            }
+//
+//            [self presentViewController:alertController animated:YES completion:nil];
+//
+//        }
         if (indexPath.row == 1)
-        {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"搜索范围" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
-            
-            [alertController addAction:cancelAction];
-            
-            for (int i = 0; i < rangeArray.count; i++)
-            {
-                UIAlertAction *action = [UIAlertAction actionWithTitle:[rangeArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-                                         {
-                                             range = action.title;
-                                             
-                                             [self.tableview reloadData];
-                                         }];
-                
-                [alertController addAction:action];
-            }
-            
-            [self presentViewController:alertController animated:YES completion:nil];
-            
-        }
-        else if (indexPath.row == 2)
         {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择工期" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             
@@ -386,7 +381,7 @@
             
             [self presentViewController:alertController animated:YES completion:nil];
         }
-        else if (indexPath.row == 3)
+        else if (indexPath.row == 2)
         {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"工资金额" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             
@@ -408,7 +403,7 @@
             
             [self presentViewController:alertController animated:YES completion:nil];
         }
-        else if (indexPath.row == 4)
+        else if (indexPath.row == 3)
         {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"项目时间" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             
@@ -430,7 +425,7 @@
             
             [self presentViewController:alertController animated:YES completion:nil];
         }
-        else if (indexPath.row == 6)
+        else if (indexPath.row == 5)
         {
             [gongzhongArr removeAllObjects];
             
@@ -462,6 +457,39 @@
             
             [self presentViewController:alertController animated:YES completion:nil];
             
+        }
+        else if (indexPath.row == 4)
+        {
+            if (projectArray.count == 0)
+            {
+                [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                [SVProgressHUD showErrorWithStatus:@"网络连接失败,请检查网络"];
+            }
+            else
+            {
+                UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"工程类型" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                UIAlertAction *Return = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:nil];
+                
+                [AlertController addAction:Return];
+                
+
+                for (int i = 0; i < projectTypeArray.count; i++)
+                {
+                    UIAlertAction *action = [UIAlertAction actionWithTitle:[projectTypeArray objectAtIndex:i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                             {
+                                                 proType = action.title;
+                                                 
+                                                 [self.tableview reloadData];
+                                             }];
+                    
+                    
+                    [AlertController addAction:action];
+                }
+                
+                [self presentViewController:AlertController animated:YES completion:nil];
+            }
+  
         }
         
     }
@@ -520,7 +548,35 @@
 //搜索按钮
 - (void)MessBtn
 {
-    [self.delegate DressWorkerData:nameStr adree:range proData:project proMoney:money proTime:time proType:proType proWorker:worker];
+    NSString *worID;   //工种ID
+    NSString *typeID;   //工程类型ID
+    
+    for (int i = 0; i < workerArray.count; i++)
+    {
+        DressWorkerData1 *data = [workerArray objectAtIndex:i];
+        
+        if ([data.s_name isEqualToString:worker])
+        {
+            worID = data.s_id;
+        }
+        
+    }
+    
+    
+    
+    for (int j = 0; j < projectTypeArray.count; j++)
+    {
+        NSString *name = [projectTypeArray objectAtIndex:j];
+        
+        if ([name isEqualToString:proType])
+        {
+            typeID = [NSString stringWithFormat:@"%ld", j];
+        }
+    }
+    
+    
+    
+    [self.delegate DressWorkerData:nameStr adree:range proData:project proMoney:money proTime:time proType:typeID proWorker:worID];
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
@@ -576,7 +632,6 @@
         }
         
         [hitory insertObject:info atIndex:0];
-        
         
         NSDictionary *dic = @{@"history": hitory};
         
@@ -637,6 +692,53 @@
     
     
 }
+
+
+
+
+
+//获取工程类型数据
+- (void)proTypeData
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Tools/taskType"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             projectTypeArray = [dictionary objectForKey:@"data"];
+ 
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
