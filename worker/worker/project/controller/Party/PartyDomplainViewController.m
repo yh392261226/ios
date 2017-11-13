@@ -443,11 +443,14 @@
     else
     {
         
-        [imageArray removeObjectAtIndex:0];
+        if (imageArray.count > 0)
+        {
+            [imageArray removeObjectAtIndex:0];
+            
+            [self imageData:[imageArray objectAtIndex:0]];
+        }
         
-
-        [self imageData:[imageArray objectAtIndex:0]];
-        
+     //   [SVProgressHUD showErrorWithStatus:@"图片太大，无法上传!"];
 
     }
     

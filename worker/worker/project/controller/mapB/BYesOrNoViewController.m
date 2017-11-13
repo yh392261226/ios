@@ -66,6 +66,18 @@
     
     NSString *t_id;
     
+    
+    
+    
+    
+    
+    
+    NSString *name1;  //姓名
+    NSString *icon1;  //头像
+    NSString *haoping1;  //评价
+    NSString *sex1;
+    NSString *worker_id;
+    NSString *workerName;
    
 }
 
@@ -155,6 +167,16 @@
     self.hidesBottomBarWhenPushed = YES;
     PartyDomplainViewController *temp = [[PartyDomplainViewController alloc] init];
     
+    
+    temp.type = @"1";
+    
+    temp.name = name1;
+    temp.sex = sex1;
+    temp.number = haoping1;
+    temp.worker = worker_id;
+    temp.workerName = workerName;
+    temp.icon = icon1;
+    
     [self.navigationController pushViewController:temp animated:YES];
     
     
@@ -187,7 +209,8 @@
     icon = [backview viewWithTag:1001];
     icon.layer.cornerRadius = 35;
     icon.layer.masksToBounds = YES;
-    icon.backgroundColor = [UIColor orangeColor];
+    //icon.backgroundColor = [UIColor orangeColor];
+    [icon setBackgroundImage:[UIImage imageNamed:@"job_icon"] forState:UIControlStateNormal];
     [icon addTarget:self action:@selector(detailBtn) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -525,6 +548,8 @@
              data.u_true_name = [dic objectForKey:@"u_true_name"];
              data.relation = [dic objectForKey:@"relation"];
              data.relation_type = [dic objectForKey:@"relation_type"];
+             data.u_high_opinions = [dic objectForKey:@"u_high_opinions"];
+             
              
              t_id = data.t_id;
              
@@ -631,6 +656,12 @@
                  }
                  
                  
+                 
+                 name1 = data.u_true_name;
+                 sex1 = data.u_sex;
+                 icon1 = data.u_img;
+                 worker_id = data.t_author;
+                 haoping1 = data.u_high_opinions;
                  
                  
                  

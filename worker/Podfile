@@ -13,6 +13,7 @@ target 'worker' do
     pod 'YYKit'
     pod 'FMDB'
     pod 'WechatOpenSDK'
+    pod 'PGDatePicker', '>= 1.4.3'
     
     # U-Share SDK UI模块（分享面板，建议添加）
     pod 'UMengUShare/UI'

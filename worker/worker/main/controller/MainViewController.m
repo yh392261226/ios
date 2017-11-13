@@ -14,7 +14,7 @@
 #import "MineMessViewController.h"
 #import "IssueViewController.h"
 
-
+#import "HSDatePickerVC.h"
 #import "PartyDismissViewController.h"
 
 @implementation cityData
@@ -29,7 +29,7 @@
 @end
 
 
-@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate, CLLocationManagerDelegate>
+@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate, CLLocationManagerDelegate, HSDatePickerVCDelegate>
 {
     TabbarView *tabbar;
     
@@ -67,6 +67,8 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;  //系统定位
 
 @property (nonatomic, strong)UITableView *tableview;
+
+
 
 @end
 
@@ -111,7 +113,13 @@
     
 }
 
-
+- (void)datePicker:(HSDatePickerVC*)datePicker
+          withYear:(NSString *)year
+             month:(NSString *)month
+               day:(NSString *)day
+{
+    NSLog(@"选择了   %@-%@-%@",year,month,day);
+}
 //百度地图
 //- (void)initBaiduMap
 //{
@@ -159,39 +167,30 @@
           fromLocation:(CLLocation *)oldLocation
 {
     // 获取经纬度
-    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
-    NSLog(@"经度:%f",newLocation.coordinate.longitude);
+//    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
+//    NSLog(@"经度:%f",newLocation.coordinate.longitude);
     
     
-    longitude = newLocation.coordinate.longitude;
-    latitude = newLocation.coordinate.latitude;
+    //系统定位坐标转换百度地图经纬度坐标
+    CLLocationCoordinate2D test = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
     
+    NSDictionary *testdic = BMKConvertBaiduCoorFrom(test,BMK_COORDTYPE_COMMON);
+    //转换GPS坐标至百度坐标
+    testdic = BMKConvertBaiduCoorFrom(test,BMK_COORDTYPE_GPS);
     
-    //位置信息上传服务器
-    [self PostAdree];
+    CLLocationCoordinate2D trans = BMKCoorDictionaryDecode(testdic); //转换方法
     
+    longitude = trans.longitude;
+    latitude = trans.latitude;
     
-    //十分钟请求一次， 上传位置
-//    UILocalNotification *_localNotification = [[UILocalNotification alloc] init];
-//
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
-//
-//        while (TRUE)
-//        {
-//            [NSThread sleepForTimeInterval:600];
-//
-//            [[UIApplication sharedApplication] cancelAllLocalNotifications];
-//
-//
-//            [self PostAdree];
-//            //网络请求
-//
-//            //其他处理
-//
-//            [[UIApplication sharedApplication] scheduleLocalNotification:_localNotification];
-//        };
-//
-//    });
+
+    if ([user_ID integerValue] > 0)
+    {
+        //位置信息上传服务器
+        [self PostAdree];
+    }
+    
+
 
     
     
@@ -316,6 +315,8 @@
 }
 
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -330,8 +331,7 @@
         temp.latitudeWor = latitude;
         temp.cityID = city_id;
         [self.navigationController pushViewController:temp animated:YES];
-        
-        
+
     }
     else if (indexPath.section == 1)
     {

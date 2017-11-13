@@ -89,6 +89,12 @@
     NSArray *tabArr = @[naviMain, naviJob, naviMess, naviMine];
     
     self.viewControllers = tabArr;
+    
+    
+    
+    
+    
+   
 
 }
 

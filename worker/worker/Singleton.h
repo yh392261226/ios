@@ -17,7 +17,9 @@
 @property (nonatomic, strong)NSString *dataPath;
 @property (nonatomic, strong)FMDatabaseQueue *queue;
 
-
+@property (nonatomic, strong)NSString *name;
+@property (nonatomic, strong)UIImage *icon;
+@property (nonatomic, strong)NSString *sex;
 
 + (Singleton *)instance;
 

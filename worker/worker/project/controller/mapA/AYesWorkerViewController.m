@@ -118,8 +118,10 @@
     
     icon = [backview viewWithTag:1001];
     icon.layer.cornerRadius = 35;
-    icon.backgroundColor = [UIColor orangeColor];
+  //  icon.backgroundColor = [UIColor orangeColor];
     icon.layer.masksToBounds = YES;
+    
+    [icon setBackgroundImage:[UIImage imageNamed:@"job_icon"] forState:UIControlStateNormal];
     [icon addTarget:self action:@selector(detailBtn) forControlEvents:UIControlEventTouchUpInside];
     
     

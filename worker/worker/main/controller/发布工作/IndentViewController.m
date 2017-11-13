@@ -61,7 +61,7 @@
     UIView *Passwordview;   //支付密码的view
     UIControl *cor;   //背景
     
-    
+    NSString *msg; //提示消息
     
     NSMutableArray *dataArray;
     
@@ -671,7 +671,15 @@
     
     self.pasView.delegate = self;
     
-    [cor addSubview:self.pasView];
+    [Passwordview addSubview:self.pasView];
+    
+    [self.pasView mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.top.mas_equalTo(Passwordview).offset(40);
+         make.left.mas_equalTo(Passwordview).offset(16);
+         make.right.mas_equalTo(Passwordview).offset(-16);
+         make.height.mas_equalTo(45);
+     }];
     
 }
 
@@ -718,21 +726,21 @@
         {
             NSDictionary *dic = [obj objectForKey:@"data"];
             
-            NSString *msg = [dic objectForKey:@"msg"];
+            msg = [dic objectForKey:@"msg"];
             
             if ([msg isEqualToString:@"发布成功"])
             {
                 
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                
             }
             else
             {
                 
             }
             
-            [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-            [SVProgressHUD showErrorWithStatus:msg];
             
+            //将页面跳转。 转换到主线程区操作
+            [self performSelectorOnMainThread:@selector(jumpToViewCon) withObject:nil waitUntilDone:NO];
             
         }
         
@@ -740,6 +748,16 @@
     }];
 }
 
+
+- (void)jumpToViewCon
+{
+    
+    [self NOBtn];
+    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+    [SVProgressHUD showErrorWithStatus:msg];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+}
 
 - (void)postRequestByServiceUrl:(NSString *)service
                          andApi:(NSString *)api

@@ -8,6 +8,17 @@
 
 #import "BaseViewController.h"
 
+@interface workerArrData1 : NSObject
+
+@property (nonatomic, strong)NSString *s_id;
+
+@property (nonatomic, strong)NSString *s_desc;
+@property (nonatomic, strong)NSString *s_info;
+@property (nonatomic, strong)NSString *s_name;
+@property (nonatomic, strong)NSString *s_status;
+
+@end
+
 @interface AYesOrNoViewController : BaseViewController
 
 @property (nonatomic, strong)NSString *worU_id;   //工人ID

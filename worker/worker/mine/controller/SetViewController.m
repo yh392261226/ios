@@ -132,38 +132,10 @@
 
     if (indexPath.section == 1)
     {
-        if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0f)
-        {
-            UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
-
-            if (UIUserNotificationTypeNone == setting.types)
-            {
-                NSLog(@"推送关闭");
-
-                MessageViewController *temp = [[MessageViewController alloc] init];
-
-                [self.navigationController pushViewController:temp animated:YES];
-
-
-            }
-            else
-            {
-                NSLog(@"推送打开");
-            }
-        }
-        else
-        {
-            UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-
-            if(UIRemoteNotificationTypeNone == type)
-            {
-                NSLog(@"推送关闭");
-            }
-            else
-            {
-                NSLog(@"推送打开");
-            }
-        }
+       
+            
+            
+        
     }
     
     

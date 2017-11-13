@@ -18,7 +18,10 @@
     {
         _icon = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        _icon.backgroundColor = [UIColor redColor];
+       // _icon.backgroundColor = [UIColor redColor];
+        
+        [_icon setBackgroundImage:[UIImage imageNamed:@"job_icon"] forState:UIControlStateNormal];
+        
         
         _icon.layer.cornerRadius = 35;
         

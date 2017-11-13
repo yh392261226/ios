@@ -25,7 +25,7 @@
 #import "packetViewController.h"
 #import "discountViewController.h"
 
-@interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface MineViewController ()<UITableViewDelegate, UITableViewDataSource, UITabBarDelegate, UITabBarControllerDelegate>
 {
     NSMutableArray *dataArray;
     
@@ -48,6 +48,10 @@
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = YES;
+    
+    
+    self.tabBarController.delegate = self;
+    
     
     dataArray = [NSMutableArray array];
     
@@ -168,9 +172,12 @@
             }
             
     
+            
             NSURL *url = [NSURL URLWithString:user_ima];
             
             [cell.IconImage sd_setImageWithURL:url];
+            
+            cell.IconImage.tag = 997;
             
             
             if ([user_sex isEqualToString:@"1"])
@@ -687,6 +694,29 @@
     [self.tableview reloadData];
 }
 
+
+
+//刷新个人信息数据
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    
+    if (viewController.tabBarController.selectedIndex == 3)
+    {
+        
+        UIImageView *icon = [self.view viewWithTag:997];
+        
+        icon.image = [Singleton instance].icon;
+        
+        
+        [self.tableview reloadData];
+    }
+    
+    
+//    NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:0];
+//
+//    [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+}
 
 
 

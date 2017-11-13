@@ -955,6 +955,7 @@
 //制作数据类
 - (void)initUiData
 {
+    
     PersonDataClass *info0 = [[PersonDataClass alloc] init];
     info0.typeInf = 0;
     info0.name = @"姓名:";
@@ -1102,6 +1103,7 @@
     PersonDataClass *info1 = [[PersonDataClass alloc] init];
     info1.typeInf = @"1";
     info1.name = @"性别:";
+    
     if ([model.u_sex isEqualToString:@"0"])
     {
         info1.data = @"女";
@@ -1282,6 +1284,8 @@
         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
         {
             Hview.Icon.image = ima;
+            
+            [Singleton instance].icon = ima;
         }
         else
         {

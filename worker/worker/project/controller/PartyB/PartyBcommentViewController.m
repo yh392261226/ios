@@ -160,6 +160,13 @@
     
     PartyDomplainViewController *temp = [[PartyDomplainViewController alloc] init];
     
+    
+    
+    
+    
+    
+    
+    
     [self.navigationController pushViewController:temp animated:YES];
 }
 

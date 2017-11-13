@@ -27,7 +27,9 @@
         _IconBtn = [[UIImageView alloc] init];;
         _IconBtn.frame = CGRectMake(15, 10, 60, 60);
         _IconBtn.layer.cornerRadius = 30;
-        _IconBtn.backgroundColor = [UIColor orangeColor];
+     //   _IconBtn.backgroundColor = [UIColor orangeColor];
+        _IconBtn.image = [UIImage imageNamed:@"job_icon"];
+      
         [_backview addSubview:_IconBtn];
         
         

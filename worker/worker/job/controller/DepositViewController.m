@@ -176,7 +176,15 @@
     
     self.pasView.delegate = self;
     
-    [cor addSubview:self.pasView];
+    [Passwordview addSubview:self.pasView];
+    
+    [self.pasView mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.top.mas_equalTo(Passwordview).offset(40);
+         make.left.mas_equalTo(Passwordview).offset(16);
+         make.right.mas_equalTo(Passwordview).offset(-16);
+         make.height.mas_equalTo(45);
+     }];
     
 }
 
@@ -259,11 +267,13 @@
         else if (indexPath.row == 1)
         {
             cell.name.text = @"卡号:";
+            cell.data.keyboardType = UIKeyboardTypeNumberPad;
             cell.data.placeholder = @"收款人储蓄卡号";
         }
         else if (indexPath.row == 3)
         {
             cell.name.text = @"金额:";
+            cell.data.keyboardType = UIKeyboardTypeNumberPad;
             cell.data.placeholder = @"";
         }
       
@@ -348,8 +358,7 @@
         
         [footview addSubview:save];
         
-   
-    
+
     
     return footview;
 }
