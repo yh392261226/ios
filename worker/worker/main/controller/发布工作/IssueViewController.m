@@ -44,9 +44,9 @@
 #import "ThreeCityViewController.h"
 #import "IndentViewController.h"
 #import "indent.h"
+#import "HSDatePickerVC.h"
 
-
-@interface IssueViewController ()<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface IssueViewController ()<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, HSDatePickerVCDelegate>
 {
     NSMutableArray *dataArray;        //支撑页面的大数组
     
@@ -84,8 +84,8 @@
 
 @property (nonatomic, strong)UITableView *tableview;
 
-@property (nonatomic, strong)UIDatePicker *startTime;   //项目开始时间的控件
-@property (nonatomic, strong)UIDatePicker *endTime;     //项目结束时间的控件
+@property (nonatomic, strong)HSDatePickerVC *startTime1;   //项目开始时间的控件
+@property (nonatomic, strong)HSDatePickerVC *endTime;     //项目结束时间的控件
 
 @end
 
@@ -887,25 +887,28 @@
                  
                  NSLog(@"%@", allMoney);
                  
+                 self.hidesBottomBarWhenPushed = YES;
                  
+                 IndentViewController *temp = [[IndentViewController alloc] init];
+                 
+                 temp.postDic = data;
+                 temp.modelArray = dataArray;
+                 temp.allMoney = allMoney;
+                 
+                 temp.longitudeWor = self.longitudeWor;
+                 temp.latitudeWor = self.latitudeWor;
+                 
+                 //将页面跳转。 转换到主线程区操作
+                 [self performSelectorOnMainThread:@selector(jumpToViewCon:) withObject:temp waitUntilDone:NO];
                  
              }
              
              
          }];
         
-        self.hidesBottomBarWhenPushed = YES;
         
-        IndentViewController *temp = [[IndentViewController alloc] init];
         
-        temp.postDic = data;
-        temp.modelArray = dataArray;
-        temp.allMoney = allMoney;
         
-        temp.longitudeWor = self.longitudeWor;
-        temp.latitudeWor = self.latitudeWor;
-        
-        [self.navigationController pushViewController:temp animated:YES];
 
     }
     
@@ -918,6 +921,11 @@
 
 }
 
+
+- (void)jumpToViewCon:(IndentViewController *)con
+{
+    [self.navigationController pushViewController:con animated:YES];
+}
 
 
 - (void)DisSVP
@@ -1306,8 +1314,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.view endEditing:YES];
-    _startTime.hidden = YES;
-    _endTime.hidden = YES;
+    
 }
 
 
@@ -1347,211 +1354,143 @@
 - (void)startBtn: (UIButton *)btn
 {
     
-    
-    if (_startTime.hidden == YES)
-    {
-        _startTime.hidden = NO;
-    }
-    else
-    {
-        [self startTime];
-    }
+    self.startTime1 = [[HSDatePickerVC alloc] init];
+    self.startTime1.delegate = self;
+    self.startTime1.type = 1;
+    [self presentViewController:self.startTime1 animated:YES completion:nil];
     
     
-    _startTime.tag = btn.tag;
+    
+    
+    self.startTime1.tag = btn.tag;
     
 }
 
 //项目结束时间调用datapick
 - (void)endBtn: (UIButton *)btn
 {
-    if (_endTime.hidden == YES)
-    {
-        _endTime.hidden = NO;
-    }
-    else
-    {
-        [self endTime];
-    }
-    
+
+    self.endTime = [[HSDatePickerVC alloc] init];
+    self.endTime.delegate = self;
+    [self presentViewController:self.endTime animated:YES completion:nil];
+    self.endTime.type = 2;
     
     _endTime.tag = btn.tag;
 }
 
 
 
-
-- (UIDatePicker *)startTime
+- (void)datePicker:(HSDatePickerVC *)datePicker
+          withYear:(NSString *)year
+             month:(NSString *)month
+               day:(NSString *)day
 {
-    if (!_startTime)
+    if (datePicker.type == 1)
     {
-        _startTime = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 216, SCREEN_WIDTH, 216)];
-        _startTime.date = [NSDate date]; // 设置初始时间
-        _startTime.timeZone = [NSTimeZone timeZoneWithName:@"GTM+8"];
-        _startTime.datePickerMode = UIDatePickerModeDate;
-        _startTime.backgroundColor = [myselfway stringTOColor:@"0xF3F3F3"];
-        [_startTime addTarget:self action:@selector(seletedBirthyDate:) forControlEvents:UIControlEventValueChanged];
+        NSString *time = [NSString stringWithFormat:@"%@-%@-%@", year, month, day];
         
         
+        NSString *str = [NSString stringWithFormat:@"%ld", datePicker.tag];
+        
+        NSString *sectionStr = [str substringToIndex:1];//section
+        
+        NSString *rowStr = [str substringWithRange:NSMakeRange(1, 1)]; //row
+        
+        //  NSString *numStr = [str substringFromIndex:str.length - 1];  //最后一位
+        
+        NSInteger section = [sectionStr integerValue];
+        NSInteger row = [rowStr integerValue];
+        // NSInteger end = [numStr integerValue];
+        
+        NSArray *arr = [dataArray objectAtIndex:section];
+        
+        selecdType *info = [arr objectAtIndex:row];
         
         
+        elseModel *model = (elseModel *)info;
         
         
-        [self.view addSubview:_startTime];
-    }
-    
-    return _startTime;
-    
-}
-
-
-
-- (void)seletedBirthyDate: (UIDatePicker *)data
-{
-    
-    NSDate *select = [data date]; // 获取被选中的时间
-    
-    NSDateFormatter *selectDateFormatter = [[NSDateFormatter alloc] init];
-    
-    selectDateFormatter.dateFormat = @"yyyy-MM-dd"; // 设置时间和日期的格式
-    
-//    starttime = [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
-    
-    
-    
-    NSString *str = [NSString stringWithFormat:@"%ld", data.tag];
-    
-    NSString *sectionStr = [str substringToIndex:1];//section
-    
-    NSString *rowStr = [str substringWithRange:NSMakeRange(1, 1)]; //row
-    
-    //  NSString *numStr = [str substringFromIndex:str.length - 1];  //最后一位
-    
-    NSInteger section = [sectionStr integerValue];
-    NSInteger row = [rowStr integerValue];
-    // NSInteger end = [numStr integerValue];
-    
-    NSArray *arr = [dataArray objectAtIndex:section];
-    
-    selecdType *info = [arr objectAtIndex:row];
-    
-    
-    elseModel *model = (elseModel *)info;
-        
-    
-    
-    
-    
-    //比较时间大小
-    if ([model.workerType isEqualToString:@"2"])
-    {
-        NSString *staT = [[selectDateFormatter stringFromDate:select] stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        NSString *endT = [model.endTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        
-        if (endT == nil)
+        //比较时间大小
+        if ([model.workerType isEqualToString:@"2"])
         {
-            endT = @"1111111110";
-        }
-        
-        if ([staT integerValue] > [endT integerValue])
-        {
-            [SVProgressHUD showInfoWithStatus:@"开始时间不应大于结束时间"];
-        }
-        else
-        {
-            model.startTime = [selectDateFormatter stringFromDate:select];
-        
-            [self.tableview reloadData];
-        }
-    }
-    
-    
-    
-    
-    
-    
-   
-    
-}
-
-
-- (UIDatePicker *)endTime
-{
-    if (!_endTime)
-    {
-        _endTime = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 216, SCREEN_WIDTH, 216)];
-        _endTime.date = [NSDate date]; // 设置初始时间
-        _endTime.timeZone = [NSTimeZone timeZoneWithName:@"GTM+8"];
-        _endTime.datePickerMode = UIDatePickerModeDate;
-        _endTime.backgroundColor = [myselfway stringTOColor:@"0xF3F3F3"];
-        [_endTime addTarget:self action:@selector(seletedBirthyDatetO:) forControlEvents:UIControlEventValueChanged];
-        
-        [self.view addSubview:_endTime];
-    }
-    
-    return _endTime;
-    
-}
-
-
-
-- (void)seletedBirthyDatetO: (UIDatePicker *)data
-{
-    
-    NSDate *select = [data date]; // 获取被选中的时间
-    
-    NSDateFormatter *selectDateFormatter = [[NSDateFormatter alloc] init];
-    
-    selectDateFormatter.dateFormat = @"yyyy-MM-dd"; // 设置时间和日期的格式
-    
- //   starttime = [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
-    
-    NSString *str = [NSString stringWithFormat:@"%ld", data.tag];
-    
-    NSString *sectionStr = [str substringToIndex:1];//section
-    
-    NSString *rowStr = [str substringWithRange:NSMakeRange(1, 1)]; //row
-    
-    //  NSString *numStr = [str substringFromIndex:str.length - 1];  //最后一位
-    
-    NSInteger section = [sectionStr integerValue];
-    NSInteger row = [rowStr integerValue];
-    // NSInteger end = [numStr integerValue];
-    
-    NSArray *arr = [dataArray objectAtIndex:section];
-    
-    selecdType *info = [arr objectAtIndex:row];
-    
-    
-    elseModel *model = (elseModel *)info;
-    
-
-    
-    //比较时间大小
-    if ([model.workerType isEqualToString:@"2"])
-    {
-        NSString *staT = [model.startTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        NSString *endT = [[selectDateFormatter stringFromDate:select] stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        
-        if (staT == nil)
-        {
-            staT = @"0";
-        }
-        
-        if ([staT integerValue] > [endT integerValue])
-        {
-            [SVProgressHUD showInfoWithStatus:@"开始时间不应大于结束时间"];
-        }
-        else
-        {
-            model.endTime = [selectDateFormatter stringFromDate:select];
+            NSString *staT = [time stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            NSString *endT = [model.endTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
             
-            [self.tableview reloadData];
+            if (endT == nil)
+            {
+                endT = @"1111111110";
+            }
+            
+            if ([staT integerValue] > [endT integerValue])
+            {
+                [SVProgressHUD showInfoWithStatus:@"开始时间不应大于结束时间"];
+            }
+            else
+            {
+                model.startTime = time;
+                
+                [self.tableview reloadData];
+            }
         }
+
+    }
+    else
+    {
+        NSString *time = [NSString stringWithFormat:@"%@-%@-%@", year, month, day];
+        
+        
+        NSString *str = [NSString stringWithFormat:@"%ld", datePicker.tag];
+        
+        NSString *sectionStr = [str substringToIndex:1];//section
+        
+        NSString *rowStr = [str substringWithRange:NSMakeRange(1, 1)]; //row
+        
+        //  NSString *numStr = [str substringFromIndex:str.length - 1];  //最后一位
+        
+        NSInteger section = [sectionStr integerValue];
+        NSInteger row = [rowStr integerValue];
+        // NSInteger end = [numStr integerValue];
+        
+        NSArray *arr = [dataArray objectAtIndex:section];
+        
+        selecdType *info = [arr objectAtIndex:row];
+        
+        
+        elseModel *model = (elseModel *)info;
+        
+        
+        
+        //比较时间大小
+        if ([model.workerType isEqualToString:@"2"])
+        {
+            NSString *staT = [model.startTime stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            NSString *endT = [time stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            
+            if (staT == nil)
+            {
+                staT = @"0";
+            }
+            
+            if ([staT integerValue] > [endT integerValue])
+            {
+                [SVProgressHUD showInfoWithStatus:@"开始时间不应大于结束时间"];
+            }
+            else
+            {
+                model.endTime = time;
+                
+                [self.tableview reloadData];
+            }
+        }
+
     }
     
-    
+   // NSLog(@"选择了   %@-%@-%@",year,month,day);
 }
+
+
+
+
 
 
 

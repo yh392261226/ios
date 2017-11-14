@@ -161,7 +161,7 @@
 //限制textfield的长度
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (textField.tag == 10001)
+    if (textField.tag == 600)
     {
         if (string.length == 0)
             
@@ -192,6 +192,7 @@
     }
     
     return YES;
+    
 }
 
 

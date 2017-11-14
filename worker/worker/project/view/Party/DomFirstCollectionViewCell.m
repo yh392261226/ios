@@ -19,7 +19,9 @@
     {
         _icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 70, 70)];
         
-        _icon.backgroundColor = [UIColor greenColor];
+    //    _icon.backgroundColor = [UIColor greenColor];
+        
+        _icon.image = [UIImage imageNamed:@"job_icon"];
         
         _icon.layer.masksToBounds = YES;
         

@@ -17,9 +17,18 @@
 #define UshareKey @"598278a7310c937245000d29"
 
 
-@interface AppDelegate () <UISplitViewControllerDelegate, UITabBarControllerDelegate, JPUSHRegisterDelegate>
+@interface AppDelegate () <UISplitViewControllerDelegate, UITabBarControllerDelegate, JPUSHRegisterDelegate, WXApiDelegate>
+{
+    
+    NSTimer *time;
+    
+}
+
+
 
 @end
+
+
 
 @implementation AppDelegate
 
@@ -63,9 +72,15 @@
     [self Ushare];
     
  //   [WXApi registerApp：@"wxd930ea5d5a258f4f" withDescription：@"demo 2.0"];
+   
+    
     [WXApi registerApp:@"wx88a7414f850651c8"];    //注册微信， 一定要在友盟的后面
     
    
+
+ 
+    
+    
     
     [self.window makeKeyAndVisible];
     
@@ -92,12 +107,13 @@
 //设置系统回调
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-    if (!result)
-    {
-        // 其他如支付等SDK的回调
-    }
-    return result;
+  
+    
+    
+    return [WXApi handleOpenURL:url delegate:self];
+    
+    
+    
 }
 
 
@@ -349,6 +365,49 @@
 
 
 
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+
+
+
+
+
+//9.0后的方法
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    //这里判断是否发起的请求为微信支付，如果是的话，用WXApi的方法调起微信客户端的支付页面（://pay 之前的那串字符串就是你的APPID，）
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
+
+//微信SDK自带的方法，处理从微信客户端完成操作后返回程序之后的回调方法,显示支付结果的
+- (void)onResp:(BaseResp *)resp
+{
+    //启动微信支付的response
+    NSString *payResoult = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+    if([resp isKindOfClass:[PayResp class]])
+    {
+        //支付返回结果，实际支付结果需要去微信服务器端查询
+        switch (resp.errCode)
+        {
+            case 0:
+                payResoult = @"支付结果：成功！";
+                break;
+            case -1:
+                payResoult = @"支付结果：失败！";
+                break;
+            case -2:
+                payResoult = @"用户已经退出支付！";
+                break;
+            default:
+                payResoult = [NSString stringWithFormat:@"支付结果：失败！ retcode = %d, retstr = %@", resp.errCode,resp.errStr];
+                break;
+        }
+    }
+}
 
 
 

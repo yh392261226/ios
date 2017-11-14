@@ -415,17 +415,17 @@
     if([model.t_status isEqualToString:@"3"] || [model.t_status isEqualToString:@"4"])
     {
         //结束
-        [self DDDDDdeldata:model.t_id];
+        [self DDDDDdeldata:model.t_id inde:index];
     }
     else if ([model.t_status isEqualToString:@"0"])
     {
         //空闲
-        [self deldata:model.t_id index:inde];
+        [self deldata:model.t_id index:index];
     }
     else if ([model.t_status isEqualToString:@"1"])
     {
         //洽谈
-        [self deldata:model.t_id index:inde];
+        [self deldata:model.t_id index:index];
   
     }
  
@@ -572,7 +572,7 @@
 
 
 //删除订单， 真删
-- (void)deldata: (NSString *)t_id index:(NSString *)index
+- (void)deldata: (NSString *)t_id index:(NSInteger )index
 {
     NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=del&t_id=%@&t_author=%@", baseUrl, t_id, user_ID];
 
@@ -592,6 +592,11 @@
              
              if ([msg isEqualToString:@"success"])
              {
+                 
+                 [dataArray removeObjectAtIndex:index];
+                 
+                 [self.tableview reloadData];
+                 
                  [SVProgressHUD showInfoWithStatus:@"取消成功"];
                  
                  
@@ -623,7 +628,7 @@
 
 
 //删除订单， 假删
-- (void)DDDDDdeldata: (NSString *)t_id
+- (void)DDDDDdeldata: (NSString *)t_id inde: (NSInteger) index
 {
     NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=del2&t_id=%@&t_author=%@", baseUrl, t_id, user_ID];
     
@@ -641,10 +646,14 @@
              
              if ([msg isEqualToString:@"success"])
              {
+                 [dataArray removeObjectAtIndex:index];
+                 
+                 [self.tableview reloadData];
+                 
                  [SVProgressHUD setForegroundColor:[UIColor blackColor]];
                  [SVProgressHUD showInfoWithStatus:@"取消成功"];
                  
-                 [self getdata:@"99"];
+                
              }
              else
              {

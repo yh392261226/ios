@@ -21,8 +21,8 @@
         _image.layer.masksToBounds = YES;
         
         _image.layer.cornerRadius = 35;
-        
-        _image.backgroundColor = [UIColor redColor];
+
+        _image.image = [UIImage imageNamed:@"job_icon"];
         
         [self.contentView addSubview:_image];
         

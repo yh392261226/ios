@@ -9,6 +9,9 @@
 #import "RechargeViewController.h"
 #import "RechargeTableViewCell.h"
 #import "PayTableViewCell.h"
+#import "HYBNetworking.h"
+#import "NSString+MD5.h"
+
 
 @interface RechangeType : NSObject
 
@@ -55,10 +58,14 @@
     
     wechatGet *info;
     
+    
+    NSMutableDictionary *dictionWechat;   //微信支付的参数字典
 }
 
 
 @property (nonatomic, strong)UITableView *tableview;
+
+
 
 @end
 
@@ -67,6 +74,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    dictionWechat = [NSMutableDictionary dictionary];
     
     money = @"0";   //默认充值0元，不能往服务器传空
     
@@ -86,7 +95,7 @@
     
     [self tableview];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"ORDER_PAY_NOTIFICATION" object:nil];
 }
 
 
@@ -155,14 +164,14 @@
     }
    else
    {
-       RechangeType *info = [nameArray objectAtIndex:indexPath.row];
+       RechangeType *info1 = [nameArray objectAtIndex:indexPath.row];
        
        
        PayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"paycell"];
        
        cell.logoImage.image = [UIImage imageNamed:@"job_wechat"];
        
-       cell.name.text = info.p_name;
+       cell.name.text = info1.p_name;
        
        cell.selecd.image = [UIImage imageNamed:@"job_back"];
        
@@ -214,11 +223,7 @@
     else
     {
         name.text = @"支付方式";
-        
-//        UIView *line = [[UIView alloc] init];
-//        line.frame = CGRectMake(0, 29, SCREEN_WIDTH, 1);
-//        line.backgroundColor = [myselfway stringTOColor:@"0x808080"];
-//        [view addSubview:line];
+
     }
     
     name.textAlignment = NSTextAlignmentLeft;
@@ -303,11 +308,11 @@
     if (indexPath.section == 1)
     {
         
-        RechangeType *data = [nameArray objectAtIndex:indexPath.row];
+        
         
         paySelecd = indexPath.row;
         
-        [self wechatData:data.p_id];
+        
         
         [self.tableview reloadData];
         
@@ -346,8 +351,16 @@
 //去支付按钮
 - (void)payBtn
 {
-    //调起微信支付
-    [self wechatTemp];
+    
+    RechangeType *data = [nameArray objectAtIndex:paySelecd];
+    
+    
+    
+    
+    //获取后台返回的微信值
+    [self wechatData:data.p_id];
+    
+    
     
     
     
@@ -358,28 +371,112 @@
 //调起微信支付
 - (void)wechatTemp
 {
+    //得到的微信支付后台生成预订单信息
+    NSDictionary *dict = @{@"appid":info.appId,//APPID
+                           @"noncestr":info.nonceStr,//随机字符串
+                           @"package":@"Sign=WXPay",//固定值
+                           @"partnerid":info.partnerid,//商户ID
+                           @"prepayid":info.prepay_id,//支付订单号
+                           @"timestamp":info.timeStamp,
+                           };
+    
+    NSMutableString *contentString = [NSMutableString string];
+    
+    NSArray *keys = [dict allKeys];
+    
+    //按首字母排序
+    NSArray *sortedArray = [keys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        return [obj1 compare:obj2 options:NSNumericSearch];
+        
+    }];
+    
+    //拼接字符串
+    
+    for (NSString *categoryId in sortedArray)
+    {
+        
+        if (![[dict objectForKey:categoryId]isEqualToString:@""] && ![categoryId isEqualToString:@"sign"] && ![categoryId isEqualToString:@"key"])
+        {
+            
+            //拼接的时候不要写错%@=%@& 少了&调起微信支付只会有一个确定按钮没有订单信息导致无法支付
+            [contentString appendFormat:@"%@=%@&",categoryId,dict[categoryId]];
+            
+        }
+        
+    }
     
     
+    NSString *endSign = [NSString stringWithFormat:@"%@key=gangjianwang1234567891234567891z", contentString];
     
-//    PayReq *request = [[[PayReq alloc] init] autorelease];
-//    
-//    request.partnerId = @"10000100";
-//
-//    request.prepayId= @"1101000000140415649af9fc314aa427";
-//
-//    request.package = @"Sign=WXPay";
-//
-//    request.nonceStr= @"a462b76e7436e98e0ed6e13c64b4fd1c";
-//
-//    request.timeStamp= @"1397527777";
-//
-//    request.sign= @"582282D72DD2B03AD892830965F428CB16E7A256";
-//
-//    [WXApi sendReq：request];
+    //加密生成字符串 MD5
+    NSString *md5Sign = [self md5:endSign];
+    
+    //调起微信支付
+    PayReq *req             = [[PayReq alloc] init];
+    req.openID              = info.appId;
+    req.partnerId           = [dict objectForKey:@"partnerid"];
+    req.prepayId            = [dict objectForKey:@"prepayid"];
+    req.nonceStr            = [dict objectForKey:@"noncestr"];
+    
+    NSString *stamp = info.timeStamp;
+    
+    req.timeStamp           = stamp.intValue;
+    req.package             = [dict objectForKey:@"package"];
+    req.sign                = md5Sign;
+    
+    
+    [WXApi sendReq:req];
 
 }
 
 
+
+
+- (NSString *)md5:(NSString *)str
+{
+    
+    const char *cStr = [str UTF8String];
+
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+
+    CC_MD5(cStr,(unsigned int)strlen(cStr),digest);
+
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+
+    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+    {
+        [output appendFormat:@"%02X",digest[i]];
+
+    }
+    
+    return output;
+
+}
+
+
+
+#pragma mark - 收到支付成功的消息后作相应的处理
+- (void)getOrderPayResult:(NSNotification *)notification
+{
+    BaseResp *resp =  notification.userInfo[@"ORDER_PAY_NOTIFICATION"];
+    //支付返回结果，实际支付结果需要去微信服务器端查询
+    NSString *strMsg;
+    switch (resp.errCode) {
+        case WXSuccess:
+            strMsg = @"支付结果：成功！";
+            [SVProgressHUD showInfoWithStatus:strMsg];
+          
+            break;
+            
+        default:
+            strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
+            [SVProgressHUD showInfoWithStatus:strMsg];
+          
+            break;
+    }
+    
+}
 
 
 
@@ -387,14 +484,12 @@
 //获取支付方式的列表
 - (void)postData
 {
-    
-    NSString *url = [NSString stringWithFormat:@"%@Payments/index", baseUrl];
+    NSString *url = [NSString stringWithFormat:@"%@Payments/index?p_type=0", baseUrl];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-
     [manager POST:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
      {
          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -442,39 +537,33 @@
 //获取微信相关的参数
 - (void)wechatData: (NSString *)p_id
 {
-    
-    NSString *url = [NSString stringWithFormat:@"%@Users/applyRechargeLog", baseUrl];
-
-    
+    NSString *url = [NSString stringWithFormat:@"%@Users/applyRechargeLog?u_id=%@&p_id=%@&url_amount=%@", baseUrl, user_ID, p_id, money];
+  
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
     
-    
-    NSDictionary *dic = @{@"u_id" : user_ID,
-                          @"p_id" : p_id,
-                          @"url_amount" : money
-                          };
-    
-    
-    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+    [manager POST:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
      {
          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
          
-         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
          {
-             NSDictionary *dicInfo = [dictionary objectForKey:@"data"];
+             NSMutableDictionary *dicInfo = [dictionary objectForKey:@"data"];
              
              info = [[wechatGet alloc] init];
              
              info.appId = [dicInfo objectForKey:@"appId"];
-             info.timeStamp = [dicInfo objectForKey:@"timeStamp"];
              info.nonceStr = [dicInfo objectForKey:@"nonceStr"];
              info.package = [dicInfo objectForKey:@"package"];
+             info.partnerid = [dicInfo objectForKey:@"partnerid"];
              info.prepay_id = [dicInfo objectForKey:@"prepay_id"];
+             info.timeStamp = [dicInfo objectForKey:@"timeStamp"];
              info.paySign = [dicInfo objectForKey:@"paySign"];
-             info.signType = [dicInfo objectForKey:@"signType"];
-             
+
+             //调起微信支付
+             [self wechatTemp];
              
          }
          
@@ -483,10 +572,7 @@
      {
          
      }];
-    
 }
-
-
 
 
 

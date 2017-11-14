@@ -11,7 +11,7 @@
 #import "PartyRefuseViewController.h"
 #import "PartyClauseViewController.h"
 
-
+#import "PartyBinfoViewController.h"
 #import "AYesWorkerViewController.h"
 #import "PartyDomplainViewController.h"
 
@@ -32,6 +32,7 @@
 
 @property (nonatomic, strong)NSString *ucp_posit_y;
 @property (nonatomic, strong)NSString *uei_address;
+@property (nonatomic, strong)NSString *u_high_opinions;
 @property (nonatomic, strong)NSString *u_img;
 
 
@@ -84,12 +85,25 @@
     
     NSString *phone;
     
+    
+    NSMutableArray *workerArr;
+    
+    NSString *name1;  //姓名
+    NSString *icon1;  //头像
+    NSString *haoping1;  //评价
+    NSString *sex1;
+    NSString *worker_id;
+    NSString *workerName;
 }
 
 
 @property (nonatomic, strong)BMKMapView *mapView;
 @property (nonatomic, strong)BMKLocationService *locService;
 
+
+@end
+
+@implementation workerArrData1
 
 @end
 
@@ -100,6 +114,7 @@
     // Do any additional setup after loading the view
     
     dataArray = [NSMutableArray array];
+    workerArr = [NSMutableArray array];
     
     self.mapView = [[BMKMapView alloc] init];
     
@@ -109,7 +124,7 @@
     
     
     
-    [self getdata];
+    [self getdatawor];
     
   //  [self answer];
     [self initDraft];
@@ -154,6 +169,15 @@
     
     PartyDomplainViewController *temp = [[PartyDomplainViewController alloc] init];
     
+    temp.type = @"2";
+    
+    temp.name = name1;
+    temp.sex = sex1;
+    temp.number = haoping1;
+    temp.worker = worker_id;
+    temp.workerName = workerName;
+    temp.icon = icon1;
+    
     [self.navigationController pushViewController:temp animated:YES];
     
     
@@ -183,6 +207,7 @@
     icon.layer.cornerRadius = 35;
     icon.layer.masksToBounds = YES;
   //  icon.backgroundColor = [UIColor orangeColor];
+    [icon setBackgroundImage:[UIImage imageNamed:@"job_icon"] forState:UIControlStateNormal];
     [icon addTarget:self action:@selector(detailBtn) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -507,7 +532,7 @@
                  data.u_task_status = [dicInfo objectForKey:@"u_task_status"];
                  data.u_true_name = [dicInfo objectForKey:@"u_true_name"];
                  data.ucp_posit_x = [dicInfo objectForKey:@"ucp_posit_x"];
-
+                 data.u_high_opinions = [dicInfo objectForKey:@"u_high_opinions"];
                  data.ucp_posit_y = [dicInfo objectForKey:@"ucp_posit_y"];
                  data.uei_address = [dicInfo objectForKey:@"uei_address"];
                  data.u_img = [dicInfo objectForKey:@"u_img"];
@@ -521,6 +546,12 @@
                  
                  name.text = data.u_true_name;
                  worker.text = self.worName;
+                 
+                 name1 = data.u_true_name;
+                 sex1 = data.u_sex;
+                 worker_id = data.u_id;
+                 haoping1 = data.u_high_opinions;
+                 
                  
                  if ([data.u_sex isEqualToString:@"0"])
                  {
@@ -552,7 +583,20 @@
 
                  [icon sd_setBackgroundImageWithURL:url forState:UIControlStateNormal];
 
-
+                 
+                 
+                 
+                 for (int i = 0; i < workerArr.count; i++)
+                 {
+                     workerArrData1 *data1 = [workerArr objectAtIndex:i];
+                     
+                     if ([data1.s_id isEqualToString:data.u_skills])
+                     {
+                         workerName = data1.s_name;
+                     }
+                     
+                 }
+                 
                  
                   [self initMapView];
              }
@@ -611,42 +655,59 @@
 
 
 
+- (void)getdatawor
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", baseUrl, @"Skills/index"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSArray *arr = [dictionary objectForKey:@"data"];
+             
+             for (int i = 0; i < arr.count; i++)
+             {
+                 NSDictionary *dic = [arr objectAtIndex:i];
+                 
+                 workerArrData1 *data = [[workerArrData1 alloc] init];
+                 
+                 data.s_id = [dic objectForKey:@"s_id"];
+                 data.s_desc = [dic objectForKey:@"s_desc"];
+                 data.s_info = [dic objectForKey:@"s_info"];
+                 data.s_name = [dic objectForKey:@"s_name"];
+                 data.s_status = [dic objectForKey:@"s_status"];
+                 
+                 [workerArr addObject:data];
+                 
+                 
+             }
+             
+             
+             [self getdata];
+             
+          
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+       
+     }];
+    
+    
+}
 
 
 
-//获取应答接口
-//- (void)answer
-//{
-//    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=react&tew_id=%@&t_id=%@&o_worker=%@&u_id=%@&o_id=%@", baseUrl, self.tew_id, self.t_id, self.o_worker, user_ID, self.o_id];
-//
-//    NSLog(@"%@", url);
-//
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//
-//    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
-//     {
-//         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//
-//         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
-//         {
-//             NSString *msg = [dictionary objectForKey:@"data"];
-//
-//             if ([msg isEqualToString:@"success"])
-//             {
-//
-//             }
-//
-//         }
-//
-//     } failure:^(NSURLSessionDataTask *task, NSError *error)
-//     {
-//
-//     }];
-//
-//
-//}
+
 
 
 - (void)didReceiveMemoryWarning {
