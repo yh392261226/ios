@@ -36,7 +36,7 @@
         
         _logoImage = [[UIImageView alloc] init];
         _logoImage.layer.cornerRadius = 5;
-        _logoImage.backgroundColor = [UIColor orangeColor];
+        _logoImage.image = [UIImage imageNamed:@"job_ddee"];
         [self.contentView addSubview:_logoImage];
         
         [_logoImage mas_makeConstraints:^(MASConstraintMaker *make)

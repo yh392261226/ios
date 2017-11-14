@@ -251,6 +251,9 @@
              
              [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
              
+             
+             [[NSUserDefaults standardUserDefaults] setObject:@"1111111111" forKey:@"u_pass"];
+             
              [self.navigationController popToRootViewControllerAnimated:YES];
              
          }
@@ -303,6 +306,8 @@
              [SVProgressHUD showSuccessWithStatus:msg];
              
              [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
+             
+             [[NSUserDefaults standardUserDefaults] setObject:@"1111111111" forKey:@"u_pass"];
              
              [self.navigationController popToRootViewControllerAnimated:YES];
              

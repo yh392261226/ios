@@ -46,7 +46,7 @@
             // 必须设置用户交互 否则按键无法操作
             imageView.userInteractionEnabled = YES;
             UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-            button.frame = CGRectMake(SCREEN_WIDTH / num, SCREEN_HEIGHT * 7 / 8, SCREEN_WIDTH / num, SCREEN_HEIGHT / 16);
+            button.frame = CGRectMake(SCREEN_WIDTH / num, SCREEN_HEIGHT * 7 / 8 - 20, SCREEN_WIDTH / num, SCREEN_HEIGHT / 16);
             [button setTitle:@"点击进入" forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             button.layer.borderWidth = 2;

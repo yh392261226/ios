@@ -51,6 +51,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
     type = 0;
     
     dataArray = [NSMutableArray array];

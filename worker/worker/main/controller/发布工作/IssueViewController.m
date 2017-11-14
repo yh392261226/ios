@@ -842,7 +842,6 @@
                     }
                     
                     
-                    
                 }
                 
                 
@@ -874,8 +873,6 @@
         NSString *url = [NSString stringWithFormat:@"%@Tools/subTotal", baseUrl];
         [self postRequestByServiceUrl:url andApi:nil andParams:dicAll andCallBack:^(id obj)
          {
-             
-             
              
              NSLog(@"%@", obj);
              

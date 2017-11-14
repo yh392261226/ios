@@ -189,6 +189,8 @@
     {
         RechargeViewController *temp = [[RechargeViewController alloc] init];
         
+        temp.delegate = self;
+        
         [self.navigationController pushViewController:temp animated:YES];
     }
     else if (indexPath.section == 2)
@@ -198,6 +200,14 @@
         [self.navigationController pushViewController:temp animated:YES];
     }
 }
+
+
+//代理回调， 刷新余额
+- (void)tempVaalllllll
+{
+    [self getdata];
+}
+
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

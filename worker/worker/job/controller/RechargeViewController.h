@@ -8,6 +8,15 @@
 
 #import "BaseViewController.h"
 
+@protocol tempVal
+
+
+//回传查看信息
+- (void)tempVaalllllll;
+
+
+@end
+
 @interface wechatGet : NSObject
 
 @property (nonatomic, strong)NSString *appId;
@@ -22,5 +31,7 @@
 @end
 
 @interface RechargeViewController : BaseViewController
+
+@property (nonatomic, strong)id <tempVal> delegate;
 
 @end

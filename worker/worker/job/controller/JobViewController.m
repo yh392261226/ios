@@ -265,10 +265,18 @@
         
         [self presentViewController:temp animated:YES completion:nil];
     }
+    else if ([user_u_idcard isEqualToString:@"0"] || user_u_idcard == nil || user_u_idcard == NULL || [user_u_idcard isEqualToString:@""])
+    {
+        [SVProgressHUD showErrorWithStatus:@"请完善个人信息"];
+    }
+    else if (user_pass == nil || [user_pass isEqualToString:@"0"] || user_pass == NULL || [user_pass isEqualToString:@""])
+    {
+        [SVProgressHUD showErrorWithStatus:@"请设置提现密码"];
+    }
     else
     {
         IssueViewController *temp = [[IssueViewController alloc] init];
-        
+      
         [self.navigationController pushViewController:temp animated:YES];
     }
     

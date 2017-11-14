@@ -20,7 +20,7 @@
 #define user_pass [[NSUserDefaults standardUserDefaults] objectForKey:@"u_pass"]
 #define user_phone [[NSUserDefaults standardUserDefaults] objectForKey:@"u_phone"]
 #define user_u_idcard [[NSUserDefaults standardUserDefaults] objectForKey:@"u_idcard"]
-
+#define user_imaData [[NSUserDefaults standardUserDefaults] objectForKey:@"imaData"]
 
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)

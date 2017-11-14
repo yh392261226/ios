@@ -232,8 +232,7 @@
     worker.textColor = [UIColor grayColor];
     
     call = [backview viewWithTag:1006];
-    
-    [call setImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
+
     [call addTarget:self action:@selector(callBtn) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -253,6 +252,7 @@
     blue.backgroundColor = [myselfway stringTOColor:@"0x249CD3"];
     blue.layer.masksToBounds = YES;
     blue.layer.cornerRadius = 7.5;
+    
     
     
     blueLab = [backview viewWithTag:1010];
@@ -551,7 +551,7 @@
                  sex1 = data.u_sex;
                  worker_id = data.u_id;
                  haoping1 = data.u_high_opinions;
-                 
+                 icon1 = data.u_img;
                  
                  if ([data.u_sex isEqualToString:@"0"])
                  {

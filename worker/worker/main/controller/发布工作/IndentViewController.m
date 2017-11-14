@@ -691,11 +691,13 @@
 - (void)NOBtn
 {
     [UIView animateWithDuration:0.5 animations:^{
+        
         [self.pasView.textField resignFirstResponder];
         Passwordview.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
         
         
     } completion:^(BOOL finished) {
+        
         cor.hidden = YES;
         
     }];
@@ -730,7 +732,13 @@
             
             if ([msg isEqualToString:@"发布成功"])
             {
+                //将页面跳转。 转换到主线程区操作
+                [self performSelectorOnMainThread:@selector(jumpToViewCon) withObject:nil waitUntilDone:NO];
                 
+                [self NOBtn];
+                [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                [SVProgressHUD showErrorWithStatus:msg];
+                [self.navigationController popToRootViewControllerAnimated:YES];
                 
             }
             else
@@ -739,8 +747,7 @@
             }
             
             
-            //将页面跳转。 转换到主线程区操作
-            [self performSelectorOnMainThread:@selector(jumpToViewCon) withObject:nil waitUntilDone:NO];
+            
             
         }
         

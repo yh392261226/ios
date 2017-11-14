@@ -450,6 +450,7 @@
             [self imageData:[imageArray objectAtIndex:0]];
         }
         
+        
      //   [SVProgressHUD showErrorWithStatus:@"图片太大，无法上传!"];
 
     }
@@ -468,6 +469,8 @@
 {
     [self.view endEditing:YES];
 }
+
+
 
 //删除图片按钮
 - (void)closeBtn: (UIButton *)sender
@@ -572,7 +575,7 @@
              
              ct_iddddd = [dic objectForKey:@"c_id"];
            
-             [imageArray removeObjectAtIndex:0];
+         //    [imageArray removeObjectAtIndex:0];
              
              
              

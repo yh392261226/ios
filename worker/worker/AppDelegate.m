@@ -17,14 +17,15 @@
 #define UshareKey @"598278a7310c937245000d29"
 
 
-@interface AppDelegate () <UISplitViewControllerDelegate, UITabBarControllerDelegate, JPUSHRegisterDelegate, WXApiDelegate>
+@interface AppDelegate () <UISplitViewControllerDelegate, UITabBarControllerDelegate, JPUSHRegisterDelegate, WXApiDelegate, CLLocationManagerDelegate, BMKLocationServiceDelegate>
 {
-    
+    CGFloat longitude;   //经度
+    CGFloat latitude;     //纬度
     NSTimer *time;
     
 }
 
-
+@property (strong, nonatomic) CLLocationManager *locationManager;  //系统定位
 
 @end
 
@@ -35,6 +36,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    longitude = 0;
+    latitude = 0;
     
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
@@ -47,12 +50,11 @@
     // 使用 NSUserDefaults 读取用户数据
     if (![userName isEqualToString:@"userId"])
     {
+        
         // 如果是第一次进入引导页
         [useDef setObject:@"userId" forKey:@"firstName"];
         
         _window.rootViewController = [[ViewpagerViewController alloc] init];
-        
-        
         
     }
     else
@@ -60,6 +62,7 @@
         // 否则直接进入应用
         
         WorkerViewController *tabBarController = [[WorkerViewController alloc] init];
+        
         self.window.rootViewController = tabBarController;
 
     } 
@@ -76,10 +79,10 @@
     
     [WXApi registerApp:@"wx88a7414f850651c8"];    //注册微信， 一定要在友盟的后面
     
-   
-
+   //获取经纬度
+    [self startLocation];
  
-    
+    time =  [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(function:) userInfo:nil repeats:YES];
     
     
     [self.window makeKeyAndVisible];
@@ -88,6 +91,15 @@
     
 }
 
+//十分钟请求一次
+- (void)function: (id)sender
+{
+    if ([user_ID integerValue] > 0 && longitude != 0 && latitude != 0)
+    {
+        //位置信息上传服务器
+        [self PostAdree];
+    }
+}
 
 
 //友盟
@@ -438,5 +450,123 @@
 
 
 
+
+
+//七星定位
+-(void)startLocation
+{
+    if ([CLLocationManager locationServicesEnabled])
+    {//判断定位操作是否被允许
+        
+        self.locationManager = [[CLLocationManager alloc] init];
+        
+        self.locationManager.delegate = self;//遵循代理
+        
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        
+        self.locationManager.distanceFilter = 10.0f;
+        
+        [_locationManager requestWhenInUseAuthorization];
+        
+        [self.locationManager startUpdatingLocation];//开始定位
+        
+    }
+    else
+    {
+        
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                             message:@"您还没有授权本应用使用定位服务,请到 设置 > 隐私 > 位置 > 定位服务 中授权"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"确定"
+                                                   otherButtonTitles:nil,  nil];
+        [alertView show];
+    }
+    
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
+          fromLocation:(CLLocation *)oldLocation
+{
+   
+    
+    
+    //系统定位坐标转换百度地图经纬度坐标
+    CLLocationCoordinate2D test = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+    
+    NSDictionary *testdic = BMKConvertBaiduCoorFrom(test,BMK_COORDTYPE_COMMON);
+    //转换GPS坐标至百度坐标
+    testdic = BMKConvertBaiduCoorFrom(test,BMK_COORDTYPE_GPS);
+    
+    CLLocationCoordinate2D trans = BMKCoorDictionaryDecode(testdic); //转换方法
+    
+    longitude = trans.longitude;
+    latitude = trans.latitude;
+    
+    
+    
+    
+    
+    
+    
+    
+    // 停止位置更新
+    [manager stopUpdatingLocation];
+    
+    // 保存 Device 的现语言 (英语 法语 ，，，)
+    NSMutableArray *userDefaultLanguages = [[NSUserDefaults standardUserDefaults]
+                                            objectForKey:@"AppleLanguages"];
+    // 强制 成 简体中文
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"zh-hans",nil]
+                                              forKey:@"AppleLanguages"];
+    
+    // 逆地理编码
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if(!error){
+            for (CLPlacemark * placemark in placemarks)
+            {
+                
+                break;
+            }
+            
+            
+            
+        }
+        // 还原Device 的语言
+        [[NSUserDefaults standardUserDefaults] setObject:userDefaultLanguages forKey:@"AppleLanguages"];
+    }];
+}
+
+//上传经纬度
+- (void)PostAdree
+{
+    
+    NSString *x = [NSString stringWithFormat:@"%f", longitude];
+    NSString *y = [NSString stringWithFormat:@"%f", latitude];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/updatePosition?u_id=%@&ucp_posit_x=%@&ucp_posit_y=%@", baseUrl, user_ID, x, y];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             NSLog(@"位置上传成功");
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
 
 @end

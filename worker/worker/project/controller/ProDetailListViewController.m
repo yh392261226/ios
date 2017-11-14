@@ -149,6 +149,7 @@
         {
             worName = info1.s_name;
         }
+        
     }
     
     worInfoTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -163,17 +164,17 @@
 
         cell.name.text = info.u_true_name;
         
-        NSString *tag = [NSString stringWithFormat:@"%ld%ld", indexPath.section, indexPath.row];
+     // NSString *tag = [NSString stringWithFormat:@"%ld%ld", indexPath.section, indexPath.row];
         
-        cell.call.tag = [tag integerValue];
+        cell.call.tag = (indexPath.section + 1) * 10 + (indexPath.row + 1);
+        
+        NSLog(@"%ld", cell.call.tag);
+        
         [cell.call addTarget:self action:@selector(callPhone:) forControlEvents:UIControlEventTouchUpInside];
         
-        
-        
-        
+
         cell.state.hidden = YES;
         cell.call.hidden = YES;
-        
         
         
         
@@ -233,11 +234,9 @@
             evaBtn.layer.masksToBounds = YES;
             evaBtn.layer.cornerRadius = 7;
             [evaBtn addTarget:self action:@selector(evaBtn:) forControlEvents:UIControlEventTouchUpInside];
-            
-            NSString *tagEva = [NSString stringWithFormat:@"%ld%ld", indexPath.section, indexPath.row];
-            
-            evaBtn.tag = [tagEva integerValue];
-            
+
+            evaBtn.tag = (indexPath.section + 1) * 10 + (indexPath.row + 1);
+ 
             [cell addSubview:evaBtn];
             
             [evaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -286,10 +285,7 @@
         }
         
         
-        
-        
-        
-        
+
             if ([info.u_sex isEqualToString:@"1"])
             {
                 cell.sex.image = [UIImage imageNamed:@"job_man"];
@@ -307,6 +303,7 @@
 }
 
 
+
 //拨打电话
 - (void)callPhone: (UIButton *)btn
 {
@@ -314,11 +311,17 @@
     
     NSString *first = [tag substringToIndex:1];//section
     
+    NSInteger section = [first integerValue] - 1;
+    
+
     NSString *last = [tag substringFromIndex:tag.length - 1];   //row
     
-    WorKeDataModel *model = [dataArray objectAtIndex:[first integerValue]];
+    NSInteger row = [last integerValue] - 1;
     
-    ListDataModel *info = [model.ordersArray objectAtIndex:[last integerValue]];
+    
+    WorKeDataModel *model = [dataArray objectAtIndex:section];
+    
+    ListDataModel *info = [model.ordersArray objectAtIndex:row];
     
     NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", info.u_mobile];
     
@@ -885,11 +888,16 @@
     
     NSString *first = [tag substringToIndex:1];//section
     
+    NSInteger section = [first integerValue] - 1;
+    
+    
     NSString *last = [tag substringFromIndex:tag.length - 1];   //row
     
-    WorKeDataModel *model = [dataArray objectAtIndex:[first integerValue]];
+    NSInteger row = [last integerValue] - 1;
     
-    ListDataModel *info = [model.ordersArray objectAtIndex:[last integerValue]];
+    WorKeDataModel *model = [dataArray objectAtIndex:section];
+    
+    ListDataModel *info = [model.ordersArray objectAtIndex:row];
     
     self.hidesBottomBarWhenPushed = YES;
     

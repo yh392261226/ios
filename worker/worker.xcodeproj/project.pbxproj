@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E01F86E1FBABF5C00642E47 /* ReadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E01F86D1FBABF5C00642E47 /* ReadDetailViewController.m */; };
+		6E0D4A741FB999AD009713D1 /* mainLau.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E0D4A731FB999AD009713D1 /* mainLau.xib */; };
 		6E1175DD1FB83496006C8160 /* HYBNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1175D91FB83495006C8160 /* HYBNetworking.m */; };
 		6E1175DE1FB83496006C8160 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1175DC1FB83495006C8160 /* NSString+MD5.m */; };
 		6E2A93E71FAAE47500C07B47 /* endDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2A93E61FAAE47400C07B47 /* endDetailViewController.m */; };
@@ -241,6 +243,9 @@
 
 /* Begin PBXFileReference section */
 		5C1F10145795CF94D2603748 /* libPods-workerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-workerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E01F86C1FBABF5C00642E47 /* ReadDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadDetailViewController.h; sourceTree = "<group>"; };
+		6E01F86D1FBABF5C00642E47 /* ReadDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadDetailViewController.m; sourceTree = "<group>"; };
+		6E0D4A731FB999AD009713D1 /* mainLau.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = mainLau.xib; sourceTree = "<group>"; };
 		6E1175D91FB83495006C8160 /* HYBNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYBNetworking.m; sourceTree = "<group>"; };
 		6E1175DA1FB83495006C8160 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		6E1175DB1FB83495006C8160 /* HYBNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYBNetworking.h; sourceTree = "<group>"; };
@@ -1230,6 +1235,8 @@
 				FB77033D1F4182000028EB84 /* SetViewController.m */,
 				FB85801C1F42A2C80085BAF1 /* ServiceViewController.h */,
 				FB85801D1F42A2C80085BAF1 /* ServiceViewController.m */,
+				6E01F86C1FBABF5C00642E47 /* ReadDetailViewController.h */,
+				6E01F86D1FBABF5C00642E47 /* ReadDetailViewController.m */,
 				FB1B15951F4AC220001A7132 /* FriendViewController.h */,
 				FB1B15961F4AC220001A7132 /* FriendViewController.m */,
 				FB4F230D1F59378300D8D7C6 /* MessageViewController.h */,
@@ -1414,6 +1421,7 @@
 				FBFD96E71F79EEFF00CBA084 /* Singleton.h */,
 				FBFD96E81F79EEFF00CBA084 /* Singleton.m */,
 				FBD796721F286B3700FA50BE /* Assets.xcassets */,
+				6E0D4A731FB999AD009713D1 /* mainLau.xib */,
 				FBD796741F286B3700FA50BE /* LaunchScreen.storyboard */,
 				FBD7969B1F28825B00FA50BE /* workerobject.pch */,
 				FB12C6C81F70FDDB00F261AD /* NullSafe.m */,
@@ -1673,6 +1681,7 @@
 				FB5DEC441F60F14B00008EA5 /* btn_selected@2x.png in Resources */,
 				FBD3A5481F67A63B00A2EF23 /* Empty.xib in Resources */,
 				FBD796761F286B3700FA50BE /* LaunchScreen.storyboard in Resources */,
+				6E0D4A741FB999AD009713D1 /* mainLau.xib in Resources */,
 				FBD796731F286B3700FA50BE /* Assets.xcassets in Resources */,
 				FB5DEC421F60F14B00008EA5 /* btn_original_circle@3x.png in Resources */,
 				FB8322141FB9013000D5181A /* HSPickerViewTestVC.storyboard in Resources */,
@@ -1873,6 +1882,7 @@
 				FB9F326C1F46C923000D0F19 /* DressworkerUITableViewCell.m in Sources */,
 				FBFDC6151F667F9900CDA9E5 /* AmapWorkerViewController.m in Sources */,
 				FB8580181F4290190085BAF1 /* MoneyDetailsViewController.m in Sources */,
+				6E01F86E1FBABF5C00642E47 /* ReadDetailViewController.m in Sources */,
 				FB1B15971F4AC220001A7132 /* FriendViewController.m in Sources */,
 				FB5D87F81F3045E800830F89 /* ElseTableViewCell.m in Sources */,
 				FB7F384D1F384A950082A8FA /* RechargeViewController.m in Sources */,
@@ -2142,6 +2152,7 @@
 			baseConfigurationReference = E16E4F74CA02791E4BFA0747 /* Pods-worker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = worker/worker.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -2171,6 +2182,7 @@
 			baseConfigurationReference = D6F71C262734D4AA28314D81 /* Pods-worker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = worker/worker.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
