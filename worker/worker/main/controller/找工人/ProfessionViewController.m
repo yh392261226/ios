@@ -19,6 +19,7 @@
 @property (nonatomic, strong)NSString *s_info;
 @property (nonatomic, strong)NSString *s_desc;
 @property (nonatomic, strong)NSString *s_status;
+@property (nonatomic, strong)NSString *img;
 
 
 @property (nonatomic, strong)NSString *s_image;
@@ -128,12 +129,11 @@
 {
     workerListData *info = [dataArray objectAtIndex:indexPath.section];
     
-    
     ProfessionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     cell.worker.text = info.s_name;
     
-    NSURL *url = [NSURL URLWithString:info.s_image];
+    NSURL *url = [NSURL URLWithString:info.img];
     
     [cell.logoImage sd_setImageWithURL:url];
     
@@ -218,6 +218,7 @@
                  data.s_info = [dic objectForKey:@"s_info"];
                  data.s_name = [dic objectForKey:@"s_name"];
                  data.s_status = [dic objectForKey:@"s_status"];
+                 data.img = [dic objectForKey:@"img"];
                  
                  [dataArray addObject:data];
                  
@@ -226,7 +227,7 @@
              
              
              
-             [self addImage:dataArray];
+        
              
              
              [self.tableview reloadData];
@@ -275,33 +276,7 @@
 
 
 
-//获取工种图片
-- (void)addImage: (NSMutableArray *)IDimage;
-{
-    for (int i = 0; i < IDimage.count; i++)
-    {
-        workerListData *data = [IDimage objectAtIndex:i];
 
-        NSString *IDwor = data.s_id;
-
-        data.s_image = [NSString stringWithFormat:@"http://static.gangjianwang.com/images/skills/%@.png", IDwor];
-    }
-
-    [newArray removeAllObjects];
-
-    for (int i = 0; i < dataArray.count; i++)
-    {
-        workerListData *data = [dataArray objectAtIndex:i];
-
-        NSDictionary *dic = [myselfway entityToDictionary:data];
-
-        [newArray addObject:dic];
-    }
-
-  //  [self creatPlistFileWithArr:newArray];
-
-}
-//
 //- (void)creatPlistFileWithArr:(NSMutableArray *)array
 //{
 //    //将字典保存到document文件->获取appdocument路径

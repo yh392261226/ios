@@ -145,8 +145,7 @@
             cell.loginBtn.hidden = NO;
             cell.introduce.hidden = NO;
 
-            
-            
+   
         }
         else
         {
@@ -160,7 +159,25 @@
             
             [cell.typeButton addTarget:self action:@selector(swiBtn:) forControlEvents:UIControlEventValueChanged];
             
-            cell.userName.text = user_name;
+            
+            
+            
+            if ([user_name isEqualToString:@""])
+            {
+                cell.userName.text = @"游客";
+            }
+            else
+            {
+                cell.userName.text = user_name;
+            }
+            
+            
+            
+            
+            
+            
+            
+            
             
             if ([user_online isEqualToString:@"1"] || [user_online isEqualToString:@"0"])
             {
@@ -171,15 +188,26 @@
                 cell.typeButton.on = NO;
             }
             
-    
-            
-            NSURL *url = [NSURL URLWithString:user_ima];
-            
-            [cell.IconImage sd_setImageWithURL:url];
-            
-            cell.IconImage.tag = 997;
             
             
+            
+            
+            
+            if (user_imaData)
+            {
+                UIImage *image1 = [UIImage imageWithData:user_imaData];
+                
+                cell.IconImage.image = image1;
+            }
+            else
+            {
+                NSURL *url = [NSURL URLWithString:user_ima];
+                
+                [cell.IconImage sd_setImageWithURL:url];
+            }
+            
+            
+
             if ([user_sex isEqualToString:@"1"])
             {
                 cell.userImage.image = [UIImage imageNamed:@"job_man"];
@@ -192,6 +220,8 @@
             {
                 cell.userImage.hidden = YES;
             }
+            
+            
             
         }
         
@@ -289,7 +319,7 @@
 {
     if (section == 0)
     {
-        return 10;
+        return 1;
     }
     else if(section == 2)
     {
@@ -313,8 +343,17 @@
     
     self.hidesBottomBarWhenPushed = YES;
     
-    if (![user_ID isEqualToString:@"0"] || user_ID == nil)
+    if ([user_ID isEqualToString:@"0"] || user_ID == nil)
     {
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        temp.delegate = self;
+        
+        [self presentViewController:temp animated:YES completion:nil];
+    }
+    else
+    {
+
         if (indexPath.section == 4)
         {
             ServiceViewController *temp = [[ServiceViewController alloc] init];
@@ -322,12 +361,12 @@
             [self.navigationController pushViewController:temp animated:YES];
         }
         
-//        else if (indexPath.section == 4)
-//        {
-//            FriendViewController *temp = [[FriendViewController alloc] init];
-//
-//            [self.navigationController pushViewController:temp animated:YES];
-//        }
+        //        else if (indexPath.section == 4)
+        //        {
+        //            FriendViewController *temp = [[FriendViewController alloc] init];
+        //
+        //            [self.navigationController pushViewController:temp animated:YES];
+        //        }
         else if(indexPath.section == 5)
         {
             SetViewController *temp = [[SetViewController alloc] init];
@@ -347,7 +386,7 @@
         }
         else if(indexPath.section == 3)
         {
-           
+            
             
             NSString *id_card = user_u_idcard;
             
@@ -368,38 +407,31 @@
                     temp.type = 1;
                 }
                 
-                 [self.navigationController pushViewController:temp animated:YES];
+                [self.navigationController pushViewController:temp animated:YES];
             }
             else
             {
                 [SVProgressHUD setForegroundColor:[UIColor blackColor]];
                 [SVProgressHUD showErrorWithStatus:@"请到个人信息处填写身份证号方可设置密码"];
+                
+                [self performSelector:@selector(xiaoshi) withObject:self afterDelay:1.5];
             }
             
             
-           
+            
         }
     }
-    else
-    {
-        LoginViewController *temp = [[LoginViewController alloc] init];
-        
-        temp.delegate = self;
-        
-        [self presentViewController:temp animated:YES completion:nil];
-    }
     
-    
-    
-    
-    
-    
+
     self.hidesBottomBarWhenPushed = NO;
     
 }
 
 
-
+- (void)xiaoshi
+{
+    [SVProgressHUD dismiss];
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -490,7 +522,15 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     
-    if (![user_ID isEqualToString:@"0"] || user_ID == nil)
+    if ([user_ID isEqualToString:@"0"] || user_ID == nil)
+    {
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        temp.delegate = self;
+        
+        [self presentViewController:temp animated:YES completion:nil];
+    }
+    else
     {
         if (val == 900)
         {
@@ -520,15 +560,6 @@
             [self.navigationController pushViewController:temp animated:YES];
             
         }
-    }
-    else
-    {
-        
-        LoginViewController *temp = [[LoginViewController alloc] init];
-        
-        temp.delegate = self;
-        
-        [self presentViewController:temp animated:YES completion:nil];
         
     }
     
@@ -544,7 +575,17 @@
     self.hidesBottomBarWhenPushed = YES;
     
     
-    if (![user_ID isEqualToString:@"0"] || user_ID == nil)
+    if ([user_ID isEqualToString:@"0"] || user_ID == nil)
+    {
+        
+        LoginViewController *temp = [[LoginViewController alloc] init];
+        
+        temp.delegate = self;
+        
+        [self presentViewController:temp animated:YES completion:nil];
+        
+    }
+    else
     {
         
         if (index == 800)
@@ -566,14 +607,6 @@
             NSLog(@"3");
         }
         
-    }
-    else
-    {
-        LoginViewController *temp = [[LoginViewController alloc] init];
-        
-        temp.delegate = self;
-        
-        [self presentViewController:temp animated:YES completion:nil];
     }
     
     
@@ -702,19 +735,16 @@
     
     if (viewController.tabBarController.selectedIndex == 3)
     {
+        //刷新页面
+        NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:0];
         
-        UIImageView *icon = [self.view viewWithTag:997];
-        
-        icon.image = [Singleton instance].icon;
+        [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
         
         
-        [self.tableview reloadData];
     }
     
     
-//    NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:0];
-//
-//    [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    
     
 }
 

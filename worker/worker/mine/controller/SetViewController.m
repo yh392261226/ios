@@ -132,27 +132,25 @@
 
     if (indexPath.section == 1)
     {
-       
+        
+        MessageViewController *temp = [[MessageViewController alloc] init];
+        
+        [self.navigationController pushViewController:temp animated:YES];
             
             
         
     }
-    
-    
-    
-    
-    
-    
-    
+
 //    else if (indexPath.section == 0)
 //    {
 //        BoundPhoneViewController *temp = [[BoundPhoneViewController alloc] init];
 //
 //        [self.navigationController pushViewController:temp animated:YES];
 //    }
+    
     else if (indexPath.section == 2)
     {
-        WeViewController *temp = [[WeViewController alloc] init];
+        WeViewController  *temp = [[WeViewController alloc] init];
         
         [self.navigationController pushViewController:temp animated:YES];
     }
@@ -166,15 +164,35 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                           {
                             
+                              [SVProgressHUD showWithStatus:@"请等待..."];
                               
+                              [self performSelector:@selector(dismissBtn) withObject:self afterDelay:3];
                           }]];
         
         
         [self presentViewController:alert animated:YES completion:nil];
+        
     }
     
 }
 
+
+
+
+- (void)dismissBtn
+{
+    [SVProgressHUD dismiss];
+    
+    [SVProgressHUD showSuccessWithStatus:@"清理成功"];
+    
+    [self performSelector:@selector(dicdddddd) withObject:self afterDelay:1];
+}
+
+
+- (void)dicdddddd
+{
+    [SVProgressHUD dismiss];
+}
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section

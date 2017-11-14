@@ -137,7 +137,7 @@
         cell.time.text = time;
         cell.balance.text = [NSString stringWithFormat:@"余额:%@", model.balances];
        
-        
+        cell.balance.hidden = YES;
         
     }
     

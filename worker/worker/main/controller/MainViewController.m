@@ -113,23 +113,6 @@
     
 }
 
-- (void)datePicker:(HSDatePickerVC*)datePicker
-          withYear:(NSString *)year
-             month:(NSString *)month
-               day:(NSString *)day
-{
-    NSLog(@"选择了   %@-%@-%@",year,month,day);
-}
-//百度地图
-//- (void)initBaiduMap
-//{
-//    //初始化BMKLocationService
-//    _locService = [[BMKLocationService alloc]init];
-//    _locService.delegate = self;
-//    //启动LocationService
-//    [_locService startUserLocationService];
-//
-//}
 
 //七星定位
 -(void)startLocation
@@ -349,19 +332,31 @@
     }
     else
     {
+        NSLog(@"%@  -  %@  -  %@", user_ID, user_u_idcard, user_pass);
+        
         if ([user_ID isEqualToString:@"0"] || user_ID == nil)
         {
             LoginViewController *temp = [[LoginViewController alloc] init];
             
             [self presentViewController:temp animated:YES completion:nil];
         }
+        else if ([user_u_idcard isEqualToString:@"0"] || user_u_idcard == nil || user_u_idcard == NULL || [user_u_idcard isEqualToString:@""])
+        {
+            [SVProgressHUD showErrorWithStatus:@"请完善个人信息"];
+        }
+        else if (user_pass == nil || [user_pass isEqualToString:@"0"] || user_pass == NULL || [user_pass isEqualToString:@""])
+        {
+            [SVProgressHUD showErrorWithStatus:@"请设置提现密码"];
+        }
         else
         {
             IssueViewController *temp = [[IssueViewController alloc] init];
+            
             temp.longitudeWor = longitude;
             temp.latitudeWor = latitude;
             
             [self.navigationController pushViewController:temp animated:YES];
+            
         }
         
     }
@@ -556,6 +551,7 @@
         
         MineMessViewController *temp = [[MineMessViewController alloc] init];
         
+        temp.delegate = self;
         
         [self.navigationController pushViewController:temp animated:YES];
     }
@@ -564,6 +560,13 @@
     
 }
 
+
+//回传数据，   控制消息个数
+- (void)tempVaalllllll
+{
+    //网络获取消息个数
+    [self getMessSys];
+}
 
 
 

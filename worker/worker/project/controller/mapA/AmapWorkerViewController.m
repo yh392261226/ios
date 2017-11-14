@@ -86,7 +86,7 @@
     
     NSString *phone;
     
-    
+    BOOL phoneCall;
     
 }
 
@@ -108,6 +108,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    phoneCall = NO;
 
 
     dataArray = [NSMutableArray array];
@@ -326,7 +328,7 @@
 - (void)yesBtn
 {
     [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
-    if ([user_ID isEqualToString:@"0"])
+    if ([user_ID isEqualToString:@"0"] || user_ID == nil)
     {
         //未登录提示
         [SVProgressHUD setForegroundColor:[UIColor blackColor]];
@@ -337,10 +339,10 @@
         LoginViewController *temp = [[LoginViewController alloc] init];
         
         
-        [self presentViewController:temp animated:yes completion:nil];
+        [self presentViewController:temp animated:YES completion:nil];
         
     }
-    else if ([user_u_idcard isEqualToString:@""] || user_u_idcard == NULL)
+    else if ([user_u_idcard isEqualToString:@""] || user_u_idcard == NULL || [user_u_idcard isEqualToString:@""])
     {
         [SVProgressHUD setForegroundColor:[UIColor blackColor]];
         [SVProgressHUD showErrorWithStatus:@"请完善您的个人信息"];
@@ -372,10 +374,18 @@
 //拨打电话按钮
 - (void)callBtn
 {
+    if (phoneCall == YES)
+    {
+        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"您还没有邀约，无法电话沟通"];
+        
+    }
     
-    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     
 }
 
@@ -383,6 +393,8 @@
 //邀请成功的代理方法
 - (void)success
 {
+    
+    phoneCall = YES;
     
     [yes setTitle:@"邀约请求以发送" forState:UIControlStateNormal];
 

@@ -239,6 +239,8 @@
     
     
     call = [backview viewWithTag:1006];
+    
+    [call setBackgroundImage:[UIImage imageNamed:@"mine_call"] forState:UIControlStateNormal];
     [call addTarget:self action:@selector(callBtn) forControlEvents:UIControlEventTouchUpInside];
     
     

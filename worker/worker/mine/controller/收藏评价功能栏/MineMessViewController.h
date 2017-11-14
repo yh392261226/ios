@@ -8,9 +8,18 @@
 
 #import "BaseViewController.h"
 
+@protocol tempVal
+
+
+//回传查看信息
+- (void)tempVaalllllll;
+
+
+@end
+
 @interface MineMessViewController : BaseViewController
 
-
+@property (nonatomic, strong)id <tempVal> delegate;
 
 
 

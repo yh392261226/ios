@@ -84,6 +84,15 @@
     
 }
 
+
+- (void)temp
+{
+    [super temp];
+    
+    [self.delegate tempVaalllllll];
+    
+}
+
 //关闭窗口
 - (void)NOBtn
 {

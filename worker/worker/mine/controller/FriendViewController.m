@@ -24,6 +24,7 @@
     [self slitherBack:self.navigationController];
     
     [self initView];
+    
 }
 
 - (void)initView

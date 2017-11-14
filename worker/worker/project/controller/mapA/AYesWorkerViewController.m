@@ -89,12 +89,12 @@
     
     self.mapView = [[BMKMapView alloc] init];
     
-     [self getdata];
+    [self getdata];
     [self addhead:@"已开工"];
     
     
     
-    [self initMapView];
+    
     
 }
 
@@ -126,7 +126,6 @@
     
     
     name = [backview viewWithTag:1002];
-    
     
     
     sex = [backview viewWithTag:1003];
@@ -435,6 +434,12 @@
                  data.uei_address = [dicInfo objectForKey:@"uei_address"];
                  data.u_img = [dicInfo objectForKey:@"u_img"];
                  
+                 
+                 
+                 [self initUI];
+                 
+
+                 
                  Xmap = data.ucp_posit_x;
                  Ymap = data.ucp_posit_y;
                  
@@ -444,6 +449,9 @@
                  worker.text = self.worName;
                  
                  phone = data.u_mobile;
+                 
+                
+                 
                  
                  if ([data.u_sex isEqualToString:@"0"])
                  {
@@ -477,9 +485,9 @@
                  
                  
 
-                 [self initUI];
                  
                  
+                 [self initMapView];
                  
              }
              

@@ -100,6 +100,16 @@
 
 
 
+- (void)temp
+{
+    [super temp];
+    
+    [self.delegate tempVaalllllll];
+    
+}
+
+
+
 #pragma tableview 代理方法
 
 - (UITableView *)tableview
@@ -129,13 +139,11 @@
 }
 
 
-
-
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -360,10 +368,7 @@
     //获取后台返回的微信值
     [self wechatData:data.p_id];
     
-    
-    
-    
-    
+
 }
 
 
@@ -484,6 +489,10 @@
 //获取支付方式的列表
 - (void)postData
 {
+    [SVProgressHUD showWithStatus:@"请等待..."];
+    
+    
+    
     NSString *url = [NSString stringWithFormat:@"%@Payments/index?p_type=0", baseUrl];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -522,11 +531,13 @@
              [self.tableview reloadData];
              
          }
+         
+         [SVProgressHUD dismiss];
         
          
      } failure:^(NSURLSessionDataTask *task, NSError *error)
      {
-         
+         [SVProgressHUD dismiss];
      }];
     
 }
@@ -537,6 +548,8 @@
 //获取微信相关的参数
 - (void)wechatData: (NSString *)p_id
 {
+    [SVProgressHUD showWithStatus:@"请等待..."];
+    
     NSString *url = [NSString stringWithFormat:@"%@Users/applyRechargeLog?u_id=%@&p_id=%@&url_amount=%@", baseUrl, user_ID, p_id, money];
   
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -568,9 +581,11 @@
          }
          
          
+         [SVProgressHUD dismiss];
+         
      } failure:^(NSURLSessionDataTask *task, NSError *error)
      {
-         
+         [SVProgressHUD dismiss];
      }];
 }
 

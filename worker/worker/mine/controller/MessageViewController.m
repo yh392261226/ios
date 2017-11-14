@@ -36,9 +36,10 @@
 {
     UIImageView *image = [[UIImageView alloc] init];
     
-    image.backgroundColor = [UIColor greenColor];
+    image.image = [UIImage imageNamed:@"mine_mess-1"];
     
     [self.view addSubview:image];
+
     
     [image mas_makeConstraints:^(MASConstraintMaker *make)
     {

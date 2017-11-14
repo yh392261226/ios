@@ -95,6 +95,8 @@
     NSString *phone;  //电话
     
     NSString *guzhuID;  //雇主ID
+    
+    BOOL phoneCall;
 }
 
 
@@ -116,6 +118,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    phoneCall = NO;
     
     workerArray = [NSMutableArray array];
     worAr = [NSMutableArray array];
@@ -214,10 +218,18 @@
     [yesBtn setTitle:@"我要接活" forState:UIControlStateNormal];
     
     
+    
+    
     if ([data.t_author isEqualToString:user_ID])
     {
         [yesBtn setTitle:@"这是您本人发布的工作" forState:UIControlStateNormal];
         yesBtn.backgroundColor = [UIColor redColor];
+        yesBtn.userInteractionEnabled = NO;
+    }
+    else if ([data.t_status isEqualToString:@"3"] || [data.t_status isEqualToString:@"4"])
+    {
+        [yesBtn setTitle:@"工程已结束" forState:UIControlStateNormal];
+        yesBtn.backgroundColor = [UIColor grayColor];
         yesBtn.userInteractionEnabled = NO;
     }
     else
@@ -438,6 +450,8 @@
 }
 
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
    // [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -493,12 +507,7 @@
 }
 
 
-- (void)callBtn
-{
-    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-}
+
 
 
 
@@ -553,7 +562,7 @@
              
              
              phone = data.t_phone;
-             guzhuID = data.t_id;
+             guzhuID = data.t_author;
              
              for (int i = 0; i < data.t_workers.count; i++)
              {
@@ -675,6 +684,9 @@
     self.mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
 }
 
+
+
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self.mapView viewWillDisappear];
@@ -698,9 +710,17 @@
 - (void)callBtn: (UIButton *)btn
 {
     
-    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    if (phoneCall == YES)
+    {
+        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", phone];
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"您还没有邀约，无法电话沟通"];
+        
+    }
     
 }
 
@@ -713,8 +733,30 @@
     
     NSInteger num = index.row - 2;
     
-    
-    if (workerArray.count > 0)
+    if ([user_ID isEqualToString:@"0"] || user_ID == nil)
+    {
+        //未登录提示
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+        
+        [SVProgressHUD showErrorWithStatus:@"请您先登录"];
+
+        LoginViewController *temp = [[LoginViewController alloc] init];
+
+        [self presentViewController:temp animated:YES completion:nil];
+        
+    }
+    else if ([user_u_idcard isEqualToString:@""] || user_u_idcard == NULL)
+    {
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+        [SVProgressHUD showErrorWithStatus:@"请完善您的个人信息"];
+    }
+    else if (workerArray.count <= 0)
+    {
+        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+        [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+        [SVProgressHUD showErrorWithStatus:@"该任务已结束或暂无工作可接"];
+    }
+    else
     {
         guzhuDetaillimian *info = [workerArray objectAtIndex:num];
         
@@ -723,12 +765,7 @@
         
         [self getdata:info.tew_id];
     }
-    else
-    {
-        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-        [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
-        [SVProgressHUD showErrorWithStatus:@"该任务已结束或暂无工作可接"];
-    }
+    
     
 
 }
@@ -753,6 +790,7 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
+             
              [SVProgressHUD setForegroundColor:[UIColor blackColor]];
              [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
              [SVProgressHUD showSuccessWithStatus:@"求职邀约以发送 \n 等待雇主同意可进行电话沟通"];
@@ -762,6 +800,9 @@
              [yesBtn setTitle:@"邀约请求已发送" forState:UIControlStateNormal];
              
              yesBtn.userInteractionEnabled = NO;
+             
+             phoneCall = YES;
+             
          }
          
          

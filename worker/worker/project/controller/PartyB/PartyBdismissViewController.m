@@ -94,9 +94,9 @@
     
     
     evaluate = [backview viewWithTag:1004];
-    evaluate.text = self.haoping;
+    evaluate.text = [NSString stringWithFormat:@"好评%@次", self.haoping];
     
-    
+
     Complaints = [backview viewWithTag:1005];
     
     Complaints.layer.cornerRadius = 5;
@@ -231,6 +231,8 @@
 
 
 
+
+
 - (void)infoBtn
 {
     [SVProgressHUD dismiss];
@@ -295,7 +297,6 @@
 
 
 //工人辞职
-
 - (void)workerNO
 {
     NSString *eva = [NSString stringWithFormat:@"%ld", evaluation];
@@ -314,8 +315,6 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
-             
-             [SVProgressHUD showInfoWithStatus:@"投诉成功"];
              
              [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
              

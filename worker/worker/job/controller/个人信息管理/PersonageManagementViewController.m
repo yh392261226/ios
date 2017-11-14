@@ -158,6 +158,7 @@
 //加载headview
 - (void)initHeadView
 {
+    
     Hview = [[Headview alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, 120)];
     
     Hview.dataArray = nameArr;
@@ -166,13 +167,25 @@
     
     Hview.delegate = self;
     
-    NSURL *url = [NSURL URLWithString:user_ima];
+    if (user_imaData)
+    {
+        UIImage *image1 = [UIImage imageWithData:user_imaData];
+        
+        Hview.Icon.image = image1;
+    }
+    else
+    {
+        NSURL *url = [NSURL URLWithString:user_ima];
+        
+        [Hview.Icon sd_setImageWithURL:url];
+    }
     
-    [Hview.Icon sd_setImageWithURL:url];
+    
     
     Hview.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:Hview];
+    
 }
 
 
@@ -216,6 +229,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     if(typeInfo == 0)
     {
        return dataArray.count;
@@ -224,6 +238,7 @@
     {
        return writeArray.count;
     }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -240,8 +255,38 @@
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.name.text = data.name;
-            cell.data.text = data.data;
+            if (indexPath.row == 6)
+            {
+                //隐藏
+                if (data.data.length > 10)
+                {
+                    cell.name.text = data.name;
+                    
+                    NSString *info = [data.data stringByReplacingCharactersInRange:NSMakeRange(3, 4)  withString:@"****"];
+
+                    cell.data.text = info;
+                }
+
+            }
+            else if (indexPath.row == 2)
+            {
+                if (data.data.length > 17)
+                {
+                    cell.name.text = data.name;
+                    
+                    NSString *info = [data.data stringByReplacingCharactersInRange:NSMakeRange(6, 8)  withString:@"****"];
+
+                    cell.data.text = info;
+                }
+
+            }
+            else
+            {
+                cell.name.text = data.name;
+                cell.data.text = data.data;
+            }
+            
+            
             
             return cell;
             
@@ -274,6 +319,7 @@
     }
     else                      //信息编辑
     {
+        
         PersonDataClass *data = [writeArray objectAtIndex:indexPath.row];
         
         if (data.typeInf == 0)
@@ -764,6 +810,11 @@
             [SVProgressHUD showErrorWithStatus:@"请输入身份证号"];
             [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
         }
+        else if (infn2.data.length != 18)
+        {
+            [SVProgressHUD showErrorWithStatus:@"身份证号不正确"];
+            [self performSelector:@selector(NoDiss) withObject:self afterDelay:1.5];
+        }
         else if (infn3.data.length == 0)
         {
             [SVProgressHUD showErrorWithStatus:@"请选择先居住地"];
@@ -1201,6 +1252,7 @@
 //添更换头像按钮
 - (void)addimage
 {
+    
     UIAlertController *Alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     [Alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
@@ -1285,7 +1337,11 @@
         {
             Hview.Icon.image = ima;
             
-            [Singleton instance].icon = ima;
+            //将头像转成data存到本地，我的页面显示
+            NSData *imageData = UIImagePNGRepresentation(ima);
+            
+            [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"imaData"];
+            
         }
         else
         {
@@ -1577,6 +1633,7 @@
                                @"uei_area": level3
                                };
     
+    
     [manager POST:url parameters:infoData success:^(NSURLSessionDataTask *task, id responseObject)
      {
          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1590,8 +1647,15 @@
              [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"u_name"];
              [[NSUserDefaults standardUserDefaults] setObject:sex forKey:@"u_sex"];
              
+             [[NSUserDefaults standardUserDefaults] setObject:card forKey:@"u_idcard"];
+             
              [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
              
+             
+             
+             
+             
+    
              [self.navigationController popViewControllerAnimated:YES];
              
              [self performSelector:@selector(deleteBtn) withObject:self afterDelay:1.5];
