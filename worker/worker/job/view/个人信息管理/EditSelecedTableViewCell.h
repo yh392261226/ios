@@ -18,4 +18,10 @@
 @property (nonatomic, strong)UILabel *man;
 @property (nonatomic, strong)UILabel *woman;
 
+
+
+
+@property (nonatomic, strong)UIButton *worker;     //按钮
+@property (nonatomic, strong)UIButton *noworker;
+
 @end

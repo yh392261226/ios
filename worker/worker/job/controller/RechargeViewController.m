@@ -470,12 +470,16 @@
     switch (resp.errCode) {
         case WXSuccess:
             strMsg = @"支付结果：成功！";
+            
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
             [SVProgressHUD showInfoWithStatus:strMsg];
           
             break;
             
         default:
             strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
+            
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
             [SVProgressHUD showInfoWithStatus:strMsg];
           
             break;
@@ -548,6 +552,7 @@
 //获取微信相关的参数
 - (void)wechatData: (NSString *)p_id
 {
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     [SVProgressHUD showWithStatus:@"请等待..."];
     
     NSString *url = [NSString stringWithFormat:@"%@Users/applyRechargeLog?u_id=%@&p_id=%@&url_amount=%@", baseUrl, user_ID, p_id, money];

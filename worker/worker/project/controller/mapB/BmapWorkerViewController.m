@@ -718,6 +718,7 @@
     }
     else
     {
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
         [SVProgressHUD showErrorWithStatus:@"您还没有邀约，无法电话沟通"];
         
     }
@@ -736,7 +737,7 @@
     if ([user_ID isEqualToString:@"0"] || user_ID == nil)
     {
         //未登录提示
-        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
         
         [SVProgressHUD showErrorWithStatus:@"请您先登录"];
 
@@ -747,13 +748,13 @@
     }
     else if ([user_u_idcard isEqualToString:@""] || user_u_idcard == NULL)
     {
-        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
         [SVProgressHUD showErrorWithStatus:@"请完善您的个人信息"];
     }
     else if (workerArray.count <= 0)
     {
-        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-        [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        
         [SVProgressHUD showErrorWithStatus:@"该任务已结束或暂无工作可接"];
     }
     else
@@ -791,8 +792,7 @@
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
              
-             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-             [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showSuccessWithStatus:@"求职邀约以发送 \n 等待雇主同意可进行电话沟通"];
              
              [self performSelector:@selector(Invitation) withObject:nil afterDelay:1.5];

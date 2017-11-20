@@ -462,7 +462,7 @@
         {
             if (projectArray.count == 0)
             {
-                [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                 [SVProgressHUD showErrorWithStatus:@"网络连接失败,请检查网络"];
             }
             else

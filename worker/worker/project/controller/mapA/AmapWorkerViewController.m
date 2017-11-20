@@ -327,7 +327,8 @@
 //我要招工按钮
 - (void)yesBtn
 {
-    [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    
     if ([user_ID isEqualToString:@"0"] || user_ID == nil)
     {
         //未登录提示
@@ -382,6 +383,8 @@
     }
     else
     {
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        
         [SVProgressHUD showErrorWithStatus:@"您还没有邀约，无法电话沟通"];
         
     }

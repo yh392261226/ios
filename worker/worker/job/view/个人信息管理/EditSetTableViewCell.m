@@ -52,7 +52,28 @@
         
         [self.contentView addSubview:_manBtn];
         
-    }
+        
+        
+        //按钮
+        
+        
+        _manB = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+     //   _manB.backgroundColor = [UIColor redColor];
+        
+        [self.contentView addSubview:_manB];
+        
+        
+        
+        
+        _womanB = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+     //   _womanB.backgroundColor = [UIColor greenColor];
+        
+        [self.contentView addSubview:_womanB];
+        
+        
+     }
     
     return self;
 }
@@ -99,6 +120,29 @@
          make.centerY.mas_equalTo(self.contentView);
          make.height.mas_equalTo(10);
          make.width.mas_equalTo(10);
+         
+     }];
+    
+    
+    //按钮
+    
+    [_manB mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.right.mas_equalTo(_man).offset(-5);
+         make.centerY.mas_equalTo(self.contentView);
+         make.height.mas_equalTo(20);
+         make.width.mas_equalTo(35);
+         
+     }];
+    
+    
+    
+    [_womanB mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.right.mas_equalTo(_woman).offset(-5);
+         make.centerY.mas_equalTo(self.contentView);
+         make.height.mas_equalTo(20);
+         make.width.mas_equalTo(35);
          
      }];
     

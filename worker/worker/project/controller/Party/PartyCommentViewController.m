@@ -75,6 +75,7 @@
     NSString *imageIcon;
     NSString *numData;
     NSString *workerDATA;   //传给下一页
+    
 }
 
 @end
@@ -225,7 +226,7 @@
 //提交按钮
 - (void)yesBtn
 {
-    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     if (question.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"请填写辞退原因"];
@@ -422,7 +423,7 @@
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
              NSString *msg = [dic objectForKey:@"data"];
-             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              
              if (msg)
              {

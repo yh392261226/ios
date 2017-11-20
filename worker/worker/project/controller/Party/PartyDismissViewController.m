@@ -222,7 +222,7 @@
 //提交按钮
 - (void)yesBtn
 {
-    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     if (question.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"请填写辞退原因"];
@@ -391,12 +391,14 @@
     NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=unbind&tew_id=%@&t_id=%@&type=fire&o_worker=%@&u_id=%@&s_id=%@&start=%@&appraisal=%@", baseUrl, self.tew_id , self.t_id , self.o_worker, user_ID, self.s_id, evaluation, question];
     
     NSLog(@"%@", url);
+    
+    NSString *urlString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
 
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    [manager GET:urlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
      {
          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
@@ -404,6 +406,8 @@
          {
              if ([[dictionary objectForKey:@"data"] isEqualToString:@"success"])
              {
+                 [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+               
                  [SVProgressHUD showSuccessWithStatus:@"解雇成功"];
                  
                  self.hidesBottomBarWhenPushed = NO;
@@ -414,6 +418,7 @@
              }
              else
              {
+                 [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                  [SVProgressHUD showSuccessWithStatus:@"解雇失败，请检查网络..."];
              }
              

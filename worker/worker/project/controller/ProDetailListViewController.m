@@ -606,6 +606,7 @@
                           }
                           else
                           {
+                              [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                               [SVProgressHUD showErrorWithStatus:@"您有工人为洽谈状态，请先取消后在进行结算!"];
                           }
                           

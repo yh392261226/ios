@@ -156,6 +156,7 @@
              
              NSString *msg = [dic objectForKey:@"msg"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showSuccessWithStatus:msg];
              
              [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
@@ -175,6 +176,7 @@
              
              NSString *msg = [dic objectForKey:@"msg"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showSuccessWithStatus:msg];
              
              [self performSelector:@selector(DatTime) withObject:self afterDelay:1];
@@ -183,6 +185,7 @@
          
      } failure:^(NSURLSessionDataTask *task, NSError *error)
      {
+         [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
          [SVProgressHUD showSuccessWithStatus:@"暂无网络，请检查您的网络"];
          
          [self performSelector:@selector(DatTime) withObject:self afterDelay:2];

@@ -29,7 +29,7 @@
 @end
 
 
-@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate, CLLocationManagerDelegate, HSDatePickerVCDelegate>
+@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, BMKMapViewDelegate, BMKLocationServiceDelegate, CLLocationManagerDelegate, HSDatePickerVCDelegate, UITabBarControllerDelegate, UITabBarDelegate>
 {
     TabbarView *tabbar;
     
@@ -62,7 +62,19 @@
     NSMutableArray *MessArrayWor;   //消息的数组
     NSMutableArray *MessArraySys;   //消息的数组
     
+    NSString *password;  //密码
+    
+    NSString *mima;
+    
+    UITextField *field;
+    
+    UIButton *button;
+    
+    
+    NSTimer *timer;
 }
+
+
 
 @property (strong, nonatomic) CLLocationManager *locationManager;  //系统定位
 
@@ -78,38 +90,270 @@
 {
     [super viewDidLoad];
     
-    MessArrayWor = [NSMutableArray array];
-    MessArraySys = [NSMutableArray array];
+    self.tabBarController.delegate = self;
     
-    if ([user_ID integerValue] > 0)
+    
+    
+    [self getDataNum];
+    
+
+
+    
+    
+}
+
+
+
+
+//加锁
+- (void)postDataddd
+{
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    [SVProgressHUD showWithStatus:@"请等待..."];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Tools/lock", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             NSNumber *number = [dictionary objectForKey:@"data"];
+             
+             NSInteger i = [number integerValue];
+
+             if (i < 0)
+             {
+                 //正常
+                 MessArrayWor = [NSMutableArray array];
+                 MessArraySys = [NSMutableArray array];
+                 
+                 if ([user_ID integerValue] > 0)
+                 {
+                     [self getMessSys];
+                     //   [self getMessWor];
+                 }
+                 
+                 
+                 // [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"u_id"];
+                 
+                 
+                 EnglishArray = [NSMutableArray array];
+                 cityArray = [NSMutableArray array];
+                 
+                 dataArray = [NSMutableArray arrayWithObjects:@" ",@" ",@" ", nil];
+                 
+                 imageArr = [NSMutableArray arrayWithObjects:@"main_image1",@"main_image2", @"main_image3", nil];
+                 
+                 self.navigationController.navigationBarHidden = YES;
+                 
+                 [self initHeadView];
+                 
+                 [self tableview];
+                 
+                 [self hotdata];
+                 
+             }
+             else if (i == 2)
+             {
+                 MessArrayWor = [NSMutableArray array];
+                 MessArraySys = [NSMutableArray array];
+                 
+                 if ([user_ID integerValue] > 0)
+                 {
+                     [self getMessSys];
+                     //   [self getMessWor];
+                 }
+                 
+                 
+                 // [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"u_id"];
+                 
+                 
+                 EnglishArray = [NSMutableArray array];
+                 cityArray = [NSMutableArray array];
+                 
+                 dataArray = [NSMutableArray arrayWithObjects:@" ",@" ",@" ", nil];
+                 
+                 imageArr = [NSMutableArray arrayWithObjects:@"main_image1",@"main_image2", @"main_image3", nil];
+                 
+                 self.navigationController.navigationBarHidden = YES;
+                 
+                 [self initHeadView];
+                 
+                 [self tableview];
+                 
+                 [self hotdata];
+             }
+             else if (i == 1)
+             {
+                
+                 field = [[UITextField alloc] init];
+                 
+                 [field becomeFirstResponder];
+                 
+                 field.placeholder = @"密码";
+                 field.secureTextEntry = YES;
+                 
+                 field.borderStyle = UITextBorderStyleLine;
+                 
+                 [field addTarget:self action:@selector(password:) forControlEvents:UIControlEventEditingChanged];
+                 
+                 [self.view addSubview:field];
+                 
+                 [field mas_makeConstraints:^(MASConstraintMaker *make) {
+                    
+                     make.centerX.mas_equalTo(self.view);
+                     make.centerY.mas_equalTo(self.view);
+                     make.height.mas_equalTo(35);
+                     make.width.mas_equalTo(200);
+                     
+                 }];
+                      
+                
+                 
+                 button = [[UIButton alloc] init];
+                 
+                 [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                 
+                 button.titleLabel.textAlignment = NSTextAlignmentCenter;
+                 
+                 [button setTitle:@"确认" forState:0];
+                 
+                 [button addTarget:self action:@selector(dianjiBttn) forControlEvents:UIControlEventTouchUpInside];
+                
+                 [self.view addSubview:button];
+                 
+                 [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                     
+                     make.top.mas_equalTo(field).offset(40);
+                     make.centerX.mas_equalTo(self.view);
+                     make.height.mas_equalTo(35);
+                     make.width.mas_equalTo(200);
+                     
+                 }];
+                     
+                 
+                
+               
+                 
+             }
+             
+         }
+         
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         [SVProgressHUD dismiss];
+     }];
+    
+}
+
+
+//获取编辑框密码
+- (void)password: (UITextField *)textfield
+{
+    
+    mima = textfield.text;
+}
+
+
+
+//加锁校验
+- (void)dianjiBttn
+{
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    
+    if (![mima isEqualToString:password])
     {
-        [self getMessSys];
-//        [self getMessWor];
+        
+        [SVProgressHUD showErrorWithStatus:@"密码错误"];
+        
+        [self performSelector:@selector(disBtn) withObject:self afterDelay:1.5];
+        
+    }
+    else
+    {
+        
+        button.hidden = YES;
+        field.hidden = YES;
+        [self.view endEditing:YES];
+        
+        MessArrayWor = [NSMutableArray array];
+        MessArraySys = [NSMutableArray array];
+        
+        if ([user_ID integerValue] > 0)
+        {
+            [self getMessSys];
+            //        [self getMessWor];
+        }
+        
+        
+        // [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"u_id"];
+        
+        
+        EnglishArray = [NSMutableArray array];
+        cityArray = [NSMutableArray array];
+        
+        dataArray = [NSMutableArray arrayWithObjects:@" ",@" ",@" ", nil];
+        
+        imageArr = [NSMutableArray arrayWithObjects:@"main_image1",@"main_image2", @"main_image3", nil];
+        
+        self.navigationController.navigationBarHidden = YES;
+        
+        [self initHeadView];
+        
+        [self tableview];
+        
+        [self hotdata];
     }
     
-    
-   // [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"u_id"];
-    
+}
 
-    EnglishArray = [NSMutableArray array];
-    cityArray = [NSMutableArray array];
-    
-    dataArray = [NSMutableArray arrayWithObjects:@" ",@" ",@" ", nil];
-    
-    imageArr = [NSMutableArray arrayWithObjects:@"main_image1",@"main_image2", @"main_image3", nil];
 
-    self.navigationController.navigationBarHidden = YES;
-    
-    [self initHeadView];
-    
-    [self tableview];
-    
-    [self hotdata];
 
+- (void)disBtn
+{
+    [SVProgressHUD dismiss];
+}
+
+//获取密码
+- (void)getDataNum
+{
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    [SVProgressHUD showWithStatus:@"请等待..."];
     
+    NSString *url = [NSString stringWithFormat:@"%@tools/internal", baseUrl];
     
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
+    [manager POST:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             password = [dictionary objectForKey:@"data"];
+             
+             
+             [self postDataddd];
+         }
+         
+         [SVProgressHUD dismiss];
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+       
+     }];
     
 }
 
@@ -333,6 +577,8 @@
     else
     {
         NSLog(@"%@  -  %@  -  %@", user_ID, user_u_idcard, user_pass);
+        
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
         
         if ([user_ID isEqualToString:@"0"] || user_ID == nil)
         {
@@ -830,6 +1076,8 @@
              
              NSArray *arr = [dic objectForKey:@"data"];
              
+             [MessArraySys removeAllObjects];
+             
              for (int i = 0; i < arr.count; i++)
              {
                  
@@ -877,7 +1125,7 @@
 - (void)getMessWor
 {
     
-    NSString *url = [NSString stringWithFormat:@"%@Users/msgList?u_id=%@&wm_type=1", baseUrl, @"198"];
+    NSString *url = [NSString stringWithFormat:@"%@Users/msgList?u_id=%@&wm_type=1", baseUrl, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -892,6 +1140,8 @@
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
              NSArray *arr = [dic objectForKey:@"data"];
+             
+             [MessArrayWor removeAllObjects];
              
              for (int i = 0; i < arr.count; i++)
              {
@@ -910,7 +1160,7 @@
                  
                  if ([data.um_status isEqualToString:@"0"])
                  {
-                     [MessArraySys addObject:data];
+                     [MessArrayWor addObject:data];
                  }
                  
                  NSInteger price = MessArrayWor.count + MessArraySys.count;
@@ -934,8 +1184,29 @@
 
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self getMessSys];
+    
+    timer =  [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(function:) userInfo:nil repeats:YES];
+}
 
 
+
+
+- (void)function: (id)sender
+{
+    [self getMessSys];
+}
+
+
+
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [timer invalidate];  // 从运行循环中移除， 对运行循环的引用进行一次 release
+    timer = nil;            // 将销毁定时器
+}
 
 
 

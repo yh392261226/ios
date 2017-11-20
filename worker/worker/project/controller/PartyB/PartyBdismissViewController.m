@@ -218,7 +218,7 @@
 //提交按钮
 - (void)yesBtn
 {
-    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     if (qustion.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"请填写辞退原因"];
@@ -297,42 +297,42 @@
 
 
 //工人辞职
-- (void)workerNO
-{
-    NSString *eva = [NSString stringWithFormat:@"%ld", evaluation];
-    
-    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=unbind&tew_id=%@&t_id=%@&type=resign&o_worker=%@&u_id=%@&s_id=%@&start=%@&appraisal=%@", baseUrl, self.tew_id , self.t_id , user_ID, self.u_id, self.s_id, eva, qustion];
-    
-    NSLog(@"%@", url);
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
-     {
-         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-         
-         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
-         {
-             
-             [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
-             
-             self.hidesBottomBarWhenPushed = NO;
-             self.tabBarController.selectedIndex = 1;
-             [self.navigationController popToRootViewControllerAnimated:YES];
-             
-         }
-         
-     } failure:^(NSURLSessionDataTask *task, NSError *error)
-     {
-         
-         
-         
-     }];
-    
-    
-}
+//- (void)workerNO
+//{
+//    NSString *eva = [NSString stringWithFormat:@"%ld", evaluation];
+//
+//    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=unbind&tew_id=%@&t_id=%@&type=resign&o_worker=%@&u_id=%@&s_id=%@&start=%@&appraisal=%@", baseUrl, self.tew_id , self.t_id , user_ID, self.u_id, self.s_id, eva, qustion];
+//
+//    NSLog(@"%@", url);
+//
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//
+//    [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+//     {
+//         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//
+//         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+//         {
+//
+//             [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
+//
+//             self.hidesBottomBarWhenPushed = NO;
+//             self.tabBarController.selectedIndex = 1;
+//             [self.navigationController popToRootViewControllerAnimated:YES];
+//
+//         }
+//
+//     } failure:^(NSURLSessionDataTask *task, NSError *error)
+//     {
+//
+//
+//
+//     }];
+//
+//
+//}
 
 
 
@@ -347,6 +347,51 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+//d去下
+- (void)workerNO
+{
+    
+    NSString *eva = [NSString stringWithFormat:@"%ld", evaluation];
+    
+    NSString *url = [NSString stringWithFormat:@"%@Orders/index?action=unbind&tew_id=%@&t_id=%@&type=resign&o_worker=%@&u_id=%@&s_id=%@&start=%@&appraisal=%@", baseUrl, self.tew_id , self.t_id , user_ID, self.u_id, self.s_id, eva, qustion];
+    
+    NSString *urlString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+         
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+             [SVProgressHUD showSuccessWithStatus:@"辞职成功"];
+             
+            [self performSelector:@selector(infoBtn) withObject:nil afterDelay:1.5];
+         
+            self.hidesBottomBarWhenPushed = NO;
+            self.tabBarController.selectedIndex = 1;
+            [self.navigationController popToRootViewControllerAnimated:YES];
+         
+        }
+         
+         
+         
+     }
+         failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+         [SVProgressHUD showSuccessWithStatus:@"辞职失败，请检查网络..."];
+     }];
+    
+    
+}
 
 
 @end

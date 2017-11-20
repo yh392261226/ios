@@ -175,7 +175,7 @@
 //提交按钮
 - (void)yesBtn
 {
-    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     if (question.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"请填写辞退原因"];

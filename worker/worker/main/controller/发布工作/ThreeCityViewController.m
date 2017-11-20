@@ -173,6 +173,7 @@
 
 - (void)getCityData: (NSString *)city_ID
 {
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     [SVProgressHUD showWithStatus:@"加载中..."];
     
     NSString *url = [NSString stringWithFormat:@"%@Regions/index/?action=list&r_pid=%@", baseUrl, city_ID];

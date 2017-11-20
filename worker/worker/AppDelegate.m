@@ -23,6 +23,11 @@
     CGFloat latitude;     //纬度
     NSTimer *time;
     
+    NSUserDefaults *useDef;
+    
+    
+    
+    
 }
 
 @property (strong, nonatomic) CLLocationManager *locationManager;  //系统定位
@@ -36,14 +41,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     longitude = 0;
     latitude = 0;
+
+    
     
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
     self.window.backgroundColor = [UIColor whiteColor];
     
-    NSUserDefaults *useDef = [NSUserDefaults standardUserDefaults];
+    useDef = [NSUserDefaults standardUserDefaults];
     
     NSString *userName = [useDef objectForKey:@"firstName"];
     
@@ -51,11 +59,15 @@
     if (![userName isEqualToString:@"userId"])
     {
         
-        // 如果是第一次进入引导页
+        
+        //第一次引导页， 正常走
+        //正常走
         [useDef setObject:@"userId" forKey:@"firstName"];
         
         _window.rootViewController = [[ViewpagerViewController alloc] init];
         
+        
+
     }
     else
     {
@@ -67,26 +79,25 @@
 
     } 
     
-  
     [self BaiduMap];
     
     [self Jpush];
     
     [self Ushare];
     
- //   [WXApi registerApp：@"wxd930ea5d5a258f4f" withDescription：@"demo 2.0"];
-   
+    //   [WXApi registerApp：@"wxd930ea5d5a258f4f" withDescription：@"demo 2.0"];
+    
     
     [WXApi registerApp:@"wx88a7414f850651c8"];    //注册微信， 一定要在友盟的后面
     
-   //获取经纬度
+    //获取经纬度
     [self startLocation];
- 
+    
     time =  [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(function:) userInfo:nil repeats:YES];
     
     
     [self.window makeKeyAndVisible];
-    
+   
     return YES;
     
 }
@@ -100,6 +111,21 @@
         [self PostAdree];
     }
 }
+
+
+
+
+
+
+
+- (void)disBtn
+{
+    [SVProgressHUD dismiss];
+}
+
+
+
+
 
 
 //友盟

@@ -270,6 +270,7 @@
         //收藏接口
         if ([user_ID isEqualToString:model.t_author])
         {
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
             [SVProgressHUD showErrorWithStatus:@"您不能收藏自己发布的任务"];
         }
         else
@@ -516,7 +517,7 @@
              NSString *f_id = [dic objectForKey:@"f_id"];
              
              
-             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
              
              

@@ -561,6 +561,13 @@
 }
 
 
+//判断字符串是否为纯数数字
+- (BOOL)isPureInt:(NSString *)string
+{
+    NSScanner *scan = [NSScanner scannerWithString:string];
+    int val;
+    return [scan scanInt:&val] && [scan isAtEnd];
+}
 
 
 //确认提交按钮
@@ -633,8 +640,8 @@
             
             NSString *data4 = [dic4 objectForKey:@"data"];
             
-            [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-            [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            
             
             if (data0.length == 0 || data0 == NULL)
             {
@@ -697,9 +704,19 @@
                         [SVProgressHUD showErrorWithStatus:@"请输入招工人数"];
                         yanzheng = NO;
                     }
+                    else if ([data1 integerValue] < 0 || ![self isPureInt:data1])
+                    {
+                        [SVProgressHUD showErrorWithStatus:@"请输入正确的招工人数"];
+                        yanzheng = NO;
+                    }
                     else if (data2.length == 0 || data2 == NULL)
                     {
                         [SVProgressHUD showErrorWithStatus:@"请输入工人工资"];
+                        yanzheng = NO;
+                    }
+                    else if ([data2 integerValue] < 0 || ![self isPureInt:data2])
+                    {
+                        [SVProgressHUD showErrorWithStatus:@"请输入正确的工人工资"];
                         yanzheng = NO;
                     }
                     else if (data3.length == 0 || data3 == NULL)
@@ -870,53 +887,76 @@
         NSDictionary *dicAll = @{@"data" : getStr};
         
         
-        NSString *url = [NSString stringWithFormat:@"%@Tools/subTotal", baseUrl];
-        [self postRequestByServiceUrl:url andApi:nil andParams:dicAll andCallBack:^(id obj)
-         {
-             
-             NSLog(@"%@", obj);
-             
-             if ([[obj objectForKey:@"code"] integerValue] == 200)
-             {
-                 //[SVProgressHUD showInfoWithStatus:[obj objectForKey:@"data"]];
-                 
-                 allMoney = [obj objectForKey:@"data"];
-                 
-                 NSLog(@"%@", allMoney);
-                 
-                 self.hidesBottomBarWhenPushed = YES;
-                 
-                 IndentViewController *temp = [[IndentViewController alloc] init];
-                 
-                 temp.postDic = data;
-                 temp.modelArray = dataArray;
-                 temp.allMoney = allMoney;
-                 
-                 temp.longitudeWor = self.longitudeWor;
-                 temp.latitudeWor = self.latitudeWor;
-                 
-                 //将页面跳转。 转换到主线程区操作
-                 [self performSelectorOnMainThread:@selector(jumpToViewCon:) withObject:temp waitUntilDone:NO];
-                 
-             }
-             
-             
-         }];
+        //计算价格，网络请求
+        [self PostImportent:dicAll postTemp:data];
         
-        
-        
-        
-
+ 
     }
-    
-            
-    
-    
-    
-                
-
 
 }
+
+
+
+
+
+//发布任务
+- (void)PostImportent : (NSDictionary *)dic postTemp:(NSMutableDictionary *)dicData
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Tools/subTotal", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
+             
+             allMoney = [dictionary objectForKey:@"data"];
+             
+             NSLog(@"%@", allMoney);
+             
+             self.hidesBottomBarWhenPushed = YES;
+             
+             IndentViewController *temp = [[IndentViewController alloc] init];
+             
+             temp.postDic = dicData;
+             temp.modelArray = dataArray;
+             temp.allMoney = allMoney;
+             
+             temp.longitudeWor = self.longitudeWor;
+             temp.latitudeWor = self.latitudeWor;
+             
+
+             [self.navigationController pushViewController:temp animated:YES];
+
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 - (void)jumpToViewCon:(IndentViewController *)con

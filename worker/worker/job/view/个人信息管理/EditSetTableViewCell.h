@@ -17,6 +17,11 @@
 
 @property (nonatomic, strong)UIButton *manBtn;
 @property (nonatomic, strong)UIButton *womanBtn;
+
+
+@property (nonatomic, strong)UIButton *manB;      //按钮
+@property (nonatomic, strong)UIButton *womanB; //按钮
+
 @property (nonatomic, strong)UILabel *man;
 @property (nonatomic, strong)UILabel *woman;
 

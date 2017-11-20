@@ -272,7 +272,7 @@
         {
             if (imageArray.count >= 5)
             {
-                [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                 [SVProgressHUD showInfoWithStatus:@"图片已够5张"];
             }
             else
@@ -410,7 +410,7 @@
 //提交按钮
 - (void)yesBtn
 {
-    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     if (name.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"请选择投诉问题"];
