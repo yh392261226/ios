@@ -163,7 +163,7 @@
                           }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                           {
-                            
+                            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                               [SVProgressHUD showWithStatus:@"请等待..."];
                               
                               [self performSelector:@selector(dismissBtn) withObject:self afterDelay:3];
@@ -182,6 +182,8 @@
 - (void)dismissBtn
 {
     [SVProgressHUD dismiss];
+    
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     
     [SVProgressHUD showSuccessWithStatus:@"清理成功"];
     

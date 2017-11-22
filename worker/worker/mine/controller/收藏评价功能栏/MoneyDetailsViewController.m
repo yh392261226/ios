@@ -121,20 +121,30 @@
         
         if ([model.type isEqualToString:@"withdraw"])
         {
-            cell.title.text = @"提现";
+            cell.title.text = @"支出";
             
-            cell.money.text = [NSString stringWithFormat:@"-%@元", model.amount];
+            double num = [model.amount doubleValue];
+            
+            NSString *data = [NSString stringWithFormat:@"%.2f", num];
+            
+            cell.money.text = [NSString stringWithFormat:@"-%@元", data];
         }
         else
         {
-            cell.title.text = @"充值";
+            cell.title.text = @"收入";
             
-            cell.money.text = [NSString stringWithFormat:@"+%@元", model.amount];
+            double num = [model.amount doubleValue];
+            
+            NSString *data = [NSString stringWithFormat:@"%.2f", num];
+            
+            cell.money.text = [NSString stringWithFormat:@"+%@元", data];
+            
         }
         
         NSString *time = [myselfway timeWithTimeIntervalString:model.time];
         
         cell.time.text = time;
+        
         cell.balance.text = [NSString stringWithFormat:@"余额:%@", model.balances];
        
         cell.balance.hidden = YES;

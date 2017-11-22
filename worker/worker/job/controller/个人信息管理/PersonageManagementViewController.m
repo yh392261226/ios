@@ -334,6 +334,17 @@
             if (indexPath.row == 6)
             {
                 cell.field.userInteractionEnabled = NO;
+              
+                if (data.data.length > 10)
+                {
+                    cell.name.text = data.name;
+                        
+                    NSString *info = [data.data stringByReplacingCharactersInRange:NSMakeRange(3, 4)  withString:@"****"];
+                        
+                    cell.field.text = info;
+                }
+                    
+                
             }
             
             
@@ -347,10 +358,11 @@
         }
         else if ([data.typeInf isEqualToString:@"1"])
         {
+            
             EditSetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
             
-            [cell.manBtn addTarget:self action:@selector(manBtn:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.womanBtn addTarget:self action:@selector(womanBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.manB addTarget:self action:@selector(manBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.womanB addTarget:self action:@selector(womanBtn:) forControlEvents:UIControlEventTouchUpInside];
             
             cell.manBtn.tag = 300;
             cell.womanBtn.tag = 400;
@@ -408,8 +420,8 @@
             
             EditSelecedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell3"];
             
-            [cell.manBtn addTarget:self action:@selector(yesWorker:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.womanBtn addTarget:self action:@selector(noWorker:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.worker addTarget:self action:@selector(yesWorker:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.noworker addTarget:self action:@selector(noWorker:) forControlEvents:UIControlEventTouchUpInside];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
@@ -795,6 +807,8 @@
     {
         PersonDataClass *infn8 = [writeArray objectAtIndex:8];
         
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        
         if (infn8.workerArray.count == 0)
         {
             [SVProgressHUD showErrorWithStatus:@"请添加工种"];
@@ -848,6 +862,8 @@
     }
     else
     {
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        
         if (infn0.data.length == 0)
         {
             [SVProgressHUD showErrorWithStatus:@"请输入姓名"];
@@ -1347,12 +1363,14 @@
         {
             NSDictionary *dic = [dictionary objectForKey:@"data"];
             
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
             [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
         }
         
     }
     failure:^(NSURLSessionDataTask *task, NSError *error)
     {
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
         [SVProgressHUD showInfoWithStatus:@"头像上传失败，请检查网络"];
     }];
      
@@ -1649,6 +1667,7 @@
              
              [[NSUserDefaults standardUserDefaults] setObject:card forKey:@"u_idcard"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
              
              

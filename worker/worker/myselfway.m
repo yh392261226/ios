@@ -154,9 +154,10 @@
     
     [hexDic setObject:@"1111" forKey:@"F"];
     
-    NSMutableString *binaryString=[[NSMutableString alloc] init];
+    NSMutableString *binaryString = [[NSMutableString alloc] init];
     
-    for (int i=0; i<[hex length]; i++) {
+    for (int i = 0; i < [hex length]; i++)
+    {
         
         NSRange rage;
         
@@ -244,8 +245,7 @@
     //以 1970/01/01 GMT为基准，然后过了secs秒的时间
     NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:time];
     
-    
-    
+
   //  NSLog(@"时间戳转化时间 >>> %@",[stampFormatter stringFromDate:stampDate2]);
     
     return [stampFormatter stringFromDate:stampDate2];
@@ -279,7 +279,7 @@
     
     [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
     
-    NSRange range2 = {0,mutStr.length};
+    NSRange range2 = {0, mutStr.length};
     
     //去掉字符串中的换行符
     
@@ -308,7 +308,7 @@
 
 
 //字典转字符串
-+ (NSString*)dictionaryToJson:(NSDictionary *)dic
++ (NSString *)dictionaryToJson:(NSDictionary *)dic
 
 {
     

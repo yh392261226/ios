@@ -339,7 +339,6 @@
 //解雇工人按钮
 - (void)nobtn
 {
-    
     UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:@"请与工人先进行沟通再进行此项操作" message:@"当日解雇工人需支付工人当日工资 \n建议今日工作完毕后再解雇工人" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"再考虑考虑" style:UIAlertActionStyleCancel handler:nil];

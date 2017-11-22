@@ -288,8 +288,8 @@
     }
     else if (indexPath.section == 3)
     {
-        [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-        [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+       
         if (indexPath.item == 0)
         {
             if (imageArray.count >= 5)
@@ -428,10 +428,10 @@
 
 
 
-
 //提交按钮
 - (void)yesBtn
 {
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     if (name.length == 0)
     {
         [SVProgressHUD showInfoWithStatus:@"请选择投诉问题"];
@@ -443,20 +443,26 @@
     else
     {
         
-        if (imageArray.count > 0)
+        if (imageArray.count > 1)
         {
+            //有图片的投诉
+            
             [imageArray removeObjectAtIndex:0];
             
             [self imageData:[imageArray objectAtIndex:0]];
         }
-        
+        else
+        {
+            //没有图片，只有文字的投诉
+            
+            [self imageDataInfo];
+            
+        }
         
      //   [SVProgressHUD showErrorWithStatus:@"图片太大，无法上传!"];
-
     }
     
-    
-    
+  
 }
 
 - (void)bbbbbb
@@ -583,6 +589,8 @@
              {
                  [self imageData1:[imageArray objectAtIndex:i]];
              
+                 
+                 [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                  [SVProgressHUD showInfoWithStatus:@"投诉成功"];
                  [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
                  
@@ -594,6 +602,7 @@
          {
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
              
              [self.navigationController popToRootViewControllerAnimated:YES];
@@ -602,6 +611,7 @@
      }
           failure:^(NSURLSessionDataTask *task, NSError *error)
      {
+         [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
          [SVProgressHUD showInfoWithStatus:@"头像上传失败，请检查网络"];
      }];
     
@@ -612,8 +622,11 @@
 
 
 
+
+
 - (void)imageData1:(UIImage *)ima
 {
+    
     NSData *data = UIImageJPEGRepresentation(ima, 1.0);
     
     NSString *pictureDataString = [data base64EncodedStringWithOptions:0];   //data转base64
@@ -626,7 +639,7 @@
     
     NSDictionary *dic;
     
-
+    
     dic = @{@"c_img": pictureDataString
             ,@"c_author" : user_ID,
             @"c_against" : self.worker,
@@ -668,9 +681,84 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
+
+
+
+
+
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+
+
+
+
+
+//只有文字的投诉，没有图片
+- (void)imageDataInfo
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@Users/complaintsAdd", baseUrl];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *dic;
+    
+    
+    dic = @{@"c_author" : user_ID,
+            @"c_against" : self.worker,
+            @"c_desc" : textDetail,
+            @"ct_id" : ct_id
+            };
+    
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 1)
+         {
+             
+            NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+            NSLog(@"%@", dic);
+
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD showInfoWithStatus:@"投诉成功"];
+             
+            [self performSelector:@selector(bbbbbb) withObject:nil afterDelay:1];
+                 
+            [self.navigationController popToRootViewControllerAnimated:YES];
+             
+         }
+         else
+         {
+             
+             NSDictionary *dic = [dictionary objectForKey:@"data"];
+             
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+             [SVProgressHUD showInfoWithStatus:[dic objectForKey:@"msg"]];
+             
+             [self.navigationController popToRootViewControllerAnimated:YES];
+             
+         }
+         
+     }
+          failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 

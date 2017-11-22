@@ -637,17 +637,23 @@
              
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+             
+             [SVProgressHUD showSuccessWithStatus:@"取消成功"];
+             
              self.hidesBottomBarWhenPushed = YES;
              
              [self.navigationController popToRootViewControllerAnimated:YES];
 
+             
          }
          
          
          
      } failure:^(NSURLSessionDataTask *task, NSError *error)
      {
-         
+         [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+         [SVProgressHUD showErrorWithStatus:@"网络连接失败"];
      }];
     
     

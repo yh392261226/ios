@@ -53,6 +53,30 @@
         
         [self.contentView addSubview:_manBtn];
         
+        
+        
+        
+        
+        _worker = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+   //     _worker.backgroundColor = [UIColor redColor];
+        
+        [self.contentView addSubview:_worker];
+        
+    
+        
+        
+        
+        
+        
+        _noworker = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+   //     _noworker.backgroundColor = [UIColor greenColor];
+        
+        [self.contentView addSubview:_noworker];
+        
+        
+        
     }
     
     return self;
@@ -103,6 +127,32 @@
          
      }];
     
+    
+    
+    
+    
+    
+    [_worker mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.right.mas_equalTo(_man).offset(-15);
+         make.centerY.mas_equalTo(self.contentView);
+         make.height.mas_equalTo(20);
+         make.width.mas_equalTo(70);
+         
+     }];
+    
+    
+    
+    
+    
+    [_noworker mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.right.mas_equalTo(_woman).offset(-5);
+         make.centerY.mas_equalTo(self.contentView);
+         make.height.mas_equalTo(20);
+         make.width.mas_equalTo(70);
+         
+     }];
     
 }
 

@@ -475,7 +475,7 @@
          if ([[dictionary objectForKey:@"code"] integerValue] == 1)
          {
              NSDictionary *dic = [dictionary objectForKey:@"data"];
-             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showSuccessWithStatus:[dic objectForKey:@"msg"]];
              
              

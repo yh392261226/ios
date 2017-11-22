@@ -384,7 +384,7 @@
 //获取消息数据的网络请求   系统
 - (void)getMessSys
 {
-    NSString *url = [NSString stringWithFormat:@"%@Users/msgList?u_id=%@&wm_type=0", baseUrl, @"198"];
+    NSString *url = [NSString stringWithFormat:@"%@Users/msgList?u_id=%@&wm_type=0", baseUrl, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -442,7 +442,7 @@
 - (void)getMessWor
 {
     
-    NSString *url = [NSString stringWithFormat:@"%@Users/msgList?u_id=%@&wm_type=1", baseUrl, @"198"];
+    NSString *url = [NSString stringWithFormat:@"%@Users/msgList?u_id=%@&wm_type=1", baseUrl, user_ID];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     

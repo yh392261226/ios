@@ -588,7 +588,7 @@
          {
              
              NSString *msg = [dictionary objectForKey:@"data"];
-             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              
              if ([msg isEqualToString:@"success"])
              {
@@ -650,14 +650,14 @@
                  
                  [self.tableview reloadData];
                  
-                 [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                 [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                  [SVProgressHUD showInfoWithStatus:@"取消成功"];
                  
                 
              }
              else
              {
-                 [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                 [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                  [SVProgressHUD showInfoWithStatus:@"取消失败，请检查网络"];
              }
              

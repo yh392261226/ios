@@ -503,6 +503,7 @@
          {
              NSString *msg = [dictionary objectForKey:@"data"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showInfoWithStatus:msg];
              
              [self performSelector:@selector(deleBtn) withObject:self afterDelay:1];

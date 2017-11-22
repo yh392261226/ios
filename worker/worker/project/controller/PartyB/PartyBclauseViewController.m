@@ -125,6 +125,8 @@
 }
 
 
+
+
 //工人确认
 - (void)worKerYes
 {
@@ -139,36 +141,32 @@
     
     [manager GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
      {
+         
          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
              
-             NSString *dic = [dictionary objectForKey:@"data"];
+//            NSString *dic = [dictionary objectForKey:@"data"];
+//
+//            NSLog(@"%@", dic);
+//
+//            BYesWorkerViewController *temp = [[BYesWorkerViewController alloc] init];
+//
+//            temp.redText = self.redText;
+//            temp.orangeText = self.orangeText;
+//            temp.greenText = self.greenText;
+//            temp.blueText = self.blueText;
+//
+//            temp.t_id = self.t_id;
              
-             NSLog(@"%@", dic);
- 
-                 BYesWorkerViewController *temp = [[BYesWorkerViewController alloc] init];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD showInfoWithStatus:@"确认成功"];
                  
-                 temp.redText = self.redText;
-                 temp.orangeText = self.orangeText;
-                 temp.greenText = self.greenText;
-                 temp.blueText = self.blueText;
-                 
-                 
-                 temp.t_id = self.t_id;
-                 
-                 [self.navigationController pushViewController:temp animated:YES];
-                 [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-                 [SVProgressHUD showInfoWithStatus:dic];
-//             }
-//             else
-//             {
-//                 [SVProgressHUD showInfoWithStatus:@"开工失败，请检查网络!"];
-//             }
-             
-             
-             
+        //    [self.navigationController pushViewController:temp animated:YES];
+
+             [self.navigationController popToRootViewControllerAnimated:YES];
              
          }
          

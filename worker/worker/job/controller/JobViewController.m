@@ -259,6 +259,8 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    
     if ([user_ID isEqualToString:@"0"] || user_ID == nil)
     {
         LoginViewController *temp = [[LoginViewController alloc] init];

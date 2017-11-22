@@ -200,11 +200,7 @@
          make.height.mas_equalTo(292);
      }];
     
-    
-    
-    
-    
-    
+
     
     icon = [backview viewWithTag:1001];
     icon.layer.cornerRadius = 35;
@@ -222,8 +218,7 @@
     sex.image = [UIImage imageNamed:@"job_woman"];
     
     
-    
-    
+
     workerType = [backview viewWithTag:1004];
     workerType.text = @"洽谈中";
     workerType.layer.masksToBounds = YES;
@@ -605,7 +600,6 @@
                  
                  for (int q = 0; q < info.orders.count; q++)
                  {
-                     
                      AListDataModel *listModel = [[AListDataModel alloc] init];
                      
                      NSDictionary *ListDic = [info.orders objectAtIndex:q];
@@ -656,19 +650,13 @@
                      
 
                  }
-                 
-                 
-                 
+
                  name1 = data.u_true_name;
                  sex1 = data.u_sex;
                  icon1 = data.u_img;
                  worker_id = data.t_author;
                  haoping1 = data.u_high_opinions;
-                 
-                 
-                 
-                 
-                 
+  
              }
              
              
@@ -700,6 +688,8 @@
     
     blueLab.text = model.tew_address;
     
+    
+    
     NSString *start = [myselfway timeWithTimeIntervalString:model.tew_start_time];
     NSString *end = [myselfway timeWithTimeIntervalString:model.tew_end_time];
     
@@ -708,8 +698,10 @@
     organerLab.text = [NSString stringWithFormat:@"%@元/天", info.o_amount];
     
     
+    
     for (int j = 0; j < skillsArr.count; j++)
     {
+        
         AworkerListData *val = [skillsArr objectAtIndex:j];
         
         if ([val.s_id isEqualToString:model.tew_skills])
@@ -719,6 +711,8 @@
 
     }
     
+    
+    
     greenLab.font = [UIFont systemFontOfSize:11];
     
     redLab.text = [NSString stringWithFormat:@"招%@%@人", skillsName, model.tew_worker_num];
@@ -727,11 +721,9 @@
     //判断雇主是否确认了
     if ([info.o_status isEqualToString:@"0"])
     {
-        
         if ([info.o_confirm isEqualToString:@"2"])
         {
             [yesBtn setTitle:@"确认开工" forState:UIControlStateNormal];
- 
         }
         else
         {
@@ -744,14 +736,7 @@
         
     }
     
-
 }
-
-
-
-
-
-
 
 
 
@@ -770,6 +755,7 @@
          
          if ([[dictionary objectForKey:@"code"] integerValue] == 200)
          {
+             
              NSArray *arr = [dictionary objectForKey:@"data"];
              
              for (int i = 0; i < arr.count; i++)
@@ -785,12 +771,9 @@
                  data.s_status = [dic objectForKey:@"s_status"];
                  
                  [skillsArr addObject:data];
-                 
-                 
+    
              }
-             
-
-
+      
          }
  
      } failure:^(NSURLSessionDataTask *task, NSError *error)
@@ -827,7 +810,7 @@
              NSString *dic = [dictionary objectForKey:@"data"];
              
              NSLog(@"%@", dic);
-             [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              
              if ([dic isEqualToString:@"success"])
              {

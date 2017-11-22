@@ -169,6 +169,7 @@
     
     NSLog(@"%@", url);
     
+    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -183,8 +184,10 @@
              NSString *dic = [dictionary objectForKey:@"data"];
              
              NSLog(@"%@", dic);
-             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-             [SVProgressHUD showInfoWithStatus:dic];
+             
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+             
+             [SVProgressHUD showInfoWithStatus:@"已确认，等待工人确认"];
              
              [self.delegate secuuss];
              

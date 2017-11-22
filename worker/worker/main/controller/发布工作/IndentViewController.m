@@ -19,6 +19,7 @@
 #import "PreviewTableViewCell.h"
 #import "PriceTableview.h"
 #import "SYPasswordView.h"
+#import "RemoveFirViewController.h"
 
 @interface threModel : selecdType
 
@@ -108,7 +109,6 @@
     
     [self priceTable];
     
-
     [self postData];
     
 }
@@ -117,6 +117,7 @@
 
 - (UITableView *)tableview
 {
+    
     if (!_tableview)
     {
         _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT - 65) style:UITableViewStyleGrouped];
@@ -125,13 +126,10 @@
         [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
         [_tableview registerClass:[BriefTableViewCell class] forCellReuseIdentifier:@"briefcell"];
         [_tableview registerClass:[PreviewTableViewCell class] forCellReuseIdentifier:@"1111cell"];
-        
         [_tableview registerClass:[elsepersonTableViewCell class] forCellReuseIdentifier:@"elseperson"];
         [_tableview registerClass:[elsetimeTableViewCell class] forCellReuseIdentifier:@"elsetime"];
         [_tableview registerClass:[elseDelegateTableViewCell class] forCellReuseIdentifier:@"deletecell"];
         [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"2cell"];
-        
-        
         [_tableview registerClass:[NormalTableViewCell class] forCellReuseIdentifier:@"normalcell"];
         
         _tableview.backgroundColor = [myselfway stringTOColor:@"0xC4CED3"];
@@ -143,9 +141,11 @@
         _tableview.dataSource = self;
         
         [self.view addSubview:_tableview];
+        
     }
     
     return _tableview;
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -658,13 +658,32 @@
     }];
     
     
-    //    UIView *line = [[UIView alloc] init];
-    //    line.backgroundColor = [myselfway stringTOColor:@"0xF3F3F3"];
-    //    [Passwordview addSubview:line];
-    //
-    //    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-    //
-    //    }];
+    
+    UIButton *forget = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    forget.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [forget setTitleColor:[myselfway stringTOColor:@"0x2E84F8"] forState:UIControlStateNormal];
+    
+    [forget setTitle:@"忘记密码" forState:UIControlStateNormal];
+    
+    forget.titleLabel.font = [UIFont systemFontOfSize:15];
+    
+    [forget addTarget:self action:@selector(forgetPass) forControlEvents:UIControlEventTouchUpInside];
+    
+    [Passwordview addSubview:forget];
+    
+    [forget mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+        make.top.mas_equalTo(Passwordview).offset(90);
+        make.right.mas_equalTo(Passwordview).offset(-16);
+        make.width.mas_equalTo(100);
+        make.height.mas_equalTo(25);
+    }];
+    
+   
+    
+    
     
     
     self.pasView = [[SYPasswordView alloc] initWithFrame:CGRectMake(16, SCREEN_HEIGHT - 216 - 80, SCREEN_WIDTH - 32, 45)];
@@ -684,6 +703,20 @@
 }
 
 
+//忘记密码
+- (void)forgetPass
+{
+    [self NOBtn];
+    
+    self.hidesBottomBarWhenPushed = YES;
+    
+    RemoveFirViewController *temp = [[RemoveFirViewController alloc] init];
+    
+    [self.navigationController pushViewController:temp animated:YES];
+    
+    
+    
+}
 
 
 
@@ -719,52 +752,64 @@
     
     NSDictionary *dicAll = @{@"data" : getStr};
     
+    [self PostImportent:dicAll];
+    
+
+}
+
+
+
+//发布任务
+- (void)PostImportent : (NSDictionary *)dic
+{
     NSString *url = [NSString stringWithFormat:@"%@Tasks/index?action=publish", baseUrl];
-    [self postRequestByServiceUrl:url andApi:nil andParams:dicAll andCallBack:^(id obj) {
-        
-        NSLog(@"%@", obj);
-        
-        if ([[obj objectForKey:@"code"] integerValue] == 200)
-        {
-            NSDictionary *dic = [obj objectForKey:@"data"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:url parameters:dic success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         
+         if ([[dictionary objectForKey:@"code"] integerValue] == 200)
+         {
             
+            NSDictionary *dic = [dictionary objectForKey:@"data"];
+                 
             msg = [dic objectForKey:@"msg"];
-            
+                 
             if ([msg isEqualToString:@"发布成功"])
             {
-                //将页面跳转。 转换到主线程区操作
-                [self performSelectorOnMainThread:@selector(jumpToViewCon) withObject:nil waitUntilDone:NO];
-                
+                 
                 [self NOBtn];
-                [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                 [SVProgressHUD showErrorWithStatus:msg];
+                                 
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 
             }
             else
             {
-                
+                [self NOBtn];
+                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                [SVProgressHUD showErrorWithStatus:msg];
             }
-            
-            
-            
-            
-        }
-        
-        
-    }];
+
+         }
+         
+         
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         
+     }];
+    
+    
 }
 
 
-- (void)jumpToViewCon
-{
-    
-    [self NOBtn];
-    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-    [SVProgressHUD showErrorWithStatus:msg];
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    
-}
+
 
 - (void)postRequestByServiceUrl:(NSString *)service
                          andApi:(NSString *)api

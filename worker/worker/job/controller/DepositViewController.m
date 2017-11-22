@@ -368,8 +368,7 @@
 //下一步按钮
 - (void)Escbtn
 {
-    [SVProgressHUD setForegroundColor:[UIColor blackColor]];
-    [SVProgressHUD setBackgroundColor:[myselfway stringTOColor:@"0xE6E7EE"]];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     
     for (int j = 0; j < bankArray.count; j++)
     {
@@ -541,6 +540,8 @@
              
              NSString *msg = [dic objectForKey:@"msg"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+             
              [SVProgressHUD showSuccessWithStatus:msg];
              
              [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
@@ -552,6 +553,8 @@
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
              NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              
              [SVProgressHUD showErrorWithStatus:msg];
              

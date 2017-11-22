@@ -104,7 +104,7 @@
 //            
 //        }
 //    }
-    
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     
     if ([self.firPass isEqualToString:num])
     {
@@ -168,6 +168,7 @@
              
              NSString *msg = [dic objectForKey:@"msg"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showSuccessWithStatus:msg];
              
              [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
@@ -196,6 +197,8 @@
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
              NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              
              [SVProgressHUD showErrorWithStatus:msg];
              
@@ -247,6 +250,7 @@
              
              NSString *msg = [dic objectForKey:@"msg"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showSuccessWithStatus:msg];
              
              [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
@@ -262,6 +266,8 @@
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
              NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              
              [SVProgressHUD showErrorWithStatus:msg];
              
@@ -303,6 +309,8 @@
              
              NSString *msg = [dic objectForKey:@"msg"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+             
              [SVProgressHUD showSuccessWithStatus:msg];
              
              [self performSelector:@selector(DatTime) withObject:self afterDelay:1.5];
@@ -317,6 +325,8 @@
              NSDictionary *dic = [dictionary objectForKey:@"data"];
              
              NSString *msg = [dic objectForKey:@"msg"];
+             
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              
              [SVProgressHUD showErrorWithStatus:msg];
              

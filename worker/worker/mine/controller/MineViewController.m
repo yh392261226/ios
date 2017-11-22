@@ -32,7 +32,6 @@
     NSMutableArray *elseIcon;    //图标数组
     NSMutableArray *titleArr;    //名称数组
     
-    
     NSString *phone;  //客服电话号， 网络获取
     
 }
@@ -411,7 +410,7 @@
             }
             else
             {
-                [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
                 [SVProgressHUD showErrorWithStatus:@"请到个人信息处填写身份证号方可设置密码"];
                 
                 [self performSelector:@selector(xiaoshi) withObject:self afterDelay:1.5];
@@ -670,7 +669,7 @@
          {
              
              NSDictionary *dic = [dictionary objectForKey:@"data"];
-             [SVProgressHUD setForegroundColor:[UIColor blackColor]];
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              if ([status isEqualToString:@"-1"])
              {
                  [SVProgressHUD showSuccessWithStatus:@"您的离线状态已开启"];

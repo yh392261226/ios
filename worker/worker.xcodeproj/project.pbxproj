@@ -12,6 +12,7 @@
 		6E1175DD1FB83496006C8160 /* HYBNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1175D91FB83495006C8160 /* HYBNetworking.m */; };
 		6E1175DE1FB83496006C8160 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1175DC1FB83495006C8160 /* NSString+MD5.m */; };
 		6E2A93E71FAAE47500C07B47 /* endDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2A93E61FAAE47400C07B47 /* endDetailViewController.m */; };
+		6E366DD01FBD2C3E00135FE2 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E366DCF1FBD2C3E00135FE2 /* StartViewController.m */; };
 		6E3F299E1FA6B4F900327E8C /* worInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F299D1FA6B4F900327E8C /* worInfoTableViewCell.m */; };
 		6E6DD1FB1F96F28B00CE32E0 /* ModifyMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6DD1FA1F96F28B00CE32E0 /* ModifyMoneyViewController.m */; };
 		6E6F9A781FA41F4E00D33E6B /* ProDetailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6F9A771FA41F4E00D33E6B /* ProDetailListViewController.m */; };
@@ -252,6 +253,8 @@
 		6E1175DC1FB83495006C8160 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		6E2A93E51FAAE47400C07B47 /* endDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = endDetailViewController.h; sourceTree = "<group>"; };
 		6E2A93E61FAAE47400C07B47 /* endDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = endDetailViewController.m; sourceTree = "<group>"; };
+		6E366DCE1FBD2C3E00135FE2 /* StartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
+		6E366DCF1FBD2C3E00135FE2 /* StartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		6E3F299C1FA6B4F900327E8C /* worInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = worInfoTableViewCell.h; sourceTree = "<group>"; };
 		6E3F299D1FA6B4F900327E8C /* worInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = worInfoTableViewCell.m; sourceTree = "<group>"; };
 		6E6DD1F91F96F28B00CE32E0 /* ModifyMoneyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyMoneyViewController.h; sourceTree = "<group>"; };
@@ -1423,6 +1426,8 @@
 				FBD796721F286B3700FA50BE /* Assets.xcassets */,
 				6E0D4A731FB999AD009713D1 /* mainLau.xib */,
 				FBD796741F286B3700FA50BE /* LaunchScreen.storyboard */,
+				6E366DCE1FBD2C3E00135FE2 /* StartViewController.h */,
+				6E366DCF1FBD2C3E00135FE2 /* StartViewController.m */,
 				FBD7969B1F28825B00FA50BE /* workerobject.pch */,
 				FB12C6C81F70FDDB00F261AD /* NullSafe.m */,
 				FBD796771F286B3700FA50BE /* Info.plist */,
@@ -1905,6 +1910,7 @@
 				FB4C33C21F5FDF3C005D0747 /* PartyThreeCollectionViewCell.m in Sources */,
 				FB7F38531F3857E50082A8FA /* PayTableViewCell.m in Sources */,
 				FB75E6D81F4966010049D864 /* ViewpagerViewController.m in Sources */,
+				6E366DD01FBD2C3E00135FE2 /* StartViewController.m in Sources */,
 				FB5D87E91F30226600830F89 /* MessViewController.m in Sources */,
 				FB6D76001F418C63009FCF73 /* EvaluateViewController.m in Sources */,
 				FB5DEC5C1F60F14B00008EA5 /* ZLProgressHUD.m in Sources */,
@@ -2152,7 +2158,6 @@
 			baseConfigurationReference = E16E4F74CA02791E4BFA0747 /* Pods-worker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = worker/worker.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -2182,7 +2187,6 @@
 			baseConfigurationReference = D6F71C262734D4AA28314D81 /* Pods-worker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = worker/worker.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

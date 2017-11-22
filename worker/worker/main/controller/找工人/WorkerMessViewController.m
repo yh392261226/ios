@@ -289,6 +289,7 @@
         //收藏接口
         if ([user_ID isEqualToString:data.u_id])
         {
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
             [SVProgressHUD showErrorWithStatus:@"您不能收藏自己"];
         }
         else
@@ -435,6 +436,7 @@
              
              NSString *f_id = [dic objectForKey:@"f_id"];
              
+             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
              [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
              
             

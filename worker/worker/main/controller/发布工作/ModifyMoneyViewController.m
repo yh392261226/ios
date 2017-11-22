@@ -320,11 +320,18 @@
              {
                  [self.delegate tempMoney:valMoney];
                  
+                 [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                 
+                 [SVProgressHUD showSuccessWithStatus:@"工资修改成功"];
+                 
                  [self.navigationController popViewControllerAnimated:NO];
              }
              else
              {
                  //修改失败
+                 [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                 
+                 [SVProgressHUD showSuccessWithStatus:@"工资修改失败"];
              }
              
   
@@ -334,7 +341,9 @@
          
      } failure:^(NSURLSessionDataTask *task, NSError *error)
      {
+         [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
          
+         [SVProgressHUD showSuccessWithStatus:@"工资修改失败,请检查网络"];
      }];
     
     

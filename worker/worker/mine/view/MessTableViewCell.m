@@ -114,7 +114,7 @@
          make.top.mas_equalTo(_title).offset(25);
          make.left.mas_equalTo(self.contentView).offset(25);
          make.height.mas_equalTo(20);
-         make.width.mas_equalTo(SCREEN_WIDTH - 100);
+         make.width.mas_equalTo(SCREEN_WIDTH - 130);
          
      }];
     
